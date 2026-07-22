@@ -11,45 +11,44 @@
 </head>
 <body>
 
-    <!-- ============ SPLASH / LOADING SCREEN ============ -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <div class="quantum-ring">
-                <div class="ring r1"></div>
-                <div class="ring r2"></div>
-                <div class="ring r3"></div>
-                <div class="core-logo">AQ</div>
+  <!-- ============ SPLASH / LOADING SCREEN ============ -->
+<div id="splash-screen">
+    <div class="splash-kente"></div>
+    <div class="splash-content">
+        <div class="adinkra-logo">
+            <div class="adinkra-outer"></div>
+            <div class="adinkra-middle"></div>
+            <div class="adinkra-inner">
+                <span class="adinkra-text">AQ</span>
             </div>
-            <h1 class="splash-title">AKWAABA FINANCE</h1>
-            <p class="splash-sub">Quantum AI Engine Loading...</p>
-            <div class="loading-bar">
-                <div class="loading-fill" id="loadingFill"></div>
-            </div>
-            <p class="splash-brand">Mit XsiKOM-DIGITAL-Projects</p>
         </div>
+        <h1 class="splash-title">AKWAABA</h1>
+        <p class="splash-subtitle">Finance & Quantum AI</p>
+        <p class="splash-tagline">✦ Wisdom · Wealth · Africa ✦</p>
+        <div class="loading-bar">
+            <div class="loading-fill"></div>
+        </div>
+        <p class="splash-brand">Mit XsiKOM-DIGITAL-Projects</p>
     </div>
+</div>
 
     <!-- ============ MAIN APP ============ -->
     <div id="app" class="hidden">
 
-        <!-- HEADER -->
-        <header class="app-header">
-            <div class="header-left">
-                <div class="mini-logo">AQ</div>
-                <div class="header-titles">
-                    <h1>AKWAABA <span class="accent">FINANCE</span></h1>
-                    <p class="tagline">Quantum AI Financial Intelligence</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="icon-btn" id="langBtn" title="Language">
-                    🌍 <span id="currentLang">DE</span>
-                </button>
-                <button class="icon-btn" id="menuBtn" title="Menu">
-                    ☰
-                </button>
-            </div>
-        </header>
+      <header class="app-header">
+    <div class="header-left">
+        <div class="header-logo">AQ</div>
+        <div class="header-titles">
+            <h1>AKWAABA FINANCE</h1>
+            <p class="header-tagline">✦ Quantum AI · XsiKOM-DIGITAL-Projects ✦</p>
+        </div>
+    </div>
+    <div class="header-right">
+        <button class="icon-btn" id="langBtn">
+            🌍 <span id="currentLang">DE</span>
+        </button>
+    </div>
+</header>
 
         <!-- LANGUAGE SELECTOR -->
         <div id="langDropdown" class="dropdown hidden">
@@ -83,40 +82,55 @@
 
         <!-- ============ TAB: DASHBOARD ============ -->
         <section id="tab-dashboard" class="tab-content active">
-            <div class="card glow-card">
-                <h2 data-i18n="dash.welcome">Willkommen bei AKWAABA Finance</h2>
-                <p data-i18n="dash.intro">Deine KI-gestützte Finanzplattform mit Quantum-Berechnungen für intelligente Entscheidungen.</p>
-            </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📈</div>
-                    <div class="stat-value" id="marketTrend">+2.4%</div>
-                    <div class="stat-label" data-i18n="dash.trend">Markttrend</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🎯</div>
-                    <div class="stat-value" id="aiAccuracy">94.7%</div>
-                    <div class="stat-label" data-i18n="dash.accuracy">AI Genauigkeit</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⚡</div>
-                    <div class="stat-value" id="quantumSpeed">0.003s</div>
-                    <div class="stat-label" data-i18n="dash.speed">Quantum Speed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🛡️</div>
-                    <div class="stat-value">256-bit</div>
-                    <div class="stat-label" data-i18n="dash.security">Sicherheit</div>
-                </div>
-            </div>
+    <div class="welcome-banner">
+        <div class="welcome-akwaaba">AKWAABA</div>
+        <p class="welcome-sub">✦ Willkommen · Welcome · Bienvenue ✦</p>
+        <p class="welcome-desc">
+            Deine premium KI-Finanzplattform mit Quantum-Intelligence
+            für smarte Entscheidungen und finanziellen Erfolg.
+        </p>
+    </div>
 
-            <!-- LIVE QUANTUM PULSE -->
-            <div class="card dark-card">
-                <h3>⚛️ Quantum Pulse Monitor</h3>
-                <canvas id="quantumPulse" height="150"></canvas>
-            </div>
-        </section>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-value" id="marketTrend">+2.4%</div>
+            <div class="stat-label">Markttrend</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="aiAccuracy">94.7%</div>
+            <div class="stat-label">AI Genauigkeit</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-value" id="quantumSpeed">0.003s</div>
+            <div class="stat-label">Quantum Speed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🛡️</div>
+            <div class="stat-value">256-bit</div>
+            <div class="stat-label">Sicherheit</div>
+        </div>
+    </div>
+
+    <div class="card dark-card">
+        <h3>⚛️ Quantum Pulse Monitor</h3>
+        <canvas id="quantumPulse" height="150"></canvas>
+    </div>
+
+    <div class="card gold-card">
+        <div class="quantum-badge">✦ African Premium Intelligence ✦</div>
+        <h3>👑 Über AKWAABA Finance</h3>
+        <p>
+            AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas.
+            Diese Plattform verbindet afrikanische Finanzweisheit mit
+            modernster Quantum-KI-Technologie für überlegene Finanzergebnisse.
+        </p>
+    </div>
+
+</section>
 
         <!-- ============ TAB: CALCULATOR ============ -->
         <section id="tab-calculator" class="tab-content">
@@ -160,7 +174,7 @@
                         <label data-i18n="calc.monthly">Monatliche Einzahlung (€)</label>
                         <input type="number" id="compMonthly" value="100" min="0">
                     </div>
-                    <button class="btn-quantum" onclick="calculateCompound()">
+                    <button class="btn-premium" onclick="calculateCompound()">
                         ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
                     </button>
                     <div id="compResult" class="result-box hidden"></div>
@@ -319,16 +333,13 @@
 
         <!-- FOOTER -->
         <footer class="app-footer">
-            <div class="footer-brand">
-                <div class="mini-logo small">AQ</div>
-                <div>
-                    <strong>AKWAABA FINANCE</strong>
-                    <p>Mit <span class="accent">XsiKOM-DIGITAL-Projects</span></p>
-                </div>
-            </div>
-            <p class="footer-copy">© 2025 All Rights Reserved | Quantum AI v1.0</p>
-        </footer>
-
+    <div class="footer-logo">AQ</div>
+    <div class="footer-name">AKWAABA FINANCE</div>
+    <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
+    <p class="footer-copy">
+        © 2025 All Rights Reserved · Quantum AI v2.0 · African Premium Edition
+    </p>
+</footer>
     </div>
 
     <!-- SCRIPTS -->
