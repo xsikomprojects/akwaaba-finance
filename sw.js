@@ -2,7 +2,7 @@ const CACHE_NAME = 'akwaaba-finance-v1';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/CSS/style.css',
+    '/css/styles.css',
     '/js/app.js',
     '/js/calculator.js',
     '/js/quantum-engine.js',

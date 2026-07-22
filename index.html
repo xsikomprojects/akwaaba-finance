@@ -6,25 +6,28 @@
     <meta name="theme-color" content="#0a0a1a">
     <title>AKWAABA Finance – Quantum AI</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- ============ SPLASH / LOADING SCREEN ============ -->
 <div id="splash-screen">
-    <div class="splash-kente"></div>
+    <span class="splash-emoji">🌍</span>
+    <span class="splash-emoji">🇹🇬</span>
+    <span class="splash-emoji">💰</span>
+    <span class="splash-emoji">⚛️</span>
     <div class="splash-content">
-        <div class="adinkra-logo">
-            <div class="adinkra-outer"></div>
-            <div class="adinkra-middle"></div>
-            <div class="adinkra-inner">
-                <span class="adinkra-text">AQ</span>
+        <div class="togo-logo-3d">
+            <div class="logo-circle-outer">
+                <div class="logo-circle-inner">
+                    <span class="logo-text-3d">AQ</span>
+                </div>
             </div>
         </div>
         <h1 class="splash-title">AKWAABA</h1>
         <p class="splash-subtitle">Finance & Quantum AI</p>
-        <p class="splash-tagline">✦ Wisdom · Wealth · Africa ✦</p>
+        <p class="splash-tagline">🇹🇬 Togo · Afrika · Welt 🌍</p>
         <div class="loading-bar">
             <div class="loading-fill"></div>
         </div>
@@ -33,14 +36,13 @@
 </div>
 
     <!-- ============ MAIN APP ============ -->
-    <div id="app" class="hidden">
-
-      <header class="app-header">
+    <div class="togo-stripe"></div>
+<header class="app-header">
     <div class="header-left">
-        <div class="header-logo">AQ</div>
+        <div class="header-logo-3d">AQ</div>
         <div class="header-titles">
             <h1>AKWAABA FINANCE</h1>
-            <p class="header-tagline">✦ Quantum AI · XsiKOM-DIGITAL-Projects ✦</p>
+            <p class="header-tagline">🇹🇬 Togo · Quantum AI · XsiKOM-DIGITAL</p>
         </div>
     </div>
     <div class="header-right">
@@ -81,15 +83,23 @@
         </nav>
 
         <!-- ============ TAB: DASHBOARD ============ -->
-        <section id="tab-dashboard" class="tab-content active">
+       <section id="tab-dashboard" class="tab-content active">
 
     <div class="welcome-banner">
-        <div class="welcome-akwaaba">AKWAABA</div>
+        <div class="togo-flag-stripe">
+            <div class="flag-bar red"></div>
+            <div class="flag-bar yellow"></div>
+            <div class="flag-bar green"></div>
+            <div class="flag-bar yellow"></div>
+            <div class="flag-bar red"></div>
+        </div>
+        <div class="welcome-akwaaba">AKWAABA! 🎉</div>
         <p class="welcome-sub">✦ Willkommen · Welcome · Bienvenue ✦</p>
         <p class="welcome-desc">
-            Deine premium KI-Finanzplattform mit Quantum-Intelligence
-            für smarte Entscheidungen und finanziellen Erfolg.
+            Deine premium KI-Finanzplattform inspiriert von Togo und Afrika 🌍
+            – mit Quantum Intelligence für smarte Finanzentscheidungen.
         </p>
+        <div class="emoji-row">🇹🇬 💰 📈 ⚛️ 🏆 💡 🚀</div>
     </div>
 
     <div class="stats-grid">
@@ -114,6 +124,24 @@
             <div class="stat-label">Sicherheit</div>
         </div>
     </div>
+
+    <div class="card card-green">
+        <h3>⚛️ Quantum Pulse Monitor</h3>
+        <canvas id="quantumPulse" height="150"></canvas>
+    </div>
+
+    <div class="card card-rainbow">
+        <div class="quantum-badge">✦ Togo Premium Intelligence ✦</div>
+        <h3>🌍 Über AKWAABA Finance</h3>
+        <p>
+            AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas. 🇬🇭
+            Inspiriert von der Lebensfreude und Stärke Togos 🇹🇬 verbindet
+            diese Plattform afrikanische Finanzweisheit mit modernster
+            Quantum-KI für überlegene Ergebnisse! 🚀
+        </p>
+    </div>
+
+</section>
 
     <div class="card dark-card">
         <h3>⚛️ Quantum Pulse Monitor</h3>
@@ -174,7 +202,8 @@
                         <label data-i18n="calc.monthly">Monatliche Einzahlung (€)</label>
                         <input type="number" id="compMonthly" value="100" min="0">
                     </div>
-                    <button class="btn-premium" onclick="calculateCompound()">
+                    <button class="btn-3d
+                    " onclick="calculateCompound()">
                         ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
                     </button>
                     <div id="compResult" class="result-box hidden"></div>
@@ -197,7 +226,7 @@
                         <label data-i18n="calc.loan.term">Laufzeit (Jahre)</label>
                         <input type="number" id="loanTerm" value="5" min="1">
                     </div>
-                    <button class="btn-quantum" onclick="calculateLoan()">
+                    <button class="btn-3d" onclick="calculateLoan()">
                         ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
                     </button>
                     <div id="loanResult" class="result-box hidden"></div>
@@ -220,7 +249,8 @@
                         <label data-i18n="calc.savings.months">Zeitraum (Monate)</label>
                         <input type="number" id="savingsMonths" value="24" min="1">
                     </div>
-                    <button class="btn-quantum" onclick="calculateSavings()">
+                    <button class="btn-3d
+                    " onclick="calculateSavings()">
                         ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
                     </button>
                     <div id="savingsResult" class="result-box hidden"></div>
@@ -247,7 +277,8 @@
                         <label data-i18n="calc.years">Laufzeit (Jahre)</label>
                         <input type="number" id="investYears" value="10" min="1">
                     </div>
-                    <button class="btn-quantum" onclick="calculateInvestment()">
+                    <button class="btn-3d
+                    " onclick="calculateInvestment()">
                         ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
                     </button>
                     <div id="investResult" class="result-box hidden"></div>
@@ -291,7 +322,7 @@
                         <span>🚀 Riskant</span>
                     </div>
                 </div>
-                <button class="btn-quantum" onclick="runQuantumAnalysis()">
+                <button class="btn-3d" onclick="runQuantumAnalysis()">
                     ⚛️ Quantum Analyse starten
                 </button>
                 <div id="quantumResult" class="result-box hidden"></div>
@@ -320,7 +351,9 @@
                 <!-- Tips werden per JavaScript geladen -->
             </div>
 
-            <button class="btn-quantum" onclick="generateNewTips()">
+            <button class="btn-3d
+            
+            " onclick="generateNewTips()">
                 🔄 Neue Tipps generieren
             </button>
 
@@ -332,12 +365,13 @@
         </section>
 
         <!-- FOOTER -->
-        <footer class="app-footer">
-    <div class="footer-logo">AQ</div>
+   <footer class="app-footer">
+    <div class="footer-logo-3d">AQ</div>
     <div class="footer-name">AKWAABA FINANCE</div>
     <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
+    <div class="footer-flags">🇹🇬 🌍 🇬🇭 🇩🇪 🇫🇷 🌟</div>
     <p class="footer-copy">
-        © 2025 All Rights Reserved · Quantum AI v2.0 · African Premium Edition
+        © 2025 All Rights Reserved · Quantum AI v2.0 · Togo Premium Edition
     </p>
 </footer>
     </div>
