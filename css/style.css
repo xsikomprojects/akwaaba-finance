@@ -837,6 +837,219 @@ body {
     box-shadow: 0 8px 0 #aa9900, 0 10px 20px rgba(255,238,0,0.4);
 }
 
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.2rem;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,238,0,0.35);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent-yellow);
+    border-color: rgba(255,238,0,0.35);
+}
+
+.btn-primary {
+    background: var(--grad-cool);
+    color: white;
+    border-color: transparent;
+}
+
+.btn-danger {
+    background: var(--grad-warm);
+    color: white;
+    border-color: transparent;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.notification-btn,
+.settings-btn {
+    background: var(--bg-card);
+    border: 2px solid rgba(255,255,255,0.12);
+    color: var(--text-primary);
+    padding: 0.7rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.notification-btn:hover,
+.settings-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(0,204,68,0.4);
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    padding: 2rem 1rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 2500;
+}
+
+.modal .modal-content {
+    width: min(680px, 100%);
+    background: var(--bg-card);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+}
+
+.modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    background: rgba(15,30,15,0.95);
+    color: white;
+    padding: 1rem 1.4rem;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 2600;
+}
+
+.toast.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.settings-list,
+.quick-add-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.setting-item {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.slider:before {
+    position: absolute;
+    content: '';
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+    background: var(--accent-green);
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.quick-add {
+    padding: 1rem;
+}
+
+.quick-add-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.quick-add-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-add-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0,204,68,0.4);
+}
+
+.quick-add-btn i {
+    font-size: 1.5rem;
+}
+
 /* ============================================
    CALCULATOR SELECTOR
    ============================================ */

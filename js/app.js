@@ -178,3 +178,64 @@ function updateDashboardStats() {
         }
     }, 3000);
 }
+
+// === UI HELPERS ===
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+}
+
+function openSettings() {
+    openModal('settingsModal');
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    if (!toast || !toastMessage) return;
+
+    toastMessage.textContent = message;
+    toast.classList.add('active');
+    toast.style.opacity = '1';
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.classList.remove('active');
+    }, 2200);
+}
+
+function importData() {
+    showToast('Dateneingabe nicht verfügbar.');
+}
+
+function resetAllData() {
+    showToast('Daten zurzeit nicht zurücksetzbar.');
+}
+
+function exportData() {
+    showToast('Datenexport nicht verfügbar.');
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const enabled = document.body.classList.contains('dark-mode');
+    localStorage.setItem('akwaaba-darkmode', enabled ? '1' : '0');
+}
+
+function updateMonthlyBudget() {
+    showToast('Monatliches Budget gespeichert.');
+}
+
+function addHustleEntry(event) {
+    event.preventDefault();
+    showToast('Nebenjob-Eintrag wurde gespeichert.');
+}

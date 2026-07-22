@@ -3,961 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WealthBuilder Pro 💰</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="theme-color" content="#0f1a0f">
+    <title>AKWAABA Finance – Quantum AI</title>
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="CSS/style.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen" class="splash-screen">
-        <div class="splash-content">
-            <div class="splash-icon">💰</div>
-            <h1>WealthBuilder Pro</h1>
-            <p>Dein Weg zur finanziellen Freiheit</p>
-            <div class="splash-loader"></div>
+
+<!-- ====== SPLASH SCREEN ====== -->
+<div id="splash-screen">
+    <span class="splash-emoji">🌍</span>
+    <span class="splash-emoji">🇹🇬</span>
+    <span class="splash-emoji">💰</span>
+    <span class="splash-emoji">⚛️</span>
+    <div class="splash-content">
+        <div class="togo-logo-3d">
+            <div class="logo-circle-outer">
+                <div class="logo-circle-inner">
+                    <span class="logo-text-3d">AQ</span>
+                </div>
+            </div>
         </div>
+        <h1 class="splash-title">AKWAABA</h1>
+        <p class="splash-subtitle">Finance & Quantum AI</p>
+        <p class="splash-tagline">🇹🇬 Togo · Afrika · Welt 🌍</p>
+        <div class="loading-bar">
+            <div class="loading-fill"></div>
+        </div>
+        <p class="splash-brand">Mit XsiKOM-DIGITAL-Projects</p>
+    </div>
+</div>
+
+<!-- ====== MAIN APP ====== -->
+<div id="app" class="hidden">
+
+    <!-- TOGO STRIPE -->
+    <div class="togo-stripe"></div>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-logo-3d">AQ</div>
+            <div class="header-titles">
+                <h1>AKWAABA FINANCE</h1>
+                <p class="header-tagline">🇹🇬 Togo · Quantum AI · XsiKOM-DIGITAL</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="langBtn">
+                🌍 <span id="currentLang">DE</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- LANGUAGE DROPDOWN -->
+    <div id="langDropdown" class="dropdown hidden">
+        <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+        <button onclick="setLanguage('en')">🇬🇧 English</button>
+        <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+        <button onclick="setLanguage('tw')">🇬🇭 Twi</button>
+        <button onclick="setLanguage('ha')">🇳🇬 Hausa</button>
+        <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
     </div>
 
-    <!-- Main App -->
-    <div id="app" class="app hidden">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-left">
-                <h1>💰 WealthBuilder</h1>
-            </div>
-            <div class="header-right">
-                <div class="streak-badge" id="streakBadge">
-                    <i class="fas fa-fire"></i>
-                    <span id="streakCount">0</span>
-                </div>
-                <button class="notification-btn" id="notifBtn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notif-dot" id="notifDot"></span>
-                </button>
-                <button class="settings-btn" onclick="openSettings()">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-        </header>
-
-        <!-- Net Worth Banner -->
-        <section class="net-worth-banner">
-            <div class="nw-label">Gesamtvermögen</div>
-            <div class="nw-amount" id="netWorth">€0.00</div>
-            <div class="nw-change" id="netWorthChange">
-                <i class="fas fa-arrow-up"></i> +€0.00 diesen Monat
-            </div>
-            <div class="quick-stats">
-                <div class="quick-stat">
-                    <span class="qs-label">Einnahmen</span>
-                    <span class="qs-value green" id="totalIncome">€0</span>
-                </div>
-                <div class="quick-stat">
-                    <span class="qs-label">Ausgaben</span>
-                    <span class="qs-value red" id="totalExpenses">€0</span>
-                </div>
-                <div class="quick-stat">
-                    <span class="qs-label">Sparquote</span>
-                    <span class="qs-value blue" id="savingsRate">0%</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Navigation Tabs -->
-        <nav class="tab-navigation">
-            <button class="tab-btn active" data-tab="dashboard">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
-            </button>
-            <button class="tab-btn" data-tab="budget">
-                <i class="fas fa-wallet"></i>
-                <span>Budget</span>
-            </button>
-            <button class="tab-btn" data-tab="income">
-                <i class="fas fa-money-bill-wave"></i>
-                <span>Einnahmen</span>
-            </button>
-            <button class="tab-btn" data-tab="invest">
-                <i class="fas fa-chart-pie"></i>
-                <span>Invest</span>
-            </button>
-            <button class="tab-btn" data-tab="sidehustle">
-                <i class="fas fa-rocket"></i>
-                <span>Nebenjob</span>
-            </button>
-            <button class="tab-btn" data-tab="debt">
-                <i class="fas fa-credit-card"></i>
-                <span>Schulden</span>
-            </button>
-            <button class="tab-btn" data-tab="goals">
-                <i class="fas fa-bullseye"></i>
-                <span>Ziele</span>
-            </button>
-            <button class="tab-btn" data-tab="learn">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Lernen</span>
-            </button>
-        </nav>
-
-        <!-- Tab Contents -->
-        <main class="tab-contents">
-            
-            <!-- DASHBOARD -->
-            <section id="dashboard" class="tab-content active">
-                <div class="section-header">
-                    <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
-                </div>
-
-                <!-- Monthly Overview Chart -->
-                <div class="card chart-card">
-                    <h3>Monatliche Übersicht</h3>
-                    <div class="chart-container">
-                        <canvas id="monthlyChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Expense Breakdown -->
-                <div class="card chart-card">
-                    <h3>Ausgaben nach Kategorie</h3>
-                    <div class="chart-container small">
-                        <canvas id="expenseChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- AI Insights -->
-                <div class="card ai-insights">
-                    <h3><i class="fas fa-brain"></i> KI-Finanzberater</h3>
-                    <div id="aiInsights" class="insights-list">
-                        <!-- Dynamisch generiert -->
-                    </div>
-                </div>
-
-                <!-- Daily Tips -->
-                <div class="card daily-tip">
-                    <div class="tip-icon">💡</div>
-                    <h3>Tipp des Tages</h3>
-                    <p id="dailyTip"></p>
-                    <div id="tipsContainer" class="tips-grid"></div>
-                </div>
-
-                <!-- Financial Health Score -->
-                <div class="card health-score">
-                    <h3><i class="fas fa-heartbeat"></i> Finanzielle Gesundheit</h3>
-                    <div class="score-circle">
-                        <svg viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="54" class="score-bg"/>
-                            <circle cx="60" cy="60" r="54" class="score-fill" id="healthCircle"/>
-                        </svg>
-                        <div class="score-text" id="healthScore">0</div>
-                    </div>
-                    <div class="score-details" id="scoreDetails"></div>
-                </div>
-
-                <!-- Recent Transactions -->
-                <div class="card">
-                    <h3><i class="fas fa-history"></i> Letzte Transaktionen</h3>
-                    <div id="recentTransactions" class="transaction-list">
-                        <p class="empty-state">Noch keine Transaktionen</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BUDGET -->
-            <section id="budget" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-wallet"></i> Budget Manager</h2>
-                    <button class="add-btn" onclick="openModal('addExpenseModal')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Budget Overview -->
-                <div class="card budget-overview">
-                    <div class="budget-month">
-                        <button onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
-                        <span id="currentMonth"></span>
-                        <button onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                    <div class="budget-bar-container">
-                        <div class="budget-bar">
-                            <div class="budget-bar-fill" id="budgetBarFill"></div>
-                        </div>
-                        <div class="budget-bar-labels">
-                            <span>Ausgegeben: <strong id="budgetSpent">€0</strong></span>
-                            <span>Budget: <strong id="budgetTotal">€0</strong></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Category Budgets -->
-                <div class="card">
-                    <h3>Kategorien-Budget</h3>
-                    <div id="categoryBudgets" class="category-list">
-                        <!-- Dynamisch -->
-                    </div>
-                    <button class="btn btn-outline full-width" onclick="openModal('addCategoryModal')">
-                        <i class="fas fa-plus"></i> Kategorie hinzufügen
-                    </button>
-                </div>
-
-                <!-- Expense List -->
-                <div class="card">
-                    <h3>Ausgaben</h3>
-                    <div class="filter-bar">
-                        <select id="expenseFilter" onchange="filterExpenses()">
-                            <option value="all">Alle Kategorien</option>
-                        </select>
-                        <select id="expenseSort" onchange="filterExpenses()">
-                            <option value="date">Nach Datum</option>
-                            <option value="amount">Nach Betrag</option>
-                        </select>
-                    </div>
-                    <div id="expenseList" class="transaction-list"></div>
-                </div>
-
-                <!-- Recurring Expenses -->
-                <div class="card">
-                    <h3><i class="fas fa-sync"></i> Wiederkehrende Ausgaben</h3>
-                    <div id="recurringExpenses" class="transaction-list"></div>
-                    <button class="btn btn-outline full-width" onclick="openModal('addRecurringModal')">
-                        <i class="fas fa-plus"></i> Wiederkehrende Ausgabe
-                    </button>
-                </div>
-            </section>
-
-            <!-- INCOME -->
-            <section id="income" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-money-bill-wave"></i> Einnahmen</h2>
-                    <button class="add-btn" onclick="openModal('addIncomeModal')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Income Summary -->
-                <div class="card income-summary">
-                    <div class="income-total">
-                        <span>Monatliches Einkommen</span>
-                        <h2 id="monthlyIncome">€0.00</h2>
-                    </div>
-                    <div class="income-breakdown">
-                        <div class="income-source">
-                            <i class="fas fa-briefcase"></i>
-                            <span>Hauptjob</span>
-                            <strong id="mainJobIncome">€0</strong>
-                        </div>
-                        <div class="income-source">
-                            <i class="fas fa-laptop"></i>
-                            <span>Nebenjobs</span>
-                            <strong id="sideIncome">€0</strong>
-                        </div>
-                        <div class="income-source">
-                            <i class="fas fa-coins"></i>
-                            <span>Passives Einkommen</span>
-                            <strong id="passiveIncome">€0</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Income Chart -->
-                <div class="card chart-card">
-                    <h3>Einnahmen-Entwicklung</h3>
-                    <div class="chart-container">
-                        <canvas id="incomeChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Income Streams -->
-                <div class="card">
-                    <h3>Einnahmequellen</h3>
-                    <div id="incomeStreams" class="income-stream-list"></div>
-                </div>
-
-                <!-- Income Ideas -->
-                <div class="card">
-                    <h3><i class="fas fa-lightbulb"></i> Ideen für mehr Einkommen</h3>
-                    <div id="incomeIdeas" class="ideas-grid"></div>
-                </div>
-            </section>
-
-            <!-- INVESTMENTS -->
-            <section id="invest" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-chart-pie"></i> Investments</h2>
-                    <button class="add-btn" onclick="openModal('addInvestModal')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Portfolio Overview -->
-                <div class="card portfolio-overview">
-                    <h3>Portfolio Übersicht</h3>
-                    <div class="portfolio-value">
-                        <span>Gesamtwert</span>
-                        <h2 id="portfolioValue">€0.00</h2>
-                        <div class="portfolio-change" id="portfolioChange">+0.00%</div>
-                    </div>
-                    <div class="chart-container small">
-                        <canvas id="portfolioChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Investment Calculator -->
-                <div class="card">
-                    <h3><i class="fas fa-calculator"></i> Zinseszins-Rechner</h3>
-                    <div class="calculator-form">
-                        <div class="form-group">
-                            <label>Startkapital (€)</label>
-                            <input type="number" id="calcStart" value="1000" oninput="calculateCompound()">
-                        </div>
-                        <div class="form-group">
-                            <label>Monatliche Sparrate (€)</label>
-                            <input type="number" id="calcMonthly" value="200" oninput="calculateCompound()">
-                        </div>
-                        <div class="form-group">
-                            <label>Jährliche Rendite (%)</label>
-                            <input type="number" id="calcRate" value="7" step="0.1" oninput="calculateCompound()">
-                        </div>
-                        <div class="form-group">
-                            <label>Anlagedauer (Jahre)</label>
-                            <input type="number" id="calcYears" value="20" oninput="calculateCompound()">
-                        </div>
-                        <div class="calc-result">
-                            <div class="calc-result-item">
-                                <span>Endkapital</span>
-                                <strong id="calcResult">€0</strong>
-                            </div>
-                            <div class="calc-result-item">
-                                <span>Eingezahlt</span>
-                                <strong id="calcDeposited">€0</strong>
-                            </div>
-                            <div class="calc-result-item">
-                                <span>Zinsgewinn</span>
-                                <strong id="calcProfit" class="green">€0</strong>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="compoundChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Investment Holdings -->
-                <div class="card">
-                    <h3>Meine Investments</h3>
-                    <div id="investmentList" class="investment-list"></div>
-                </div>
-
-                <!-- Investment Education -->
-                <div class="card">
-                    <h3><i class="fas fa-book"></i> Investment-Grundlagen</h3>
-                    <div class="education-cards">
-                        <div class="edu-card" onclick="showInvestInfo('etf')">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>ETFs</span>
-                        </div>
-                        <div class="edu-card" onclick="showInvestInfo('stocks')">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Aktien</span>
-                        </div>
-                        <div class="edu-card" onclick="showInvestInfo('crypto')">
-                            <i class="fab fa-bitcoin"></i>
-                            <span>Krypto</span>
-                        </div>
-                        <div class="edu-card" onclick="showInvestInfo('realestate')">
-                            <i class="fas fa-home"></i>
-                            <span>Immobilien</span>
-                        </div>
-                        <div class="edu-card" onclick="showInvestInfo('bonds')">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Anleihen</span>
-                        </div>
-                        <div class="edu-card" onclick="showInvestInfo('diversify')">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Diversifikation</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SIDE HUSTLE -->
-            <section id="sidehustle" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-rocket"></i> Nebenverdienst-Finder</h2>
-                </div>
-
-                <!-- Side Hustle Quiz -->
-                <div class="card">
-                    <h3><i class="fas fa-magic"></i> Finde deinen Nebenverdienst</h3>
-                    <p>Beantworte die Fragen und finde die beste Möglichkeit für dich!</p>
-                    <div id="hustleQuiz" class="quiz-container">
-                        <div class="quiz-question" id="quizQuestion"></div>
-                        <div class="quiz-options" id="quizOptions"></div>
-                        <div class="quiz-progress">
-                            <div class="quiz-progress-bar" id="quizProgress"></div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary full-width" onclick="startHustleQuiz()">
-                        <i class="fas fa-play"></i> Quiz starten
-                    </button>
-                </div>
-
-                <!-- Side Hustle Ideas -->
-                <div class="card">
-                    <h3><i class="fas fa-lightbulb"></i> Nebenverdienst-Ideen</h3>
-                    <div class="filter-tags" id="hustleFilters">
-                        <button class="tag active" onclick="filterHustles('all')">Alle</button>
-                        <button class="tag" onclick="filterHustles('online')">Online</button>
-                        <button class="tag" onclick="filterHustles('offline')">Offline</button>
-                        <button class="tag" onclick="filterHustles('creative')">Kreativ</button>
-                        <button class="tag" onclick="filterHustles('tech')">Tech</button>
-                        <button class="tag" onclick="filterHustles('passive')">Passiv</button>
-                    </div>
-                    <div id="hustleIdeas" class="hustle-grid"></div>
-                </div>
-
-                <!-- Side Hustle Tracker -->
-                <div class="card">
-                    <h3><i class="fas fa-stopwatch"></i> Nebenjob-Tracker</h3>
-                    <div id="hustleTracker" class="hustle-tracker">
-                        <div class="tracker-summary">
-                            <div class="tracker-stat">
-                                <span>Diese Woche</span>
-                                <strong id="weeklyHustleEarnings">€0</strong>
-                            </div>
-                            <div class="tracker-stat">
-                                <span>Stunden</span>
-                                <strong id="weeklyHustleHours">0h</strong>
-                            </div>
-                            <div class="tracker-stat">
-                                <span>€/Stunde</span>
-                                <strong id="hustleHourlyRate">€0</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary full-width" onclick="openModal('addHustleEntryModal')">
-                        <i class="fas fa-plus"></i> Eintrag hinzufügen
-                    </button>
-                </div>
-            </section>
-
-            <!-- DEBT -->
-            <section id="debt" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-credit-card"></i> Schulden-Manager</h2>
-                    <button class="add-btn" onclick="openModal('addDebtModal')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Debt Overview -->
-                <div class="card debt-overview">
-                    <h3>Schulden-Übersicht</h3>
-                    <div class="debt-total">
-                        <span>Gesamtschulden</span>
-                        <h2 id="totalDebt" class="red">€0.00</h2>
-                    </div>
-                    <div class="debt-strategy">
-                        <label>Tilgungsstrategie:</label>
-                        <select id="debtStrategy" onchange="updateDebtPlan()">
-                            <option value="avalanche">Lawinenmethode (höchster Zins zuerst)</option>
-                            <option value="snowball">Schneeballmethode (kleinste Schuld zuerst)</option>
-                        </select>
-                    </div>
-                    <div class="debt-freedom">
-                        <i class="fas fa-flag-checkered"></i>
-                        <span>Schuldenfrei in: <strong id="debtFreeDate">-</strong></span>
-                    </div>
-                </div>
-
-                <!-- Debt List -->
-                <div class="card">
-                    <h3>Meine Schulden</h3>
-                    <div id="debtList" class="debt-list"></div>
-                </div>
-
-                <!-- Debt Payoff Chart -->
-                <div class="card chart-card">
-                    <h3>Tilgungsplan</h3>
-                    <div class="chart-container">
-                        <canvas id="debtChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- GOALS -->
-            <section id="goals" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-bullseye"></i> Finanzielle Ziele</h2>
-                    <button class="add-btn" onclick="openModal('addGoalModal')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Goals List -->
-                <div id="goalsList" class="goals-grid"></div>
-
-                <!-- FIRE Calculator -->
-                <div class="card">
-                    <h3><i class="fas fa-fire-alt"></i> FIRE-Rechner (Finanzielle Freiheit)</h3>
-                    <div class="calculator-form">
-                        <div class="form-group">
-                            <label>Jährliche Ausgaben (€)</label>
-                            <input type="number" id="fireExpenses" value="30000" oninput="calculateFIRE()">
-                        </div>
-                        <div class="form-group">
-                            <label>Aktuelles Vermögen (€)</label>
-                            <input type="number" id="fireWealth" value="10000" oninput="calculateFIRE()">
-                        </div>
-                        <div class="form-group">
-                            <label>Monatliche Sparrate (€)</label>
-                            <input type="number" id="fireSavings" value="500" oninput="calculateFIRE()">
-                        </div>
-                        <div class="form-group">
-                            <label>Erwartete Rendite (%)</label>
-                            <input type="number" id="fireReturn" value="7" step="0.1" oninput="calculateFIRE()">
-                        </div>
-                        <div class="fire-result">
-                            <div class="fire-number">
-                                <span>FIRE-Zahl</span>
-                                <strong id="fireNumber">€0</strong>
-                            </div>
-                            <div class="fire-years">
-                                <span>Jahre bis FIRE</span>
-                                <strong id="fireYears">0</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- LEARN -->
-            <section id="learn" class="tab-content">
-                <div class="section-header">
-                    <h2><i class="fas fa-graduation-cap"></i> Finanzwissen</h2>
-                </div>
-
-                <!-- Learning Progress -->
-                <div class="card">
-                    <h3>Dein Lernfortschritt</h3>
-                    <div class="learning-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="learnProgress"></div>
-                        </div>
-                        <span id="learnProgressText">0/20 Lektionen</span>
-                    </div>
-                </div>
-
-                <!-- Lesson Cards -->
-                <div id="lessonList" class="lesson-grid"></div>
-
-                <!-- Daily Challenge -->
-                <div class="card daily-challenge">
-                    <h3><i class="fas fa-trophy"></i> Tägliche Challenge</h3>
-                    <div id="dailyChallenge" class="challenge-content"></div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Floating Action Button -->
-        <button class="fab" onclick="openQuickAdd()">
-            <i class="fas fa-plus"></i>
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <button class="nav-tab active" data-tab="dashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
         </button>
-    </div>
+        <button class="nav-tab" data-tab="calculator">
+            <span class="nav-icon">🧮</span>
+            <span class="nav-text">Rechner</span>
+        </button>
+        <button class="nav-tab" data-tab="quantum">
+            <span class="nav-icon">⚛️</span>
+            <span class="nav-text">Quantum AI</span>
+        </button>
+        <button class="nav-tab" data-tab="tips">
+            <span class="nav-icon">💡</span>
+            <span class="nav-text">Tipps</span>
+        </button>
+    </nav>
 
-    <!-- MODALS -->
-    <!-- Add Expense Modal -->
-    <div class="modal" id="addExpenseModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Ausgabe hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('addExpenseModal')">&times;</button>
+    <!-- ====== DASHBOARD ====== -->
+    <section id="tab-dashboard" class="tab-content active">
+
+        <div class="welcome-banner">
+            <div class="togo-flag-stripe">
+                <div class="flag-bar red"></div>
+                <div class="flag-bar yellow"></div>
+                <div class="flag-bar green"></div>
+                <div class="flag-bar yellow"></div>
+                <div class="flag-bar red"></div>
             </div>
-            <form onsubmit="addExpense(event)">
-                <div class="form-group">
-                    <label>Betrag (€)</label>
-                    <input type="number" id="expenseAmount" step="0.01" required placeholder="0.00">
-                </div>
-                <div class="form-group">
-                    <label>Beschreibung</label>
-                    <input type="text" id="expenseDesc" required placeholder="z.B. Einkauf">
-                </div>
-                <div class="form-group">
-                    <label>Kategorie</label>
-                    <select id="expenseCategory" required>
-                        <option value="food">🍕 Essen & Trinken</option>
-                        <option value="transport">🚗 Transport</option>
-                        <option value="housing">🏠 Wohnen</option>
-                        <option value="entertainment">🎮 Unterhaltung</option>
-                        <option value="shopping">🛍️ Shopping</option>
-                        <option value="health">💊 Gesundheit</option>
-                        <option value="education">📚 Bildung</option>
-                        <option value="subscriptions">📱 Abos</option>
-                        <option value="other">📦 Sonstiges</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Datum</label>
-                    <input type="date" id="expenseDate" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Hinzufügen</button>
-            </form>
+            <div class="welcome-akwaaba">AKWAABA! 🎉</div>
+            <p class="welcome-sub">✦ Willkommen · Welcome · Bienvenue ✦</p>
+            <p class="welcome-desc">
+                Deine premium KI-Finanzplattform inspiriert von Togo und Afrika 🌍
+                – mit Quantum Intelligence für smarte Finanzentscheidungen.
+            </p>
+            <div class="emoji-row">🇹🇬 💰 📈 ⚛️ 🏆 💡 🚀</div>
         </div>
-    </div>
 
-    <!-- Add Income Modal -->
-    <div class="modal" id="addIncomeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Einnahme hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('addIncomeModal')">&times;</button>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value" id="marketTrend">+2.4%</div>
+                <div class="stat-label">Markttrend</div>
             </div>
-            <form onsubmit="addIncome(event)">
-                <div class="form-group">
-                    <label>Betrag (€)</label>
-                    <input type="number" id="incomeAmount" step="0.01" required placeholder="0.00">
-                </div>
-                <div class="form-group">
-                    <label>Quelle</label>
-                    <input type="text" id="incomeSource" required placeholder="z.B. Gehalt">
-                </div>
-                <div class="form-group">
-                    <label>Typ</label>
-                    <select id="incomeType" required>
-                        <option value="salary">💼 Gehalt</option>
-                        <option value="freelance">💻 Freelancing</option>
-                        <option value="sidehustle">🚀 Nebenjob</option>
-                        <option value="passive">💰 Passiv</option>
-                        <option value="investment">📈 Investment</option>
-                        <option value="other">📦 Sonstiges</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Wiederkehrend?</label>
-                    <select id="incomeRecurring">
-                        <option value="no">Nein</option>
-                        <option value="monthly">Monatlich</option>
-                        <option value="weekly">Wöchentlich</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Datum</label>
-                    <input type="date" id="incomeDate" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Hinzufügen</button>
-            </form>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="aiAccuracy">94.7%</div>
+                <div class="stat-label">AI Genauigkeit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value" id="quantumSpeed">0.003s</div>
+                <div class="stat-label">Quantum Speed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛡️</div>
+                <div class="stat-value">256-bit</div>
+                <div class="stat-label">Sicherheit</div>
+            </div>
         </div>
-    </div>
 
-    <!-- Add Investment Modal -->
-    <div class="modal" id="addInvestModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Investment hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('addInvestModal')">&times;</button>
-            </div>
-            <form onsubmit="addInvestment(event)">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="investName" required placeholder="z.B. MSCI World ETF">
-                </div>
-                <div class="form-group">
-                    <label>Typ</label>
-                    <select id="investType" required>
-                        <option value="etf">📊 ETF</option>
-                        <option value="stock">📈 Aktie</option>
-                        <option value="crypto">₿ Krypto</option>
-                        <option value="bond">📄 Anleihe</option>
-                        <option value="realestate">🏠 Immobilie</option>
-                        <option value="other">📦 Sonstiges</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Investierter Betrag (€)</label>
-                    <input type="number" id="investAmount" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Aktueller Wert (€)</label>
-                    <input type="number" id="investCurrentValue" step="0.01" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Hinzufügen</button>
-            </form>
+        <div class="card card-green">
+            <h3>⚛️ Quantum Pulse Monitor</h3>
+            <canvas id="quantumPulse" height="150"></canvas>
         </div>
-    </div>
 
-    <!-- Add Debt Modal -->
-    <div class="modal" id="addDebtModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Schuld hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('addDebtModal')">&times;</button>
-            </div>
-            <form onsubmit="addDebt(event)">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="debtName" required placeholder="z.B. Autokredit">
-                </div>
-                <div class="form-group">
-                    <label>Gesamtbetrag (€)</label>
-                    <input type="number" id="debtAmount" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Bereits bezahlt (€)</label>
-                    <input type="number" id="debtPaid" step="0.01" value="0">
-                </div>
-                <div class="form-group">
-                    <label>Zinssatz (%)</label>
-                    <input type="number" id="debtInterest" step="0.1" required>
-                </div>
-                <div class="form-group">
-                    <label>Monatliche Rate (€)</label>
-                    <input type="number" id="debtMonthlyPayment" step="0.01" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Hinzufügen</button>
-            </form>
+        <div class="card card-rainbow">
+            <div class="quantum-badge">✦ Togo Premium Intelligence ✦</div>
+            <h3>🌍 Über AKWAABA Finance</h3>
+            <p>
+                AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas. 🇬🇭
+                Inspiriert von der Lebensfreude und Stärke Togos 🇹🇬 verbindet
+                diese Plattform afrikanische Finanzweisheit mit modernster
+                Quantum-KI für überlegene Ergebnisse! 🚀
+            </p>
         </div>
-    </div>
 
-    <!-- Add Goal Modal -->
-    <div class="modal" id="addGoalModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Ziel hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('addGoalModal')">&times;</button>
+    </section>
+
+    <!-- ====== CALCULATOR ====== -->
+    <section id="tab-calculator" class="tab-content">
+        <div class="card card-yellow">
+            <h2>💰 Finanzrechner</h2>
+            <div class="calc-selector">
+                <button class="calc-type active" data-calc="compound">
+                    📈 Zinseszins
+                </button>
+                <button class="calc-type" data-calc="loan">
+                    🏦 Kredit
+                </button>
+                <button class="calc-type" data-calc="savings">
+                    🐖 Sparziel
+                </button>
+                <button class="calc-type" data-calc="investment">
+                    📊 Investment
+                </button>
             </div>
-            <form onsubmit="addGoal(event)">
-                <div class="form-group">
-                    <label>Zielname</label>
-                    <input type="text" id="goalName" required placeholder="z.B. Notgroschen">
+        </div>
+
+        <!-- COMPOUND -->
+        <div id="calc-compound" class="calc-panel active">
+            <div class="card card-green">
+                <h3>📈 Zinseszinsrechner</h3>
+                <div class="input-group">
+                    <label>Anfangskapital (€)</label>
+                    <input type="number" id="compInitial" value="1000" min="0">
                 </div>
-                <div class="form-group">
-                    <label>Zielbetrag (€)</label>
-                    <input type="number" id="goalTarget" step="0.01" required>
+                <div class="input-group">
+                    <label>Zinssatz (% pro Jahr)</label>
+                    <input type="number" id="compRate" value="5" min="0" step="0.1">
                 </div>
-                <div class="form-group">
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="compYears" value="10" min="1">
+                </div>
+                <div class="input-group">
+                    <label>Monatliche Einzahlung (€)</label>
+                    <input type="number" id="compMonthly" value="100" min="0">
+                </div>
+                <button class="btn-3d" onclick="calculateCompound()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="compResult" class="result-box hidden"></div>
+            </div>
+        </div>
+
+        <!-- LOAN -->
+        <div id="calc-loan" class="calc-panel">
+            <div class="card card-red">
+                <h3>🏦 Kreditrechner</h3>
+                <div class="input-group">
+                    <label>Kreditbetrag (€)</label>
+                    <input type="number" id="loanAmount" value="10000" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Zinssatz (% pro Jahr)</label>
+                    <input type="number" id="loanRate" value="3.5" min="0" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="loanTerm" value="5" min="1">
+                </div>
+                <button class="btn-3d btn-3d-red" onclick="calculateLoan()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="loanResult" class="result-box hidden"></div>
+            </div>
+        </div>
+
+        <!-- SAVINGS -->
+        <div id="calc-savings" class="calc-panel">
+            <div class="card card-yellow">
+                <h3>🐖 Sparzielrechner</h3>
+                <div class="input-group">
+                    <label>Sparziel (€)</label>
+                    <input type="number" id="savingsGoal" value="5000" min="0">
+                </div>
+                <div class="input-group">
                     <label>Bereits gespart (€)</label>
-                    <input type="number" id="goalCurrent" step="0.01" value="0">
+                    <input type="number" id="savingsHave" value="500" min="0">
                 </div>
-                <div class="form-group">
-                    <label>Zieldatum</label>
-                    <input type="date" id="goalDeadline" required>
+                <div class="input-group">
+                    <label>Zeitraum (Monate)</label>
+                    <input type="number" id="savingsMonths" value="24" min="1">
                 </div>
-                <div class="form-group">
-                    <label>Icon</label>
-                    <select id="goalIcon">
-                        <option value="🏠">🏠 Haus</option>
-                        <option value="🚗">🚗 Auto</option>
-                        <option value="✈️">✈️ Reise</option>
-                        <option value="💰">💰 Notgroschen</option>
-                        <option value="📚">📚 Bildung</option>
-                        <option value="💍">💍 Hochzeit</option>
-                        <option value="🎯">🎯 Sonstiges</option>
+                <button class="btn-3d btn-3d-yellow" onclick="calculateSavings()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="savingsResult" class="result-box hidden"></div>
+            </div>
+        </div>
+
+        <!-- INVESTMENT -->
+        <div id="calc-investment" class="calc-panel">
+            <div class="card card-green">
+                <h3>📊 Investment-Rechner</h3>
+                <div class="input-group">
+                    <label>Investitionsbetrag (€)</label>
+                    <input type="number" id="investAmount" value="5000" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Risikoprofil</label>
+                    <select id="investRisk">
+                        <option value="low">Konservativ (3-5%)</option>
+                        <option value="medium" selected>Ausgewogen (5-8%)</option>
+                        <option value="high">Aggressiv (8-15%)</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary full-width">Ziel erstellen</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Category Modal -->
-    <div class="modal" id="addCategoryModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Kategorie-Budget setzen</h3>
-                <button class="close-btn" onclick="closeModal('addCategoryModal')">&times;</button>
-            </div>
-            <form onsubmit="setCategoryBudget(event)">
-                <div class="form-group">
-                    <label>Kategorie</label>
-                    <select id="budgetCategory" required>
-                        <option value="food">🍕 Essen & Trinken</option>
-                        <option value="transport">🚗 Transport</option>
-                        <option value="housing">🏠 Wohnen</option>
-                        <option value="entertainment">🎮 Unterhaltung</option>
-                        <option value="shopping">🛍️ Shopping</option>
-                        <option value="health">💊 Gesundheit</option>
-                        <option value="education">📚 Bildung</option>
-                        <option value="subscriptions">📱 Abos</option>
-                        <option value="other">📦 Sonstiges</option>
-                    </select>
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="investYears" value="10" min="1">
                 </div>
-                <div class="form-group">
-                    <label>Monatliches Budget (€)</label>
-                    <input type="number" id="budgetAmount" step="0.01" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Budget setzen</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Recurring Modal -->
-    <div class="modal" id="addRecurringModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Wiederkehrende Ausgabe</h3>
-                <button class="close-btn" onclick="closeModal('addRecurringModal')">&times;</button>
-            </div>
-            <form onsubmit="addRecurringExpense(event)">
-                <div class="form-group">
-                    <label>Beschreibung</label>
-                    <input type="text" id="recurringDesc" required placeholder="z.B. Netflix">
-                </div>
-                <div class="form-group">
-                    <label>Betrag (€)</label>
-                    <input type="number" id="recurringAmount" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Kategorie</label>
-                    <select id="recurringCategory" required>
-                        <option value="subscriptions">📱 Abos</option>
-                        <option value="housing">🏠 Wohnen</option>
-                        <option value="transport">🚗 Transport</option>
-                        <option value="health">💊 Versicherung</option>
-                        <option value="other">📦 Sonstiges</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Intervall</label>
-                    <select id="recurringInterval">
-                        <option value="monthly">Monatlich</option>
-                        <option value="yearly">Jährlich</option>
-                        <option value="quarterly">Vierteljährlich</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Hinzufügen</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Hustle Entry Modal -->
-    <div class="modal" id="addHustleEntryModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Nebenjob-Eintrag</h3>
-                <button class="close-btn" onclick="closeModal('addHustleEntryModal')">&times;</button>
-            </div>
-            <form onsubmit="addHustleEntry(event)">
-                <div class="form-group">
-                    <label>Tätigkeit</label>
-                    <input type="text" id="hustleActivity" required placeholder="z.B. Freelance Design">
-                </div>
-                <div class="form-group">
-                    <label>Verdienst (€)</label>
-                    <input type="number" id="hustleEarnings" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Stunden</label>
-                    <input type="number" id="hustleHours" step="0.5" required>
-                </div>
-                <div class="form-group">
-                    <label>Datum</label>
-                    <input type="date" id="hustleDate" required>
-                </div>
-                <button type="submit" class="btn btn-primary full-width">Eintrag speichern</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div class="modal" id="settingsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>⚙️ Einstellungen</h3>
-                <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
-            </div>
-            <div class="settings-list">
-                <div class="setting-item">
-                    <label>Währung</label>
-                    <select id="currencySetting">
-                        <option value="EUR">€ EUR</option>
-                        <option value="USD">$ USD</option>
-                        <option value="CHF">CHF</option>
-                    </select>
-                </div>
-                <div class="setting-item">
-                    <label>Dark Mode</label>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeSetting" onchange="toggleDarkMode()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item">
-                    <label>Benachrichtigungen</label>
-                    <label class="switch">
-                        <input type="checkbox" id="notifSetting" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-item">
-                    <label>Monatliches Budget (€)</label>
-                    <input type="number" id="monthlyBudgetSetting" value="2000" onchange="updateMonthlyBudget()">
-                </div>
-                <button class="btn btn-danger full-width" onclick="exportData()">
-                    <i class="fas fa-download"></i> Daten exportieren
+                <button class="btn-3d" onclick="calculateInvestment()">
+                    ⚛️ Quantum Berechnung starten
                 </button>
-                <button class="btn btn-outline full-width" onclick="importData()">
-                    <i class="fas fa-upload"></i> Daten importieren
-                </button>
-                <button class="btn btn-danger full-width" onclick="resetAllData()" style="margin-top:10px">
-                    <i class="fas fa-trash"></i> Alle Daten löschen
-                </button>
+                <div id="investResult" class="result-box hidden"></div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Quick Add Modal -->
-    <div class="modal" id="quickAddModal">
-        <div class="modal-content quick-add">
-            <div class="modal-header">
-                <h3>Schnell hinzufügen</h3>
-                <button class="close-btn" onclick="closeModal('quickAddModal')">&times;</button>
-            </div>
-            <div class="quick-add-grid">
-                <button class="quick-add-btn" onclick="closeModal('quickAddModal');openModal('addExpenseModal')">
-                    <i class="fas fa-minus-circle red"></i>
-                    <span>Ausgabe</span>
-                </button>
-                <button class="quick-add-btn" onclick="closeModal('quickAddModal');openModal('addIncomeModal')">
-                    <i class="fas fa-plus-circle green"></i>
-                    <span>Einnahme</span>
-                </button>
-                <button class="quick-add-btn" onclick="closeModal('quickAddModal');openModal('addInvestModal')">
-                    <i class="fas fa-chart-line blue"></i>
-                    <span>Investment</span>
-                </button>
-                <button class="quick-add-btn" onclick="closeModal('quickAddModal');openModal('addGoalModal')">
-                    <i class="fas fa-bullseye orange"></i>
-                    <span>Ziel</span>
-                </button>
-            </div>
+    <!-- ====== QUANTUM AI ====== -->
+    <section id="tab-quantum" class="tab-content">
+
+        <div class="card card-rainbow">
+            <h2>⚛️ Quantum AI Finanzanalyse</h2>
+            <p>Unsere Quantum-Engine analysiert Marktdaten, historische
+            Trends und wirtschaftliche Indikatoren für präzise Vorhersagen.</p>
         </div>
-    </div>
 
-    <!-- Info Modal -->
-    <div class="modal" id="infoModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="infoModalTitle"></h3>
-                <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
+        <div class="card card-green">
+            <h3>🎯 Quantum Prognose Generator</h3>
+            <div class="input-group">
+                <label>Analyse-Kategorie</label>
+                <select id="quantumCategory">
+                    <option value="stocks">📈 Aktienmarkt</option>
+                    <option value="crypto">₿ Kryptowährungen</option>
+                    <option value="realestate">🏠 Immobilien</option>
+                    <option value="commodities">🥇 Rohstoffe</option>
+                    <option value="savings">💰 Sparstrategie</option>
+                </select>
             </div>
-            <div id="infoModalBody" class="info-body"></div>
+            <div class="input-group">
+                <label>Investment-Horizont</label>
+                <select id="quantumHorizon">
+                    <option value="short">⚡ Kurzfristig (1-3 Monate)</option>
+                    <option value="medium">📊 Mittelfristig (1-3 Jahre)</option>
+                    <option value="long">🏗️ Langfristig (5+ Jahre)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Risikobereitschaft</label>
+                <input type="range" id="quantumRisk" min="1" max="10" value="5">
+                <div class="range-labels">
+                    <span>🛡️ Sicher</span>
+                    <span id="riskValue">5</span>
+                    <span>🚀 Riskant</span>
+                </div>
+            </div>
+            <button class="btn-3d" onclick="runQuantumAnalysis()">
+                ⚛️ Quantum Analyse starten
+            </button>
+            <div id="quantumResult" class="result-box hidden"></div>
         </div>
-    </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <div class="toast-content">
-            <i class="fas fa-check-circle"></i>
-            <span id="toastMessage"></span>
+        <div class="card card-red">
+            <h3>🤖 AI Confidence Level</h3>
+            <div class="confidence-meter">
+                <div class="confidence-bar" id="confidenceBar">
+                    <span id="confidenceValue">0%</span>
+                </div>
+            </div>
+            <p class="confidence-text" id="confidenceText"></p>
         </div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="js/translations.js"></script>
-    <script src="js/quantum-engine.js"></script>
-    <script src="js/app.js"></script>
+    </section>
+
+    <!-- ====== TIPS ====== -->
+    <section id="tab-tips" class="tab-content">
+
+        <div class="card card-rainbow">
+            <h2>💡 Finanz-Tipps & Tricks</h2>
+            <p>KI-generierte Ratschläge für finanziellen Erfolg. 🚀</p>
+        </div>
+
+        <div id="tipsContainer"></div>
+
+        <div style="margin: 0 0.8rem;">
+            <button class="btn-3d" onclick="generateNewTips()">
+                🔄 Neue Tipps generieren
+            </button>
+        </div>
+
+        <div class="card card-yellow" style="margin-top: 0.8rem;">
+            <h3>🌟 Weisheit des Tages</h3>
+            <blockquote id="dailyWisdom" class="wisdom-quote"></blockquote>
+        </div>
+
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="app-footer">
+        <div class="footer-logo-3d">AQ</div>
+        <div class="footer-name">AKWAABA FINANCE</div>
+        <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
+        <div class="footer-flags">🇹🇬 🌍 🇬🇭 🇩🇪 🇫🇷 🌟</div>
+        <p class="footer-copy">
+            © 2025 All Rights Reserved · Quantum AI v2.0 · Togo Premium Edition
+        </p>
+    </footer>
+
+</div><!-- END #app -->
+
+<!-- SCRIPTS -->
+<script src="js/translations.js"></script>
+<script src="js/quantum-engine.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('✅ SW registered'))
+            .catch(err => console.log('❌ SW Error:', err));
+    }
+</script>
+
 </body>
 </html>
