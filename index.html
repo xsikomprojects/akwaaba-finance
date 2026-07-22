@@ -1,0 +1,3654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AKWAABA Finance - Dein Weg zur finanziellen Freiheit 🇹🇬">
+    <meta name="theme-color" content="#006A4E">
+    <title>AKWAABA Finance 🇹🇬</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    /* ============================================
+       AKWAABA FINANCE - TOGO 3D DESIGN SYSTEM
+       Farben: Grün 🟢 Gelb 🟡 Rot 🔴 (Togo Flagge)
+       ============================================ */
+
+    :root {
+        /* Togo Flag Colors */
+        --togo-green: #006A4E;
+        --togo-green-light: #00875A;
+        --togo-green-dark: #004D38;
+        --togo-yellow: #FFD100;
+        --togo-yellow-light: #FFE44D;
+        --togo-yellow-dark: #E6BC00;
+        --togo-red: #D21034;
+        --togo-red-light: #FF2D55;
+        --togo-white: #FFFFFF;
+        --togo-star: #FFFFFF;
+
+        /* Kente Cloth Inspired */
+        --kente-gold: #DAA520;
+        --kente-orange: #E8740C;
+        --kente-blue: #1B4D8E;
+        --kente-purple: #6B2D7B;
+
+        /* African Earth Tones */
+        --earth-brown: #8B4513;
+        --earth-sand: #F4E4C1;
+        --earth-terracotta: #C1440E;
+        --earth-clay: #D2691E;
+
+        /* App Colors */
+        --primary: var(--togo-green);
+        --primary-light: var(--togo-green-light);
+        --primary-dark: var(--togo-green-dark);
+        --accent: var(--togo-yellow);
+        --accent-dark: var(--togo-yellow-dark);
+        --danger: var(--togo-red);
+        --success: #00C853;
+
+        /* Backgrounds */
+        --bg: #F5F0E8;
+        --bg-card: #FFFFFF;
+        --bg-dark: #1A1A2E;
+
+        /* Text */
+        --text: #1A1A2E;
+        --text-secondary: #5C5C6E;
+        --text-light: #9E9EB0;
+
+        /* Effects */
+        --shadow-sm: 0 2px 8px rgba(0,106,78,0.08);
+        --shadow-md: 0 4px 20px rgba(0,106,78,0.12);
+        --shadow-lg: 0 8px 40px rgba(0,106,78,0.18);
+        --shadow-3d: 0 20px 60px rgba(0,106,78,0.25);
+        --shadow-glow-green: 0 0 30px rgba(0,106,78,0.4);
+        --shadow-glow-yellow: 0 0 30px rgba(255,209,0,0.4);
+        --shadow-glow-red: 0 0 30px rgba(210,16,52,0.3);
+
+        /* 3D Gradients */
+        --gradient-togo: linear-gradient(135deg, var(--togo-green) 0%, var(--togo-yellow) 50%, var(--togo-red) 100%);
+        --gradient-green: linear-gradient(135deg, var(--togo-green-dark) 0%, var(--togo-green-light) 100%);
+        --gradient-gold: linear-gradient(135deg, var(--togo-yellow-dark) 0%, var(--togo-yellow-light) 100%);
+        --gradient-kente: linear-gradient(135deg, var(--kente-gold) 0%, var(--kente-orange) 50%, var(--togo-red) 100%);
+        --gradient-african: linear-gradient(135deg, var(--togo-green) 0%, var(--kente-gold) 30%, var(--togo-red) 60%, var(--kente-purple) 100%);
+        --gradient-earth: linear-gradient(135deg, var(--earth-sand) 0%, var(--earth-terracotta) 100%);
+
+        --radius: 20px;
+        --radius-sm: 14px;
+        --radius-lg: 28px;
+        --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    [data-theme="dark"] {
+        --bg: #0A0A1A;
+        --bg-card: #141428;
+        --text: #F0ECE2;
+        --text-secondary: #A0A0B8;
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+        --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================
+       🌍 3D SPLASH SCREEN - TOGO MAP
+       ============================================ */
+    .splash-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .splash-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Animated Togo Flag Background */
+    .splash-bg {
+        position: absolute;
+        inset: 0;
+        background: var(--togo-green);
+        overflow: hidden;
+    }
+
+    .splash-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(180deg,
+                var(--togo-green) 0%, var(--togo-green) 20%,
+                var(--togo-yellow) 20%, var(--togo-yellow) 40%,
+                var(--togo-green) 40%, var(--togo-green) 60%,
+                var(--togo-yellow) 60%, var(--togo-yellow) 80%,
+                var(--togo-green) 80%, var(--togo-green) 100%
+            );
+        animation: flagWave 3s ease-in-out infinite;
+    }
+
+    .splash-bg::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 45%;
+        height: 60%;
+        background: var(--togo-red);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* 3D Star (Togo Flag Star) */
+    .splash-star {
+        position: absolute;
+        top: 18%;
+        left: 15%;
+        width: 80px;
+        height: 80px;
+        z-index: 2;
+        animation: starPulse3D 2s ease infinite;
+    }
+
+    .splash-star svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
+    }
+
+    @keyframes starPulse3D {
+        0%, 100% { transform: scale(1) rotateY(0deg); filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)); }
+        50% { transform: scale(1.15) rotateY(180deg); filter: drop-shadow(0 0 40px rgba(255,209,0,1)); }
+    }
+
+    @keyframes flagWave {
+        0%, 100% { transform: perspective(500px) rotateY(0deg) skewY(0deg); }
+        25% { transform: perspective(500px) rotateY(2deg) skewY(1deg); }
+        75% { transform: perspective(500px) rotateY(-2deg) skewY(-1deg); }
+    }
+
+    .splash-content {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        color: white;
+    }
+
+    /* 3D Togo Map Silhouette */
+    .splash-3d-map {
+        width: 180px;
+        height: 280px;
+        margin: 0 auto 30px;
+        position: relative;
+        animation: map3DFloat 4s ease-in-out infinite;
+        perspective: 800px;
+    }
+
+    .togo-map-svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+    }
+
+    .togo-map-svg .map-fill {
+        fill: url(#togoGradient);
+        stroke: var(--togo-yellow);
+        stroke-width: 2;
+    }
+
+    @keyframes map3DFloat {
+        0%, 100% {
+            transform: rotateY(-15deg) rotateX(5deg) translateY(0);
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+        }
+        50% {
+            transform: rotateY(15deg) rotateX(-5deg) translateY(-15px);
+            filter: drop-shadow(0 40px 60px rgba(0,0,0,0.3));
+        }
+    }
+
+    .splash-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.2rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        margin-bottom: 5px;
+        background: linear-gradient(135deg, #FFFFFF 0%, var(--togo-yellow) 50%, #FFFFFF 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textShimmer 3s linear infinite;
+    }
+
+    @keyframes textShimmer {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+
+    .splash-subtitle {
+        font-size: 1rem;
+        font-weight: 600;
+        opacity: 0.9;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .splash-tagline {
+        font-size: 0.85rem;
+        opacity: 0.7;
+        font-style: italic;
+    }
+
+    /* Kente Pattern Loader */
+    .kente-loader {
+        width: 200px;
+        height: 6px;
+        margin: 30px auto 0;
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        background: rgba(255,255,255,0.2);
+    }
+
+    .kente-loader::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%;
+        width: 40%;
+        border-radius: 3px;
+        background: var(--gradient-kente);
+        animation: kenteLoad 1.5s ease-in-out infinite;
+    }
+
+    @keyframes kenteLoad {
+        0% { left: -40%; }
+        100% { left: 100%; }
+    }
+
+    /* Floating Particles (Adinkra Symbols inspired) */
+    .splash-particles {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .particle {
+        position: absolute;
+        font-size: 1.5rem;
+        opacity: 0.15;
+        animation: particleFloat linear infinite;
+    }
+
+    @keyframes particleFloat {
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.15; }
+        90% { opacity: 0.15; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ============================================
+       🏠 APP HEADER - Kente Pattern
+       ============================================ */
+    .app-header {
+        background: var(--bg-card);
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 3px solid;
+        border-image: var(--gradient-togo) 1;
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Kente pattern overlay on header */
+    .app-header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--togo-green) 0px, var(--togo-green) 20px,
+            var(--togo-yellow) 20px, var(--togo-yellow) 40px,
+            var(--togo-red) 40px, var(--togo-red) 60px,
+            var(--kente-gold) 60px, var(--kente-gold) 80px
+        );
+    }
+
+    .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: var(--gradient-green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        box-shadow: 0 4px 15px rgba(0,106,78,0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header-logo::after {
+        content: '⭐';
+        position: absolute;
+        font-size: 0.6rem;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .header-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        font-weight: 900;
+        background: var(--gradient-green);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .streak-badge {
+        background: var(--gradient-gold);
+        color: var(--togo-green-dark);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 2px 10px rgba(255,209,0,0.4);
+    }
+
+    .header-btn {
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--text);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .header-btn:hover {
+        background: rgba(0,106,78,0.1);
+        color: var(--primary);
+    }
+
+    .notif-dot {
+        position: absolute;
+        top: 4px; right: 4px;
+        width: 8px; height: 8px;
+        background: var(--togo-red);
+        border-radius: 50%;
+        display: none;
+        border: 2px solid var(--bg-card);
+    }
+
+    /* ============================================
+       💰 NET WORTH BANNER - 3D Togo Style
+       ============================================ */
+    .net-worth-banner {
+        position: relative;
+        padding: 30px 20px;
+        text-align: center;
+        color: white;
+        overflow: hidden;
+        background: var(--togo-green-dark);
+    }
+
+    /* Togo Flag Stripes Background */
+    .nw-flag-bg {
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(135deg,
+                var(--togo-green-dark) 0%,
+                var(--togo-green) 30%,
+                var(--togo-green-dark) 70%,
+                var(--togo-green) 100%
+            );
+        z-index: 0;
+    }
+
+    /* Decorative stripes */
+    .nw-stripe {
+        position: absolute;
+        height: 4px;
+        left: 0; right: 0;
+        z-index: 1;
+    }
+
+    .nw-stripe:nth-child(1) { top: 0; background: var(--togo-yellow); }
+    .nw-stripe:nth-child(2) { bottom: 0; background: var(--togo-red); }
+    .nw-stripe:nth-child(3) {
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2px;
+        background: rgba(255,209,0,0.2);
+    }
+
+    /* 3D Star Watermark */
+    .nw-star-watermark {
+        position: absolute;
+        right: -30px;
+        top: -30px;
+        font-size: 180px;
+        opacity: 0.05;
+        z-index: 1;
+        animation: starSlow 20s linear infinite;
+    }
+
+    @keyframes starSlow {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .nw-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .nw-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0.8;
+        font-weight: 600;
+    }
+
+    .nw-amount {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 900;
+        margin: 5px 0;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        /* 3D Text Effect */
+        background: linear-gradient(180deg, #FFFFFF 0%, var(--togo-yellow-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .nw-change {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+    }
+
+    .quick-stats {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .quick-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 10px 15px;
+        border-radius: var(--radius-sm);
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        min-width: 100px;
+        /* 3D Card Effect */
+        border: 1px solid rgba(255,255,255,0.15);
+        transition: var(--transition);
+    }
+
+    .quick-stat:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .qs-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.8;
+    }
+
+    .qs-value {
+        font-size: 1.1rem;
+        font-weight: 800;
+    }
+
+    .qs-value.green { color: #7DFFB3; }
+    .qs-value.red { color: #FF8A8A; }
+    .qs-value.gold { color: var(--togo-yellow); }
+
+    /* ============================================
+       📱 TAB NAVIGATION - Kente Inspired
+       ============================================ */
+    .tab-navigation {
+        display: flex;
+        overflow-x: auto;
+        background: var(--bg-card);
+        padding: 8px 8px;
+        gap: 4px;
+        scrollbar-width: none;
+        border-bottom: 1px solid rgba(0,106,78,0.1);
+        position: relative;
+    }
+
+    .tab-navigation::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 10px 14px;
+        border: none;
+        background: none;
+        color: var(--text-light);
+        font-size: 0.65rem;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        white-space: nowrap;
+        min-width: 62px;
+        position: relative;
+        font-family: inherit;
+    }
+
+    .tab-btn i { font-size: 1.1rem; }
+
+    .tab-btn.active {
+        background: var(--gradient-green);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0,106,78,0.4);
+        /* 3D pop effect */
+        transform: translateY(-2px);
+    }
+
+    .tab-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 3px;
+        background: var(--togo-yellow);
+        border-radius: 2px;
+    }
+
+    .tab-btn:hover:not(.active) {
+        background: rgba(0,106,78,0.08);
+        color: var(--primary);
+        transform: translateY(-1px);
+    }
+
+    /* ============================================
+       📦 CARDS - 3D African Style
+       ============================================ */
+    .tab-contents {
+        padding: 15px;
+        padding-bottom: 100px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .tab-content {
+        display: none;
+        animation: fadeInUp 0.4s ease;
+    }
+
+    .tab-content.active { display: block; }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        /* 3D Border */
+        border: 1px solid rgba(0,106,78,0.08);
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--gradient-togo);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-3px);
+        border-color: rgba(0,106,78,0.15);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card h3 {
+        font-size: 1.05rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card h3 i { color: var(--primary); }
+
+    /* Section Header */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .section-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-header h2 i { color: var(--primary); }
+
+    .add-btn {
+        width: 42px; height: 42px;
+        border-radius: 50%;
+        border: none;
+        background: var(--gradient-green);
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,106,78,0.4);
+        transition: var(--transition);
+    }
+
+    .add-btn:hover {
+        transform: scale(1.15) rotate(90deg);
+        box-shadow: var(--shadow-glow-green);
+    }
+
+    /* ============================================
+       🔴 FAB - 3D Star Button
+       ============================================ */
+    .fab {
+        position: fixed;
+        bottom: 25px; right: 25px;
+        width: 62px; height: 62px;
+        border-radius: 50%;
+        border: none;
+        background: var(--gradient-green);
+        color: var(--togo-yellow);
+        font-size: 1.6rem;
+        cursor: pointer;
+        z-index: 99;
+        transition: var(--transition);
+        /* 3D Effect */
+        box-shadow:
+            0 4px 0 var(--togo-green-dark),
+            0 8px 20px rgba(0,106,78,0.4);
+    }
+
+    .fab:hover {
+        transform: translateY(-4px) scale(1.1) rotate(90deg);
+        box-shadow:
+            0 8px 0 var(--togo-green-dark),
+            0 16px 40px rgba(0,106,78,0.5),
+            var(--shadow-glow-green);
+    }
+
+    .fab:active {
+        transform: translateY(0) scale(0.95);
+        box-shadow:
+            0 2px 0 var(--togo-green-dark),
+            0 4px 10px rgba(0,106,78,0.3);
+    }
+
+    /* ============================================
+       🎨 BUTTONS - Togo Styled
+       ============================================ */
+    .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 0; height: 0;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        transition: width 0.4s, height 0.4s;
+        transform: translate(-50%, -50%);
+    }
+
+    .btn:active::after {
+        width: 300px; height: 300px;
+    }
+
+    .btn-primary {
+        background: var(--gradient-green);
+        color: white;
+        /* 3D Button Effect */
+        box-shadow:
+            0 3px 0 var(--togo-green-dark),
+            0 6px 15px rgba(0,106,78,0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 5px 0 var(--togo-green-dark),
+            0 10px 25px rgba(0,106,78,0.4);
+    }
+
+    .btn-primary:active {
+        transform: translateY(1px);
+        box-shadow:
+            0 1px 0 var(--togo-green-dark),
+            0 2px 5px rgba(0,106,78,0.2);
+    }
+
+    .btn-accent {
+        background: var(--gradient-gold);
+        color: var(--togo-green-dark);
+        box-shadow:
+            0 3px 0 var(--togo-yellow-dark),
+            0 6px 15px rgba(255,209,0,0.3);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, var(--togo-red) 0%, var(--togo-red-light) 100%);
+        color: white;
+        box-shadow:
+            0 3px 0 #A00D2A,
+            0 6px 15px rgba(210,16,52,0.3);
+    }
+
+    .btn-outline {
+        background: none;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        box-shadow: none;
+    }
+
+    .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+    }
+
+    .full-width { width: 100%; }
+
+    /* ============================================
+       🌟 KENTE PATTERN DECORATIONS
+       ============================================ */
+    .kente-border {
+        border-image: repeating-linear-gradient(
+            90deg,
+            var(--togo-green) 0px, var(--togo-green) 8px,
+            var(--togo-yellow) 8px, var(--togo-yellow) 16px,
+            var(--togo-red) 16px, var(--togo-red) 24px,
+            var(--kente-gold) 24px, var(--kente-gold) 32px
+        ) 4;
+        border-width: 4px;
+        border-style: solid;
+    }
+
+    .kente-divider {
+        height: 6px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--togo-green) 0px, var(--togo-green) 15px,
+            var(--togo-yellow) 15px, var(--togo-yellow) 30px,
+            var(--togo-red) 30px, var(--togo-red) 45px,
+            var(--kente-gold) 45px, var(--kente-gold) 60px,
+            var(--kente-purple) 60px, var(--kente-purple) 75px
+        );
+        border-radius: 3px;
+        margin: 15px 0;
+    }
+
+    /* Adinkra Symbol Background Pattern */
+    .adinkra-bg {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 L35 15 L45 15 L37 22 L40 32 L30 26 L20 32 L23 22 L15 15 L25 15 Z' fill='none' stroke='%23006A4E' stroke-width='0.5' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       🌊 3D MODAL - African Style
+       ============================================ */
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        padding: 25px;
+        width: 100%;
+        max-width: 500px;
+        max-height: 85vh;
+        overflow-y: auto;
+        animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* 3D top border */
+        border-top: 4px solid;
+        border-image: var(--gradient-togo) 1;
+    }
+
+    @keyframes modalSlideUp {
+        from { transform: translateY(100%) scale(0.95); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 900;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--text-secondary);
+        padding: 0 5px;
+        transition: var(--transition);
+    }
+
+    .close-btn:hover {
+        color: var(--togo-red);
+        transform: rotate(90deg);
+    }
+
+    /* ============================================
+       🍞 TOAST - Togo Style
+       ============================================ */
+    .toast {
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        z-index: 2000;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+
+    .toast-content {
+        background: var(--togo-green-dark);
+        color: white;
+        padding: 14px 24px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow:
+            0 4px 0 rgba(0,0,0,0.2),
+            0 10px 30px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,209,0,0.3);
+    }
+
+    .toast-content i { color: var(--togo-yellow); }
+
+    /* ============================================
+       📝 FORMS - Earth Tones
+       ============================================ */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid rgba(0,106,78,0.15);
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-family: inherit;
+        background: var(--bg);
+        color: var(--text);
+        transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(0,106,78,0.1);
+    }
+
+    /* ============================================
+       📊 TRANSACTION LIST
+       ============================================ */
+    .transaction-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .transaction-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: var(--bg);
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        border: 1px solid transparent;
+    }
+
+    .transaction-item:hover {
+        transform: translateX(5px);
+        border-color: rgba(0,106,78,0.15);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .transaction-icon {
+        width: 44px; height: 44px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+    }
+
+    .transaction-info { flex: 1; }
+    .transaction-desc { font-weight: 700; font-size: 0.9rem; }
+    .transaction-date { font-size: 0.72rem; color: var(--text-secondary); }
+    .transaction-amount { font-weight: 800; font-size: 1rem; }
+    .transaction-amount.red { color: var(--togo-red); }
+    .transaction-amount.green { color: var(--success); }
+
+    .transaction-delete {
+        background: none; border: none;
+        color: var(--togo-red); cursor: pointer;
+        padding: 5px; opacity: 0; transition: var(--transition);
+    }
+
+    .transaction-item:hover .transaction-delete { opacity: 1; }
+
+    /* ============================================
+       📊 CHARTS
+       ============================================ */
+    .chart-card .chart-container {
+        position: relative;
+        height: 250px;
+    }
+
+    .chart-container.small { height: 200px; }
+
+    /* ============================================
+       🌟 EMPTY STATE
+       ============================================ */
+    .empty-state {
+        text-align: center;
+        color: var(--text-light);
+        padding: 30px;
+        font-style: italic;
+    }
+
+    /* ============================================
+       🌓 SWITCH
+       ============================================ */
+    .switch {
+        position: relative;
+        width: 50px; height: 26px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background: var(--text-light);
+        border-radius: 26px;
+        transition: 0.3s;
+    }
+
+    .slider::before {
+        content: '';
+        position: absolute;
+        height: 20px; width: 20px;
+        left: 3px; bottom: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+
+    input:checked + .slider { background: var(--primary); }
+    input:checked + .slider::before { transform: translateX(24px); }
+
+    /* ============================================
+       🔥 RESPONSIVE
+       ============================================ */
+    @media (max-width: 480px) {
+        .nw-amount { font-size: 2.3rem; }
+        .splash-title { font-size: 2.4rem; }
+        .splash-3d-map { width: 130px; height: 200px; }
+        .quick-stats { gap: 4px; }
+        .quick-stat { min-width: 85px; padding: 8px 10px; }
+        .tab-btn { min-width: 55px; padding: 8px 10px; }
+    }
+
+    @media (min-width: 768px) {
+        .modal-content {
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+        }
+        .modal { align-items: center; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 3px;
+        opacity: 0.5;
+    }
+
+    .hidden { display: none !important; }
+    .green { color: var(--success) !important; }
+    .red { color: var(--togo-red) !important; }
+
+    /* Quick Add Modal */
+    .quick-add-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .quick-add-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 25px 15px;
+        background: var(--bg);
+        border: 2px solid rgba(0,106,78,0.1);
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        color: var(--text);
+        transition: var(--transition);
+    }
+
+    .quick-add-btn:hover {
+        border-color: var(--primary);
+        background: rgba(0,106,78,0.05);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .quick-add-btn i { font-size: 2rem; }
+
+    /* Settings */
+    .settings-list { display: flex; flex-direction: column; gap: 15px; }
+
+    .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0,106,78,0.1);
+    }
+
+    .setting-item label:first-child { font-weight: 700; }
+
+    .setting-item select,
+    .setting-item input[type="number"] {
+        padding: 8px 12px;
+        border: 2px solid rgba(0,106,78,0.15);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 150px;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+        display: flex; gap: 10px; margin-bottom: 15px;
+    }
+    .filter-bar select {
+        flex: 1; padding: 8px; border: 2px solid rgba(0,106,78,0.15);
+        border-radius: var(--radius-sm); font-size: 0.85rem;
+        background: var(--bg); color: var(--text);
+    }
+    </style>
+</head>
+<body>
+    <!-- ================================================
+         🌍 SPLASH SCREEN - 3D TOGO
+         ================================================ -->
+    <div id="splashScreen" class="splash-screen">
+        <!-- Animated Flag Background -->
+        <div class="splash-bg"></div>
+
+        <!-- Floating Adinkra Particles -->
+        <div class="splash-particles" id="particles"></div>
+
+        <!-- 3D Star from Togo Flag -->
+        <div class="splash-star">
+            <svg viewBox="0 0 100 100">
+                <defs>
+                    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FFD100;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <path d="M50 5 L61 35 L95 35 L68 55 L79 90 L50 70 L21 90 L32 55 L5 35 L39 35 Z"
+                      fill="url(#starGrad)" />
+            </svg>
+        </div>
+
+        <!-- Main Content -->
+        <div class="splash-content">
+            <!-- 3D Togo Map -->
+            <div class="splash-3d-map">
+                <svg class="togo-map-svg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="togoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#006A4E" />
+                            <stop offset="40%" style="stop-color:#FFD100" />
+                            <stop offset="70%" style="stop-color:#D21034" />
+                            <stop offset="100%" style="stop-color:#006A4E" />
+                        </linearGradient>
+                        <filter id="glow3d">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+                        <filter id="shadow3d">
+                            <feDropShadow dx="5" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+                        </filter>
+                    </defs>
+                    <!-- Simplified Togo shape -->
+                    <path class="map-fill" filter="url(#shadow3d)" d="
+                        M85 15 C90 10, 110 8, 118 12
+                        C125 16, 130 25, 128 35
+                        C126 50, 135 60, 140 75
+                        C145 90, 150 100, 148 120
+                        C146 140, 142 155, 138 170
+                        C135 190, 130 210, 125 230
+                        C120 250, 118 270, 115 285
+                        C112 300, 108 320, 105 340
+                        C102 355, 98 365, 95 375
+                        C92 380, 88 378, 85 375
+                        C80 365, 75 350, 72 335
+                        C68 315, 65 295, 63 280
+                        C60 260, 58 240, 57 220
+                        C56 200, 55 180, 58 160
+                        C60 140, 62 120, 65 100
+                        C68 80, 72 60, 75 45
+                        C78 30, 80 20, 85 15 Z
+                    "/>
+                    <!-- Star on map -->
+                    <path d="M95 100 L100 112 L113 112 L103 120 L107 133 L95 125 L83 133 L87 120 L77 112 L90 112 Z"
+                          fill="white" opacity="0.9" filter="url(#glow3d)"/>
+                    <!-- City dots -->
+                    <circle cx="95" cy="110" r="3" fill="#FFD100" opacity="0.8"/>
+                    <text x="105" y="114" fill="#FFD100" font-size="11" font-weight="bold" opacity="0.7">Lomé</text>
+                </svg>
+            </div>
+
+            <h1 class="splash-title">AKWAABA</h1>
+            <p class="splash-subtitle">Finance</p>
+            <p class="splash-tagline">🇹🇬 Dein Weg zur finanziellen Freiheit</p>
+
+            <div class="kente-loader"></div>
+        </div>
+    </div>
+
+    <!-- ================================================
+         📱 MAIN APP
+         ================================================ -->
+    <div id="app" class="app hidden adinkra-bg">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="header-logo">🌍</div>
+                <span class="header-title">AKWAABA</span>
+            </div>
+            <div class="header-right">
+                <div class="streak-badge" id="streakBadge">
+                    <i class="fas fa-fire"></i>
+                    <span id="streakCount">0</span>
+                </div>
+                <button class="header-btn" id="notifBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-dot" id="notifDot"></span>
+                </button>
+                <button class="header-btn" onclick="openSettings()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Net Worth Banner -->
+        <section class="net-worth-banner">
+            <div class="nw-flag-bg"></div>
+            <div class="nw-stripe"></div>
+            <div class="nw-stripe"></div>
+            <div class="nw-stripe"></div>
+            <div class="nw-star-watermark">⭐</div>
+            <div class="nw-content">
+                <div class="nw-label">Gesamtvermögen</div>
+                <div class="nw-amount" id="netWorth">€0.00</div>
+                <div class="nw-change" id="netWorthChange">
+                    <i class="fas fa-arrow-up"></i> +€0.00 diesen Monat
+                </div>
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <span class="qs-label">Einnahmen</span>
+                        <span class="qs-value green" id="totalIncome">€0</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="qs-label">Ausgaben</span>
+                        <span class="qs-value red" id="totalExpenses">€0</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="qs-label">Sparquote</span>
+                        <span class="qs-value gold" id="savingsRate">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kente Divider -->
+        <div class="kente-divider"></div>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i><span>Dashboard</span>
+            </button>
+            <button class="tab-btn" data-tab="budget">
+                <i class="fas fa-wallet"></i><span>Budget</span>
+            </button>
+            <button class="tab-btn" data-tab="income">
+                <i class="fas fa-money-bill-wave"></i><span>Einnahmen</span>
+            </button>
+            <button class="tab-btn" data-tab="invest">
+                <i class="fas fa-chart-pie"></i><span>Invest</span>
+            </button>
+            <button class="tab-btn" data-tab="flights">
+                <i class="fas fa-plane"></i><span>IR ✈️</span>
+            </button>
+            <button class="tab-btn" data-tab="pimel">
+                <i class="fas fa-robot"></i><span>Pimel</span>
+            </button>
+            <button class="tab-btn" data-tab="security">
+                <i class="fas fa-shield-alt"></i><span>Shield</span>
+            </button>
+            <button class="tab-btn" data-tab="goals">
+                <i class="fas fa-bullseye"></i><span>Ziele</span>
+            </button>
+        </nav>
+
+        <!-- Tab Contents -->
+        <main class="tab-contents">
+            <section id="dashboard" class="tab-content active">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
+                </div>
+                <!-- Content loaded by existing app.js -->
+                <div class="card">
+                    <h3><i class="fas fa-brain"></i> Willkommen bei AKWAABA! 🇹🇬</h3>
+                    <p style="line-height:1.7">
+                        <strong>AKWAABA</strong> bedeutet "Willkommen" in Ewe, der Sprache Togos.
+                        Diese App ist dein Begleiter auf dem Weg zur finanziellen Freiheit -
+                        inspiriert von der Stärke und Kultur Westafrikas.
+                    </p>
+                    <div class="kente-divider"></div>
+                    <p style="font-size:0.85rem;color:var(--text-secondary)">
+                        🟢 Grün = Hoffnung & Landwirtschaft |
+                        🟡 Gelb = Bodenschätze & Reichtum |
+                        🔴 Rot = Mut & Opferbereitschaft |
+                        ⭐ Stern = Einheit & Freiheit
+                    </p>
+                </div>
+            </section>
+
+            <!-- Other tabs loaded from existing code -->
+            <section id="budget" class="tab-content"><div class="section-header"><h2><i class="fas fa-wallet"></i> Budget</h2></div></section>
+            <section id="income" class="tab-content"><div class="section-header"><h2><i class="fas fa-money-bill-wave"></i> Einnahmen</h2></div></section>
+            <section id="invest" class="tab-content"><div class="section-header"><h2><i class="fas fa-chart-pie"></i> Invest</h2></div></section>
+            <section id="flights" class="tab-content"><div class="section-header"><h2><i class="fas fa-plane"></i> IR Flüge ✈️</h2></div></section>
+            <section id="pimel" class="tab-content"><div class="section-header"><h2><i class="fas fa-robot"></i> Pimel KI</h2></div></section>
+            <section id="security" class="tab-content"><div class="section-header"><h2><i class="fas fa-shield-alt"></i> Q-Shield</h2></div></section>
+            <section id="goals" class="tab-content"><div class="section-header"><h2><i class="fas fa-bullseye"></i> Ziele</h2></div></section>
+        </main>
+
+        <!-- FAB -->
+        <button class="fab" onclick="openQuickAdd()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Quick Add Modal -->
+    <div class="modal" id="quickAddModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schnell hinzufügen</h3>
+                <button class="close-btn" onclick="closeModal('quickAddModal')">&times;</button>
+            </div>
+            <div class="quick-add-grid">
+                <button class="quick-add-btn" onclick="closeModal('quickAddModal');showToast('Ausgaben-Feature bereit!')">
+                    <i class="fas fa-minus-circle" style="color:var(--togo-red)"></i><span>Ausgabe</span>
+                </button>
+                <button class="quick-add-btn" onclick="closeModal('quickAddModal');showToast('Einnahmen-Feature bereit!')">
+                    <i class="fas fa-plus-circle" style="color:var(--success)"></i><span>Einnahme</span>
+                </button>
+                <button class="quick-add-btn" onclick="closeModal('quickAddModal');showToast('Investment-Feature bereit!')">
+                    <i class="fas fa-chart-line" style="color:var(--primary)"></i><span>Investment</span>
+                </button>
+                <button class="quick-add-btn" onclick="closeModal('quickAddModal');showToast('Ziel-Feature bereit!')">
+                    <i class="fas fa-bullseye" style="color:var(--kente-gold)"></i><span>Ziel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Einstellungen</h3>
+                <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <label>Dark Mode</label>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeSetting" onchange="toggleDarkMode()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Sprache</label>
+                    <select>
+                        <option>🇩🇪 Deutsch</option>
+                        <option>🇫🇷 Français</option>
+                        <option>🇬🇧 English</option>
+                        <option>🇹🇬 Ewe</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Währung</label>
+                    <select>
+                        <option>€ EUR</option>
+                        <option>$ USD</option>
+                        <option>XOF CFA</option>
+                        <option>CHF</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- ================================================
+         🎬 SCRIPTS
+         ================================================ -->
+    <script>
+    // ====== SPLASH SCREEN WITH PARTICLES ======
+    document.addEventListener('DOMContentLoaded', () => {
+        // Generate Adinkra floating particles
+        const particles = document.getElementById('particles');
+        const symbols = ['⭐', '✦', '◆', '⬡', '☀', '✧', '◈', '⊕', '✿', '❋', '♦', '🌍'];
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            p.style.left = Math.random() * 100 + '%';
+            p.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+            p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            particles.appendChild(p);
+        }
+
+        // Hide splash after 3s
+        setTimeout(() => {
+            document.getElementById('splashScreen').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+        }, 3500);
+    });
+
+    // ====== TAB NAVIGATION ======
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ====== MODAL ======
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function openQuickAdd() { openModal('quickAddModal'); }
+    function openSettings() { openModal('settingsModal'); }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) e.target.classList.remove('active');
+    });
+
+    // ====== DARK MODE ======
+    function toggleDarkMode() {
+        const isDark = document.getElementById('darkModeSetting').checked;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
+    }
+
+    // ====== TOAST ======
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMessage').textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ====== STREAK ======
+    let streak = parseInt(localStorage.getItem('akwaaba_streak') || '0');
+    const lastVisit = localStorage.getItem('akwaaba_last');
+    const today = new Date().toDateString();
+    if (lastVisit) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (new Date(lastVisit).toDateString() === yesterday.toDateString()) {
+            streak++;
+        } else if (lastVisit !== today) {
+            streak = 1;
+        }
+    } else {
+        streak = 1;
+    }
+    localStorage.setItem('akwaaba_streak', streak);
+    localStorage.setItem('akwaaba_last', today);
+    document.getElementById('streakCount').textContent = streak;
+    </script>
+</body>
+</html>
+    
+    <!-- Hauptinhalt Splash -->
+    <div class="splash-content">
+        
+        <!-- 3D Togo Karte -->
+        <div class="splash-3d-map">
+            <svg class="togo-map-svg" 
+                 viewBox="0 0 200 450" 
+                 xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="togoMapGrad" 
+                                    x1="0%" y1="0%" 
+                                    x2="100%" y2="100%">
+                        <stop offset="0%"   style="stop-color:#006A4E"/>
+                        <stop offset="35%"  style="stop-color:#00875A"/>
+                        <stop offset="65%"  style="stop-color:#FFD100"/>
+                        <stop offset="100%" style="stop-color:#D21034"/>
+                    </linearGradient>
+                    <linearGradient id="mapShine"
+                                    x1="0%" y1="0%"
+                                    x2="100%" y2="0%">
+                        <stop offset="0%"   style="stop-color:rgba(255,255,255,0.3)"/>
+                        <stop offset="50%"  style="stop-color:rgba(255,255,255,0)"/>
+                        <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/>
+                    </linearGradient>
+                    <filter id="map3DShadow">
+                        <feDropShadow dx="8" dy="12" 
+                                      stdDeviation="8" 
+                                      flood-color="rgba(0,0,0,0.4)"/>
+                    </filter>
+                    <filter id="mapGlow">
+                        <feGaussianBlur stdDeviation="4" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
+                
+                <!-- Togo Umriss (vereinfacht aber erkennbar) -->
+                <path class="map-country" 
+                      filter="url(#map3DShadow)"
+                      d="
+                    M 88 20
+                    C 95 15, 115 12, 125 18
+                    C 135 24, 138 35, 136 48
+                    C 134 58, 140 68, 145 82
+                    C 150 96, 154 110, 152 128
+                    C 150 148, 145 162, 140 178
+                    C 136 195, 132 212, 128 232
+                    C 124 252, 121 270, 118 290
+                    C 115 308, 112 328, 109 348
+                    C 106 362, 103 375, 100 388
+                    C 97  395, 93  398, 90  395
+                    C 86  388, 82  372, 79  355
+                    C 75  335, 71  312, 68  292
+                    C 65  270, 62  248, 60  228
+                    C 58  208, 57  188, 58  168
+                    C 60  148, 63  128, 66  108
+                    C 69  88,  73  68,  77  50
+                    C 80  35,  83  25,  88  20 Z
+                "/>
+                
+                <!-- Glanz-Effekt für 3D Look -->
+                <path fill="url(#mapShine)"
+                      d="
+                    M 88 20
+                    C 95 15, 115 12, 125 18
+                    C 135 24, 138 35, 136 48
+                    C 120 45, 100 42, 88 20 Z
+                "/>
+                
+                <!-- Lomé Hauptstadt Punkt -->
+                <circle cx="95" cy="372" r="6" 
+                        fill="#FFD100" 
+                        filter="url(#mapGlow)"
+                        class="lome-dot"/>
+                <circle cx="95" cy="372" r="10" 
+                        fill="none" 
+                        stroke="#FFD100" 
+                        stroke-width="2"
+                        opacity="0.5"
+                        class="lome-ring"/>
+                
+                <!-- Lomé Text -->
+                <text x="108" y="376" 
+                      fill="#FFD100" 
+                      font-size="12" 
+                      font-weight="bold"
+                      font-family="Inter, sans-serif"
+                      opacity="0.9">Lomé ★</text>
+                
+                <!-- Stern auf der Karte -->
+                <path d="M 100 120 
+                         L 105 135 L 120 135 
+                         L 108 144 L 113 160 
+                         L 100 151 L 87 160 
+                         L 92 144 L 80 135 
+                         L 95 135 Z"
+                      fill="white" 
+                      opacity="0.85"
+                      filter="url(#mapGlow)"/>
+                      
+                <!-- Nordpfeil -->
+                <text x="155" y="40" 
+                      fill="rgba(255,255,255,0.6)" 
+                      font-size="14"
+                      text-anchor="middle">N</text>
+                <line x1="155" y1="42" x2="155" y2="55" 
+                      stroke="rgba(255,255,255,0.6)" 
+                      stroke-width="1.5"/>
+                <polygon points="155,25 151,42 159,42" 
+                         fill="rgba(255,255,255,0.6)"/>
+            </svg>
+        </div>
+        
+        <!-- App Name -->
+        <h1 class="splash-title">AKWAABA</h1>
+        <p class="splash-subtitle">✦ Finance ✦</p>
+        <p class="splash-tagline">Willkommen zu deiner finanziellen Freiheit</p>
+        <p class="splash-togo">🇹🇬 Inspiriert von Togo, gebaut für die Welt</p>
+        
+        <!-- Kente Ladebalken -->
+        <div class="kente-loader-container">
+            <div class="kente-loader" id="splashLoader"></div>
+        </div>
+        <p class="splash-loading-text" id="splashLoadingText">
+            Initialisiere...
+        </p>
+    </div>
+</div>
+
+<!-- ================================================
+     📱 HAUPT APP
+     ================================================ -->
+<div id="app" class="app hidden">
+    
+    <!-- ====== HEADER ====== -->
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="header-logo">
+                <span class="logo-icon">🌍</span>
+                <span class="logo-star">⭐</span>
+            </div>
+            <div class="header-titles">
+                <span class="header-title">AKWAABA</span>
+                <span class="header-subtitle">Finance</span>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <!-- Streak Badge -->
+            <div class="streak-badge" id="streakBadge">
+                <i class="fas fa-fire"></i>
+                <span id="streakCount">0</span>
+            </div>
+            
+            <!-- Notifications -->
+            <button class="header-btn" 
+                    id="notifBtn"
+                    onclick="showNotifications()"
+                    title="Benachrichtigungen">
+                <i class="fas fa-bell"></i>
+                <span class="notif-dot" id="notifDot"></span>
+                <span class="notif-count" id="notifCount"></span>
+            </button>
+            
+            <!-- Settings -->
+            <button class="header-btn" 
+                    onclick="openModal('settingsModal')"
+                    title="Einstellungen">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- ====== NET WORTH BANNER ====== -->
+    <section class="net-worth-banner" id="nwBanner">
+        <!-- Hintergrund Layers -->
+        <div class="nw-bg-layer"></div>
+        <div class="nw-pattern-layer"></div>
+        
+        <!-- Dekorative Streifen (Togo Flagge) -->
+        <div class="nw-flag-stripes">
+            <div class="stripe green"></div>
+            <div class="stripe yellow"></div>
+            <div class="stripe green"></div>
+            <div class="stripe yellow"></div>
+            <div class="stripe green"></div>
+        </div>
+        
+        <!-- Stern Wasserzeichen -->
+        <div class="nw-watermark">⭐</div>
+        
+        <!-- Hauptinhalt -->
+        <div class="nw-content">
+            <div class="nw-greeting" id="nwGreeting">
+                Guten Tag! 🌍
+            </div>
+            <div class="nw-label">Gesamtvermögen</div>
+            <div class="nw-amount" id="netWorth">€0.00</div>
+            <div class="nw-change" id="netWorthChange">
+                <i class="fas fa-arrow-up"></i> 
+                +€0.00 diesen Monat
+            </div>
+            
+            <!-- Schnell-Stats -->
+            <div class="quick-stats">
+                <div class="quick-stat" onclick="switchTab('income')">
+                    <i class="fas fa-arrow-up stat-icon green"></i>
+                    <span class="qs-label">Einnahmen</span>
+                    <span class="qs-value green" id="totalIncome">€0</span>
+                </div>
+                <div class="quick-stat" onclick="switchTab('budget')">
+                    <i class="fas fa-arrow-down stat-icon red"></i>
+                    <span class="qs-label">Ausgaben</span>
+                    <span class="qs-value red" id="totalExpenses">€0</span>
+                </div>
+                <div class="quick-stat">
+                    <i class="fas fa-piggy-bank stat-icon gold"></i>
+                    <span class="qs-label">Sparquote</span>
+                    <span class="qs-value gold" id="savingsRate">0%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ====== KENTE TRENNLINIE ====== -->
+    <div class="kente-divider-main"></div>
+    
+    <!-- ====== TAB NAVIGATION ====== -->
+    <nav class="tab-navigation" id="tabNav">
+        <button class="tab-btn" data-tab="pimel">
+    <i class="fas fa-robot"></i>
+    <span>Pimel</span>
+</button>
+        <button class="tab-btn active" data-tab="dashboard">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </button>
+        <!-- Neue Tab-Buttons nach "learn" -->
+<button class="tab-btn" data-tab="flights">
+    <i class="fas fa-plane"></i>
+    <span>IR Flüge</span>
+</button>
+<button class="tab-btn" data-tab="security">
+    <i class="fas fa-shield-alt"></i>
+    <span>Q-Shield</span>
+</button>
+        <button class="tab-btn" data-tab="budget">
+            <i class="fas fa-wallet"></i>
+            <span>Budget</span>
+        </button>
+        <button class="tab-btn" data-tab="income">
+            <i class="fas fa-coins"></i>
+            <span>Einnahmen</span>
+        </button>
+        <button class="tab-btn" data-tab="invest">
+            <i class="fas fa-chart-pie"></i>
+            <span>Invest</span>
+        </button>
+        <button class="tab-btn" data-tab="debt">
+            <i class="fas fa-credit-card"></i>
+            <span>Schulden</span>
+        </button>
+        <button class="tab-btn" data-tab="goals">
+            <i class="fas fa-bullseye"></i>
+            <span>Ziele</span>
+        </button>
+        <button class="tab-btn" data-tab="flights">
+            <i class="fas fa-plane"></i>
+            <span>IR ✈️</span>
+        </button>
+        <button class="tab-btn" data-tab="pimel">
+            <i class="fas fa-robot"></i>
+            <span>Pimel</span>
+        </button>
+        <button class="tab-btn" data-tab="opportunities">
+            <i class="fas fa-gem"></i>
+            <span>Chancen</span>
+        </button>
+        <button class="tab-btn" data-tab="security">
+            <i class="fas fa-shield-alt"></i>
+            <span>Shield</span>
+        </button>
+        <button class="tab-btn" data-tab="learn">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lernen</span>
+        </button>
+    </nav>
+    
+    <!-- ====== TAB INHALTE ====== -->
+    <main class="tab-contents" id="tabContents">
+        
+        <!-- ==================== DASHBOARD ==================== -->
+        <section id="dashboard" class="tab-content active">
+            
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </h2>
+                <div class="section-header-actions">
+                    <span class="current-date" id="currentDate"></span>
+                </div>
+            </div>
+            
+            <!-- Willkommens-Karte (nur beim ersten Mal) -->
+            <div class="card welcome-card" id="welcomeCard">
+                <div class="welcome-togo-flag">
+                    <div class="mini-flag">
+                        <div class="flag-red">
+                            <div class="flag-star">⭐</div>
+                        </div>
+                        <div class="flag-stripes">
+                            <div class="flag-s green"></div>
+                            <div class="flag-s yellow"></div>
+                            <div class="flag-s green"></div>
+                            <div class="flag-s yellow"></div>
+                            <div class="flag-s green"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-text">
+                    <h3>Akwaaba! Willkommen! 🌍</h3>
+                    <p>
+                        Deine persönliche Finanz-App — 
+                        inspiriert von der Stärke und Kultur 
+                        <strong>Togos 🇹🇬</strong>.
+                    </p>
+                    <div class="kente-mini-divider"></div>
+                    <div class="togo-colors-meaning">
+                        <span class="color-meaning green">
+                            🟢 Hoffnung
+                        </span>
+                        <span class="color-meaning yellow">
+                            🟡 Reichtum
+                        </span>
+                        <span class="color-meaning red">
+                            🔴 Mut
+                        </span>
+                        <span class="color-meaning white">
+                            ⭐ Freiheit
+                        </span>
+                    </div>
+                </div>
+                <button class="close-welcome" 
+                        onclick="closeWelcome()">
+                    ✕
+                </button>
+            </div>
+            
+            <!-- Finanzielle Gesundheit Score -->
+            <div class="card health-card">
+                <h3>
+                    <i class="fas fa-heartbeat"></i>
+                    Finanzielle Gesundheit
+                </h3>
+                <div class="health-score-container">
+                    <div class="health-score-circle">
+                        <svg viewBox="0 0 120 120" class="score-svg">
+                            <defs>
+                                <linearGradient id="scoreGrad" 
+                                                x1="0%" y1="0%" 
+                                                x2="100%" y2="100%">
+                                    <stop offset="0%"   stop-color="#006A4E"/>
+                                    <stop offset="50%"  stop-color="#FFD100"/>
+                                    <stop offset="100%" stop-color="#D21034"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="60" cy="60" r="50" 
+                                    class="score-track"/>
+                            <circle cx="60" cy="60" r="50" 
+                                    class="score-fill" 
+                                    id="scoreCircle"
+                                    stroke="url(#scoreGrad)"/>
+                        </svg>
+                        <div class="score-number" id="healthScore">
+                            <span id="scoreValue">0</span>
+                            <small>/100</small>
+                        </div>
+                    </div>
+                    <div class="health-details">
+                        <div class="health-label" id="healthLabel">
+                            Starte!
+                        </div>
+                        <div class="health-badges" id="healthBadges">
+                            <!-- Dynamisch befüllt -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KI Tipps -->
+            <div class="card ai-card">
+                <h3>
+                    <i class="fas fa-brain"></i>
+                    KI-Finanzberater
+                </h3>
+                <div id="aiInsights" class="ai-insights-list">
+                    <div class="ai-insight">
+                        <span class="ai-icon">🌍</span>
+                        <p>
+                            Starte jetzt! Trage deine ersten 
+                            <strong>Einnahmen und Ausgaben</strong> ein 
+                            für persönliche Tipps.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tipp des Tages -->
+            <div class="card tip-card">
+                <div class="tip-header">
+                    <span class="tip-badge">💡 Tipp des Tages</span>
+                    <span class="tip-date" id="tipDate"></span>
+                </div>
+                <p class="tip-text" id="dailyTip">
+                    Laden...
+                </p>
+            </div>
+            
+            <!-- Charts -->
+            <div class="card chart-card">
+                <h3>
+                    <i class="fas fa-chart-bar"></i>
+                    Monatliche Übersicht
+                </h3>
+                <div class="chart-container">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Ausgaben-Verteilung -->
+            <div class="card chart-card">
+                <h3>
+                    <i class="fas fa-chart-pie"></i>
+                    Ausgaben nach Kategorie
+                </h3>
+                <div class="chart-container small">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Letzte Transaktionen -->
+            <div class="card">
+                <div class="card-header-row">
+                    <h3>
+                        <i class="fas fa-history"></i>
+                        Letzte Transaktionen
+                    </h3>
+                    <button class="btn-text" 
+                            onclick="switchTab('budget')">
+                        Alle →
+                    </button>
+                </div>
+                <div id="recentTransactions" 
+                     class="transaction-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">💸</span>
+                        <p>Noch keine Transaktionen</p>
+                        <button class="btn btn-primary btn-sm"
+                                onclick="openModal('addExpenseModal')">
+                            Erste Ausgabe hinzufügen
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        
+        <!-- ==================== BUDGET ==================== -->
+        <section id="budget" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-wallet"></i> Budget</h2>
+                <button class="add-btn" 
+                        onclick="openModal('addExpenseModal')"
+                        title="Ausgabe hinzufügen">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Budget Übersicht -->
+            <div class="card budget-overview-card">
+                <div class="budget-month-nav">
+                    <button class="month-btn" onclick="changeMonth(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="month-display" id="currentMonth">
+                        Dieser Monat
+                    </span>
+                    <button class="month-btn" onclick="changeMonth(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="budget-progress-section">
+                    <div class="budget-amounts">
+                        <span>
+                            Ausgegeben: 
+                            <strong id="budgetSpent">€0</strong>
+                        </span>
+                        <span>
+                            Budget: 
+                            <strong id="budgetTotal">€2.000</strong>
+                        </span>
+                    </div>
+                    <div class="budget-bar">
+                        <div class="budget-bar-fill" 
+                             id="budgetBarFill">
+                        </div>
+                    </div>
+                    <div class="budget-percentage" id="budgetPerc">
+                        0% des Budgets verbraucht
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kategorie Budgets -->
+            <div class="card">
+                <div class="card-header-row">
+                    <h3>
+                        <i class="fas fa-tags"></i>
+                        Kategorien
+                    </h3>
+                    <button class="btn-outline btn-sm"
+                            onclick="openModal('addCategoryModal')">
+                        + Budget
+                    </button>
+                </div>
+                <div id="categoryBudgets" class="category-list">
+                    <p class="empty-state">
+                        Klicke "+ Budget" um Kategorien hinzuzufügen
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Ausgaben Liste -->
+            <div class="card">
+                <div class="card-header-row">
+                    <h3>
+                        <i class="fas fa-list"></i>
+                        Ausgaben
+                    </h3>
+                    <div class="filter-mini">
+                        <select id="expenseCategoryFilter"
+                                onchange="filterExpenses()">
+                            <option value="all">Alle</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="expenseList" class="transaction-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">🛍️</span>
+                        <p>Keine Ausgaben diesen Monat</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wiederkehrende Ausgaben -->
+            <div class="card">
+                <div class="card-header-row">
+                    <h3>
+                        <i class="fas fa-sync"></i>
+                        Wiederkehrende Ausgaben
+                    </h3>
+                    <button class="btn-outline btn-sm"
+                            onclick="openModal('addRecurringModal')">
+                        + Hinzufügen
+                    </button>
+                </div>
+                <div id="recurringList" class="transaction-list">
+                    <p class="empty-state">
+                        Keine wiederkehrenden Ausgaben
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== EINNAHMEN ==================== -->
+        <section id="income" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-coins"></i>
+                    Einnahmen
+                </h2>
+                <button class="add-btn" 
+                        onclick="openModal('addIncomeModal')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Einnahmen Zusammenfassung -->
+            <div class="card income-summary-card">
+                <h3>Monatliches Einkommen</h3>
+                <div class="income-total" id="monthlyIncome">
+                    €0.00
+                </div>
+                <div class="income-breakdown">
+                    <div class="income-type">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Hauptjob</span>
+                        <strong id="mainJobIncome">€0</strong>
+                    </div>
+                    <div class="income-type">
+                        <i class="fas fa-laptop"></i>
+                        <span>Nebenjob</span>
+                        <strong id="sideIncome">€0</strong>
+                    </div>
+                    <div class="income-type">
+                        <i class="fas fa-leaf"></i>
+                        <span>Passiv</span>
+                        <strong id="passiveIncome">€0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Einnahmen Chart -->
+            <div class="card chart-card">
+                <h3>
+                    <i class="fas fa-chart-line"></i>
+                    Entwicklung
+                </h3>
+                <div class="chart-container">
+                    <canvas id="incomeChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Einnahmen Liste -->
+            <div class="card">
+                <h3>
+                    <i class="fas fa-list"></i>
+                    Alle Einnahmen
+                </h3>
+                <div id="incomeList" class="transaction-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">💰</span>
+                        <p>Noch keine Einnahmen</p>
+                        <button class="btn btn-primary btn-sm"
+                                onclick="openModal('addIncomeModal')">
+                            Erste Einnahme eintragen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== INVEST ==================== -->
+        <section id="invest" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-chart-pie"></i>
+                    Investments
+                </h2>
+                <button class="add-btn"
+                        onclick="openModal('addInvestModal')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <!-- Portfolio Wert -->
+            <div class="card portfolio-card">
+                <h3>Portfolio</h3>
+                <div class="portfolio-value" id="portfolioValue">
+                    €0.00
+                </div>
+                <div class="portfolio-change" id="portfolioChange">
+                    +0.00%
+                </div>
+                <div class="chart-container small">
+                    <canvas id="portfolioChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Zinseszins Rechner -->
+            <div class="card">
+                <h3>
+                    <i class="fas fa-calculator"></i>
+                    Zinseszins-Rechner
+                </h3>
+                <div class="calc-grid">
+                    <div class="form-group">
+                        <label>Startkapital (€)</label>
+                        <input type="number" 
+                               id="calcStart" 
+                               value="1000"
+                               oninput="calculateCompound()">
+                    </div>
+                    <div class="form-group">
+                        <label>Monatliche Rate (€)</label>
+                        <input type="number" 
+                               id="calcMonthly" 
+                               value="200"
+                               oninput="calculateCompound()">
+                    </div>
+                    <div class="form-group">
+                        <label>Rendite p.a. (%)</label>
+                        <input type="number" 
+                               id="calcRate" 
+                               value="7"
+                               step="0.1"
+                               oninput="calculateCompound()">
+                    </div>
+                    <div class="form-group">
+                        <label>Laufzeit (Jahre)</label>
+                        <input type="number" 
+                               id="calcYears" 
+                               value="20"
+                               oninput="calculateCompound()">
+                    </div>
+                </div>
+                <div class="calc-results">
+                    <div class="calc-result-item">
+                        <span>Endkapital</span>
+                        <strong id="calcResult">€0</strong>
+                    </div>
+                    <div class="calc-result-item">
+                        <span>Eingezahlt</span>
+                        <strong id="calcDeposited">€0</strong>
+                    </div>
+                    <div class="calc-result-item">
+                        <span>Zinsgewinn</span>
+                        <strong id="calcProfit" class="green">€0</strong>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="compoundChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Investment Liste -->
+            <div class="card">
+                <h3>
+                    <i class="fas fa-layer-group"></i>
+                    Meine Investments
+                </h3>
+                <div id="investmentList" class="transaction-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">📈</span>
+                        <p>Noch keine Investments</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SCHULDEN ==================== -->
+        <section id="debt" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-credit-card"></i>
+                    Schulden
+                </h2>
+                <button class="add-btn"
+                        onclick="openModal('addDebtModal')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="card debt-overview-card">
+                <h3>Gesamtschulden</h3>
+                <div class="debt-total red" id="totalDebt">€0.00</div>
+                <div class="debt-free-date" id="debtFreeDate">
+                    🎯 Schuldenfrei: Berechnung läuft...
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-sort"></i> Strategie</h3>
+                <select id="debtStrategy" 
+                        onchange="renderDebt()"
+                        class="strategy-select">
+                    <option value="avalanche">
+                        🌋 Lawinenmethode (höchste Zinsen zuerst)
+                    </option>
+                    <option value="snowball">
+                        ❄️ Schneeball (kleinste Schuld zuerst)
+                    </option>
+                </select>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-list"></i> Meine Schulden</h3>
+                <div id="debtList" class="transaction-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">🎉</span>
+                        <p>Keine Schulden - Super!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== ZIELE ==================== -->
+        <section id="goals" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-bullseye"></i>
+                    Finanzielle Ziele
+                </h2>
+                <button class="add-btn"
+                        onclick="openModal('addGoalModal')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <!-- FIRE Rechner -->
+            <div class="card fire-card">
+                <h3>
+                    <i class="fas fa-fire-alt" 
+                       style="color:var(--togo-red)"></i>
+                    FIRE-Rechner
+                    <span class="fire-badge">Finanzielle Freiheit</span>
+                </h3>
+                <div class="calc-grid">
+                    <div class="form-group">
+                        <label>Jährl. Ausgaben (€)</label>
+                        <input type="number" 
+                               id="fireExpenses" 
+                               value="30000"
+                               oninput="calculateFIRE()">
+                    </div>
+                    <div class="form-group">
+                        <label>Aktuelles Vermögen (€)</label>
+                        <input type="number" 
+                               id="fireWealth" 
+                               value="0"
+                               oninput="calculateFIRE()">
+                    </div>
+                    <div class="form-group">
+                        <label>Monatl. Sparrate (€)</label>
+                        <input type="number" 
+                               id="fireSavings" 
+                               value="500"
+                               oninput="calculateFIRE()">
+                    </div>
+                    <div class="form-group">
+                        <label>Rendite (%)</label>
+                        <input type="number" 
+                               id="fireReturn" 
+                               value="7"
+                               step="0.1"
+                               oninput="calculateFIRE()">
+                    </div>
+                </div>
+                <div class="fire-results">
+                    <div class="fire-result-item">
+                        <span>🎯 FIRE-Zahl</span>
+                        <strong id="fireNumber">€750.000</strong>
+                    </div>
+                    <div class="fire-result-item">
+                        <span>⏰ Jahre bis FIRE</span>
+                        <strong id="fireYears">--</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ziele Liste -->
+            <div id="goalsList" class="goals-grid">
+                <div class="empty-state card">
+                    <span class="empty-icon">🎯</span>
+                    <p>Noch keine Ziele gesetzt</p>
+                    <button class="btn btn-primary btn-sm"
+                            onclick="openModal('addGoalModal')">
+                        Erstes Ziel erstellen
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== IR FLÜGE ==================== -->
+        <section id="flights" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-plane"
+                       style="color:#0984e3"></i>
+                    IR - Flugsuche
+                </h2>
+                <button class="header-btn"
+                        onclick="IR && IR.showAlerts()"
+                        style="position:relative">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-dot" id="irAlertDot"></span>
+                </button>
+            </div>
+            
+            <!-- IR wird hier gerendert -->
+            <div id="irMainContainer">
+                <div class="loading-placeholder">
+                    <div class="togo-spinner"></div>
+                    <p>IR wird geladen...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== PIMEL ==================== -->
+        <section id="pimel" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-robot"
+                       style="color:#00B894"></i>
+                    Pimel KI
+                </h2>
+            </div>
+            
+            <!-- Pimel wird hier gerendert -->
+            <div id="pimelMainContainer">
+                <div class="loading-placeholder">
+                    <div class="togo-spinner"></div>
+                    <p>Pimel wird geladen...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== CHANCEN ==================== -->
+        <section id="opportunities" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-gem"
+                       style="color:#6C5CE7"></i>
+                    Chancen Finder
+                </h2>
+            </div>
+            <div id="opportunityMainContainer">
+                <div class="finder-launch-section">
+                    <button class="finder-launch-btn" onclick="OpportunityFinder.startScan();">
+                        <span class="finder-launch-icon">💎</span>
+                        <div class="finder-launch-text">
+                            <h3>Finanzielle Lücken finden</h3>
+                            <p>Legale Internet-Möglichkeiten zum Geld verdienen entdecken</p>
+                        </div>
+                        <span class="finder-launch-arrow">→</span>
+                    </button>
+                </div>
+                <div id="opportunityFinderContent" class="card opportunity-finder-card">
+                    <div class="loading-placeholder">
+                        <div class="togo-spinner"></div>
+                        <p>Klicke auf "Finanzielle Lücken finden", um zu starten.</p>
+                    </div>
+                </div>
+                <div class="card saved-opportunities" id="savedOpportunitiesCard">
+                    <h3><i class="fas fa-bookmark"></i> Gemerkte Möglichkeiten</h3>
+                    <div id="savedOpportunitiesList" class="transaction-list">
+                        <p class="empty-state">Noch keine Möglichkeiten gemerkt</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== SECURITY ==================== -->
+        <section id="security" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-shield-alt"
+                       style="color:#6C5CE7"></i>
+                    Quantum Shield
+                </h2>
+            </div>
+            <div id="securityMainContainer">
+                <div class="loading-placeholder">
+                    <div class="togo-spinner"></div>
+                    <p>Shield wird geladen...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== LERNEN ==================== -->
+        <section id="learn" class="tab-content">
+            <div class="section-header">
+                <h2>
+                    <i class="fas fa-graduation-cap"
+                       style="color:var(--togo-yellow-dark)"></i>
+                    Finanzwissen
+                </h2>
+            </div>
+            <div id="learnMainContainer">
+                <div class="loading-placeholder">
+                    <div class="togo-spinner"></div>
+                    <p>Lektionen werden geladen...</p>
+                </div>
+            </div>
+        </section>
+      
+        <!-- ✈️ IR FLIGHTS TAB -->
+<section id="flights" class="tab-content">
+    <div class="section-header">
+        <h2><i class="fas fa-plane" style="color:#00CEC9"></i> IR - Intelligente Reise-KI</h2>
+        <button class="add-btn" onclick="IR.showAlerts()" style="background:linear-gradient(135deg,#00CEC9,#00B894);position:relative">
+            <i class="fas fa-bell"></i>
+            <span class="ir-alert-badge" id="irAlertBadge" style="display:none">0</span>
+        </button>
+    </div>
+
+    <!-- IR Introduction -->
+    <div class="card" style="background: linear-gradient(135deg, #0984e3, #00cec9); color:white">
+        <div style="display:flex;align-items:center;gap:15px">
+            <div style="font-size:3rem">✈️</div>
+            <div>
+                <h3 style="color:white;margin:0">Hallo, ich bin IR!</h3>
+                <p style="margin:5px 0 0;opacity:0.9">Deine KI-Flugsuche. Ich finde die günstigsten Flüge weltweit - besonders nach <strong>Togo (Lomé)</strong>!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOGO QUICK ALERTS -->
+    <div class="card" style="border-left: 4px solid #00CEC9">
+        <h3><i class="fas fa-bell" style="color:#00CEC9"></i> 🇹🇬 Togo Flug-Alerts</h3>
+        <div id="togoQuickAlerts" class="ir-quick-alerts">
+            <p class="empty-state">Alerts werden geladen...</p>
+        </div>
+        <button class="btn btn-outline full-width" onclick="IR.showAlerts()" style="margin-top:10px">
+            Alle Alerts anzeigen
+        </button>
+    </div>
+
+    <!-- Flight Search -->
+    <div class="card">
+        <h3><i class="fas fa-search" style="color:#00CEC9"></i> Flüge suchen</h3>
+
+        <!-- Quick Togo Buttons -->
+        <div class="ir-quick-routes">
+            <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:8px">🇹🇬 Schnellsuche nach Lomé:</p>
+            <div class="ir-quick-buttons">
+                <button class="ir-quick-btn" onclick="IR.quickSearch('FRA','LFW')">Frankfurt → Lomé</button>
+                <button class="ir-quick-btn" onclick="IR.quickSearch('CDG','LFW')">Paris → Lomé</button>
+                <button class="ir-quick-btn" onclick="IR.quickSearch('BRU','LFW')">Brüssel → Lomé</button>
+                <button class="ir-quick-btn" onclick="IR.quickSearch('IST','LFW')">Istanbul → Lomé</button>
+                <button class="ir-quick-btn" onclick="IR.quickSearch('ACC','LFW')">Accra → Lomé</button>
+                <button class="ir-quick-btn" onclick="IR.quickSearch('DXB','LFW')">Dubai → Lomé</button>
+            </div>
+        </div>
+
+        <div class="ir-search-form">
+            <div class="ir-search-row">
+                <div class="form-group" style="flex:1">
+                    <label>Von</label>
+                    <select id="irFrom" class="ir-airport-select">
+                        <optgroup label="🇩🇪 Deutschland">
+                            <option value="FRA">Frankfurt (FRA)</option>
+                            <option value="MUC">München (MUC)</option>
+                            <option value="BER">Berlin (BER)</option>
+                            <option value="DUS">Düsseldorf (DUS)</option>
+                            <option value="HAM">Hamburg (HAM)</option>
+                            <option value="CGN">Köln/Bonn (CGN)</option>
+                            <option value="STR">Stuttgart (STR)</option>
+                        </optgroup>
+                        <optgroup label="🇪🇺 Europa">
+                            <option value="CDG">Paris (CDG)</option>
+                            <option value="LHR">London (LHR)</option>
+                            <option value="AMS">Amsterdam (AMS)</option>
+                            <option value="BRU">Brüssel (BRU)</option>
+                            <option value="IST">Istanbul (IST)</option>
+                            <option value="ZRH">Zürich (ZRH)</option>
+                            <option value="VIE">Wien (VIE)</option>
+                            <option value="MAD">Madrid (MAD)</option>
+                            <option value="BCN">Barcelona (BCN)</option>
+                            <option value="FCO">Rom (FCO)</option>
+                            <option value="LIS">Lissabon (LIS)</option>
+                        </optgroup>
+                        <optgroup label="🌍 Afrika">
+                            <option value="LFW">Lomé/Togo (LFW)</option>
+                            <option value="ACC">Accra (ACC)</option>
+                            <option value="ABJ">Abidjan (ABJ)</option>
+                            <option value="COO">Cotonou (COO)</option>
+                            <option value="LOS">Lagos (LOS)</option>
+                            <option value="CMN">Casablanca (CMN)</option>
+                            <option value="ADD">Addis Abeba (ADD)</option>
+                            <option value="NBO">Nairobi (NBO)</option>
+                        </optgroup>
+                        <optgroup label="🌏 Weiteres">
+                            <option value="DXB">Dubai (DXB)</option>
+                            <option value="DOH">Doha (DOH)</option>
+                            <option value="JFK">New York (JFK)</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <button class="ir-swap-btn" onclick="let a=document.getElementById('irFrom'),b=document.getElementById('irTo'),t=a.value;a.value=b.value;b.value=t">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <div class="form-group" style="flex:1">
+                    <label>Nach</label>
+                    <select id="irTo" class="ir-airport-select">
+                        <optgroup label="🇹🇬 TOGO">
+                            <option value="LFW" selected>✈️ Lomé/Togo (LFW)</option>
+                        </optgroup>
+                        <optgroup label="🇩🇪 Deutschland">
+                            <option value="FRA">Frankfurt (FRA)</option>
+                            <option value="MUC">München (MUC)</option>
+                            <option value="BER">Berlin (BER)</option>
+                            <option value="DUS">Düsseldorf (DUS)</option>
+                        </optgroup>
+                        <optgroup label="🇪🇺 Europa">
+                            <option value="CDG">Paris (CDG)</option>
+                            <option value="LHR">London (LHR)</option>
+                            <option value="AMS">Amsterdam (AMS)</option>
+                            <option value="IST">Istanbul (IST)</option>
+                            <option value="BCN">Barcelona (BCN)</option>
+                        </optgroup>
+                        <optgroup label="🌍 Afrika">
+                            <option value="ACC">Accra (ACC)</option>
+                            <option value="ABJ">Abidjan (ABJ)</option>
+                            <option value="COO">Cotonou (COO)</option>
+                            <option value="LOS">Lagos (LOS)</option>
+                            <option value="CMN">Casablanca (CMN)</option>
+                            <option value="ADD">Addis Abeba (ADD)</option>
+                            <option value="NBO">Nairobi (NBO)</option>
+                            <option value="JNB">Johannesburg (JNB)</option>
+                        </optgroup>
+                        <optgroup label="🌏 Weiteres">
+                            <option value="DXB">Dubai (DXB)</option>
+                            <option value="DOH">Doha (DOH)</option>
+                            <option value="JFK">New York (JFK)</option>
+                            <option value="BKK">Bangkok (BKK)</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ir-search-row">
+                <div class="form-group" style="flex:1">
+                    <label>Hinflug</label>
+                    <input type="date" id="irDate">
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label>Rückflug (optional)</label>
+                    <input type="date" id="irReturnDate">
+                </div>
+                <div class="form-group" style="flex:0.5">
+                    <label>Passagiere</label>
+                    <select id="irPassengers">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-primary full-width ir-search-btn" onclick="IR.search()">
+                <i class="fas fa-search"></i> IR sucht die günstigsten Flüge
+            </button>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div id="irResults"></div>
+
+    <!-- Price Hacks -->
+    <div class="card">
+        <h3><i class="fas fa-magic" style="color:#FDCB6E"></i> Spar-Tricks</h3>
+        <div class="ir-hacks-preview">
+            <div class="ir-hack-mini" onclick="IR.showPriceHacks()">
+                <span>⏰</span> <strong>Zeitpunkt-Hack:</strong> Buche Di/Mi um 3 Uhr morgens
+            </div>
+            <div class="ir-hack-mini" onclick="IR.showPriceHacks()">
+                <span>🐛</span> <strong>Fehlerpreise:</strong> Airlines machen Preisfehler!
+            </div>
+            <div class="ir-hack-mini" onclick="IR.showPriceHacks()">
+                <span>💎</span> <strong>Meilen-Hack:</strong> Kostenlos fliegen mit Punkten
+            </div>
+        </div>
+        <button class="btn btn-outline full-width" onclick="IR.showPriceHacks()">
+            Alle ${IR.priceHacks.length} Tricks anzeigen
+        </button>
+    </div>
+
+    <!-- Saved Flights -->
+    <div class="card" id="savedFlightsCard">
+        <h3><i class="fas fa-heart" style="color:#FF7675"></i> Gespeicherte Flüge</h3>
+        <div id="savedFlightsList" class="transaction-list">
+            <p class="empty-state">Noch keine Flüge gespeichert</p>
+        </div>
+    </div>
+</section>
+
+<!-- 🛡️ QUANTUM SHIELD TAB -->
+<section id="security" class="tab-content">
+    <div class="section-header">
+        <h2><i class="fas fa-shield-alt" style="color:#6C5CE7"></i> Quantum Shield</h2>
+    </div>
+
+    <!-- Shield Status -->
+    <div class="card" style="background: linear-gradient(135deg, #6C5CE7, #A29BFE); color:white">
+        <div style="display:flex;align-items:center;gap:15px">
+            <div style="font-size:3rem" class="qs-shield-icon">🛡️</div>
+            <div>
+                <h3 style="color:white;margin:0">Quantum Shield v${QuantumShield.version}</h3>
+                <p style="margin:5px 0 0;opacity:0.9">Post-Quantum Sicherheit • 3-Layer Verschlüsselung • Echtzeit-Schutz</p>
+                <div class="qs-active-badge">
+                    <span class="qs-pulse-dot"></span> AKTIV
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+        <h3><i class="fas fa-bolt" style="color:#FDCB6E"></i> Sicherheits-Aktionen</h3>
+        <div class="qs-actions-grid">
+            <button class="qs-action-btn" onclick="QuantumShield.runFullScan()">
+                <i class="fas fa-search"></i>
+                <span>Vollständiger Scan</span>
+            </button>
+            <button class="qs-action-btn" onclick="QuantumShield.encryptAllData()">
+                <i class="fas fa-lock"></i>
+                <span>Daten verschlüsseln</span>
+            </button>
+            <button class="qs-action-btn" onclick="QuantumShield.showThreatLog()">
+                <i class="fas fa-list"></i>
+                <span>Bedrohungs-Log</span>
+            </button>
+            <button class="qs-action-btn" onclick="QuantumShield.showEncryptionDemo()">
+                <i class="fas fa-key"></i>
+                <span>Verschlüsselungs-Demo</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scan Results -->
+    <div class="card">
+        <h3><i class="fas fa-search" style="color:#00CEC9"></i> Sicherheits-Scan</h3>
+        <div id="qsResults">
+            <div style="text-align:center;padding:30px">
+                <div style="font-size:3rem;margin-bottom:10px">🛡️</div>
+                <p>Klicke auf "Vollständiger Scan" um deine App zu prüfen</p>
+                <button class="btn btn-primary" onclick="QuantumShield.runFullScan()" style="margin-top:15px">
+                    <i class="fas fa-search"></i> Jetzt scannen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Protection Layers -->
+    <div class="card">
+        <h3><i class="fas fa-layer-group" style="color:#6C5CE7"></i> Schutzschichten</h3>
+        <div class="qs-layers">
+            <div class="qs-layer">
+                <div class="qs-layer-number">1</div>
+                <div class="qs-layer-info">
+                    <strong>AES-256-GCM Verschlüsselung</strong>
+                    <p>Militärgrade symmetrische Verschlüsselung aller Daten</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+            <div class="qs-layer">
+                <div class="qs-layer-number">2</div>
+                <div class="qs-layer-info">
+                    <strong>CRYSTALS-Kyber Lattice</strong>
+                    <p>Post-Quantum gitterbasierte Verschlüsselung gegen Quantencomputer</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+            <div class="qs-layer">
+                <div class="qs-layer-number">3</div>
+                <div class="qs-layer-info">
+                    <strong>HMAC Integritätsprüfung</strong>
+                    <p>Hash-basierte Verifizierung gegen Datenmanipulation</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+            <div class="qs-layer">
+                <div class="qs-layer-number">4</div>
+                <div class="qs-layer-info">
+                    <strong>Echtzeit Input-Sanitization</strong>
+                    <p>Blockt XSS, SQL Injection, Malicious Code in Echtzeit</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+            <div class="qs-layer">
+                <div class="qs-layer-number">5</div>
+                <div class="qs-layer-info">
+                    <strong>Netzwerk-Monitor</strong>
+                    <p>Überwacht alle ein-/ausgehenden Verbindungen</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+            <div class="qs-layer">
+                <div class="qs-layer-number">6</div>
+                <div class="qs-layer-info">
+                    <strong>DOM Anti-Tampering</strong>
+                    <p>Verhindert unerlaubte Änderungen am App-Code</p>
+                </div>
+                <span class="qs-layer-status">✅</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 🤖 PIMEL TAB -->
+<section id="pimel" class="tab-content">
+    <div class="section-header">
+        <h2><i class="fas fa-robot" style="color:#00B894"></i> Pimel KI</h2>
+    </div>
+
+    <!-- Pimel Intro -->
+    <div class="card" style="background:linear-gradient(135deg,#00B894,#00CEC9);color:white">
+        <div style="display:flex;align-items:center;gap:15px">
+            <div style="font-size:3rem">🤖</div>
+            <div>
+                <h3 style="color:white;margin:0">Hallo, ich bin Pimel!</h3>
+                <p style="margin:5px 0 0;opacity:0.9">Ich finde <strong>einfache legale Businesses</strong> und <strong>kostenlose Wertsachen</strong> für dich. Betrug wird automatisch blockiert!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Launch Buttons -->
+    <div style="margin-bottom:15px">
+        <button class="pimel-launch-btn" onclick="document.getElementById('pimelContent').style.display='block';Pimel.startScan()">
+            <span class="pimel-launch-icon">🔍</span>
+            <div class="pimel-launch-text">
+                <h3>Business & Geschenke finden</h3>
+                <p>Legale Businesses + kostenlose Wertsachen weltweit</p>
+            </div>
+            <span class="pimel-launch-arrow">→</span>
+        </button>
+    </div>
+
+    <!-- Quick Fraud Check -->
+    <div class="card" style="border-left:4px solid #FF7675">
+        <h3><i class="fas fa-shield-alt" style="color:#FF7675"></i> Schnell-Betrugscheck</h3>
+        <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:10px">Füge einen verdächtigen Text ein - Pimel prüft ihn sofort!</p>
+        <textarea id="pimelQuickFraud" placeholder="Text hier einfügen..." rows="2" style="width:100%;padding:10px;border:2px solid var(--gray-lighter);border-radius:10px;font-family:inherit;resize:vertical;background:var(--bg);color:var(--text);margin-bottom:8px"></textarea>
+        <button class="btn btn-danger full-width" onclick="
+            const text=document.getElementById('pimelQuickFraud').value;
+            if(!text){showToast('Text eingeben!');return}
+            const r=Pimel.fraudDetector.analyze(text);
+            const s=Pimel.fraudDetector.getScoreLabel(r.score);
+            let msg=s.icon+' '+s.label+' ('+r.score+'/100)';
+            if(r.blocked)msg='⛔ BETRUG ERKANNT! FINGER WEG!';
+            else if(r.warnings.length)msg+=' - '+r.warnings[0].message;
+            else msg+=' - Keine Betrugsmerkmale gefunden';
+            showToast(msg);
+        ">
+            🛡️ Sofort prüfen
+        </button>
+    </div>
+
+    <!-- Pimel Content Area -->
+    <div id="pimelContent" style="display:none" class="card">
+        <div class="modal-header" style="margin-bottom:10px">
+            <h3>🤖 Pimel sucht...</h3>
+            <button class="close-btn" onclick="document.getElementById('pimelContent').style.display='none'">&times;</button>
+        </div>
+    </div>
+
+    <!-- Saved Items -->
+    <div class="card">
+        <h3><i class="fas fa-bookmark" style="color:#FDCB6E"></i> Gemerkte Ideen</h3>
+        <div id="pimelSavedList" class="transaction-list">
+            <p class="empty-state">Noch nichts gemerkt</p>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="card">
+        <h3><i class="fas fa-chart-bar" style="color:#6C5CE7"></i> Pimel Statistiken</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <div style="text-align:center;padding:10px;background:var(--bg);border-radius:10px">
+                <div style="font-size:1.5rem;font-weight:900;color:#00B894">${Pimel.businesses.length}</div>
+                <div style="font-size:0.7rem;color:var(--text-secondary)">Businesses</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:var(--bg);border-radius:10px">
+                <div style="font-size:1.5rem;font-weight:900;color:#00CEC9">${Pimel.freeStuffSources.length}</div>
+                <div style="font-size:0.7rem;color:var(--text-secondary)">Gratis-Quellen</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:var(--bg);border-radius:10px">
+                <div style="font-size:1.5rem;font-weight:900;color:#FF7675">${Pimel.fraudDetector.redFlags.length}</div>
+                <div style="font-size:0.7rem;color:var(--text-secondary)">Betrugs-Filter</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+    
+    <!-- ====== FAB BUTTON ====== -->
+    <button class="fab" 
+            id="fabBtn"
+            onclick="openModal('quickAddModal')"
+            title="Schnell hinzufügen">
+        <i class="fas fa-plus"></i>
+    </button>
+    
+</div>
+
+<!-- ================================================
+     📋 ALLE MODALS
+     ================================================ -->
+
+<!-- Ausgabe hinzufügen -->
+<div class="modal" id="addExpenseModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🛍️ Ausgabe hinzufügen</h3>
+            <button class="close-btn" 
+                    onclick="closeModal('addExpenseModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addExpense(event)">
+            <div class="form-group">
+                <label>Betrag (€) *</label>
+                <input type="number" 
+                       id="expAmount"
+                       step="0.01" 
+                       required 
+                       placeholder="0.00"
+                       min="0.01">
+            </div>
+            <div class="form-group">
+                <label>Beschreibung *</label>
+                <input type="text" 
+                       id="expDesc"
+                       required 
+                       placeholder="z.B. Einkauf Supermarkt">
+            </div>
+            <div class="form-group">
+                <label>Kategorie *</label>
+                <select id="expCategory" required>
+                    <option value="food">🍕 Essen & Trinken</option>
+                    <option value="transport">🚗 Transport</option>
+                    <option value="housing">🏠 Wohnen</option>
+                    <option value="entertainment">🎮 Unterhaltung</option>
+                    <option value="shopping">🛍️ Shopping</option>
+                    <option value="health">💊 Gesundheit</option>
+                    <option value="education">📚 Bildung</option>
+                    <option value="subscriptions">📱 Abos</option>
+                    <option value="family">👨‍👩‍👧 Familie</option>
+                    <option value="travel">✈️ Reisen</option>
+                    <option value="other">📦 Sonstiges</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Datum *</label>
+                <input type="date" id="expDate" required>
+            </div>
+            <div class="form-group">
+                <label>Notiz (optional)</label>
+                <input type="text" 
+                       id="expNote"
+                       placeholder="Zusätzliche Notiz...">
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                <i class="fas fa-plus"></i>
+                Ausgabe speichern
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Einnahme hinzufügen -->
+<div class="modal" id="addIncomeModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>💰 Einnahme hinzufügen</h3>
+            <button class="close-btn" 
+                    onclick="closeModal('addIncomeModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addIncome(event)">
+            <div class="form-group">
+                <label>Betrag (€) *</label>
+                <input type="number" 
+                       id="incAmount"
+                       step="0.01" 
+                       required 
+                       placeholder="0.00">
+            </div>
+            <div class="form-group">
+                <label>Quelle *</label>
+                <input type="text" 
+                       id="incSource"
+                       required 
+                       placeholder="z.B. Gehalt November">
+            </div>
+            <div class="form-group">
+                <label>Typ *</label>
+                <select id="incType" required>
+                    <option value="salary">💼 Gehalt</option>
+                    <option value="freelance">💻 Freelancing</option>
+                    <option value="sidehustle">🚀 Nebenjob</option>
+                    <option value="passive">🌱 Passiv</option>
+                    <option value="investment">📈 Investment</option>
+                    <option value="gift">🎁 Geschenk</option>
+                    <option value="other">📦 Sonstiges</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Datum *</label>
+                <input type="date" id="incDate" required>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                <i class="fas fa-plus"></i>
+                Einnahme speichern
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Investment hinzufügen -->
+<div class="modal" id="addInvestModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📈 Investment hinzufügen</h3>
+            <button class="close-btn"
+                    onclick="closeModal('addInvestModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addInvestment(event)">
+            <div class="form-group">
+                <label>Name *</label>
+                <input type="text" 
+                       id="invName" 
+                       required
+                       placeholder="z.B. MSCI World ETF">
+            </div>
+            <div class="form-group">
+                <label>Typ *</label>
+                <select id="invType" required>
+                    <option value="etf">📊 ETF</option>
+                    <option value="stock">📈 Aktie</option>
+                    <option value="crypto">₿ Krypto</option>
+                    <option value="bond">📄 Anleihe</option>
+                    <option value="realestate">🏠 Immobilie</option>
+                    <option value="savings">🏦 Sparkonto</option>
+                    <option value="other">📦 Sonstiges</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Investiert (€) *</label>
+                <input type="number" 
+                       id="invAmount"
+                       step="0.01" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label>Aktueller Wert (€) *</label>
+                <input type="number" 
+                       id="invCurrentValue"
+                       step="0.01" 
+                       required>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                Hinzufügen
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Schuld hinzufügen -->
+<div class="modal" id="addDebtModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>💳 Schuld hinzufügen</h3>
+            <button class="close-btn"
+                    onclick="closeModal('addDebtModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addDebt(event)">
+            <div class="form-group">
+                <label>Name *</label>
+                <input type="text" 
+                       id="debtName"
+                       required 
+                       placeholder="z.B. Autokredit">
+            </div>
+            <div class="form-group">
+                <label>Gesamtbetrag (€) *</label>
+                <input type="number" 
+                       id="debtAmount"
+                       step="0.01" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label>Bereits bezahlt (€)</label>
+                <input type="number" 
+                       id="debtPaid"
+                       step="0.01" 
+                       value="0">
+            </div>
+            <div class="form-group">
+                <label>Zinssatz (%) *</label>
+                <input type="number" 
+                       id="debtInterest"
+                       step="0.1" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label>Monatliche Rate (€) *</label>
+                <input type="number" 
+                       id="debtPayment"
+                       step="0.01" 
+                       required>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                Schuld hinzufügen
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Ziel hinzufügen -->
+<div class="modal" id="addGoalModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🎯 Ziel erstellen</h3>
+            <button class="close-btn"
+                    onclick="closeModal('addGoalModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addGoal(event)">
+            <div class="form-group">
+                <label>Zielname *</label>
+                <input type="text" 
+                       id="goalName"
+                       required 
+                       placeholder="z.B. Notgroschen">
+            </div>
+            <div class="form-group">
+                <label>Icon</label>
+                <select id="goalIcon">
+                    <option value="🏠">🏠 Haus/Wohnung</option>
+                    <option value="🚗">🚗 Auto</option>
+                    <option value="✈️">✈️ Urlaub</option>
+                    <option value="💰">💰 Notgroschen</option>
+                    <option value="📚">📚 Bildung</option>
+                    <option value="💍">💍 Hochzeit</option>
+                    <option value="👶">👶 Familie</option>
+                    <option value="🎯">🎯 Sonstiges</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Zielbetrag (€) *</label>
+                <input type="number" 
+                       id="goalTarget"
+                       step="0.01" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label>Bereits gespart (€)</label>
+                <input type="number" 
+                       id="goalCurrent"
+                       step="0.01" 
+                       value="0">
+            </div>
+            <div class="form-group">
+                <label>Zieldatum *</label>
+                <input type="date" 
+                       id="goalDeadline" 
+                       required>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                Ziel erstellen
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Kategorie Budget -->
+<div class="modal" id="addCategoryModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🏷️ Kategorie Budget</h3>
+            <button class="close-btn"
+                    onclick="closeModal('addCategoryModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="setCategoryBudget(event)">
+            <div class="form-group">
+                <label>Kategorie *</label>
+                <select id="catBudgetCat" required>
+                    <option value="food">🍕 Essen & Trinken</option>
+                    <option value="transport">🚗 Transport</option>
+                    <option value="housing">🏠 Wohnen</option>
+                    <option value="entertainment">🎮 Unterhaltung</option>
+                    <option value="shopping">🛍️ Shopping</option>
+                    <option value="health">💊 Gesundheit</option>
+                    <option value="education">📚 Bildung</option>
+                    <option value="subscriptions">📱 Abos</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Monatliches Budget (€) *</label>
+                <input type="number" 
+                       id="catBudgetAmount"
+                       step="0.01" 
+                       required>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                Budget setzen
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Wiederkehrende Ausgabe -->
+<div class="modal" id="addRecurringModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🔄 Wiederkehrende Ausgabe</h3>
+            <button class="close-btn"
+                    onclick="closeModal('addRecurringModal')">
+                &times;
+            </button>
+        </div>
+        <form onsubmit="addRecurring(event)">
+            <div class="form-group">
+                <label>Beschreibung *</label>
+                <input type="text" 
+                       id="recDesc"
+                       required 
+                       placeholder="z.B. Netflix">
+            </div>
+            <div class="form-group">
+                <label>Betrag (€) *</label>
+                <input type="number" 
+                       id="recAmount"
+                       step="0.01" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label>Kategorie *</label>
+                <select id="recCategory" required>
+                    <option value="subscriptions">📱 Abo</option>
+                    <option value="housing">🏠 Wohnen</option>
+                    <option value="transport">🚗 Transport</option>
+                    <option value="health">💊 Versicherung</option>
+                    <option value="other">📦 Sonstiges</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Intervall *</label>
+                <select id="recInterval" required>
+                    <option value="monthly">📅 Monatlich</option>
+                    <option value="quarterly">📆 Vierteljährlich</option>
+                    <option value="yearly">🗓️ Jährlich</option>
+                </select>
+            </div>
+            <button type="submit" 
+                    class="btn btn-primary full-width">
+                Hinzufügen
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Quick Add -->
+<div class="modal" id="quickAddModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>⚡ Schnell hinzufügen</h3>
+            <button class="close-btn"
+                    onclick="closeModal('quickAddModal')">
+                &times;
+            </button>
+        </div>
+        <div class="quick-add-grid">
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             openModal('addExpenseModal')">
+                <i class="fas fa-minus-circle"
+                   style="color:var(--togo-red)"></i>
+                <span>Ausgabe</span>
+            </button>
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             openModal('addIncomeModal')">
+                <i class="fas fa-plus-circle"
+                   style="color:var(--success)"></i>
+                <span>Einnahme</span>
+            </button>
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             openModal('addInvestModal')">
+                <i class="fas fa-chart-line"
+                   style="color:var(--togo-green)"></i>
+                <span>Investment</span>
+            </button>
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             openModal('addGoalModal')">
+                <i class="fas fa-bullseye"
+                   style="color:var(--kente-gold)"></i>
+                <span>Ziel</span>
+            </button>
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             switchTab('flights')">
+                <i class="fas fa-plane"
+                   style="color:#0984e3"></i>
+                <span>Flug suchen</span>
+            </button>
+            <button class="quick-add-btn"
+                    onclick="closeModal('quickAddModal');
+                             switchTab('pimel')">
+                <i class="fas fa-robot"
+                   style="color:#00B894"></i>
+                <span>Pimel</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Settings -->
+<div class="modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>⚙️ Einstellungen</h3>
+            <button class="close-btn"
+                    onclick="closeModal('settingsModal')">
+                &times;
+            </button>
+        </div>
+        <div class="settings-list">
+            <div class="setting-item">
+                <div>
+                    <strong>🌙 Dark Mode</strong>
+                    <p class="setting-desc">Dunkles Design</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" 
+                           id="darkModeSetting"
+                           onchange="toggleDarkMode()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <strong>💶 Monatliches Budget</strong>
+                    <p class="setting-desc">Dein geplantes Budget</p>
+                </div>
+                <input type="number" 
+                       id="monthlyBudgetSetting"
+                       value="2000"
+                       onchange="updateBudgetSetting()">
+            </div>
+            <div class="setting-item">
+                <div>
+                    <strong>💱 Währung</strong>
+                </div>
+                <select id="currencySetting"
+                        onchange="updateCurrency()">
+                    <option value="EUR">€ EUR</option>
+                    <option value="USD">$ USD</option>
+                    <option value="XOF">CFA XOF</option>
+                    <option value="CHF">CHF</option>
+                    <option value="GBP">£ GBP</option>
+                </select>
+            </div>
+            <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+                <button class="btn btn-outline full-width"
+                        onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    Daten exportieren
+                </button>
+                <button class="btn btn-outline full-width"
+                        onclick="importData()">
+                    <i class="fas fa-upload"></i>
+                    Daten importieren
+                </button>
+                <button class="btn btn-danger full-width"
+                        onclick="resetData()">
+                    <i class="fas fa-trash"></i>
+                    Alle Daten löschen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Info Modal (für Details) -->
+<div class="modal" id="infoModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="infoModalTitle">Info</h3>
+            <button class="close-btn"
+                    onclick="closeModal('infoModal')">
+                &times;
+            </button>
+        </div>
+        <div id="infoModalBody" 
+             class="info-body">
+        </div>
+    </div>
+</div>
+
+<!-- ====== TOAST NOTIFICATION ====== -->
+<div class="toast" id="toast">
+    <div class="toast-content">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Gespeichert!</span>
+    </div>
+</div>
+
+<!-- ================================================
+     📜 JAVASCRIPT FILES
+     ================================================ -->
+<script src="js/utils.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+<script src="js/ir-flights.js"></script>
+<script src="js/pimel.js"></script>
+<script src="js/quantum-shield.js"></script>
+<script src="js/opportunity-finder.js"></script>
+
+<!-- Service Worker registrieren -->
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then(reg => {
+                console.log('✅ AKWAABA SW registriert:', reg.scope);
+            })
+            .catch(err => {
+                console.log('❌ SW Fehler:', err);
+            });
+    });
+}
+</script>
+<script>
+    // Initialize Opportunity Finder after main app
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            OpportunityFinder.init();
+        }, 2500);
+    });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        Pimel.init();
+        // Render saved items
+        const savedEl = document.getElementById('pimelSavedList');
+        if (savedEl && Pimel.savedItems.length > 0) {
+            savedEl.innerHTML = Pimel.savedItems.map(item => {
+                let name = '', icon = '';
+                if (item.type === 'business') {
+                    const b = Pimel.businesses.find(x => x.id === item.id);
+                    name = b ? b.name : item.id;
+                    icon = '💼';
+                } else {
+                    const s = Pimel.freeStuffSources.find(x => x.id === item.id);
+                    name = s ? s.name : item.id;
+                    icon = s ? s.icon : '🎁';
+                }
+                return `
+                    <div class="transaction-item" onclick="Pimel.${item.type === 'business' ? 'showBusinessDetail' : 'showFreeDetail'}('${item.id}')">
+                        <div class="transaction-icon" style="background:rgba(0,184,148,0.15)">${icon}</div>
+                        <div class="transaction-info">
+                            <div class="transaction-desc">${name}</div>
+                            <div class="transaction-date">${item.type === 'business' ? 'Business-Idee' : 'Gratis-Quelle'}</div>
+                        </div>
+                        <i class="fas fa-chevron-right" style="color:var(--gray-light)"></i>
+                    </div>
+                `;
+            }).join('');
+        }
+    }, 2600);
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        IR.init();
+        IR.quickSearch = function(from, to) {
+            document.getElementById('irFrom').value = from;
+            document.getElementById('irTo').value = to;
+            const d = new Date();
+            d.setDate(d.getDate() + 30);
+            document.getElementById('irDate').value = d.toISOString().split('T')[0];
+            IR.search();
+        };
+        const alertsEl = document.getElementById('togoQuickAlerts');
+        if (alertsEl && IR.togoAlerts.length > 0) {
+            alertsEl.innerHTML = IR.togoAlerts.slice(0, 3).map(a => `
+                <div class="ir-quick-alert ${a.priority}" onclick="IR.showAlerts()">
+                    <strong>${a.title}</strong>
+                    <p>${a.message.substring(0, 80)}...</p>
+                </div>
+            `).join('');
+        }
+        const savedEl = document.getElementById('savedFlightsList');
+        if (savedEl && IR.savedFlights.length > 0) {
+            savedEl.innerHTML = IR.savedFlights.map(f => `
+                <div class="transaction-item">
+                    <div class="transaction-icon" style="background:rgba(0,206,201,0.15)">✈️</div>
+                    <div class="transaction-info">
+                        <div class="transaction-desc">${IR.airports[f.from]?.city||f.from} → ${IR.airports[f.to]?.city||f.to}</div>
+                        <div class="transaction-date">${f.airlineName} • ${formatDate(f.date)}</div>
+                    </div>
+                    <div class="transaction-amount green">€${f.price}</div>
+                </div>
+            `).join('');
+        }
+
+        QuantumShield.initRealTimeProtection();
+        QuantumShield.encryptAllData = function() {
+            const data = localStorage.getItem('wealthBuilderData');
+            if (data) {
+                const encrypted = QuantumShield.quantumEncrypt(data);
+                QuantumShield._internalWrite = true;
+                localStorage.setItem('qs_wealthBuilder_encrypted', JSON.stringify(encrypted));
+                QuantumShield._internalWrite = false;
+                showToast('🔐 Alle Daten quantum-verschlüsselt!');
+            }
+        };
+        QuantumShield.showThreatLog = function() {
+            document.getElementById('infoModalTitle').textContent = '📋 Bedrohungs-Protokoll';
+            document.getElementById('infoModalBody').innerHTML = QuantumShield.threatLog.length === 0 ?
+                '<p class="empty-state" style="padding:30px">✅ Keine Bedrohungen erkannt!</p>' :
+                '<div class="qs-log-list">' + QuantumShield.threatLog.slice(-20).reverse().map(t => `
+                    <div class="qs-log-entry ${t.severity}">
+                        <div><strong>${t.type}</strong>: ${t.message}</div>
+                        <small>${new Date(t.timestamp).toLocaleString('de-DE')}</small>
+                    </div>
+                `).join('') + '</div>';
+            openModal('infoModal');
+        };
+        QuantumShield.showEncryptionDemo = function() {
+            const sampleData = 'Meine geheimen Finanzdaten: Kontostand 15.000€';
+            const encrypted = QuantumShield.quantumEncrypt(sampleData);
+            document.getElementById('infoModalTitle').textContent = '🔐 Verschlüsselungs-Demo';
+            document.getElementById('infoModalBody').innerHTML = `
+                <div class="qs-demo">
+                    <div class="qs-demo-section">
+                        <h4>📝 Original-Daten:</h4>
+                        <div class="qs-demo-box original">${sampleData}</div>
+                    </div>
+                    <div style="text-align:center;font-size:2rem;margin:10px 0">⬇️ 3-Layer Quantum Encryption ⬇️</div>
+                    <div class="qs-demo-section">
+                        <h4>🔐 Verschlüsselt (${encrypted.algorithm}):</h4>
+                        <div class="qs-demo-box encrypted">${encrypted.ciphertext.substring(0, 200)}...</div>
+                    </div>
+                    <div class="qs-demo-meta">
+                        <span>🔑 Schlüssel: 1024-bit</span>
+                        <span>🛡️ Layer: ${encrypted.layers}</span>
+                        <span>🧬 Hash: ${encrypted.integrity.substring(0, 16)}...</span>
+                    </div>
+                </div>
+            `;
+            openModal('infoModal');
+        };
+    }, 2500);
+});
+</script>
+</body>
+</html>
