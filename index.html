@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0a1a">
+    <meta name="theme-color" content="#0f1a0f">
     <title>AKWAABA Finance – Quantum AI</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="CSS/style.css?v=3">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- ============ SPLASH / LOADING SCREEN ============ -->
+<!-- ====== SPLASH SCREEN ====== -->
 <div id="splash-screen">
     <span class="splash-emoji">🌍</span>
     <span class="splash-emoji">🇹🇬</span>
@@ -35,360 +35,345 @@
     </div>
 </div>
 
-    <!-- ============ MAIN APP ============ -->
+<!-- ====== MAIN APP ====== -->
+<div id="app" class="hidden">
+
+    <!-- TOGO STRIPE -->
     <div class="togo-stripe"></div>
-<header class="app-header">
-    <div class="header-left">
-        <div class="header-logo-3d">AQ</div>
-        <div class="header-titles">
-            <h1>AKWAABA FINANCE</h1>
-            <p class="header-tagline">🇹🇬 Togo · Quantum AI · XsiKOM-DIGITAL</p>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="header-logo-3d">AQ</div>
+            <div class="header-titles">
+                <h1>AKWAABA FINANCE</h1>
+                <p class="header-tagline">🇹🇬 Togo · Quantum AI · XsiKOM-DIGITAL</p>
+            </div>
         </div>
+        <div class="header-right">
+            <button class="icon-btn" id="langBtn">
+                🌍 <span id="currentLang">DE</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- LANGUAGE DROPDOWN -->
+    <div id="langDropdown" class="dropdown hidden">
+        <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+        <button onclick="setLanguage('en')">🇬🇧 English</button>
+        <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+        <button onclick="setLanguage('tw')">🇬🇭 Twi</button>
+        <button onclick="setLanguage('ha')">🇳🇬 Hausa</button>
+        <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
     </div>
-    <div class="header-right">
-        <button class="icon-btn" id="langBtn">
-            🌍 <span id="currentLang">DE</span>
+
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+        <button class="nav-tab active" data-tab="dashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
         </button>
-    </div>
-</header>
+        <button class="nav-tab" data-tab="calculator">
+            <span class="nav-icon">🧮</span>
+            <span class="nav-text">Rechner</span>
+        </button>
+        <button class="nav-tab" data-tab="quantum">
+            <span class="nav-icon">⚛️</span>
+            <span class="nav-text">Quantum AI</span>
+        </button>
+        <button class="nav-tab" data-tab="tips">
+            <span class="nav-icon">💡</span>
+            <span class="nav-text">Tipps</span>
+        </button>
+    </nav>
 
-        <!-- LANGUAGE SELECTOR -->
-        <div id="langDropdown" class="dropdown hidden">
-            <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
-            <button onclick="setLanguage('en')">🇬🇧 English</button>
-            <button onclick="setLanguage('fr')">🇫🇷 Français</button>
-            <button onclick="setLanguage('tw')">🇬🇭 Twi</button>
-            <button onclick="setLanguage('ha')">🇳🇬 Hausa</button>
-            <button onclick="setLanguage('ar')">🇸🇦 العربية</button>
+    <!-- ====== DASHBOARD ====== -->
+    <section id="tab-dashboard" class="tab-content active">
+
+        <div class="welcome-banner">
+            <div class="togo-flag-stripe">
+                <div class="flag-bar red"></div>
+                <div class="flag-bar yellow"></div>
+                <div class="flag-bar green"></div>
+                <div class="flag-bar yellow"></div>
+                <div class="flag-bar red"></div>
+            </div>
+            <div class="welcome-akwaaba">AKWAABA! 🎉</div>
+            <p class="welcome-sub">✦ Willkommen · Welcome · Bienvenue ✦</p>
+            <p class="welcome-desc">
+                Deine premium KI-Finanzplattform inspiriert von Togo und Afrika 🌍
+                – mit Quantum Intelligence für smarte Finanzentscheidungen.
+            </p>
+            <div class="emoji-row">🇹🇬 💰 📈 ⚛️ 🏆 💡 🚀</div>
         </div>
 
-        <!-- NAVIGATION TABS -->
-        <nav class="main-nav">
-            <button class="nav-tab active" data-tab="dashboard">
-                <span class="nav-icon">📊</span>
-                <span class="nav-text" data-i18n="nav.dashboard">Dashboard</span>
-            </button>
-            <button class="nav-tab" data-tab="calculator">
-                <span class="nav-icon">🧮</span>
-                <span class="nav-text" data-i18n="nav.calculator">Rechner</span>
-            </button>
-            <button class="nav-tab" data-tab="quantum">
-                <span class="nav-icon">⚛️</span>
-                <span class="nav-text" data-i18n="nav.quantum">Quantum AI</span>
-            </button>
-            <button class="nav-tab" data-tab="tips">
-                <span class="nav-icon">💡</span>
-                <span class="nav-text" data-i18n="nav.tips">Tipps</span>
-            </button>
-        </nav>
-
-        <!-- ============ TAB: DASHBOARD ============ -->
-       <section id="tab-dashboard" class="tab-content active">
-
-    <div class="welcome-banner">
-        <div class="togo-flag-stripe">
-            <div class="flag-bar red"></div>
-            <div class="flag-bar yellow"></div>
-            <div class="flag-bar green"></div>
-            <div class="flag-bar yellow"></div>
-            <div class="flag-bar red"></div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value" id="marketTrend">+2.4%</div>
+                <div class="stat-label">Markttrend</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="aiAccuracy">94.7%</div>
+                <div class="stat-label">AI Genauigkeit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value" id="quantumSpeed">0.003s</div>
+                <div class="stat-label">Quantum Speed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛡️</div>
+                <div class="stat-value">256-bit</div>
+                <div class="stat-label">Sicherheit</div>
+            </div>
         </div>
-        <div class="welcome-akwaaba">AKWAABA! 🎉</div>
-        <p class="welcome-sub">✦ Willkommen · Welcome · Bienvenue ✦</p>
-        <p class="welcome-desc">
-            Deine premium KI-Finanzplattform inspiriert von Togo und Afrika 🌍
-            – mit Quantum Intelligence für smarte Finanzentscheidungen.
-        </p>
-        <div class="emoji-row">🇹🇬 💰 📈 ⚛️ 🏆 💡 🚀</div>
-    </div>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon">📈</div>
-            <div class="stat-value" id="marketTrend">+2.4%</div>
-            <div class="stat-label">Markttrend</div>
+        <div class="card card-green">
+            <h3>⚛️ Quantum Pulse Monitor</h3>
+            <canvas id="quantumPulse" height="150"></canvas>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon">🎯</div>
-            <div class="stat-value" id="aiAccuracy">94.7%</div>
-            <div class="stat-label">AI Genauigkeit</div>
+
+        <div class="card card-rainbow">
+            <div class="quantum-badge">✦ Togo Premium Intelligence ✦</div>
+            <h3>🌍 Über AKWAABA Finance</h3>
+            <p>
+                AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas. 🇬🇭
+                Inspiriert von der Lebensfreude und Stärke Togos 🇹🇬 verbindet
+                diese Plattform afrikanische Finanzweisheit mit modernster
+                Quantum-KI für überlegene Ergebnisse! 🚀
+            </p>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-value" id="quantumSpeed">0.003s</div>
-            <div class="stat-label">Quantum Speed</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon">🛡️</div>
-            <div class="stat-value">256-bit</div>
-            <div class="stat-label">Sicherheit</div>
-        </div>
-    </div>
 
-    <div class="card card-green">
-        <h3>⚛️ Quantum Pulse Monitor</h3>
-        <canvas id="quantumPulse" height="150"></canvas>
-    </div>
+    </section>
 
-    <div class="card card-rainbow">
-        <div class="quantum-badge">✦ Togo Premium Intelligence ✦</div>
-        <h3>🌍 Über AKWAABA Finance</h3>
-        <p>
-            AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas. 🇬🇭
-            Inspiriert von der Lebensfreude und Stärke Togos 🇹🇬 verbindet
-            diese Plattform afrikanische Finanzweisheit mit modernster
-            Quantum-KI für überlegene Ergebnisse! 🚀
-        </p>
-    </div>
-
-</section>
-
-    <div class="card dark-card">
-        <h3>⚛️ Quantum Pulse Monitor</h3>
-        <canvas id="quantumPulse" height="150"></canvas>
-    </div>
-
-    <div class="card gold-card">
-        <div class="quantum-badge">✦ African Premium Intelligence ✦</div>
-        <h3>👑 Über AKWAABA Finance</h3>
-        <p>
-            AKWAABA bedeutet "Willkommen" in der Akan-Sprache Ghanas.
-            Diese Plattform verbindet afrikanische Finanzweisheit mit
-            modernster Quantum-KI-Technologie für überlegene Finanzergebnisse.
-        </p>
-    </div>
-
-</section>
-
-        <!-- ============ TAB: CALCULATOR ============ -->
-        <section id="tab-calculator" class="tab-content">
-            <div class="card">
-                <h2 data-i18n="calc.title">💰 Finanzrechner</h2>
-
-                <!-- Calculator Type Selector -->
-                <div class="calc-selector">
-                    <button class="calc-type active" data-calc="compound">
-                        📈 <span data-i18n="calc.compound">Zinseszins</span>
-                    </button>
-                    <button class="calc-type" data-calc="loan">
-                        🏦 <span data-i18n="calc.loan">Kredit</span>
-                    </button>
-                    <button class="calc-type" data-calc="savings">
-                        🐖 <span data-i18n="calc.savings">Sparziel</span>
-                    </button>
-                    <button class="calc-type" data-calc="investment">
-                        📊 <span data-i18n="calc.investment">Investment</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- COMPOUND INTEREST CALCULATOR -->
-            <div id="calc-compound" class="calc-panel active">
-                <div class="card">
-                    <h3 data-i18n="calc.compound.title">📈 Zinseszinsrechner</h3>
-                    <div class="input-group">
-                        <label data-i18n="calc.initial">Anfangskapital (€)</label>
-                        <input type="number" id="compInitial" value="1000" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.rate">Zinssatz (% pro Jahr)</label>
-                        <input type="number" id="compRate" value="5" min="0" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.years">Laufzeit (Jahre)</label>
-                        <input type="number" id="compYears" value="10" min="1">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.monthly">Monatliche Einzahlung (€)</label>
-                        <input type="number" id="compMonthly" value="100" min="0">
-                    </div>
-                    <button class="btn-3d
-                    " onclick="calculateCompound()">
-                        ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
-                    </button>
-                    <div id="compResult" class="result-box hidden"></div>
-                </div>
-            </div>
-
-            <!-- LOAN CALCULATOR -->
-            <div id="calc-loan" class="calc-panel">
-                <div class="card">
-                    <h3 data-i18n="calc.loan.title">🏦 Kreditrechner</h3>
-                    <div class="input-group">
-                        <label data-i18n="calc.loan.amount">Kreditbetrag (€)</label>
-                        <input type="number" id="loanAmount" value="10000" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.loan.rate">Zinssatz (% pro Jahr)</label>
-                        <input type="number" id="loanRate" value="3.5" min="0" step="0.1">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.loan.term">Laufzeit (Jahre)</label>
-                        <input type="number" id="loanTerm" value="5" min="1">
-                    </div>
-                    <button class="btn-3d" onclick="calculateLoan()">
-                        ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
-                    </button>
-                    <div id="loanResult" class="result-box hidden"></div>
-                </div>
-            </div>
-
-            <!-- SAVINGS GOAL CALCULATOR -->
-            <div id="calc-savings" class="calc-panel">
-                <div class="card">
-                    <h3 data-i18n="calc.savings.title">🐖 Sparzielrechner</h3>
-                    <div class="input-group">
-                        <label data-i18n="calc.savings.goal">Sparziel (€)</label>
-                        <input type="number" id="savingsGoal" value="5000" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.savings.have">Bereits gespart (€)</label>
-                        <input type="number" id="savingsHave" value="500" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.savings.months">Zeitraum (Monate)</label>
-                        <input type="number" id="savingsMonths" value="24" min="1">
-                    </div>
-                    <button class="btn-3d
-                    " onclick="calculateSavings()">
-                        ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
-                    </button>
-                    <div id="savingsResult" class="result-box hidden"></div>
-                </div>
-            </div>
-
-            <!-- INVESTMENT CALCULATOR -->
-            <div id="calc-investment" class="calc-panel">
-                <div class="card">
-                    <h3 data-i18n="calc.invest.title">📊 Investment-Rechner</h3>
-                    <div class="input-group">
-                        <label data-i18n="calc.invest.amount">Investitionsbetrag (€)</label>
-                        <input type="number" id="investAmount" value="5000" min="0">
-                    </div>
-                    <div class="input-group">
-                        <label>Risikoprofil</label>
-                        <select id="investRisk">
-                            <option value="low" data-i18n="calc.invest.low">Konservativ (3-5%)</option>
-                            <option value="medium" data-i18n="calc.invest.medium" selected>Ausgewogen (5-8%)</option>
-                            <option value="high" data-i18n="calc.invest.high">Aggressiv (8-15%)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label data-i18n="calc.years">Laufzeit (Jahre)</label>
-                        <input type="number" id="investYears" value="10" min="1">
-                    </div>
-                    <button class="btn-3d
-                    " onclick="calculateInvestment()">
-                        ⚛️ <span data-i18n="calc.calculate">Quantum Berechnung starten</span>
-                    </button>
-                    <div id="investResult" class="result-box hidden"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ TAB: QUANTUM AI ============ -->
-        <section id="tab-quantum" class="tab-content">
-            <div class="card glow-card">
-                <h2>⚛️ Quantum AI Finanzanalyse</h2>
-                <p data-i18n="quantum.desc">Unsere Quantum-Engine analysiert Marktdaten, historische Trends und wirtschaftliche Indikatoren für präzise Vorhersagen.</p>
-            </div>
-
-            <div class="card">
-                <h3>🎯 Quantum Prognose Generator</h3>
-                <div class="input-group">
-                    <label>Analyse-Kategorie</label>
-                    <select id="quantumCategory">
-                        <option value="stocks">📈 Aktienmarkt</option>
-                        <option value="crypto">₿ Kryptowährungen</option>
-                        <option value="realestate">🏠 Immobilien</option>
-                        <option value="commodities">🥇 Rohstoffe</option>
-                        <option value="savings">💰 Sparstrategie</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Investment-Horizont</label>
-                    <select id="quantumHorizon">
-                        <option value="short">⚡ Kurzfristig (1-3 Monate)</option>
-                        <option value="medium">📊 Mittelfristig (1-3 Jahre)</option>
-                        <option value="long">🏗️ Langfristig (5+ Jahre)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Risikobereitschaft</label>
-                    <input type="range" id="quantumRisk" min="1" max="10" value="5">
-                    <div class="range-labels">
-                        <span>🛡️ Sicher</span>
-                        <span id="riskValue">5</span>
-                        <span>🚀 Riskant</span>
-                    </div>
-                </div>
-                <button class="btn-3d" onclick="runQuantumAnalysis()">
-                    ⚛️ Quantum Analyse starten
+    <!-- ====== CALCULATOR ====== -->
+    <section id="tab-calculator" class="tab-content">
+        <div class="card card-yellow">
+            <h2>💰 Finanzrechner</h2>
+            <div class="calc-selector">
+                <button class="calc-type active" data-calc="compound">
+                    📈 Zinseszins
                 </button>
-                <div id="quantumResult" class="result-box hidden"></div>
+                <button class="calc-type" data-calc="loan">
+                    🏦 Kredit
+                </button>
+                <button class="calc-type" data-calc="savings">
+                    🐖 Sparziel
+                </button>
+                <button class="calc-type" data-calc="investment">
+                    📊 Investment
+                </button>
             </div>
+        </div>
 
-            <!-- AI CONFIDENCE METER -->
-            <div class="card dark-card">
-                <h3>🤖 AI Confidence Level</h3>
-                <div class="confidence-meter">
-                    <div class="confidence-bar" id="confidenceBar">
-                        <span id="confidenceValue">0%</span>
-                    </div>
+        <!-- COMPOUND -->
+        <div id="calc-compound" class="calc-panel active">
+            <div class="card card-green">
+                <h3>📈 Zinseszinsrechner</h3>
+                <div class="input-group">
+                    <label>Anfangskapital (€)</label>
+                    <input type="number" id="compInitial" value="1000" min="0">
                 </div>
-                <p class="confidence-text" id="confidenceText"></p>
+                <div class="input-group">
+                    <label>Zinssatz (% pro Jahr)</label>
+                    <input type="number" id="compRate" value="5" min="0" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="compYears" value="10" min="1">
+                </div>
+                <div class="input-group">
+                    <label>Monatliche Einzahlung (€)</label>
+                    <input type="number" id="compMonthly" value="100" min="0">
+                </div>
+                <button class="btn-3d" onclick="calculateCompound()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="compResult" class="result-box hidden"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- ============ TAB: TIPS ============ -->
-        <section id="tab-tips" class="tab-content">
-            <div class="card glow-card">
-                <h2>💡 Finanz-Tipps & Tricks</h2>
-                <p data-i18n="tips.desc">KI-generierte Ratschläge für finanziellen Erfolg.</p>
+        <!-- LOAN -->
+        <div id="calc-loan" class="calc-panel">
+            <div class="card card-red">
+                <h3>🏦 Kreditrechner</h3>
+                <div class="input-group">
+                    <label>Kreditbetrag (€)</label>
+                    <input type="number" id="loanAmount" value="10000" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Zinssatz (% pro Jahr)</label>
+                    <input type="number" id="loanRate" value="3.5" min="0" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="loanTerm" value="5" min="1">
+                </div>
+                <button class="btn-3d btn-3d-red" onclick="calculateLoan()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="loanResult" class="result-box hidden"></div>
             </div>
+        </div>
 
-            <div id="tipsContainer">
-                <!-- Tips werden per JavaScript geladen -->
+        <!-- SAVINGS -->
+        <div id="calc-savings" class="calc-panel">
+            <div class="card card-yellow">
+                <h3>🐖 Sparzielrechner</h3>
+                <div class="input-group">
+                    <label>Sparziel (€)</label>
+                    <input type="number" id="savingsGoal" value="5000" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Bereits gespart (€)</label>
+                    <input type="number" id="savingsHave" value="500" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Zeitraum (Monate)</label>
+                    <input type="number" id="savingsMonths" value="24" min="1">
+                </div>
+                <button class="btn-3d btn-3d-yellow" onclick="calculateSavings()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="savingsResult" class="result-box hidden"></div>
             </div>
+        </div>
 
-            <button class="btn-3d
-            
-            " onclick="generateNewTips()">
+        <!-- INVESTMENT -->
+        <div id="calc-investment" class="calc-panel">
+            <div class="card card-green">
+                <h3>📊 Investment-Rechner</h3>
+                <div class="input-group">
+                    <label>Investitionsbetrag (€)</label>
+                    <input type="number" id="investAmount" value="5000" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Risikoprofil</label>
+                    <select id="investRisk">
+                        <option value="low">Konservativ (3-5%)</option>
+                        <option value="medium" selected>Ausgewogen (5-8%)</option>
+                        <option value="high">Aggressiv (8-15%)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Laufzeit (Jahre)</label>
+                    <input type="number" id="investYears" value="10" min="1">
+                </div>
+                <button class="btn-3d" onclick="calculateInvestment()">
+                    ⚛️ Quantum Berechnung starten
+                </button>
+                <div id="investResult" class="result-box hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== QUANTUM AI ====== -->
+    <section id="tab-quantum" class="tab-content">
+
+        <div class="card card-rainbow">
+            <h2>⚛️ Quantum AI Finanzanalyse</h2>
+            <p>Unsere Quantum-Engine analysiert Marktdaten, historische
+            Trends und wirtschaftliche Indikatoren für präzise Vorhersagen.</p>
+        </div>
+
+        <div class="card card-green">
+            <h3>🎯 Quantum Prognose Generator</h3>
+            <div class="input-group">
+                <label>Analyse-Kategorie</label>
+                <select id="quantumCategory">
+                    <option value="stocks">📈 Aktienmarkt</option>
+                    <option value="crypto">₿ Kryptowährungen</option>
+                    <option value="realestate">🏠 Immobilien</option>
+                    <option value="commodities">🥇 Rohstoffe</option>
+                    <option value="savings">💰 Sparstrategie</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Investment-Horizont</label>
+                <select id="quantumHorizon">
+                    <option value="short">⚡ Kurzfristig (1-3 Monate)</option>
+                    <option value="medium">📊 Mittelfristig (1-3 Jahre)</option>
+                    <option value="long">🏗️ Langfristig (5+ Jahre)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Risikobereitschaft</label>
+                <input type="range" id="quantumRisk" min="1" max="10" value="5">
+                <div class="range-labels">
+                    <span>🛡️ Sicher</span>
+                    <span id="riskValue">5</span>
+                    <span>🚀 Riskant</span>
+                </div>
+            </div>
+            <button class="btn-3d" onclick="runQuantumAnalysis()">
+                ⚛️ Quantum Analyse starten
+            </button>
+            <div id="quantumResult" class="result-box hidden"></div>
+        </div>
+
+        <div class="card card-red">
+            <h3>🤖 AI Confidence Level</h3>
+            <div class="confidence-meter">
+                <div class="confidence-bar" id="confidenceBar">
+                    <span id="confidenceValue">0%</span>
+                </div>
+            </div>
+            <p class="confidence-text" id="confidenceText"></p>
+        </div>
+
+    </section>
+
+    <!-- ====== TIPS ====== -->
+    <section id="tab-tips" class="tab-content">
+
+        <div class="card card-rainbow">
+            <h2>💡 Finanz-Tipps & Tricks</h2>
+            <p>KI-generierte Ratschläge für finanziellen Erfolg. 🚀</p>
+        </div>
+
+        <div id="tipsContainer"></div>
+
+        <div style="margin: 0 0.8rem;">
+            <button class="btn-3d" onclick="generateNewTips()">
                 🔄 Neue Tipps generieren
             </button>
+        </div>
 
-            <!-- DAILY WISDOM -->
-            <div class="card dark-card" style="margin-top: 1rem;">
-                <h3>🌟 Weisheit des Tages</h3>
-                <blockquote id="dailyWisdom" class="wisdom-quote"></blockquote>
-            </div>
-        </section>
+        <div class="card card-yellow" style="margin-top: 0.8rem;">
+            <h3>🌟 Weisheit des Tages</h3>
+            <blockquote id="dailyWisdom" class="wisdom-quote"></blockquote>
+        </div>
 
-        <!-- FOOTER -->
-   <footer class="app-footer">
-    <div class="footer-logo-3d">AQ</div>
-    <div class="footer-name">AKWAABA FINANCE</div>
-    <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
-    <div class="footer-flags">🇹🇬 🌍 🇬🇭 🇩🇪 🇫🇷 🌟</div>
-    <p class="footer-copy">
-        © 2025 All Rights Reserved · Quantum AI v2.0 · Togo Premium Edition
-    </p>
-</footer>
-    </div>
+    </section>
 
-    <!-- SCRIPTS -->
-    <script src="js/translations.js"></script>
-    <script src="js/quantum-engine.js"></script>
-    <script src="js/calculator.js"></script>
-    <script src="js/app.js"></script>
+    <!-- ====== FOOTER ====== -->
+    <footer class="app-footer">
+        <div class="footer-logo-3d">AQ</div>
+        <div class="footer-name">AKWAABA FINANCE</div>
+        <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
+        <div class="footer-flags">🇹🇬 🌍 🇬🇭 🇩🇪 🇫🇷 🌟</div>
+        <p class="footer-copy">
+            © 2025 All Rights Reserved · Quantum AI v2.0 · Togo Premium Edition
+        </p>
+    </footer>
 
-    <!-- SERVICE WORKER -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(() => console.log('✅ Service Worker registered'))
-                .catch(err => console.log('❌ SW Error:', err));
-        }
-    </script>
+</div><!-- END #app -->
+
+<!-- SCRIPTS -->
+<script src="js/translations.js"></script>
+<script src="js/quantum-engine.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('✅ SW registered'))
+            .catch(err => console.log('❌ SW Error:', err));
+    }
+</script>
+
 </body>
 </html>
