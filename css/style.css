@@ -4,8 +4,6 @@
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap');
-
-/* === TOGO COLORS === */
 :root {
     /* Togo Flag Colors */
     --togo-red: #cc0000;
@@ -413,6 +411,7 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
+.tab-btn,
 .nav-tab {
     flex: 1;
     display: flex;
@@ -435,6 +434,7 @@ body {
     box-shadow: 0 4px 0 rgba(0,0,0,0.3);
 }
 
+.tab-btn.active,
 .nav-tab.active {
     color: white;
     background: var(--grad-cool);
@@ -444,6 +444,7 @@ body {
     transform: translateY(-2px);
 }
 
+.tab-btn:hover:not(.active),
 .nav-tab:hover:not(.active) {
     color: var(--text-secondary);
     transform: translateY(-1px);

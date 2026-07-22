@@ -30,7 +30,7 @@ function initSplashScreen() {
 
 // === NAVIGATION ===
 function initNavigation() {
-    const tabs = document.querySelectorAll('.nav-tab');
+    const tabs = document.querySelectorAll('.tab-btn');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             // Remove active from all
@@ -40,7 +40,7 @@ function initNavigation() {
             // Set active
             tab.classList.add('active');
             const tabId = tab.getAttribute('data-tab');
-            const content = document.getElementById('tab-' + tabId);
+            const content = document.getElementById(tabId);
             if (content) content.classList.add('active');
         });
     });
@@ -147,7 +147,7 @@ function generateNewTips() {
 
 // === DAILY WISDOM ===
 function showDailyWisdom() {
-    const el = document.getElementById('dailyWisdom');
+    const el = document.getElementById('dailyTip');
     if (!el) return;
 
     const lang = currentLanguage;
