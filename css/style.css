@@ -4050,4 +4050,394 @@ body[dir="rtl"] .chat-nachricht.nutzer {
     font-size: 1.1rem;
     color: white;
 }
+/* ============================================
+   PIMEL
+   ============================================ */
+
+.pimel-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #2e0a2e, #0a2e2e);
+    border-bottom: 3px solid rgba(204,68,255,0.3);
+}
+
+.pimel-avatar {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #cc44ff, #ff44aa, #ffdf00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #660066, 0 12px 20px rgba(204,68,255,0.4);
+    animation: schweben 2s ease-in-out infinite;
+    overflow: hidden;
+}
+
+.pimel-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255,255,255,0.4) 50%,
+        transparent 70%
+    );
+    animation: pimelShine 3s infinite;
+}
+
+@keyframes pimelShine {
+    0% { transform: translateX(-100%) translateY(-100%); }
+    100% { transform: translateX(100%) translateY(100%); }
+}
+
+.pimel-emoji {
+    font-size: 2.2rem;
+    z-index: 1;
+    animation: pimelBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes pimelBounce {
+    0%, 100% { transform: scale(1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.pimel-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #cc44ff, #ffdf00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pimel-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.pimel-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #cc44ff;
+    font-weight: 800;
+}
+
+/* Schutz Liste */
+.schutz-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+}
+
+.schutz-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+    border-left: 3px solid #ff4444;
+}
+
+.schutz-item:last-child {
+    border-left-color: #00cc44;
+    background: rgba(0,204,68,0.05);
+}
+
+.schutz-item span:first-child {
+    font-size: 1.2rem;
+}
+
+/* Scan */
+.pimel-scan {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.pimel-geschenk {
+    font-size: 5rem;
+    animation: pimelGeschenk 1s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes pimelGeschenk {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(10deg); }
+}
+
+.pimel-scan-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #cc44ff;
+    margin: 1rem 0;
+}
+
+.pimel-scan-progress {
+    width: 100%;
+    height: 8px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.pimel-scan-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #cc44ff, #ffdf00, #ff44aa);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px #cc44ff;
+}
+
+.pimel-scan-log {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-family: monospace;
+    text-align: left;
+    max-height: 120px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.3);
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+/* Angebot Karte */
+.angebot-karte {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 2px solid rgba(204,68,255,0.3);
+    border-radius: 18px;
+    padding: 1.2rem;
+    margin: 0.8rem;
+    position: relative;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+    transition: all 0.3s;
+}
+
+.angebot-karte::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #cc44ff, #ffdf00);
+}
+
+.angebot-karte:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 0 rgba(0,0,0,0.3);
+    border-color: rgba(204,68,255,0.5);
+}
+
+.angebot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.angebot-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #ffdf00;
+}
+
+.angebot-badge {
+    padding: 0.3rem 0.7rem;
+    background: rgba(0,204,68,0.15);
+    color: #00ff88;
+    border: 1px solid rgba(0,204,68,0.4);
+    border-radius: 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.75rem;
+}
+
+.angebot-badge.gratis {
+    background: rgba(204,68,255,0.15);
+    color: #cc44ff;
+    border-color: rgba(204,68,255,0.4);
+}
+
+.angebot-desc {
+    font-size: 0.87rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.angebot-details {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.angebot-detail {
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #00ddcc;
+    font-weight: 800;
+}
+
+.angebot-vertrauens {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 8px;
+    border-left: 3px solid #00cc44;
+}
+
+.vertrauens-icon { font-size: 1.2rem; }
+
+.vertrauens-text {
+    font-size: 0.75rem;
+    color: #00ff88;
+    font-weight: 800;
+}
+
+.angebot-btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, #cc44ff, #ff44aa);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 0 #660066;
+    transition: all 0.2s;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.angebot-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #660066;
+}
+
+.angebot-speichern {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(255,223,0,0.1);
+    border: 1px solid rgba(255,223,0,0.3);
+    border-radius: 8px;
+    color: #ffdf00;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.angebot-speichern:hover {
+    background: rgba(255,223,0,0.2);
+}
+
+/* Business Idee */
+.business-idee {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 2px solid rgba(0,204,68,0.3);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #00cc44;
+}
+
+.business-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #00ff88;
+    margin-bottom: 0.3rem;
+}
+
+.business-desc {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.business-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.business-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+}
+
+.stat-verdienst { color: #00ff88; }
+.stat-invest { color: #ffdf00; }
+.stat-zeit { color: #00ddcc; }
+.stat-legal { color: #ff44aa; }
+
+/* Warnung */
+.warnung-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(204,0,0,0.05);
+    border: 1px solid rgba(204,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ff3333;
+}
+
+.warnung-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+.warnung-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #ff4444;
+    margin-bottom: 0.3rem;
+}
+
+.warnung-text {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.warnung-datum {
+    font-size: 0.7rem;
+    color: #668844;
+    font-weight: 800;
+    margin-top: 0.3rem;
+}
         

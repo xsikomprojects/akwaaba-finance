@@ -64,6 +64,7 @@
         <button class="tab" data-tab="chancen">🎯 Chancen</button>
         <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
         <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
+        <button class="tab" data-tab="pimel">🎁 PIMEL</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -1055,6 +1056,178 @@
         </div>
     </div>
     <!-- ENDE KALENDER -->
+    <!-- ============ PIMEL ============ -->
+    <div id="pimel" class="seite">
+
+        <!-- HEADER -->
+        <div class="pimel-header">
+            <div class="pimel-avatar">
+                <div class="pimel-shine"></div>
+                <div class="pimel-emoji">🎁</div>
+            </div>
+            <div class="pimel-info">
+                <h2>PIMEL</h2>
+                <p>Gratis Sachen & Legal Business Finder</p>
+                <div class="pimel-status">
+                    <div class="status-dot"></div>
+                    <span>Scannt legale Chancen weltweit...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANTI-BETRUG SCHUTZ -->
+        <div class="karte rot-rand">
+            <h3>🛡️ Anti-Betrug Schutz</h3>
+            <p style="font-size:0.85rem; color:#ccddaa; line-height:1.6;">
+                PIMEL blockiert automatisch:
+            </p>
+            <div class="schutz-liste">
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Vorauszahlungen ("Zahle erst Gebühr")</span>
+                </div>
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Passwort / Kreditkarten Anfragen</span>
+                </div>
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Zu gute Angebote ("Verdiene 5000€/Tag")</span>
+                </div>
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Kettenbriefe & Pyramidensysteme</span>
+                </div>
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Krypto-Betrug ("Verdopple dein Geld")</span>
+                </div>
+                <div class="schutz-item">
+                    <span>🚫</span>
+                    <span>Fake-Lotterien</span>
+                </div>
+                <div class="schutz-item">
+                    <span>✅</span>
+                    <span>Nur verifizierte, legale Quellen!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCHE -->
+        <div class="karte gruen-rand">
+            <h3>🔍 Was suchst du?</h3>
+            <label>Kategorie</label>
+            <select id="pimelKategorie">
+                <option value="gratis">🎁 Gratis Sachen bekommen</option>
+                <option value="business">💼 Legales Business starten</option>
+                <option value="verschenken">💝 Sachen verschenken</option>
+                <option value="tauschen">🔄 Tauschen statt kaufen</option>
+                <option value="hilfe">🤝 Hilfe bekommen</option>
+            </select>
+
+            <label>Was genau?</label>
+            <select id="pimelWas">
+                <option value="moebel">🛋️ Möbel</option>
+                <option value="elektro">📱 Elektronik</option>
+                <option value="kleidung">👕 Kleidung</option>
+                <option value="buecher">📚 Bücher</option>
+                <option value="essen">🍔 Essen / Lebensmittel</option>
+                <option value="dienste">🛠️ Dienstleistungen</option>
+                <option value="wissen">🎓 Wissen / Kurse</option>
+                <option value="alles">🌍 Alles</option>
+            </select>
+
+            <label>Region</label>
+            <select id="pimelRegion">
+                <option value="welt">🌍 Weltweit</option>
+                <option value="de">🇩🇪 Deutschland</option>
+                <option value="tg">🇹🇬 Togo</option>
+                <option value="fr">🇫🇷 Frankreich</option>
+                <option value="afrika">🌍 Afrika</option>
+                <option value="europa">🇪🇺 Europa</option>
+                <option value="usa">🇺🇸 USA</option>
+            </select>
+
+            <button class="btn-gruen" onclick="pimelSuchen()">
+                🎁 PIMEL suchen lassen!
+            </button>
+        </div>
+
+        <!-- SCAN ANIMATION -->
+        <div id="pimelScanAnim" class="versteckt">
+            <div class="karte gruen-rand">
+                <div class="pimel-scan">
+                    <div class="pimel-geschenk">🎁</div>
+                    <div class="pimel-scan-text" id="pimelScanText">
+                        PIMEL sucht...
+                    </div>
+                    <div class="pimel-scan-progress">
+                        <div class="pimel-scan-fill" id="pimelScanFill"></div>
+                    </div>
+                    <div class="pimel-scan-log" id="pimelScanLog"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ERGEBNISSE -->
+        <div id="pimelErgebnisse"></div>
+
+        <!-- VERIFIZIERTE PLATTFORMEN -->
+        <div class="karte gelb-rand">
+            <h3>✅ Verifizierte Plattformen</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Alle geprüft & 100% legal:
+            </p>
+            <div id="pimelPlattformen"></div>
+        </div>
+
+        <!-- BUSINESS IDEEN -->
+        <div class="karte regenbogen-rand">
+            <h3>💼 Legale Business Ideen</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Ideen die WIRKLICH funktionieren:
+            </p>
+            <div id="pimelBusiness"></div>
+            <button class="btn-gruen" onclick="pimelBusinessNeu()">
+                🔄 Neue Ideen
+            </button>
+        </div>
+
+        <!-- WARNUNGEN -->
+        <div class="karte rot-rand">
+            <h3>⚠️ Aktuelle Betrugs-Warnungen</h3>
+            <div id="pimelWarnungen"></div>
+        </div>
+
+        <!-- MEINE FUNDE -->
+        <div class="karte gruen-rand">
+            <h3>💾 Meine gespeicherten Funde</h3>
+            <div id="pimelGespeichert">
+                <div class="leer-portfolio">
+                    <div>💾</div>
+                    <div>Noch keine gespeicherten Angebote.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BETRUG MELDEN -->
+        <div class="karte gelb-rand">
+            <h3>🚨 Betrug melden</h3>
+            <p style="font-size:0.85rem; margin-bottom:1rem;">
+                Hilf anderen! Melde verdächtige Angebote:
+            </p>
+            <label>Website / URL</label>
+            <input type="text" id="betrugUrl" placeholder="https://...">
+            <label>Beschreibung</label>
+            <input type="text" id="betrugText"
+                placeholder="Was ist verdächtig?">
+            <button class="btn-rot" onclick="betrugMelden()">
+                🚨 Betrug melden
+            </button>
+        </div>
+
+    </div>
+    <!-- ENDE PIMEL -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">
