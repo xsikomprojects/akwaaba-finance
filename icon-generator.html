@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<canvas id="c192" width="192" height="192"></canvas>
+<canvas id="c512" width="512" height="512"></canvas>
+<script>
+function iconZeichnen(id, groesse) {
+    var c = document.getElementById(id);
+    var ctx = c.getContext('2d');
+    var g = ctx.createLinearGradient(0, 0, groesse, groesse);
+    g.addColorStop(0, '#cc0000');
+    g.addColorStop(0.5, '#ffdf00');
+    g.addColorStop(1, '#006a00');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.roundRect(0, 0, groesse, groesse, groesse * 0.2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.beginPath();
+    ctx.arc(groesse/2, groesse/2, groesse*0.38, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#ffdf00';
+    ctx.font = 'bold ' + (groesse*0.35) + 'px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('AQ', groesse/2, groesse/2);
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(groesse*0.35, groesse*0.25, groesse*0.2, groesse*0.1, -0.5, 0, Math.PI*2);
+    ctx.fill();
+    var link = document.createElement('a');
+    link.download = 'icon-' + groesse + '.png';
+    link.href = c.toDataURL();
+    link.click();
+}
+iconZeichnen('c192', 192);
+setTimeout(function() { iconZeichnen('c512', 512); }, 500);
+</script>
+</body>
+</html>

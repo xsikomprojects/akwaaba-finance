@@ -1,0 +1,60 @@
+{
+    "name": "AKWAABA Finance – Quantum AI",
+    "short_name": "AKWAABA",
+    "description": "Premium KI-Finanzplattform aus Togo mit Quantum Intelligence – Mit XsiKOM-DIGITAL-Projects",
+    "start_url": "/akwaaba-finance/index.html",
+    "scope": "/akwaaba-finance/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#0a1200",
+    "theme_color": "#006a00",
+    "lang": "de",
+    "categories": ["finance", "productivity", "utilities"],
+    "icons": [
+        {
+            "src": "images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Dashboard",
+            "short_name": "Dashboard",
+            "description": "Zum Dashboard",
+            "url": "/akwaaba-finance/index.html#dashboard",
+            "icons": [{ "src": "images/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Rechner",
+            "short_name": "Rechner",
+            "description": "Finanzrechner öffnen",
+            "url": "/akwaaba-finance/index.html#rechner",
+            "icons": [{ "src": "images/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Crypto",
+            "short_name": "Crypto",
+            "description": "Crypto Preise",
+            "url": "/akwaaba-finance/index.html#crypto",
+            "icons": [{ "src": "images/icon-192.png", "sizes": "192x192" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}

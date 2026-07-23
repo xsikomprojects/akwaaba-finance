@@ -2116,3 +2116,151 @@ function notificationsStarten() {
 }
 
 notificationsStarten();
+// ============================================
+// PHASE 10 – PWA APP STORE READY
+// ============================================
+
+var installEvent = null;
+
+// === INSTALL PROMPT ===
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    installEvent = e;
+
+    // Banner anzeigen nach 3 Sekunden
+    setTimeout(function() {
+        var banner = document.getElementById('installBanner');
+        if (banner) banner.classList.remove('versteckt');
+    }, 3000);
+});
+
+// === INSTALL BUTTON ===
+document.addEventListener('DOMContentLoaded', function() {
+    var installBtn = document.getElementById('installBtn');
+    var installClose = document.getElementById('installClose');
+
+    if (installBtn) {
+        installBtn.addEventListener('click', function() {
+            if (installEvent) {
+                installEvent.prompt();
+                installEvent.userChoice.then(function(result) {
+                    if (result.outcome === 'accepted') {
+                        console.log('✅ App installiert!');
+                        benachrichtigungZeigen(
+                            '🎉 AKWAABA installiert!',
+                            'Die App wurde erfolgreich installiert. ' +
+                            'Du findest sie jetzt auf deinem Homescreen! 🇹🇬',
+                            '🎉'
+                        );
+                    }
+                    var banner = document.getElementById('installBanner');
+                    if (banner) banner.classList.add('versteckt');
+                    installEvent = null;
+                });
+            }
+        });
+    }
+
+    if (installClose) {
+        installClose.addEventListener('click', function() {
+            var banner = document.getElementById('installBanner');
+            if (banner) banner.classList.add('versteckt');
+        });
+    }
+});
+
+// === APP INSTALLED ===
+window.addEventListener('appinstalled', function() {
+    console.log('✅ PWA wurde installiert!');
+    var banner = document.getElementById('installBanner');
+    if (banner) banner.classList.add('versteckt');
+});
+
+// === OFFLINE DETECTION ===
+var offlineBanner = document.createElement('div');
+offlineBanner.className = 'offline-banner';
+offlineBanner.textContent = '📡 Offline – Du siehst gespeicherte Daten';
+document.body.appendChild(offlineBanner);
+
+window.addEventListener('offline', function() {
+    offlineBanner.classList.add('aktiv');
+    benachrichtigungZeigen(
+        '📡 Offline Modus aktiv',
+        'AKWAABA Finance funktioniert auch ohne Internet! ' +
+        'Deine Daten sind sicher gespeichert.',
+        '📡'
+    );
+});
+
+window.addEventListener('online', function() {
+    offlineBanner.classList.remove('aktiv');
+    benachrichtigungZeigen(
+        '✅ Wieder online!',
+        'Verbindung wiederhergestellt. Daten werden aktualisiert.',
+        '✅'
+    );
+});
+
+// === SERVICE WORKER UPDATE ===
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/akwaaba-finance/sw.js')
+    .then(function(reg) {
+        console.log('✅ SW registriert');
+
+        reg.addEventListener('updatefound', function() {
+            var neuerSW = reg.installing;
+            neuerSW.addEventListener('statechange', function() {
+                if (neuerSW.state === 'installed' &&
+                    navigator.serviceWorker.controller) {
+                    // Update Banner
+                    var updateBanner = document.createElement('div');
+                    updateBanner.className = 'update-banner';
+                    updateBanner.innerHTML =
+                        '🆕 Update verfügbar! ' +
+                        '<button onclick="window.location.reload()">Jetzt</button>';
+                    document.body.appendChild(updateBanner);
+
+                    setTimeout(function() {
+                        if (updateBanner.parentNode) {
+                            updateBanner.parentNode.removeChild(updateBanner);
+                        }
+                    }, 10000);
+                }
+            });
+        });
+    })
+    .catch(function(err) {
+        console.log('SW Fehler:', err);
+    });
+}
+
+// === PERFORMANCE TRACKING ===
+window.addEventListener('load', function() {
+    if ('performance' in window) {
+        var timing = performance.timing;
+        var ladezeit = timing.loadEventEnd - timing.navigationStart;
+        console.log('⚡ App geladen in: ' + ladezeit + 'ms');
+    }
+});
+
+// === SHARE API ===
+function appTeilen() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'AKWAABA Finance – Quantum AI',
+            text: 'Die beste Finanz-App aus Togo! 🇹🇬 Mit Quantum AI Intelligence.',
+            url: 'https://xsikomprojects.github.io/akwaaba-finance/'
+        }).then(function() {
+            console.log('✅ Geteilt!');
+        }).catch(function(err) {
+            console.log('Share Fehler:', err);
+        });
+    } else {
+        // Fallback: Link kopieren
+        navigator.clipboard.writeText(
+            'https://xsikomprojects.github.io/akwaaba-finance/'
+        ).then(function() {
+            alert('✅ Link kopiert! Teile ihn mit deinen Freunden 🇹🇬');
+        });
+    }
+}

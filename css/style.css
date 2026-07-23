@@ -1829,3 +1829,167 @@ canvas {
     font-weight: 700;
     margin-top: 0.3rem;
 }
+/* ============================================
+   PHASE 10 – PWA INSTALL
+   ============================================ */
+
+.install-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1a2e00, #0f1a00);
+    border-top: 3px solid #ffdf00;
+    padding: 1rem;
+    z-index: 9998;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    animation: slideUp 0.5s ease;
+}
+
+.install-banner-inhalt {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.install-logo {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #cc0000, #ffdf00, #006a00);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 #004400;
+}
+
+.install-text { flex: 1; }
+
+.install-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+}
+
+.install-sub {
+    font-size: 0.75rem;
+    color: #668844;
+    font-weight: 700;
+}
+
+.install-btn {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 0.6rem 1rem;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #004400;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #004400;
+}
+
+.install-close {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #668844;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.install-close:hover {
+    background: rgba(204,0,0,0.2);
+    color: #ff4444;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* Offline Banner */
+.offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #cc0000;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    z-index: 10000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.offline-banner.aktiv {
+    transform: translateY(0);
+}
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255,223,0,0.2);
+    border-top-color: #ffdf00;
+    border-radius: 50%;
+    animation: drehen 0.8s linear infinite;
+    margin: 2rem auto;
+}
+
+@keyframes drehen {
+    to { transform: rotate(360deg); }
+}
+
+/* Update Banner */
+.update-banner {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #1a2e00, #0f1a00);
+    border: 2px solid #ffdf00;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    z-index: 9997;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ffdf00;
+    animation: fadeInUp 0.5s ease;
+    white-space: nowrap;
+}
+
+.update-banner button {
+    background: #ffdf00;
+    border: none;
+    border-radius: 50px;
+    padding: 0.3rem 0.8rem;
+    color: #0a1200;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
