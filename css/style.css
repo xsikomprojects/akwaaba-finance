@@ -6357,4 +6357,261 @@ canvas {
     font-style: italic;
     border-left: 4px solid #ff6b00;
 }
+/* ============================================
+   UBER-KI
+   ============================================ */
+
+.uberki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    border-bottom: 3px solid rgba(255,215,0,0.3);
+}
+
+.uberki-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #000000, #333333);
+    border: 3px solid #ffd700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #000, 0 12px 30px rgba(255,215,0,0.5);
+    animation: uberDrive 3s ease-in-out infinite;
+}
+
+@keyframes uberDrive {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+.uberki-emoji {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.uberki-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #ffd700, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.uberki-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.uberki-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #ffd700;
+    font-weight: 800;
+}
+
+/* Plattform Auswahl */
+.plattform-auswahl {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.plat-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.plat-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,215,0,0.4);
+}
+
+.plat-btn.aktiv {
+    border-color: #ffd700;
+    background: rgba(255,215,0,0.1);
+    box-shadow: 0 4px 0 #8b6c00;
+    transform: translateY(-2px);
+}
+
+.plat-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+
+.plat-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #ffd700;
+    margin-bottom: 0.2rem;
+}
+
+.plat-region {
+    font-size: 0.7rem;
+    color: #668844;
+    font-weight: 800;
+}
+
+/* Zeiten Grid */
+.zeiten-grid {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.zeit-item {
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.zeit-item.peak { border-left-color: #00ff88; }
+.zeit-item.hoch { border-left-color: #ffdf00; }
+.zeit-item.mittel { border-left-color: #0088ff; }
+.zeit-item.niedrig { border-left-color: #ff4444; }
+
+.zeit-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffd700;
+    margin-bottom: 0.3rem;
+}
+
+.zeit-uhrzeit {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 800;
+}
+
+.zeit-verdienst {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+.zeit-item.niedrig .zeit-verdienst { color: #ff4444; }
+
+.zeit-tipp {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-weight: 600;
+    font-style: italic;
+}
+
+/* Standort/Profi Tipps */
+.standort-tipp, .profi-tipp {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ffd700;
+}
+
+.standort-tipp span:first-child,
+.profi-tipp span:first-child {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.tipp-content strong {
+    font-family: 'Fredoka One', cursive;
+    color: #ffd700;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.tipp-content p {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* Sterne Tipps */
+.sterne-tipps {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.sterne-tipp {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(255,215,0,0.05);
+    border-radius: 12px;
+    border-left: 4px solid #ffd700;
+    align-items: center;
+}
+
+.sterne-tipp span:first-child {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.sterne-tipp strong {
+    font-family: 'Fredoka One', cursive;
+    color: #ffd700;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.sterne-tipp p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Uber Stats */
+.uber-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.uber-stat-box {
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid rgba(255,215,0,0.2);
+}
+
+.uber-stat-label {
+    font-size: 0.7rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+}
+
+.uber-stat-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: #ffd700;
+}
         

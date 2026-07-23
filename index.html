@@ -67,6 +67,7 @@
         <button class="tab" data-tab="pimel">🎁 PIMEL</button>
         <button class="tab" data-tab="aaliyah">🌟 AALIYAH</button>
         <button class="tab" data-tab="sankofa">🎨 SANKOFA</button>
+        <button class="tab" data-tab="uberki">🚗 UBER-KI</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -1608,6 +1609,209 @@
 
     </div>
     <!-- ENDE SANKOFA -->
+    <!-- ============ UBER-KI ============ -->
+    <div id="uberki" class="seite">
+
+        <!-- HEADER -->
+        <div class="uberki-header">
+            <div class="uberki-avatar">
+                <div class="uberki-emoji">🚗</div>
+            </div>
+            <div class="uberki-info">
+                <h2>UBER-KI</h2>
+                <p>Fahrer Gewinn-Optimierung</p>
+                <div class="uberki-status">
+                    <div class="status-dot"></div>
+                    <span>Maximiere deinen Verdienst 💰</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLATTFORM WÄHLEN -->
+        <div class="karte gruen-rand">
+            <h3>🚗 Auf welcher Plattform fährst du?</h3>
+            <div class="plattform-auswahl">
+                <button class="plat-btn aktiv" onclick="platWaehlen('uber', this)">
+                    <div class="plat-icon">🚙</div>
+                    <div class="plat-name">Uber</div>
+                    <div class="plat-region">Weltweit</div>
+                </button>
+                <button class="plat-btn" onclick="platWaehlen('bolt', this)">
+                    <div class="plat-icon">⚡</div>
+                    <div class="plat-name">Bolt</div>
+                    <div class="plat-region">EU/Afrika</div>
+                </button>
+                <button class="plat-btn" onclick="platWaehlen('yango', this)">
+                    <div class="plat-icon">🌍</div>
+                    <div class="plat-name">Yango</div>
+                    <div class="plat-region">Afrika</div>
+                </button>
+                <button class="plat-btn" onclick="platWaehlen('lyft', this)">
+                    <div class="plat-icon">🚕</div>
+                    <div class="plat-name">Lyft</div>
+                    <div class="plat-region">USA/CA</div>
+                </button>
+                <button class="plat-btn" onclick="platWaehlen('freenow', this)">
+                    <div class="plat-icon">🆓</div>
+                    <div class="plat-name">FREE NOW</div>
+                    <div class="plat-region">Europa</div>
+                </button>
+                <button class="plat-btn" onclick="platWaehlen('inDrive', this)">
+                    <div class="plat-icon">🌐</div>
+                    <div class="plat-name">inDrive</div>
+                    <div class="plat-region">Global</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- EINNAHMEN TRACKER -->
+        <div class="karte gelb-rand">
+            <h3>💰 Heute erfassen</h3>
+            <label>Verdient heute (€/CFA)</label>
+            <input type="number" id="uberVerdient" placeholder="120" min="0" step="0.5">
+            <label>Fahrten heute</label>
+            <input type="number" id="uberFahrten" placeholder="15" min="0">
+            <label>Stunden gearbeitet</label>
+            <input type="number" id="uberStunden" placeholder="8" min="0" step="0.5">
+            <label>Kilometer gefahren</label>
+            <input type="number" id="uberKm" placeholder="150" min="0">
+            <label>Kraftstoff Kosten</label>
+            <input type="number" id="uberSprit" placeholder="30" min="0" step="0.5">
+            <button class="btn-gruen" onclick="uberErfassen()">
+                💾 Tag speichern
+            </button>
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="karte regenbogen-rand">
+            <h3>📊 Deine Statistik</h3>
+            <div id="uberStats"></div>
+        </div>
+
+        <!-- BESTE ZEITEN -->
+        <div class="karte gelb-rand">
+            <h3>⏰ Beste Verdienst-Zeiten</h3>
+            <div class="zeiten-grid">
+                <div class="zeit-item peak">
+                    <div class="zeit-titel">🌅 Morgen Rush</div>
+                    <div class="zeit-uhrzeit">7:00 - 9:30</div>
+                    <div class="zeit-verdienst">+50% Bonus</div>
+                    <div class="zeit-tipp">Berufsverkehr, Business-Kunden</div>
+                </div>
+                <div class="zeit-item mittel">
+                    <div class="zeit-titel">☀️ Mittag</div>
+                    <div class="zeit-uhrzeit">11:30 - 14:00</div>
+                    <div class="zeit-verdienst">Normal</div>
+                    <div class="zeit-tipp">Business Lunch, moderate Nachfrage</div>
+                </div>
+                <div class="zeit-item peak">
+                    <div class="zeit-titel">🌆 Abend Rush</div>
+                    <div class="zeit-uhrzeit">17:00 - 19:30</div>
+                    <div class="zeit-verdienst">+60% Bonus</div>
+                    <div class="zeit-tipp">Feierabend-Verkehr, Höchste Nachfrage!</div>
+                </div>
+                <div class="zeit-item peak">
+                    <div class="zeit-titel">🌙 Nightlife</div>
+                    <div class="zeit-uhrzeit">22:00 - 03:00 Fr/Sa</div>
+                    <div class="zeit-verdienst">+80% Bonus</div>
+                    <div class="zeit-tipp">Bars, Clubs, Restaurants – Gold-Zeit!</div>
+                </div>
+                <div class="zeit-item hoch">
+                    <div class="zeit-titel">🌧️ Regen/Schnee</div>
+                    <div class="zeit-uhrzeit">Immer</div>
+                    <div class="zeit-verdienst">+40-100% Bonus</div>
+                    <div class="zeit-tipp">Menschen wollen nicht laufen!</div>
+                </div>
+                <div class="zeit-item niedrig">
+                    <div class="zeit-titel">😴 Vermeiden</div>
+                    <div class="zeit-uhrzeit">14:00 - 16:00</div>
+                    <div class="zeit-verdienst">Wenig Fahrten</div>
+                    <div class="zeit-tipp">Pause machen, essen, tanken</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STANDORT TIPPS -->
+        <div class="karte gruen-rand">
+            <h3>📍 Beste Standort-Strategien</h3>
+            <div id="standortTipps"></div>
+        </div>
+
+        <!-- PROFI TIPPS -->
+        <div class="karte regenbogen-rand">
+            <h3>🏆 Profi-Fahrer Tipps</h3>
+            <div id="profiTipps"></div>
+        </div>
+
+        <!-- ZIEL RECHNER -->
+        <div class="karte rot-rand">
+            <h3>🎯 Verdienst-Ziel Rechner</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Wie viele Stunden brauchst du für dein Ziel?
+            </p>
+            <label>Monats-Ziel (€)</label>
+            <input type="number" id="zielMonat" placeholder="3000" min="0">
+            <label>Durchschnittlicher Stundenverdienst (€)</label>
+            <input type="number" id="stundenVerd" placeholder="15" min="0" step="0.5">
+            <label>Kosten pro Monat (€)</label>
+            <input type="number" id="monatsKosten" placeholder="500" min="0">
+            <button class="btn-gruen" onclick="zielBerechnen()">
+                🎯 Berechnen
+            </button>
+            <div id="zielErgebnis"></div>
+        </div>
+
+        <!-- BEWERTUNGEN TIPPS -->
+        <div class="karte gelb-rand">
+            <h3>⭐ 5-Sterne Bewertungen</h3>
+            <div class="sterne-tipps">
+                <div class="sterne-tipp">
+                    <span>💧</span>
+                    <div>
+                        <strong>Wasserflaschen gratis</strong>
+                        <p>Kostet 0.20€, bringt 5-Sterne!</p>
+                    </div>
+                </div>
+                <div class="sterne-tipp">
+                    <span>🍬</span>
+                    <div>
+                        <strong>Bonbons/Kaugummi</strong>
+                        <p>Kleine Aufmerksamkeit, große Wirkung</p>
+                    </div>
+                </div>
+                <div class="sterne-tipp">
+                    <span>📱</span>
+                    <div>
+                        <strong>Ladekabel für alle</strong>
+                        <p>iPhone + Android bereit halten</p>
+                    </div>
+                </div>
+                <div class="sterne-tipp">
+                    <span>🎵</span>
+                    <div>
+                        <strong>Musik nach Wunsch</strong>
+                        <p>"Welche Musik möchten Sie hören?"</p>
+                    </div>
+                </div>
+                <div class="sterne-tipp">
+                    <span>🌡️</span>
+                    <div>
+                        <strong>Temperatur fragen</strong>
+                        <p>"Ist die Temperatur ok?" = 5 Sterne!</p>
+                    </div>
+                </div>
+                <div class="sterne-tipp">
+                    <span>😊</span>
+                    <div>
+                        <strong>Freundlich grüßen</strong>
+                        <p>Lächeln + Name = Trinkgeld!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- ENDE UBER-KI -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">

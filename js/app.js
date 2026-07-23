@@ -6542,3 +6542,231 @@ function storyGenerieren() {
 
 // Auto-Start
 produkteAnzeigen();
+// ============================================
+// UBER-KI – Fahrer Optimierung
+// ============================================
+
+var aktivePlat = 'uber';
+var uberDaten = JSON.parse(localStorage.getItem('uber-daten')) || [];
+
+function platWaehlen(plat, btn) {
+    aktivePlat = plat;
+    document.querySelectorAll('.plat-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+    standortTippsAnzeigen();
+    profiTippsAnzeigen();
+}
+
+function uberErfassen() {
+    var verdient = parseFloat(document.getElementById('uberVerdient').value) || 0;
+    var fahrten = parseInt(document.getElementById('uberFahrten').value) || 0;
+    var stunden = parseFloat(document.getElementById('uberStunden').value) || 0;
+    var km = parseFloat(document.getElementById('uberKm').value) || 0;
+    var sprit = parseFloat(document.getElementById('uberSprit').value) || 0;
+
+    if (verdient <= 0) {
+        toast('Bitte Verdienst eingeben!', 'error');
+        return;
+    }
+
+    uberDaten.push({
+        id: Date.now(),
+        datum: new Date().toLocaleDateString('de-DE'),
+        plattform: aktivePlat,
+        verdient: verdient,
+        fahrten: fahrten,
+        stunden: stunden,
+        km: km,
+        sprit: sprit,
+        netto: verdient - sprit
+    });
+
+    localStorage.setItem('uber-daten', JSON.stringify(uberDaten));
+
+    document.getElementById('uberVerdient').value = '';
+    document.getElementById('uberFahrten').value = '';
+    document.getElementById('uberStunden').value = '';
+    document.getElementById('uberKm').value = '';
+    document.getElementById('uberSprit').value = '';
+
+    uberStatsAnzeigen();
+    toast('💾 Tag gespeichert!');
+    confetti();
+}
+
+function uberStatsAnzeigen() {
+    var container = document.getElementById('uberStats');
+    if (!container) return;
+
+    if (uberDaten.length === 0) {
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; padding:1rem;">' +
+            'Erfasse deinen ersten Tag um Statistiken zu sehen!</p>';
+        return;
+    }
+
+    var gesVerdient = 0, gesFahrten = 0, gesStunden = 0, gesKm = 0, gesSprit = 0;
+    uberDaten.forEach(function(d) {
+        gesVerdient += d.verdient;
+        gesFahrten += d.fahrten;
+        gesStunden += d.stunden;
+        gesKm += d.km;
+        gesSprit += d.sprit;
+    });
+
+    var netto = gesVerdient - gesSprit;
+    var proStunde = gesStunden > 0 ? netto / gesStunden : 0;
+    var proFahrt = gesFahrten > 0 ? gesVerdient / gesFahrten : 0;
+    var proKm = gesKm > 0 ? gesVerdient / gesKm : 0;
+    var tage = uberDaten.length;
+
+    container.innerHTML =
+        '<div class="uber-stats-grid">' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Gesamt Verdient</div>' +
+                '<div class="uber-stat-wert positiv">' + euro(gesVerdient) + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Netto (nach Sprit)</div>' +
+                '<div class="uber-stat-wert positiv">' + euro(netto) + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Pro Stunde</div>' +
+                '<div class="uber-stat-wert gold">' + euro(proStunde) + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Pro Fahrt</div>' +
+                '<div class="uber-stat-wert gold">' + euro(proFahrt) + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Total Fahrten</div>' +
+                '<div class="uber-stat-wert">' + gesFahrten + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Total Kilometer</div>' +
+                '<div class="uber-stat-wert">' + gesKm.toFixed(0) + ' km</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Sprit-Kosten</div>' +
+                '<div class="uber-stat-wert negativ">' + euro(gesSprit) + '</div>' +
+            '</div>' +
+            '<div class="uber-stat-box">' +
+                '<div class="uber-stat-label">Arbeitstage</div>' +
+                '<div class="uber-stat-wert">' + tage + '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="tipp-box" style="margin-top:1rem;">' +
+            (proStunde >= 20 ?
+                '🏆 <strong>Exzellent!</strong> ' + euro(proStunde) +
+                '/h ist Top-Verdienst! Weiter so!' :
+                proStunde >= 15 ?
+                '👍 <strong>Gut!</strong> ' + euro(proStunde) +
+                '/h ist solide. Ziel: 20€+/h.' :
+                '💡 <strong>Verbessern:</strong> ' + euro(proStunde) +
+                '/h. Fahre zu Peak-Zeiten für mehr!') +
+        '</div>';
+}
+
+function standortTippsAnzeigen() {
+    var container = document.getElementById('standortTipps');
+    if (!container) return;
+
+    var tipps = [
+        { icon: '✈️', titel: 'Flughafen', text: 'Immer Warteschlangen aber lange Fahrten = mehr Umsatz. Nachts besonders lukrativ!' },
+        { icon: '🚂', titel: 'Bahnhof', text: 'Rush Hour = Goldgrube. Positioniere dich 5 Min vor Zugankunft.' },
+        { icon: '🎭', titel: 'Theater/Konzerte', text: 'Nach Vorstellungsende gibt es Boost-Preise. Prüfe Event-Kalender!' },
+        { icon: '🏨', titel: 'Hotel-Viertel', text: 'Touristen zahlen gerne Trinkgeld. Business-Hotels = Business-Kunden.' },
+        { icon: '🍺', titel: 'Bar/Club Viertel', text: 'Fr/Sa 22:00-04:00 = Beste Zeit! Menschen wollen sicher heimfahren.' },
+        { icon: '🏢', titel: 'Business-Districts', text: 'Wochentags 7-9 Uhr und 17-19 Uhr = Berufsverkehr = viele Fahrten.' },
+        { icon: '🏥', titel: 'Krankenhaus', text: 'Konstante Nachfrage, weniger Konkurrenz. Meist ruhige Fahrgäste.' },
+        { icon: '🎓', titel: 'Universitäten', text: 'Semesterbeginn/Ende + Prüfungszeit = viele junge Fahrgäste.' }
+    ];
+
+    container.innerHTML = tipps.map(function(t) {
+        return '<div class="standort-tipp">' +
+            '<span>' + t.icon + '</span>' +
+            '<div class="tipp-content">' +
+                '<strong>' + t.titel + '</strong>' +
+                '<p>' + t.text + '</p>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function profiTippsAnzeigen() {
+    var container = document.getElementById('profiTipps');
+    if (!container) return;
+
+    var tipps = [
+        { icon: '⛽', titel: 'Sprit clever tanken', text: 'App "Clever Tanken" nutzen! Bis zu 15% sparen. Nachts/morgens billiger.' },
+        { icon: '🚗', titel: 'Auto klein & sparsam', text: 'Kleine E-Autos = weniger Kosten = mehr Netto-Gewinn!' },
+        { icon: '📱', titel: 'Multi-Apps nutzen', text: 'Uber + Bolt + FREE NOW gleichzeitig laufen lassen = mehr Aufträge!' },
+        { icon: '💧', titel: 'Wasser & Snacks', text: 'Wasserflasche + Bonbon kosten 30 Cent, bringen 5-Sterne Reviews!' },
+        { icon: '📊', titel: 'Steuern absetzen', text: 'Alle Belege sammeln! Sprit, Reparatur, Handy = absetzbar!' },
+        { icon: '🎯', titel: 'Boost-Zonen jagen', text: 'App zeigt Boost-Zonen (Surge Pricing). Dort fahren = 1.5-3x Preis!' },
+        { icon: '🏆', titel: 'Ratings pflegen', text: 'Unter 4.7 = Sperrgefahr. Immer freundlich = 5 Sterne!' },
+        { icon: '🚿', titel: 'Auto sauber halten', text: 'Innenraum wöchentlich reinigen. Duftbaum kostet 2€!' },
+        { icon: '💰', titel: 'Trinkgeld verdienen', text: '"Danke für die Fahrt, wünsche schönen Tag!" = +30% Trinkgeld!' },
+        { icon: '📈', titel: 'Peak Bonus nutzen', text: 'Uber Quest & Boost = zusätzliches Geld für x Fahrten. Immer mitmachen!' }
+    ];
+
+    container.innerHTML = tipps.map(function(t) {
+        return '<div class="profi-tipp">' +
+            '<span>' + t.icon + '</span>' +
+            '<div class="tipp-content">' +
+                '<strong>' + t.titel + '</strong>' +
+                '<p>' + t.text + '</p>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function zielBerechnen() {
+    var ziel = parseFloat(document.getElementById('zielMonat').value) || 0;
+    var std = parseFloat(document.getElementById('stundenVerd').value) || 15;
+    var kosten = parseFloat(document.getElementById('monatsKosten').value) || 0;
+
+    if (ziel <= 0) {
+        toast('Bitte Ziel eingeben!', 'error');
+        return;
+    }
+
+    var brutto = ziel + kosten;
+    var stundenNotig = brutto / std;
+    var tageNotig = stundenNotig / 8;
+    var proTag = brutto / 22; // 22 Arbeitstage
+
+    document.getElementById('zielErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>🎯 Dein Ziel: ' + euro(ziel) + '/Monat Netto</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Brutto notwendig:</span>' +
+                '<span class="gold">' + euro(brutto) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Stunden pro Monat:</span>' +
+                '<span class="positiv">' + stundenNotig.toFixed(0) + ' h</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Arbeitstage (8h):</span>' +
+                '<span>' + tageNotig.toFixed(0) + ' Tage</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Pro Tag verdienen:</span>' +
+                '<span class="gold">' + euro(proTag) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Tipp:</strong> Bei 22 Arbeitstagen pro Monat brauchst du ' +
+                'nur ' + (stundenNotig/22).toFixed(1) + ' Stunden pro Tag. Ist machbar!' +
+            '</div>' +
+        '</div>';
+}
+
+// Auto-Start
+setTimeout(function() {
+    uberStatsAnzeigen();
+    standortTippsAnzeigen();
+    profiTippsAnzeigen();
+}, 1000);
