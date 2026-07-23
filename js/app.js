@@ -10016,3 +10016,558 @@ setTimeout(function() {
     if (turboMode) document.body.classList.add('turbo-mode');
     autoSperreStarten();
 }, 1500);
+// ============================================
+// ETAPPE 2 - NEUE 5 KIs + MARKETING
+// ============================================
+
+// === SPRACH-KI ===
+var sprachBusinessDB = [
+    { icon: '📚', name: 'Online-Sprachlehrer', desc: 'Preply, iTalki, Verbling', verdienst: '15-40€/h' },
+    { icon: '🎓', name: 'Sprachkurs erstellen', desc: 'Udemy, Coursera, eigene Website', verdienst: '500-5000€/Monat' },
+    { icon: '📝', name: 'Übersetzer', desc: 'Für Firmen & Behörden', verdienst: '20-80€/Stunde' },
+    { icon: '🎤', name: 'Sprach-Coach', desc: 'Aussprache & Business-Sprache', verdienst: '50-150€/h' },
+    { icon: '📖', name: 'Sprachbücher schreiben', desc: 'Amazon KDP, Self-Publishing', verdienst: '100-3000€/Monat' },
+    { icon: '🎥', name: 'YouTube Sprachkanal', desc: 'Werbung + Kurse', verdienst: '500-10000€/Monat' }
+];
+
+var sprachPlattformenDB = [
+    { icon: '📚', name: 'Preply', desc: 'Beliebteste Plattform, weltweit', url: 'https://preply.com/tutor' },
+    { icon: '🌐', name: 'iTalki', desc: 'Über 5 Millionen Schüler', url: 'https://www.italki.com' },
+    { icon: '💬', name: 'Verbling', desc: 'Fokus auf Business-Sprachen', url: 'https://www.verbling.com' },
+    { icon: '🎓', name: 'Cambly', desc: 'Nur Englisch, sofortige Buchung', url: 'https://www.cambly.com' }
+];
+
+var sprachTippsDB = [
+    { icon: '🎯', titel: 'Nische wählen', text: 'Business-Deutsch für Franzosen ist Gold wert!' },
+    { icon: '📱', titel: 'Video-Portfolio', text: 'YouTube-Kanal aufbauen bringt gratis Schüler' },
+    { icon: '⭐', titel: 'Reviews wichtig', text: 'Erste 10 Lektionen günstig für gute Bewertungen' },
+    { icon: '🇹🇬', titel: 'Ewe/Twi', text: 'Afrikanische Sprachen sind selten = hoher Preis!' }
+];
+
+function sprachBerechnen() {
+    var anzahl = parseInt(document.getElementById('sprachAnzahl').value);
+    var std = parseFloat(document.getElementById('sprachStd').value) || 0;
+    var preis = parseFloat(document.getElementById('sprachPreis').value) || 0;
+
+    var boost = { 2: 1, 3: 1.2, 4: 1.4, 5: 1.6 }[anzahl];
+    var woche = std * preis * boost;
+    var monat = woche * 4;
+    var jahr = monat * 12;
+
+    document.getElementById('sprachErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Sprach-Verdienst</h4>' +
+            '<div class="ergebnis-zeile"><span>Multi-Sprach Boost:</span><span class="positiv">+' + Math.round((boost-1)*100) + '%</span></div>' +
+            '<div class="ergebnis-zeile"><span>Pro Woche:</span><span>' + euro(woche) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.4rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+        '</div>';
+}
+
+function renderMiniBiz(containerId, data, farbe) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = data.map(function(d) {
+        return '<div class="mini-biz" style="border-left-color:' + farbe + ';">' +
+            '<div class="mini-biz-icon">' + d.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + d.name + '</div>' +
+                '<div class="mini-biz-desc">' + d.desc + '</div>' +
+                (d.url ? '<a href="' + d.url + '" target="_blank" style="color:' + farbe + '; font-size:0.8rem; font-weight:800;">🔗 Öffnen</a>' : '') +
+            '</div>' +
+            (d.verdienst ? '<div class="mini-biz-verdienst">' + d.verdienst + '</div>' : '') +
+        '</div>';
+    }).join('');
+}
+
+function renderTipps(containerId, data, farbe) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = data.map(function(t) {
+        return '<div class="mini-biz" style="border-left-color:' + farbe + ';">' +
+            '<div class="mini-biz-icon">' + t.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + t.titel + '</div>' +
+                '<div class="mini-biz-desc">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === REZEPT-KI ===
+var rezeptBusinessDB = [
+    { icon: '📚', name: 'Kochbuch Amazon KDP', desc: 'Digital + Print veröffentlichen', verdienst: '200-5000€/Monat' },
+    { icon: '💻', name: 'Online Kochkurs', desc: 'Udemy, Skillshare, eigene Site', verdienst: '500-10000€/Monat' },
+    { icon: '📝', name: 'Food Blog + Ads', desc: 'AdSense + Affiliate', verdienst: '100-8000€/Monat' },
+    { icon: '📹', name: 'YouTube Kochkanal', desc: 'Werbung + Sponsoring', verdienst: '500-20000€/Monat' },
+    { icon: '📱', name: 'Instagram Foodie', desc: 'Sponsoring + Produkte', verdienst: '100-5000€/Monat' },
+    { icon: '🍽️', name: 'Meal-Prep Service', desc: 'Lokal Kunden beliefern', verdienst: '1500-8000€/Monat' }
+];
+
+var rezeptTrendsDB = [
+    { icon: '🌱', name: 'Vegan/Plant-Based', desc: 'Wächst 15% pro Jahr!', verdienst: 'Hoher Markt' },
+    { icon: '🌍', name: 'Afrikanische Küche', desc: 'Jollof, Fufu, Injera boomen', verdienst: 'Wenig Konkurrenz' },
+    { icon: '💪', name: 'High Protein', desc: 'Fitness-Community', verdienst: 'Stabile Nachfrage' },
+    { icon: '⏱️', name: '30-Minuten Rezepte', desc: 'Für Berufstätige', verdienst: 'Große Zielgruppe' },
+    { icon: '🥑', name: 'Keto/Low Carb', desc: 'Diät-Bewegung', verdienst: 'Kaufkraft hoch' },
+    { icon: '👶', name: 'Baby & Kinder', desc: 'Eltern zahlen gut', verdienst: 'Wachsend' }
+];
+
+var rezeptFotoDB = [
+    { icon: '☀️', titel: 'Natürliches Licht', text: 'Immer am Fenster fotografieren!' },
+    { icon: '📐', titel: 'Draufsicht (Flatlay)', text: 'Von oben zeigt Details am besten' },
+    { icon: '🎨', titel: 'Farbige Teller', text: 'Kontrast zum Essen erhöhen' },
+    { icon: '🌿', titel: 'Frische Zutaten', text: 'Immer im Bild = professioneller' }
+];
+
+function rezeptBerechnen() {
+    var anzahl = parseInt(document.getElementById('rezeptAnzahl').value) || 0;
+    var kanal = document.getElementById('rezeptKanal').value;
+    var reichweite = parseInt(document.getElementById('rezeptReichweite').value) || 0;
+
+    var monat = 0;
+    var beschreibung = '';
+
+    if (kanal === 'ebook') {
+        monat = (reichweite / 100) * 12; // 1% kauft für 12€
+        beschreibung = 'E-Book Verkäufe';
+    } else if (kanal === 'online') {
+        monat = (reichweite / 200) * 80; // 0.5% kauft für 80€
+        beschreibung = 'Online-Kurs Verkäufe';
+    } else if (kanal === 'blog') {
+        monat = reichweite * 0.05; // 5 Cent pro Besucher
+        beschreibung = 'Blog Werbeeinnahmen';
+    } else if (kanal === 'youtube') {
+        monat = (reichweite / 1000) * 3; // 3€ pro 1000 Views
+        beschreibung = 'YouTube Werbung';
+    }
+
+    document.getElementById('rezeptErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 ' + beschreibung + '</h4>' +
+            '<div class="ergebnis-zeile"><span>Reichweite/Monat:</span><span>' + reichweite.toLocaleString('de-DE') + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.4rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(monat * 12) + '</span></div>' +
+        '</div>';
+}
+
+// === MODE-KI ===
+var modeBusinessDB = [
+    { icon: '👗', name: 'Eigene Fashion-Marke', desc: 'Design + Produktion + Verkauf', verdienst: '500-50000€/Monat' },
+    { icon: '📱', name: 'Fashion Influencer', desc: 'Instagram, TikTok, YouTube', verdienst: '200-20000€/Monat' },
+    { icon: '✂️', name: 'Custom Tailoring', desc: 'Maßanfertigung online', verdienst: '30-500€/Stück' },
+    { icon: '🌍', name: 'Afrikanische Mode', desc: 'Ankara, Kente international', verdienst: '50-300€/Stück' },
+    { icon: '💎', name: 'Handmade Accessoires', desc: 'Etsy, Instagram Shop', verdienst: '15-200€/Stück' },
+    { icon: '📸', name: 'Fashion Fotograf', desc: 'Für Marken & Models', verdienst: '500-5000€/Shoot' }
+];
+
+var modeTrendsDB = [
+    { icon: '🌱', name: 'Sustainable Fashion', desc: 'Öko + Fair Trade wächst rasant', verdienst: 'Premium Preise' },
+    { icon: '🌍', name: 'Ankara / Afrikanisch', desc: 'Beyoncé macht Werbung dafür!', verdienst: 'Sehr gefragt' },
+    { icon: '✂️', name: 'Made-to-Measure', desc: 'Individuell = teurer verkaufbar', verdienst: '+200% Marge' },
+    { icon: '👖', name: 'Vintage/Second Hand', desc: 'Depop, Vinted boomt', verdienst: '5x Einkaufspreis' },
+    { icon: '💎', name: 'Luxury Streetwear', desc: 'Hype-Kollektionen', verdienst: 'Sehr hoch' }
+];
+
+var modePlattformenDB = [
+    { icon: '🛍️', name: 'Etsy', desc: 'Handmade #1 weltweit', url: 'https://www.etsy.com/sell' },
+    { icon: '📦', name: 'Shopify', desc: 'Eigener Online-Shop', url: 'https://www.shopify.com' },
+    { icon: '👗', name: 'Vinted', desc: 'Second Hand einfach', url: 'https://www.vinted.de' },
+    { icon: '🌍', name: 'Afrikrea', desc: 'Speziell für afrikanische Mode', url: 'https://afrikrea.com' }
+];
+
+function modeBerechnen() {
+    var kosten = parseFloat(document.getElementById('modeKosten').value) || 0;
+    var preis = parseFloat(document.getElementById('modePreis').value) || 0;
+    var stueck = parseInt(document.getElementById('modeStueck').value) || 0;
+
+    var marge = preis - kosten;
+    var margeProzent = ((marge / kosten) * 100).toFixed(0);
+    var monat = marge * stueck;
+    var jahr = monat * 12;
+
+    document.getElementById('modeErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Deine Marge</h4>' +
+            '<div class="ergebnis-zeile"><span>Gewinn pro Stück:</span><span class="positiv">' + euro(marge) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Marge:</span><span class="gold">' + margeProzent + '%</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.4rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+        '</div>';
+}
+
+// === SPORT-KI ===
+var sportBusinessDB = [
+    { icon: '💪', name: 'Personal Trainer', desc: 'Präsenz oder Online', verdienst: '40-150€/h' },
+    { icon: '🧘', name: 'Yoga/Fitness Kurse', desc: 'Studio oder Zoom', verdienst: '15-80€/Person' },
+    { icon: '📱', name: 'Online Fitness App', desc: 'Eigene App entwickeln', verdienst: '1000-100000€/Monat' },
+    { icon: '📹', name: 'YouTube Fitness', desc: 'Workouts + Werbung', verdienst: '500-30000€/Monat' },
+    { icon: '📚', name: 'Fitness E-Book', desc: 'Ernährung + Training', verdienst: '10-50€/Verkauf' },
+    { icon: '🏃', name: 'Sportbekleidung', desc: 'Eigene Marke launchen', verdienst: 'Skalierbar' }
+];
+
+var sportPlattformenDB = [
+    { icon: '💪', name: 'Trainerize', desc: 'Software für Personal Trainer', url: 'https://www.trainerize.com' },
+    { icon: '🧘', name: 'Zoom', desc: 'Für Online-Kurse', url: 'https://zoom.us' },
+    { icon: '📱', name: 'FitBit Coach', desc: 'Als Coach anmelden', url: 'https://www.fitbit.com' },
+    { icon: '📹', name: 'YouTube', desc: 'Werbung + Sponsoring', url: 'https://youtube.com' }
+];
+
+var sportKarriereDB = [
+    { icon: '📜', titel: 'Zertifizierung', text: 'ACE, NASM oder deutsche Trainerlizenz' },
+    { icon: '📱', titel: 'Social Media', text: 'Instagram = 80% der Kundengewinnung' },
+    { icon: '💰', titel: 'Online skalieren', text: 'Passives Einkommen durch Kurse' },
+    { icon: '🌟', titel: 'Nische wählen', text: 'Frauen 50+, Athleten, Reha, etc.' }
+];
+
+function sportBerechnen() {
+    var preis = parseFloat(document.getElementById('sportPreis').value) || 0;
+    var sessions = parseInt(document.getElementById('sportSessions').value) || 0;
+    var wochen = parseInt(document.getElementById('sportWochen').value) || 4;
+
+    var monat = preis * sessions * wochen;
+    var jahr = monat * 12;
+
+    document.getElementById('sportErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Personal Trainer Verdienst</h4>' +
+            '<div class="ergebnis-zeile"><span>Sessions/Monat:</span><span>' + (sessions * wochen) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.4rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+            '<div class="tipp-box">💡 Mit Online-Kursen kannst du das VERDOPPELN!</div>' +
+        '</div>';
+}
+
+// === REISE-KI ===
+var reiseBusinessDB = [
+    { icon: '📝', name: 'Reise-Blog', desc: 'Blog + Ads + Sponsoring', verdienst: '200-15000€/Monat' },
+    { icon: '📷', name: 'Reise-Fotograf', desc: 'Verkauf an Magazine', verdienst: '500-10000€/Auftrag' },
+    { icon: '📹', name: 'YouTube Traveler', desc: 'Ads + Sponsored Trips', verdienst: '500-50000€/Monat' },
+    { icon: '🎓', name: 'Reise-Berater', desc: 'Individuelle Planungen', verdienst: '100-500€/Beratung' },
+    { icon: '📚', name: 'Reise-Guides', desc: 'E-Books, Amazon KDP', verdienst: '200-5000€/Monat' },
+    { icon: '🏨', name: 'Airbnb Host', desc: 'Eigene Immobilie vermieten', verdienst: '500-10000€/Monat' }
+];
+
+var reiseNischenDB = [
+    { icon: '💰', name: 'Budget-Reisen', desc: 'Backpacker, Digital Nomads', verdienst: 'Große Zielgruppe' },
+    { icon: '💎', name: 'Luxus-Reisen', desc: 'Hohe Provisionen', verdienst: 'Premium Preise' },
+    { icon: '🌍', name: 'Afrika-Reisen', desc: 'Wenig Konkurrenz!', verdienst: 'Sehr gefragt' },
+    { icon: '🍽️', name: 'Food-Reisen', desc: 'Kulinarische Touren', verdienst: 'Trendig' },
+    { icon: '♻️', name: 'Öko-Tourismus', desc: 'Nachhaltiges Reisen', verdienst: 'Wachstumsmarkt' },
+    { icon: '👨‍💻', name: 'Digital Nomads', desc: 'Arbeit + Reisen', verdienst: 'Boomt weltweit' }
+];
+
+var reiseTogoDB = [
+    { icon: '🏖️', name: 'Strände (Lomé)', desc: 'Sonne + Meer + Kultur', verdienst: 'Wenig Tourismus' },
+    { icon: '🏔️', name: 'Kpalimé Berge', desc: 'Wandern + Wasserfälle', verdienst: 'Insider-Tipp' },
+    { icon: '🎨', name: 'Kulturreisen', desc: 'Voodoo, Märkte, Kunst', verdienst: 'Einzigartig' },
+    { icon: '📸', name: 'Foto-Safari', desc: 'Fazao Nationalpark', verdienst: 'Instagram-tauglich' }
+];
+
+function reiseBerechnen() {
+    var besucher = parseInt(document.getElementById('reiseBesucher').value) || 0;
+    var cpm = parseFloat(document.getElementById('reiseCPM').value) || 0;
+    var sponsor = parseFloat(document.getElementById('reiseSponsor').value) || 0;
+
+    var werbung = (besucher / 1000) * cpm;
+    var monat = werbung + sponsor;
+    var jahr = monat * 12;
+
+    document.getElementById('reiseErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Blogger-Verdienst</h4>' +
+            '<div class="ergebnis-zeile"><span>Werbeeinnahmen:</span><span>' + euro(werbung) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Sponsoring:</span><span>' + euro(sponsor) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.4rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+        '</div>';
+}
+
+// === MARKETING & QR CODE ===
+function qrCodeErstellen() {
+    var container = document.getElementById('qrcode');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    // Fallback: Google Charts QR API
+    var url = 'https://xsikomprojects.github.io/akwaaba-finance/';
+    var qrImg = document.createElement('img');
+    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' +
+        encodeURIComponent(url) + '&bgcolor=ffffff&color=000000&margin=10';
+    qrImg.alt = 'AKWAABA QR-Code';
+    qrImg.style.maxWidth = '100%';
+    qrImg.id = 'qrImage';
+    container.appendChild(qrImg);
+}
+
+function qrCodeDownload() {
+    var img = document.getElementById('qrImage');
+    if (!img) return;
+
+    var link = document.createElement('a');
+    link.download = 'akwaaba-qr-code.png';
+    link.href = img.src;
+    link.click();
+
+    toast('📥 QR-Code heruntergeladen!');
+}
+
+function qrCodeTeilen() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'AKWAABA Finance',
+            text: 'Deine Finanz-App aus Togo! 🇹🇬',
+            url: 'https://xsikomprojects.github.io/akwaaba-finance/'
+        }).then(function() {
+            toast('✅ Geteilt!');
+        }).catch(function() {});
+    } else {
+        linkKopieren();
+    }
+}
+
+function linkKopieren() {
+    var link = document.getElementById('appLink');
+    link.select();
+    link.setSelectionRange(0, 99999);
+
+    try {
+        navigator.clipboard.writeText(link.value);
+        toast('📋 Link kopiert!');
+    } catch (e) {
+        document.execCommand('copy');
+        toast('📋 Link kopiert!');
+    }
+}
+
+function teileAuf(plattform) {
+    var url = encodeURIComponent('https://xsikomprojects.github.io/akwaaba-finance/');
+    var text = encodeURIComponent('🇹🇬 AKWAABA Finance - Die beste Finanz-App aus Togo! Kostenlos & mit 16 KIs! ');
+    var shareUrl = '';
+
+    switch (plattform) {
+        case 'whatsapp':
+            shareUrl = 'https://wa.me/?text=' + text + url;
+            break;
+        case 'facebook':
+            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+            break;
+        case 'twitter':
+            shareUrl = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url;
+            break;
+        case 'linkedin':
+            shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+            break;
+        case 'telegram':
+            shareUrl = 'https://t.me/share/url?url=' + url + '&text=' + text;
+            break;
+        case 'email':
+            shareUrl = 'mailto:?subject=AKWAABA Finance App&body=' + text + '%0A%0A' + url;
+            break;
+    }
+
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=600');
+    }
+}
+
+// === FERTIGE POSTS ===
+var fertigePostsDB = [
+    {
+        plattform: '📱 Instagram / Facebook',
+        text: '🇹🇬 AKWAABA! Habe die beste Finanz-App entdeckt! 💎\n\n' +
+            '✅ 16 KI-Assistenten die dir helfen Geld zu machen\n' +
+            '✅ Komplett kostenlos\n' +
+            '✅ 8 Sprachen inkl. Ewe\n' +
+            '✅ Krypto, Immo, Business Ideen\n' +
+            '✅ Made with 💚 in West Africa\n\n' +
+            '👉 Jetzt testen: xsikomprojects.github.io/akwaaba-finance\n\n' +
+            '#AKWAABA #Finance #Togo #Diaspora #WestAfrika #Fintech'
+    },
+    {
+        plattform: '💬 WhatsApp Nachricht',
+        text: 'Hey! 👋\n\n' +
+            'Hab was Krasses gefunden - AKWAABA Finance App 🇹🇬\n\n' +
+            'Das Beste:\n' +
+            '💰 Verdient dir zeigen wie du Geld machst\n' +
+            '📊 Portfolio & Budget Tracker\n' +
+            '₿ Crypto Preise live\n' +
+            '🎯 Business-Ideen für Togo/Deutschland\n' +
+            '✨ Komplett gratis!\n\n' +
+            'Check das aus: https://xsikomprojects.github.io/akwaaba-finance/'
+    },
+    {
+        plattform: '🐦 Twitter/X (kurz)',
+        text: '🇹🇬 AKWAABA Finance ist da! \n\n' +
+            '16 KIs helfen dir Geld zu verdienen 💰\n' +
+            '📊 Budget, 💼 Portfolio, ₿ Krypto\n' +
+            '🎨 Kunst, 🚗 Uber, 🏠 Immo... alles!\n\n' +
+            '100% kostenlos ✅\n\n' +
+            'xsikomprojects.github.io/akwaaba-finance\n\n' +
+            '#Fintech #Africa #Togo'
+    },
+    {
+        plattform: '💼 LinkedIn (professionell)',
+        text: '🚀 Neue Fintech-App speziell für die afrikanische Diaspora!\n\n' +
+            'AKWAABA Finance vereint 16 KI-Assistenten in einer App:\n\n' +
+            '📊 Portfolio & Budget Management\n' +
+            '💰 Business-Ideen für Deutschland & Togo\n' +
+            '📚 Kostenlose Finanzbildung\n' +
+            '🌍 8 Sprachen inkl. Ewe & Twi\n' +
+            '🔒 100% DSGVO-konform\n' +
+            '💚 Komplett kostenlos\n\n' +
+            'Entwickelt von XsiKOM-DIGITAL-Projects\n\n' +
+            'App: https://xsikomprojects.github.io/akwaaba-finance/\n\n' +
+            '#Fintech #Africa #Diaspora #Innovation'
+    },
+    {
+        plattform: '📧 E-Mail (an Freunde)',
+        text: 'Hi!\n\n' +
+            'Ich wollte dir eine tolle App empfehlen die ich gefunden habe:\n\n' +
+            'AKWAABA Finance - eine kostenlose Finanz-App speziell für uns Afrikaner in der Diaspora!\n\n' +
+            'Was mich beeindruckt hat:\n' +
+            '• 16 verschiedene KI-Assistenten\n' +
+            '• Business-Ideen für Deutschland UND Togo\n' +
+            '• Portfolio & Budget Tracker\n' +
+            '• Krypto-Preise live\n' +
+            '• Sogar Rezepte, Reise-Tipps und mehr!\n' +
+            '• 8 Sprachen (auch Ewe!)\n\n' +
+            'Und das Beste: Es ist komplett kostenlos und funktioniert im Browser oder als App!\n\n' +
+            'Hier der Link: https://xsikomprojects.github.io/akwaaba-finance/\n\n' +
+            'Sag mir Bescheid was du denkst!\n\n' +
+            'LG'
+    }
+];
+
+function fertigePostsAnzeigen() {
+    var container = document.getElementById('fertigePosts');
+    if (!container) return;
+
+    container.innerHTML = fertigePostsDB.map(function(p) {
+        return '<div class="post-item" onclick="postKopieren(this)">' +
+            '<div class="post-copy-icon">📋</div>' +
+            '<div class="post-plattform">' + p.plattform + '</div>' +
+            '<div class="post-text">' + p.text + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function postKopieren(el) {
+    var text = el.querySelector('.post-text').textContent;
+    try {
+        navigator.clipboard.writeText(text);
+        toast('📋 Post kopiert! Jetzt einfügen wo du willst.');
+    } catch (e) {
+        // Fallback
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast('📋 Post kopiert!');
+    }
+}
+
+// === VIDEO TUTORIALS ===
+var videosDB = [
+    { icon: '🎬', titel: 'AKWAABA in 60 Sekunden', desc: 'Schneller Überblick', dauer: '1:00' },
+    { icon: '💰', titel: 'Portfolio Tracker Setup', desc: 'So richtest du dein Portfolio ein', dauer: '3:45' },
+    { icon: '📊', titel: 'Budget richtig planen', desc: 'Einnahmen & Ausgaben verwalten', dauer: '5:20' },
+    { icon: '🤖', titel: 'Die 16 KIs erklärt', desc: 'Was jede KI kann', dauer: '10:15' },
+    { icon: '₿', titel: 'Crypto für Anfänger', desc: 'Wie du sicher startest', dauer: '7:30' },
+    { icon: '🚀', titel: 'Business starten', desc: 'Von der Idee zum Umsatz', dauer: '12:00' }
+];
+
+function videosAnzeigen() {
+    var container = document.getElementById('videoTutorials');
+    if (!container) return;
+
+    container.innerHTML = videosDB.map(function(v) {
+        return '<div class="video-card">' +
+            '<div class="video-thumb">' + v.icon + '</div>' +
+            '<div class="video-info">' +
+                '<div class="video-title">' + v.titel + '</div>' +
+                '<div class="video-desc">' + v.desc + '</div>' +
+                '<div class="video-dauer">▶️ ' + v.dauer + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === MARKETING STATS ===
+function marketingStatsAnzeigen() {
+    var container = document.getElementById('marketingStats');
+    if (!container) return;
+
+    var geteilt = parseInt(localStorage.getItem('mal-geteilt') || '0');
+    var qrDownloads = parseInt(localStorage.getItem('qr-downloads') || '0');
+    var besuche = parseInt(localStorage.getItem('besuche-count') || '1');
+
+    container.innerHTML =
+        '<div class="nutzungs-stat"><span class="nutzungs-stat-label">📢 Mal geteilt</span><span class="nutzungs-stat-wert">' + geteilt + '</span></div>' +
+        '<div class="nutzungs-stat"><span class="nutzungs-stat-label">📱 QR-Downloads</span><span class="nutzungs-stat-wert">' + qrDownloads + '</span></div>' +
+        '<div class="nutzungs-stat"><span class="nutzungs-stat-label">👀 Deine Besuche</span><span class="nutzungs-stat-wert">' + besuche + '</span></div>' +
+        '<div class="nutzungs-stat"><span class="nutzungs-stat-label">💚 App-Level</span><span class="nutzungs-stat-wert">Premium</span></div>';
+}
+
+// === WACHSTUMS TIPPS ===
+var wachstumsDB = [
+    { titel: 'Freunde einladen', text: 'Teile die App mit 10 Freunden - je mehr Nutzer, desto besser wird die App!' },
+    { titel: 'Social Media Posts', text: 'Poste einmal pro Woche über deine Erfolge mit der App' },
+    { titel: 'QR-Code drucken', text: 'Drucke den QR-Code und hänge ihn ins Büro/Café auf' },
+    { titel: 'Feedback geben', text: 'Sende Verbesserungsvorschläge an xsikom.projects@gmail.com' },
+    { titel: 'Community aufbauen', text: 'Erstelle WhatsApp-Gruppe mit anderen AKWAABA-Nutzern' },
+    { titel: 'Übersetzen helfen', text: 'Wir suchen Übersetzer für weitere Sprachen!' }
+];
+
+function wachstumsTippsAnzeigen() {
+    var container = document.getElementById('wachstumsTipps');
+    if (!container) return;
+
+    container.innerHTML = wachstumsDB.map(function(t, i) {
+        return '<div class="wachs-tipp">' +
+            '<div class="wachs-tipp-nr">' + (i+1) + '</div>' +
+            '<div>' +
+                '<strong>' + t.titel + '</strong>' +
+                '<p>' + t.text + '</p>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === INITIALISIERUNG ===
+setTimeout(function() {
+    // Sprach-KI
+    renderMiniBiz('sprachBusiness', sprachBusinessDB, '#00a99d');
+    renderMiniBiz('sprachPlattformen', sprachPlattformenDB, '#6b3fa0');
+    renderTipps('sprachTipps', sprachTippsDB, '#ffdf00');
+
+    // Rezept-KI
+    renderMiniBiz('rezeptBusiness', rezeptBusinessDB, '#ff6b00');
+    renderMiniBiz('rezeptTrends', rezeptTrendsDB, '#ffce00');
+    renderTipps('rezeptFoto', rezeptFotoDB, '#00ddcc');
+
+    // Mode-KI
+    renderMiniBiz('modeBusiness', modeBusinessDB, '#ff44aa');
+    renderMiniBiz('modeTrends', modeTrendsDB, '#cc44ff');
+    renderMiniBiz('modePlattformen', modePlattformenDB, '#ffdf00');
+
+    // Sport-KI
+    renderMiniBiz('sportBusiness', sportBusinessDB, '#00cc44');
+    renderMiniBiz('sportPlattformen', sportPlattformenDB, '#ffce00');
+    renderTipps('sportKarriere', sportKarriereDB, '#00ddcc');
+
+    // Reise-KI
+    renderMiniBiz('reiseBusiness', reiseBusinessDB, '#0088ff');
+    renderMiniBiz('reiseNischen', reiseNischenDB, '#00ddcc');
+    renderMiniBiz('reiseTogo', reiseTogoDB, '#d21034');
+
+    // Marketing
+    qrCodeErstellen();
+    fertigePostsAnzeigen();
+    videosAnzeigen();
+    marketingStatsAnzeigen();
+    wachstumsTippsAnzeigen();
+}, 2000);

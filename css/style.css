@@ -9278,4 +9278,246 @@ body.theme-kente {
             rgba(255,206,0,0.02) 20px,
             rgba(255,206,0,0.02) 40px);
 }
+/* ============================================
+   ETAPPE 2 - NEUE KIs + MARKETING
+   ============================================ */
+
+/* KI Headers */
+.ki-header-sprach {
+    background: linear-gradient(135deg, #1a2e3d, #3d1a2e);
+    border-bottom-color: rgba(0,169,157,0.3);
+}
+.ki-header-sprach .ki-avatar-mini {
+    background: linear-gradient(135deg, #00a99d, #6b3fa0);
+}
+
+.ki-header-rezept {
+    background: linear-gradient(135deg, #3d2a10, #3d1a1a);
+    border-bottom-color: rgba(255,107,0,0.3);
+}
+.ki-header-rezept .ki-avatar-mini {
+    background: linear-gradient(135deg, #ff6b00, #ffce00);
+}
+
+.ki-header-mode {
+    background: linear-gradient(135deg, #3d1a3d, #2e0a2e);
+    border-bottom-color: rgba(255,68,170,0.3);
+}
+.ki-header-mode .ki-avatar-mini {
+    background: linear-gradient(135deg, #ff44aa, #cc44ff);
+}
+
+.ki-header-sport {
+    background: linear-gradient(135deg, #0a3d1a, #1a3d2e);
+    border-bottom-color: rgba(0,204,68,0.3);
+}
+.ki-header-sport .ki-avatar-mini {
+    background: linear-gradient(135deg, #00cc44, #ffce00);
+}
+
+.ki-header-reise {
+    background: linear-gradient(135deg, #0a2e3d, #1a3d3d);
+    border-bottom-color: rgba(0,136,255,0.3);
+}
+.ki-header-reise .ki-avatar-mini {
+    background: linear-gradient(135deg, #0088ff, #00ddcc);
+}
+
+.ki-header-marketing {
+    background: linear-gradient(135deg, #3d1a1a, #3d2a10);
+    border-bottom-color: rgba(210,16,52,0.3);
+}
+.ki-header-marketing .ki-avatar-mini {
+    background: linear-gradient(135deg, #d21034, #ff6b00);
+}
+
+/* Social Media Grid */
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.social-btn {
+    padding: 1.2rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+}
+
+.social-btn span {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.social-btn.whatsapp { border-color: #25D366; }
+.social-btn.whatsapp:hover { background: rgba(37,211,102,0.2); }
+.social-btn.facebook { border-color: #1877F2; }
+.social-btn.facebook:hover { background: rgba(24,119,242,0.2); }
+.social-btn.twitter { border-color: #1DA1F2; }
+.social-btn.twitter:hover { background: rgba(29,161,242,0.2); }
+.social-btn.linkedin { border-color: #0A66C2; }
+.social-btn.linkedin:hover { background: rgba(10,102,194,0.2); }
+.social-btn.telegram { border-color: #0088cc; }
+.social-btn.telegram:hover { background: rgba(0,136,204,0.2); }
+.social-btn.email { border-color: #EA4335; }
+.social-btn.email:hover { background: rgba(234,67,53,0.2); }
+
+/* QR Code */
+#qrcode {
+    display: inline-block;
+    padding: 20px;
+    background: white;
+}
+
+#qrcode canvas, #qrcode img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Fertige Posts */
+.post-item {
+    padding: 1.2rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #ffdf00;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.post-item:hover {
+    background: rgba(255,215,0,0.05);
+    transform: translateX(5px);
+}
+
+.post-item:active {
+    transform: scale(0.98);
+}
+
+.post-plattform {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,215,0,0.2);
+    color: #ffdf00;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.post-text {
+    color: #ccddaa;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+}
+
+.post-copy-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #ffdf00;
+    font-size: 1.2rem;
+}
+
+/* Video Tutorial Cards */
+.video-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #ff6b00;
+    align-items: center;
+}
+
+.video-thumb {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+    color: white;
+}
+
+.video-info { flex: 1; }
+
+.video-title {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.video-desc {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.video-dauer {
+    color: #00ddcc;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* Wachstums Tipps */
+.wachs-tipp {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00cc44;
+}
+
+.wachs-tipp-nr {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    flex-shrink: 0;
+}
+
+.wachs-tipp strong {
+    color: #ffdf00;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: 'Fredoka One', cursive;
+}
+
+.wachs-tipp p {
+    color: #ccddaa;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
         

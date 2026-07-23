@@ -13,6 +13,7 @@
     <link rel="apple-touch-icon" href="images/icon-192.png">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -79,6 +80,12 @@
         <button class="tab" data-tab="hochzeitki">💒 HOCHZEIT</button>
         <button class="tab" data-tab="gamingki">🎮 GAMING</button>
         <button class="tab" data-tab="rechtliches">📜 Rechtliches</button>
+        <button class="tab" data-tab="sprachki">🗣️ SPRACH-KI</button>
+        <button class="tab" data-tab="rezeptki">🍳 REZEPT-KI</button>
+        <button class="tab" data-tab="modeki">👗 MODE-KI</button>
+        <button class="tab" data-tab="sportki">⚽ SPORT-KI</button>
+        <button class="tab" data-tab="reiseki">✈️ REISE-KI</button>
+        <button class="tab" data-tab="marketing">📢 Marketing</button>
         <button class="tab" data-tab="einstellungen">⚙️ Einstellungen</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
@@ -2921,6 +2928,350 @@
         <div class="karte gruen-rand">
             <h3>🏆 Streamer Erfolgs-Tipps</h3>
             <div id="gamingTipps"></div>
+        </div>
+    </div>
+    <!-- ============ SPRACH-KI ============ -->
+    <div id="sprachki" class="seite">
+        <div class="ki-header ki-header-sprach">
+            <div class="ki-avatar-mini">🗣️</div>
+            <div>
+                <h2>SPRACH-KI</h2>
+                <p>Sprachen lernen & unterrichten 🌍</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🌐 Business mit Sprachen</h3>
+            <p style="color:#ccddaa; line-height:1.7;">
+                Sprachen unterrichten oder übersetzen bringt gutes Geld! Als Muttersprachler
+                (Ewe, Französisch, Deutsch) hast du riesige Chancen!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Business Möglichkeiten</h3>
+            <div id="sprachBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Verdienst-Rechner</h3>
+            <label>Sprachen die du sprichst</label>
+            <select id="sprachAnzahl">
+                <option value="2">2 Sprachen (Basic)</option>
+                <option value="3" selected>3 Sprachen (Gut)</option>
+                <option value="4">4 Sprachen (Sehr gut)</option>
+                <option value="5">5+ Sprachen (Experte)</option>
+            </select>
+            <label>Stunden pro Woche</label>
+            <input type="number" id="sprachStd" value="20" min="1">
+            <label>Preis pro Stunde (€)</label>
+            <input type="number" id="sprachPreis" value="25" min="5">
+            <button class="btn-gruen" onclick="sprachBerechnen()">💰 Berechnen</button>
+            <div id="sprachErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🌐 Plattformen</h3>
+            <div id="sprachPlattformen"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💡 Insider Tipps</h3>
+            <div id="sprachTipps"></div>
+        </div>
+    </div>
+
+    <!-- ============ REZEPT-KI ============ -->
+    <div id="rezeptki" class="seite">
+        <div class="ki-header ki-header-rezept">
+            <div class="ki-avatar-mini">🍳</div>
+            <div>
+                <h2>REZEPT-KI</h2>
+                <p>Rezepte verkaufen & teilen 🍽️</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>📚 Von Rezepten leben</h3>
+            <p style="color:#ccddaa; line-height:1.7;">
+                Kochbücher, Blogs, YouTube-Kanäle - Foodies verdienen richtig gut!
+                Afrikanische Küche ist besonders gefragt!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Business-Modelle</h3>
+            <div id="rezeptBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>🍽️ Rezept-Portfolio Rechner</h3>
+            <label>Anzahl Rezepte</label>
+            <input type="number" id="rezeptAnzahl" value="50" min="1">
+            <label>Verkaufskanal</label>
+            <select id="rezeptKanal">
+                <option value="ebook">📚 E-Book (5-20€)</option>
+                <option value="online">💻 Online-Kurs (30-200€)</option>
+                <option value="blog">📝 Blog + Ads (0.01€/Klick)</option>
+                <option value="youtube">📹 YouTube (3€/1000 Views)</option>
+            </select>
+            <label>Marketing-Reichweite/Monat</label>
+            <input type="number" id="rezeptReichweite" value="10000" min="100">
+            <button class="btn-gruen" onclick="rezeptBerechnen()">💰 Berechnen</button>
+            <div id="rezeptErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🌍 Beliebte Küchen 2025</h3>
+            <div id="rezeptTrends"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>📸 Foto-Tipps für Food</h3>
+            <div id="rezeptFoto"></div>
+        </div>
+    </div>
+
+    <!-- ============ MODE-KI ============ -->
+    <div id="modeki" class="seite">
+        <div class="ki-header ki-header-mode">
+            <div class="ki-avatar-mini">👗</div>
+            <div>
+                <h2>MODE-KI</h2>
+                <p>Fashion Business 💃</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>💃 Fashion Industrie</h3>
+            <p style="color:#ccddaa; line-height:1.7;">
+                Die Modebranche ist $1.7 Billionen groß! Von Design bis Verkauf gibt es
+                unzählige Möglichkeiten. Afrikanische Mode boomt weltweit!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Fashion-Business</h3>
+            <div id="modeBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Marge-Rechner</h3>
+            <label>Herstellungskosten (€)</label>
+            <input type="number" id="modeKosten" value="15" min="0">
+            <label>Verkaufspreis (€)</label>
+            <input type="number" id="modePreis" value="60" min="0">
+            <label>Stück pro Monat</label>
+            <input type="number" id="modeStueck" value="50" min="1">
+            <button class="btn-gruen" onclick="modeBerechnen()">💰 Marge</button>
+            <div id="modeErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🔥 Fashion Trends 2025</h3>
+            <div id="modeTrends"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🌐 Verkaufs-Plattformen</h3>
+            <div id="modePlattformen"></div>
+        </div>
+    </div>
+
+    <!-- ============ SPORT-KI ============ -->
+    <div id="sportki" class="seite">
+        <div class="ki-header ki-header-sport">
+            <div class="ki-avatar-mini">⚽</div>
+            <div>
+                <h2>SPORT-KI</h2>
+                <p>Fitness & Sport Business 💪</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>💪 Sport-Industrie</h3>
+            <p style="color:#ccddaa; line-height:1.7;">
+                Fitness ist ein Milliardenmarkt! Von Personal Trainer bis Online-Kursen -
+                überall wird verdient. Deine Leidenschaft = deine Karriere!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Sport-Business</h3>
+            <div id="sportBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Personal Trainer Rechner</h3>
+            <label>Preis pro Session (€)</label>
+            <input type="number" id="sportPreis" value="60" min="10">
+            <label>Sessions pro Woche</label>
+            <input type="number" id="sportSessions" value="15" min="1">
+            <label>Wochen pro Monat</label>
+            <input type="number" id="sportWochen" value="4" min="1" max="5">
+            <button class="btn-gruen" onclick="sportBerechnen()">💰 Verdienst</button>
+            <div id="sportErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>📱 Fitness-Apps & Plattformen</h3>
+            <div id="sportPlattformen"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🏆 Karriere-Wege</h3>
+            <div id="sportKarriere"></div>
+        </div>
+    </div>
+
+    <!-- ============ REISE-KI ============ -->
+    <div id="reiseki" class="seite">
+        <div class="ki-header ki-header-reise">
+            <div class="ki-avatar-mini">✈️</div>
+            <div>
+                <h2>REISE-KI</h2>
+                <p>Travel Business & Bloggen 🌍</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🌍 Reisen als Business</h3>
+            <p style="color:#ccddaa; line-height:1.7;">
+                Verdiene Geld während du die Welt siehst! Reise-Blogger, Guides, Fotografen -
+                der Travel-Markt ist $8 Billionen wert!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Travel-Karrieren</h3>
+            <div id="reiseBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Blogger-Verdienst</h3>
+            <label>Monatliche Besucher</label>
+            <input type="number" id="reiseBesucher" value="10000" min="100">
+            <label>Werbeeinnahmen pro 1000 Views (€)</label>
+            <input type="number" id="reiseCPM" value="5" min="0" step="0.5">
+            <label>Sponsoring pro Monat (€)</label>
+            <input type="number" id="reiseSponsor" value="500" min="0">
+            <button class="btn-gruen" onclick="reiseBerechnen()">💰 Verdienst</button>
+            <div id="reiseErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🎯 Beste Reise-Nischen</h3>
+            <div id="reiseNischen"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🇹🇬 Togo als Ziel</h3>
+            <div id="reiseTogo"></div>
+        </div>
+    </div>
+
+    <!-- ============ MARKETING ============ -->
+    <div id="marketing" class="seite">
+        <div class="ki-header ki-header-marketing">
+            <div class="ki-avatar-mini">📢</div>
+            <div>
+                <h2>Marketing Center</h2>
+                <p>Teile & bewirbe AKWAABA 🚀</p>
+            </div>
+        </div>
+
+        <!-- QR CODE GENERATOR -->
+        <div class="karte gruen-rand">
+            <h3>📱 QR-Code für App</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Teile die App einfach per QR-Code! Zeigen, scannen, fertig.
+            </p>
+            <div id="qrCodeContainer" style="text-align:center; padding:2rem; background:white; border-radius:20px; margin:1rem 0;">
+                <div id="qrcode"></div>
+            </div>
+            <button class="btn-gruen" onclick="qrCodeDownload()" style="margin-top:1rem;">
+                📥 QR-Code herunterladen
+            </button>
+            <button class="btn-gelb" onclick="qrCodeTeilen()">
+                📲 QR-Code teilen
+            </button>
+        </div>
+
+        <!-- SOCIAL MEDIA -->
+        <div class="karte gelb-rand">
+            <h3>📱 Auf Social Media teilen</h3>
+            <div class="social-grid">
+                <button class="social-btn whatsapp" onclick="teileAuf('whatsapp')">
+                    <span>💬</span>
+                    <div>WhatsApp</div>
+                </button>
+                <button class="social-btn facebook" onclick="teileAuf('facebook')">
+                    <span>📘</span>
+                    <div>Facebook</div>
+                </button>
+                <button class="social-btn twitter" onclick="teileAuf('twitter')">
+                    <span>🐦</span>
+                    <div>Twitter/X</div>
+                </button>
+                <button class="social-btn linkedin" onclick="teileAuf('linkedin')">
+                    <span>💼</span>
+                    <div>LinkedIn</div>
+                </button>
+                <button class="social-btn telegram" onclick="teileAuf('telegram')">
+                    <span>✈️</span>
+                    <div>Telegram</div>
+                </button>
+                <button class="social-btn email" onclick="teileAuf('email')">
+                    <span>📧</span>
+                    <div>E-Mail</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- FERTIGE POSTS -->
+        <div class="karte rot-rand">
+            <h3>✍️ Fertige Social Media Posts</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Klicke zum Kopieren, dann in Social Media einfügen!
+            </p>
+            <div id="fertigePosts"></div>
+        </div>
+
+        <!-- APP LINK -->
+        <div class="karte gruen-rand">
+            <h3>🔗 App-Link</h3>
+            <div style="padding:1.5rem; background:rgba(0,0,0,0.3); border-radius:14px; border:2px solid rgba(255,215,0,0.3);">
+                <p style="color:#ccddaa; font-size:0.85rem; margin-bottom:0.8rem;">
+                    Direkte URL zur App:
+                </p>
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <input type="text" id="appLink"
+                        value="https://xsikomprojects.github.io/akwaaba-finance/"
+                        readonly
+                        style="flex:1; padding:0.8rem; background:rgba(0,0,0,0.5); border:2px solid rgba(255,215,0,0.3); border-radius:10px; color:#ffdf00; font-family:monospace;">
+                    <button onclick="linkKopieren()" class="btn-gelb" style="width:auto; margin:0; padding:0.8rem 1rem;">
+                        📋 Kopieren
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEO TUTORIALS -->
+        <div class="karte gelb-rand">
+            <h3>🎥 Video Tutorials</h3>
+            <div id="videoTutorials"></div>
+        </div>
+
+        <!-- STATISTIKEN -->
+        <div class="karte regenbogen-rand">
+            <h3>📊 Marketing Statistiken</h3>
+            <div id="marketingStats"></div>
+        </div>
+
+        <!-- BOOST TIPPS -->
+        <div class="karte gruen-rand">
+            <h3>🚀 Wachstums-Tipps</h3>
+            <div id="wachstumsTipps"></div>
         </div>
     </div>
     <!-- ============ EINSTELLUNGEN ============ -->
