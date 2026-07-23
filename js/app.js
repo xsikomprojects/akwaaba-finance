@@ -1,241 +1,502 @@
 // ============================================
-// AKWAABA FINANCE – Main App Controller
+// AKWAABA FINANCE – App Controller
 // Mit XsiKOM-DIGITAL-Projects
 // ============================================
 
-let currentLanguage = 'de';
+// === APP STARTEN ===
+window.onload = function() {
+    // Splash Screen nach 3 Sekunden verstecken
+    setTimeout(function() {
+        document.getElementById('splash').style.display = 'none';
+        document.getElementById('app').classList.remove('versteckt');
+    }, 3000);
 
-// === INITIALIZATION ===
-document.addEventListener('DOMContentLoaded', () => {
-    initSplashScreen();
-    initNavigation();
-    initCalculatorTabs();
-    initLanguage();
-    initRiskSlider();
-    initQuantumPulse();
-    generateNewTips();
-    showDailyWisdom();
-    updateDashboardStats();
-});
-
-// === SPLASH SCREEN ===
-function initSplashScreen() {
-    setTimeout(() => {
-        const splash = document.getElementById('splash-screen');
-        const app = document.getElementById('app');
-        if (splash) splash.style.display = 'none';
-        if (app) app.classList.remove('hidden');
-    }, 4000);
-}
+    // Start-Funktionen
+    statistikenAktualisieren();
+    neueTipps();
+    weisheitZeigen();
+};
 
 // === NAVIGATION ===
-function initNavigation() {
-    const tabs = document.querySelectorAll('.nav-tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active from all
-            tabs.forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+document.addEventListener('DOMContentLoaded', function() {
 
-            // Set active
-            tab.classList.add('active');
-            const tabId = tab.getAttribute('data-tab');
-            const content = document.getElementById('tab-' + tabId);
-            if (content) content.classList.add('active');
+    // Haupt-Tabs
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            tabs.forEach(function(t) { t.classList.remove('aktiv'); });
+            document.querySelectorAll('.seite').forEach(function(s) {
+                s.classList.remove('aktiv');
+            });
+            tab.classList.add('aktiv');
+            var ziel = tab.getAttribute('data-tab');
+            document.getElementById(ziel).classList.add('aktiv');
         });
     });
 
-    // Language button
-    const langBtn = document.getElementById('langBtn');
-    const langDropdown = document.getElementById('langDropdown');
-    if (langBtn && langDropdown) {
-        langBtn.addEventListener('click', () => {
-            langDropdown.classList.toggle('hidden');
+    // Rechner-Tabs
+    var rTabs = document.querySelectorAll('.r-tab');
+    rTabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            rTabs.forEach(function(t) { t.classList.remove('aktiv'); });
+            document.querySelectorAll('.rechner-panel').forEach(function(p) {
+                p.classList.remove('aktiv');
+            });
+            tab.classList.add('aktiv');
+            var ziel = tab.getAttribute('data-calc');
+            document.getElementById(ziel).classList.add('aktiv');
         });
+    });
 
-        // Close dropdown on outside click
-        document.addEventListener('click', (e) => {
-            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-                langDropdown.classList.add('hidden');
-            }
+    // Risiko Slider
+    var slider = document.getElementById('quantumRisiko');
+    if (slider) {
+        slider.addEventListener('input', function() {
+            document.getElementById('risikoWert').textContent = slider.value;
         });
     }
+});
+
+// === ZAHLEN FORMATIEREN ===
+function euro(betrag) {
+    return new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR'
+    }).format(betrag);
 }
 
-// === CALCULATOR TABS ===
-function initCalculatorTabs() {
-    const calcTypes = document.querySelectorAll('.calc-type');
-    calcTypes.forEach(btn => {
-        btn.addEventListener('click', () => {
-            calcTypes.forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+// === ZINSESZINS RECHNER ===
+function berechneZins() {
+    var start = parseFloat(document.getElementById('startKapital').value) || 0;
+    var zins = parseFloat(document.getElementById('zinssatz').value) / 100;
+    var jahre = parseInt(document.getElementById('jahre').value) || 1;
+    var monatlich = parseFloat(document.getElementById('monatlich').value) || 0;
 
-            btn.classList.add('active');
-            const calcId = btn.getAttribute('data-calc');
-            const panel = document.getElementById('calc-' + calcId);
-            if (panel) panel.classList.add('active');
-        });
-    });
+    var monatsZins = zins / 12;
+    var monate = jahre * 12;
+
+    var gesamt = start * Math.pow(1 + monatsZins, monate);
+    if (monatsZins > 0) {
+        gesamt += monatlich * ((Math.pow(1 + monatsZins, monate) - 1) / monatsZins);
+    } else {
+        gesamt += monatlich * monate;
+    }
+
+    var eingezahlt = start + (monatlich * monate);
+    var gewinn = gesamt - eingezahlt;
+    var rendite = eingezahlt > 0 ? ((gewinn / eingezahlt) * 100) : 0;
+
+    var ergebnis = document.getElementById('zinsErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<h4>⚛️ Quantum Ergebnis</h4>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Eingezahlt:</span>' +
+            '<span>' + euro(eingezahlt) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Endkapital:</span>' +
+            '<span class="positiv">' + euro(gesamt) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Gewinn:</span>' +
+            '<span class="positiv">+' + euro(gewinn) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Rendite:</span>' +
+            '<span class="positiv">+' + rendite.toFixed(1) + '%</span>' +
+        '</div>' +
+        '<div class="tipp-box">' +
+            '💡 <strong>Tipp:</strong> ' + zinsTipp(gewinn, jahre, monatlich) +
+        '</div>';
+
+    konfidenzAnimieren(85 + Math.random() * 10);
 }
 
-// === LANGUAGE SYSTEM ===
-function initLanguage() {
-    const saved = localStorage.getItem('akwaaba-lang') || 'de';
-    setLanguage(saved);
+function zinsTipp(gewinn, jahre, monatlich) {
+    if (monatlich === 0) {
+        return 'Schon 50€ pro Monat können deinen Gewinn verdoppeln!';
+    }
+    if (jahre < 5) {
+        return 'Längere Laufzeit = mehr Zinseszinseffekt. Versuche 10+ Jahre!';
+    }
+    if (gewinn > 10000) {
+        return 'Exzellent! Dein Geld arbeitet hart für dich. 🏆';
+    }
+    return 'Konsistenz ist der Schlüssel! Erhöhe deine Sparrate wenn möglich.';
 }
 
-function setLanguage(lang) {
-    currentLanguage = lang;
-    localStorage.setItem('akwaaba-lang', lang);
+// === KREDIT RECHNER ===
+function berechneKredit() {
+    var betrag = parseFloat(document.getElementById('kreditBetrag').value) || 0;
+    var zins = parseFloat(document.getElementById('kreditZins').value) / 100;
+    var jahre = parseInt(document.getElementById('kreditJahre').value) || 1;
 
-    const langLabel = document.getElementById('currentLang');
-    if (langLabel) langLabel.textContent = lang.toUpperCase();
+    var monatsZins = zins / 12;
+    var monate = jahre * 12;
 
-    // Update all translatable elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
-        } else if (translations['en'] && translations['en'][key]) {
-            el.textContent = translations['en'][key];
+    var monatsRate;
+    if (monatsZins > 0) {
+        monatsRate = betrag * (monatsZins * Math.pow(1 + monatsZins, monate)) /
+                     (Math.pow(1 + monatsZins, monate) - 1);
+    } else {
+        monatsRate = betrag / monate;
+    }
+
+    var gesamtKosten = monatsRate * monate;
+    var gesamtZinsen = gesamtKosten - betrag;
+
+    var ergebnis = document.getElementById('kreditErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<h4>⚛️ Kredit Analyse</h4>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Kreditbetrag:</span>' +
+            '<span>' + euro(betrag) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Monatliche Rate:</span>' +
+            '<span class="negativ">' + euro(monatsRate) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Gesamtkosten:</span>' +
+            '<span class="negativ">' + euro(gesamtKosten) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Gesamtzinsen:</span>' +
+            '<span class="negativ">' + euro(gesamtZinsen) + '</span>' +
+        '</div>' +
+        '<div class="tipp-box">' +
+            '💡 <strong>Tipp:</strong> ' + kreditTipp(gesamtZinsen, betrag, jahre) +
+        '</div>';
+
+    konfidenzAnimieren(88 + Math.random() * 10);
+}
+
+function kreditTipp(zinsen, betrag, jahre) {
+    var ratio = zinsen / betrag;
+    if (ratio > 0.3) {
+        return '⚠️ Zinsen über 30% des Kredits! Kürzere Laufzeit oder bessere Konditionen suchen.';
+    }
+    if (jahre > 7) {
+        return 'Lange Laufzeit = mehr Zinsen. Prüfe Sondertilgungen!';
+    }
+    return 'Gute Konditionen! Sondertilgungen nutzen um schneller schuldenfrei zu sein.';
+}
+
+// === SPARZIEL RECHNER ===
+function berechneSparen() {
+    var ziel = parseFloat(document.getElementById('sparZiel').value) || 0;
+    var haben = parseFloat(document.getElementById('sparHaben').value) || 0;
+    var monate = parseInt(document.getElementById('sparMonate').value) || 1;
+
+    var rest = ziel - haben;
+    var proMonat = rest / monate;
+    var proWoche = rest / (monate * 4.33);
+    var proTag = rest / (monate * 30);
+    var fortschritt = (haben / ziel) * 100;
+
+    var ergebnis = document.getElementById('sparErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<h4>⚛️ Sparziel Analyse</h4>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Sparziel:</span>' +
+            '<span class="gold">' + euro(ziel) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Noch benötigt:</span>' +
+            '<span class="negativ">' + euro(rest) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Pro Monat:</span>' +
+            '<span class="positiv">' + euro(proMonat) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Pro Woche:</span>' +
+            '<span>' + euro(proWoche) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Pro Tag:</span>' +
+            '<span>' + euro(proTag) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Fortschritt:</span>' +
+            '<span class="positiv">' + fortschritt.toFixed(1) + '%</span>' +
+        '</div>' +
+        '<div class="tipp-box">' +
+            '💡 <strong>Tipp:</strong> ' + sparTipp(proTag, fortschritt) +
+        '</div>';
+
+    konfidenzAnimieren(90 + Math.random() * 8);
+}
+
+function sparTipp(tag, fortschritt) {
+    if (fortschritt > 50) return 'Super! Über die Hälfte geschafft! Weiter so! 🎯';
+    if (tag < 5) return 'Weniger als ein Kaffee pro Tag! Das schaffst du! ☕';
+    if (tag > 20) return 'Ambitioniert! Verlängere den Zeitraum oder passe das Ziel an.';
+    return 'Richte einen Dauerauftrag ein – dann läuft das Sparen automatisch!';
+}
+
+// === INVESTMENT RECHNER ===
+function berechneInvest() {
+    var betrag = parseFloat(document.getElementById('investBetrag').value) || 0;
+    var risiko = document.getElementById('investRisiko').value;
+    var jahre = parseInt(document.getElementById('investJahre').value) || 1;
+
+    var profile = {
+        niedrig: { min: 3, max: 5, name: 'Konservativ 🛡️' },
+        mittel:  { min: 5, max: 8, name: 'Ausgewogen ⚖️' },
+        hoch:    { min: 8, max: 15, name: 'Aggressiv 🚀' }
+    };
+
+    var p = profile[risiko];
+    var pessimistisch = betrag * Math.pow(1 + p.min / 100, jahre);
+    var erwartet = betrag * Math.pow(1 + (p.min + p.max) / 200, jahre);
+    var optimistisch = betrag * Math.pow(1 + p.max / 100, jahre);
+
+    // Monte Carlo Simulation
+    var simulationen = [];
+    for (var i = 0; i < 1000; i++) {
+        var sim = betrag;
+        for (var j = 0; j < jahre; j++) {
+            var r = p.min + Math.random() * (p.max - p.min);
+            sim *= (1 + r / 100);
         }
-    });
+        simulationen.push(sim);
+    }
+    simulationen.sort(function(a, b) { return a - b; });
+    var median = simulationen[500];
 
-    // Close dropdown
-    const dropdown = document.getElementById('langDropdown');
-    if (dropdown) dropdown.classList.add('hidden');
+    var ergebnis = document.getElementById('investErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<h4>⚛️ Investment Analyse</h4>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Profil:</span>' +
+            '<span class="gold">' + p.name + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>📉 Pessimistisch:</span>' +
+            '<span>' + euro(pessimistisch) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>📊 Erwartet:</span>' +
+            '<span class="positiv">' + euro(erwartet) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>📈 Optimistisch:</span>' +
+            '<span class="positiv">' + euro(optimistisch) + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>⚛️ Quantum Median:</span>' +
+            '<span class="gold">' + euro(median) + '</span>' +
+        '</div>' +
+        '<div class="tipp-box">' +
+            '💡 <strong>Tipp:</strong> ' + investTipp(risiko, jahre) +
+        '</div>';
 
-    // Reload tips
-    generateNewTips();
-    showDailyWisdom();
-
-    // Set document direction for Arabic
-    document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    konfidenzAnimieren(87 + Math.random() * 10);
 }
 
-// === RISK SLIDER ===
-function initRiskSlider() {
-    const slider = document.getElementById('quantumRisk');
-    const display = document.getElementById('riskValue');
-    if (slider && display) {
-        slider.addEventListener('input', () => {
-            display.textContent = slider.value;
-        });
+function investTipp(risiko, jahre) {
+    if (risiko === 'hoch' && jahre < 5) {
+        return '⚠️ Aggressives Investieren braucht Zeit! Mindestens 5-10 Jahre einplanen.';
+    }
+    if (risiko === 'niedrig' && jahre > 10) {
+        return 'Bei langer Laufzeit könntest du mehr Rendite mit etwas mehr Risiko erzielen.';
+    }
+    return 'Diversifiziere über ETFs, Aktien und Anleihen für optimale Risikoverteilung!';
+}
+
+// === QUANTUM ANALYSE ===
+function quantumAnalyse() {
+    var kat = document.getElementById('quantumKat').value;
+    var horizont = document.getElementById('quantumHorizont').value;
+    var risiko = document.getElementById('quantumRisiko').value;
+
+    var ergebnis = document.getElementById('quantumErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<div style="text-align:center; padding:2rem;">' +
+        '<div style="font-size:3rem; animation: reinFaden 0.5s infinite;">⚛️</div>' +
+        '<p style="color:#00ddcc; margin-top:1rem; font-weight:800;">Quantum Neural Network analysiert...</p>' +
+        '</div>';
+
+    setTimeout(function() {
+        var analyse = quantumErgebnisErstellen(kat, horizont, risiko);
+        ergebnis.innerHTML = analyse;
+        konfidenzAnimieren(80 + Math.random() * 18);
+    }, 2000);
+}
+
+function quantumErgebnisErstellen(kat, horizont, risiko) {
+    var kategorien = {
+        aktien: {
+            name: 'Aktienmarkt 📈',
+            signale: [
+                { signal: 'BULLISH 🟢', farbe: '#00ff88', text: 'Positive Marktsignale! Tech-Sektor zeigt starkes Momentum.' },
+                { signal: 'NEUTRAL 🟡', farbe: '#ffaa00', text: 'Gemischte Signale. Selektive Investments empfohlen.' },
+                { signal: 'BEARISH 🔴', farbe: '#ff4444', text: 'Vorsicht! Defensive Positionen stärken.' }
+            ]
+        },
+        crypto: {
+            name: 'Kryptowährungen ₿',
+            signale: [
+                { signal: 'STARK BULLISH 🟢', farbe: '#00ff88', text: 'Blockchain-Adoption steigt! Institutionelle Käufer aktiv.' },
+                { signal: 'VOLATIL 🟡', farbe: '#ffaa00', text: 'Hohe Volatilität! Nur Risikokapital einsetzen.' },
+                { signal: 'KORREKTUR 🔴', farbe: '#ff4444', text: 'Überhitzungszeichen! Teilgewinnmitnahmen empfohlen.' }
+            ]
+        },
+        immobilien: {
+            name: 'Immobilien 🏠',
+            signale: [
+                { signal: 'STABIL 🟢', farbe: '#00ff88', text: 'Markt zeigt Stabilität. Langfristig gute Wertentwicklung.' },
+                { signal: 'ÜBERHITZT 🟡', farbe: '#ffaa00', text: 'Einige Märkte überhitzt. Sorgfältige Standortanalyse nötig.' },
+                { signal: 'CHANCEN 🟢', farbe: '#00ff88', text: 'Einstiegsmöglichkeiten für strategische Käufer!' }
+            ]
+        },
+        rohstoffe: {
+            name: 'Rohstoffe 🥇',
+            signale: [
+                { signal: 'GOLD STEIGT 🟢', farbe: '#00ff88', text: 'Gold als sicherer Hafen gefragt. Geopolitik treibt Preis.' },
+                { signal: 'GEMISCHT 🟡', farbe: '#ffaa00', text: 'Rohstoffmärkte uneinheitlich. Energie volatil.' },
+                { signal: 'KORREKTUR 🔴', farbe: '#ff4444', text: 'Überangebot drückt Preise. Selektiv vorgehen.' }
+            ]
+        },
+        sparen: {
+            name: 'Sparstrategie 💰',
+            signale: [
+                { signal: 'OPTIMIEREN 🟢', farbe: '#00ff88', text: 'Aktuelle Zinsen ermöglichen bessere Sparrenditen!' },
+                { signal: 'FESTGELD 🟢', farbe: '#00ff88', text: 'Festgeld-Konditionen attraktiv. 1-2 Jahre optimal.' },
+                { signal: 'DIVERSIFIZIEREN 🟡', farbe: '#ffaa00', text: 'Nicht nur sparen – auch investieren! 70/30 Strategie.' }
+            ]
+        }
+    };
+
+    var horizonte = {
+        kurz: 'Kurzfristig (1-3 Monate)',
+        mittel: 'Mittelfristig (1-3 Jahre)',
+        lang: 'Langfristig (5+ Jahre)'
+    };
+
+    var k = kategorien[kat];
+    var s = k.signale[Math.floor(Math.random() * k.signale.length)];
+    var konfidenz = 75 + Math.floor(Math.random() * 20);
+
+    var risikoText = risiko <= 3
+        ? '🛡️ Konservativ: Empfehle Festgeld, Staatsanleihen und Blue-Chip-Aktien.'
+        : risiko <= 7
+        ? '⚖️ Ausgewogen: Mix aus sicheren und wachstumsorientierten Anlagen.'
+        : '🚀 Aggressiv: Wachstumsmärkte und Krypto bieten Chancen – mit Risiko!';
+
+    return '<h4>⚛️ ' + k.name + ' Analyse</h4>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Signal:</span>' +
+            '<span style="color:' + s.farbe + '; font-family: Fredoka One, cursive;">' + s.signal + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Horizont:</span>' +
+            '<span>' + horizonte[horizont] + '</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>Risikostufe:</span>' +
+            '<span class="gold">' + risiko + '/10</span>' +
+        '</div>' +
+        '<div class="ergebnis-zeile">' +
+            '<span>AI Konfidenz:</span>' +
+            '<span class="positiv">' + konfidenz + '%</span>' +
+        '</div>' +
+        '<div class="tipp-box">' + s.text + '</div>' +
+        '<div class="tipp-box" style="margin-top:0.5rem; border-left-color:#ffdf00;">' + risikoText + '</div>';
+}
+
+// === KONFIDENZ ANIMATION ===
+function konfidenzAnimieren(ziel) {
+    var bar = document.getElementById('konfidenzBar');
+    var text = document.getElementById('konfidenzText');
+    if (!bar) return;
+
+    bar.style.width = ziel + '%';
+    bar.textContent = Math.round(ziel) + '%';
+
+    if (ziel >= 90) {
+        text.textContent = '🟢 Sehr hohe Konfidenz – Starke Datenlage!';
+        text.style.color = '#00ff88';
+    } else if (ziel >= 75) {
+        text.textContent = '🟡 Hohe Konfidenz – Gute Basis mit leichten Unsicherheiten.';
+        text.style.color = '#ffaa00';
+    } else {
+        text.textContent = '🟠 Moderate Konfidenz – Mehr Daten würden helfen.';
+        text.style.color = '#ff8844';
     }
 }
 
-// === TIPS GENERATOR ===
-function generateNewTips() {
-    const container = document.getElementById('tipsContainer');
+// === TIPPS ===
+var alleTipps = [
+    { kat: 'Sparen', titel: 'Die 50/30/20 Regel', text: '50% für Bedürfnisse, 30% für Wünsche, 20% sparen und investieren.', sterne: '⭐⭐⭐⭐⭐' },
+    { kat: 'Investieren', titel: 'Diversifikation ist König', text: 'Nie alles auf eine Karte! Verteile dein Geld auf verschiedene Anlagen.', sterne: '⭐⭐⭐⭐⭐' },
+    { kat: 'Schulden', titel: 'Hochzins-Schulden zuerst', text: 'Bezahle immer die Schulden mit dem höchsten Zinssatz zuerst.', sterne: '⭐⭐⭐⭐' },
+    { kat: 'Notfallreserve', titel: '3-6 Monate Puffer', text: 'Halte immer 3-6 Monatsgehälter als Notfallreserve bereit.', sterne: '⭐⭐⭐⭐⭐' },
+    { kat: 'Einkommen', titel: 'Passives Einkommen', text: 'Baue passive Einkommensquellen auf: Dividenden, Mieteinnahmen, digitale Produkte.', sterne: '⭐⭐⭐⭐' },
+    { kat: 'Steuern', titel: 'Steuern optimieren', text: 'Nutze alle legalen Steuervorteile: Werbungskosten, Sonderausgaben, Freibeträge.', sterne: '⭐⭐⭐⭐' },
+    { kat: 'Psychologie', titel: 'Emotionen kontrollieren', text: 'Trenne Emotionen von Finanzentscheidungen. Panikverkäufe sind der größte Fehler!', sterne: '⭐⭐⭐⭐⭐' },
+    { kat: 'Zinseszins', titel: 'Die Macht der Zeit', text: 'Je früher du anfängst zu investieren, desto stärker wirkt der Zinseszinseffekt!', sterne: '⭐⭐⭐⭐⭐' },
+    { kat: 'Budget', titel: 'Ausgaben tracken', text: 'Führe 30 Tage lang ein Ausgaben-Tagebuch. Die Ergebnisse werden dich überraschen!', sterne: '⭐⭐⭐⭐' },
+    { kat: 'Afrika', titel: 'Ubuntu-Finanzprinzip', text: 'Ubuntu: "Ich bin, weil wir sind." Gemeinschaftliches Sparen wie Susu/Tontine kann helfen!', sterne: '⭐⭐⭐⭐⭐' }
+];
+
+var weisheiten = [
+    '"Der beste Zeitpunkt zu investieren war gestern. Der zweitbeste ist heute." – Warren Buffett',
+    '"Spare nicht was nach dem Ausgeben übrig bleibt – gib aus was nach dem Sparen übrig bleibt."',
+    '"Finanzielle Freiheit beginnt mit dem ersten gesparten Euro."',
+    '"Risiko entsteht, wenn man nicht weiß, was man tut." – Warren Buffett',
+    '"Investiere in dich selbst. Das ist die beste Rendite die du je bekommen wirst."',
+    '"Wer nicht über Geld nachdenkt, wird von Geld beherrscht."',
+    '"AKWAABA! Willkommen auf dem Weg zur finanziellen Freiheit! 🇹🇬"'
+];
+
+function neueTipps() {
+    var container = document.getElementById('tippsContainer');
     if (!container) return;
 
-    const lang = currentLanguage;
-    const tips = financialTips[lang] || financialTips['en'] || financialTips['de'];
+    var gemischt = alleTipps.slice().sort(function() { return Math.random() - 0.5; }).slice(0, 4);
 
-    // Shuffle and take 4
-    const shuffled = [...tips].sort(() => Math.random() - 0.5).slice(0, 4);
-
-    container.innerHTML = shuffled.map(tip => `
-        <div class="tip-card">
-            <div class="tip-category">${tip.category}</div>
-            <div class="tip-title">${tip.title}</div>
-            <div class="tip-text">${tip.text}</div>
-            <div class="tip-rating">${tip.rating} Quantum Score</div>
-        </div>
-    `).join('');
+    container.innerHTML = gemischt.map(function(tipp, i) {
+        return '<div class="tipp-karte">' +
+            '<div class="tipp-nr">' + (i + 1) + '</div>' +
+            '<div class="tipp-kat">' + tipp.kat + '</div>' +
+            '<div class="tipp-titel">' + tipp.titel + '</div>' +
+            '<div class="tipp-text">' + tipp.text + '</div>' +
+            '<div class="tipp-bewertung">' + tipp.sterne + ' Quantum Score</div>' +
+        '</div>';
+    }).join('');
 }
 
-// === DAILY WISDOM ===
-function showDailyWisdom() {
-    const el = document.getElementById('dailyWisdom');
+function weisheitZeigen() {
+    var el = document.getElementById('weisheit');
     if (!el) return;
-
-    const lang = currentLanguage;
-    const quotes = wisdomQuotes[lang] || wisdomQuotes['en'] || wisdomQuotes['de'];
-    const dayIndex = new Date().getDate() % quotes.length;
-    el.textContent = quotes[dayIndex];
+    var index = new Date().getDate() % weisheiten.length;
+    el.textContent = weisheiten[index];
 }
 
-// === DASHBOARD STATS (live simulation) ===
-function updateDashboardStats() {
-    setInterval(() => {
-        const trend = document.getElementById('marketTrend');
-        const accuracy = document.getElementById('aiAccuracy');
-        const speed = document.getElementById('quantumSpeed');
+// === DASHBOARD STATISTIKEN ===
+function statistikenAktualisieren() {
+    setInterval(function() {
+        var markt = document.getElementById('markt');
+        var gen = document.getElementById('genauigkeit');
+        var speed = document.getElementById('speed');
 
-        if (trend) {
-            const val = (Math.random() * 5 - 1).toFixed(1);
-            trend.textContent = (val >= 0 ? '+' : '') + val + '%';
-            trend.style.color = val >= 0 ? '#00ff88' : '#ff4466';
+        if (markt) {
+            var val = (Math.random() * 6 - 1.5).toFixed(1);
+            markt.textContent = (val >= 0 ? '+' : '') + val + '%';
+            markt.style.color = val >= 0 ? '#00ff88' : '#ff4444';
         }
-
-        if (accuracy) {
-            accuracy.textContent = (90 + Math.random() * 9).toFixed(1) + '%';
+        if (gen) {
+            gen.textContent = (88 + Math.random() * 10).toFixed(1) + '%';
         }
-
         if (speed) {
             speed.textContent = (0.001 + Math.random() * 0.005).toFixed(3) + 's';
         }
     }, 3000);
-}
-
-// === UI HELPERS ===
-function openModal(id) {
-    const modal = document.getElementById(id);
-    if (!modal) return;
-    modal.classList.remove('hidden');
-    modal.style.display = 'flex';
-}
-
-function closeModal(id) {
-    const modal = document.getElementById(id);
-    if (!modal) return;
-    modal.classList.add('hidden');
-    modal.style.display = 'none';
-}
-
-function openSettings() {
-    openModal('settingsModal');
-}
-
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    if (!toast || !toastMessage) return;
-
-    toastMessage.textContent = message;
-    toast.classList.add('active');
-    toast.style.opacity = '1';
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.classList.remove('active');
-    }, 2200);
-}
-
-function importData() {
-    showToast('Dateneingabe nicht verfügbar.');
-}
-
-function resetAllData() {
-    showToast('Daten zurzeit nicht zurücksetzbar.');
-}
-
-function exportData() {
-    showToast('Datenexport nicht verfügbar.');
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const enabled = document.body.classList.contains('dark-mode');
-    localStorage.setItem('akwaaba-darkmode', enabled ? '1' : '0');
-}
-
-function updateMonthlyBudget() {
-    showToast('Monatliches Budget gespeichert.');
-}
-
-function addHustleEntry(event) {
-    event.preventDefault();
-    showToast('Nebenjob-Eintrag wurde gespeichert.');
 }
