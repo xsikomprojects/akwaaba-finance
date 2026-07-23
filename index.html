@@ -35,6 +35,7 @@
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
         <button class="tab" data-tab="crypto">₿ Crypto</button>
         <button class="tab" data-tab="budget">💸 Budget</button>
+        <button class="tab" data-tab="benachrichtigungen">🔔 Alerts</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -250,6 +251,169 @@
  <!-- PORTFOLIO -->
 <!-- CRYPTO -->
 <!-- BUDGET -->
+<!-- BENACHRICHTIGUNGEN -->
+<div id="benachrichtigungen" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>🔔 Smart Alerts</h2>
+        <p>Bleibe immer informiert mit Quantum AI Benachrichtigungen!</p>
+    </div>
+
+    <!-- PERMISSION -->
+    <div class="karte gruen-rand" id="permissionBox">
+        <h3>🔐 Benachrichtigungen aktivieren</h3>
+        <p style="margin-bottom:1rem;">
+            Erhalte wichtige Markt-Alerts, Crypto-Signale
+            und Budget-Warnungen direkt auf dein Gerät!
+        </p>
+        <div class="permission-status" id="permissionStatus">
+            <div class="perm-icon">🔕</div>
+            <div class="perm-text">Noch nicht aktiviert</div>
+        </div>
+        <button class="btn-gruen" id="permBtn"
+            onclick="benachrichtigungAnfordern()">
+            🔔 Jetzt aktivieren
+        </button>
+    </div>
+
+    <!-- ALERT EINSTELLUNGEN -->
+    <div class="karte gelb-rand">
+        <h3>⚙️ Alert Einstellungen</h3>
+
+        <div class="alert-setting">
+            <div class="alert-setting-info">
+                <div class="alert-setting-name">📈 Markt Alerts</div>
+                <div class="alert-setting-desc">
+                    Bei starken Marktbewegungen informiert werden
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="marktAlert" checked
+                    onchange="alertSpeichern()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="alert-setting">
+            <div class="alert-setting-info">
+                <div class="alert-setting-name">₿ Crypto Signale</div>
+                <div class="alert-setting-desc">
+                    Quantum AI Kauf/Verkauf Signale
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="cryptoAlert" checked
+                    onchange="alertSpeichern()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="alert-setting">
+            <div class="alert-setting-info">
+                <div class="alert-setting-name">💸 Budget Warnungen</div>
+                <div class="alert-setting-desc">
+                    Wenn Ausgaben das Budget überschreiten
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="budgetAlert" checked
+                    onchange="alertSpeichern()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="alert-setting">
+            <div class="alert-setting-info">
+                <div class="alert-setting-name">🌅 Täglicher Report</div>
+                <div class="alert-setting-desc">
+                    Jeden Morgen deine Finanz-Zusammenfassung
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="reportAlert"
+                    onchange="alertSpeichern()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+
+        <div class="alert-setting">
+            <div class="alert-setting-info">
+                <div class="alert-setting-name">⚛️ Quantum Updates</div>
+                <div class="alert-setting-desc">
+                    Neue AI Analysen und Prognosen
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="quantumAlert" checked
+                    onchange="alertSpeichern()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- PREIS ALARM -->
+    <div class="karte rot-rand">
+        <h3>🎯 Preis Alarm setzen</h3>
+        <label>Kryptowährung</label>
+        <select id="alarmCoin">
+            <option value="BTC">₿ Bitcoin (BTC)</option>
+            <option value="ETH">Ξ Ethereum (ETH)</option>
+            <option value="SOL">◎ Solana (SOL)</option>
+            <option value="BNB">🔶 BNB</option>
+            <option value="XRP">✕ XRP</option>
+        </select>
+        <label>Alarm bei Preis über/unter ($)</label>
+        <input type="number" id="alarmPreis"
+            placeholder="z.B. 50000">
+        <label>Alarm Typ</label>
+        <select id="alarmTyp">
+            <option value="ueber">📈 Preis ÜBER diesem Wert</option>
+            <option value="unter">📉 Preis UNTER diesem Wert</option>
+        </select>
+        <button class="btn-gruen" onclick="preisAlarmSetzen()">
+            🎯 Alarm setzen
+        </button>
+        <div id="alarmListe" style="margin-top:1rem;"></div>
+    </div>
+
+    <!-- TEST NOTIFICATIONS -->
+    <div class="karte gruen-rand">
+        <h3>🧪 Test Benachrichtigungen</h3>
+        <p style="margin-bottom:1rem; font-size:0.85rem;">
+            Teste verschiedene Benachrichtigungs-Typen:
+        </p>
+        <div class="test-btns">
+            <button class="btn-gruen" onclick="testNotification('markt')">
+                📈 Markt Alert
+            </button>
+            <button class="btn-rot" onclick="testNotification('budget')">
+                💸 Budget Warnung
+            </button>
+            <button class="btn-gelb" onclick="testNotification('crypto')">
+                ₿ Crypto Signal
+            </button>
+            <button class="btn-gruen" onclick="testNotification('quantum')">
+                ⚛️ Quantum Update
+            </button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION VERLAUF -->
+    <div class="karte gelb-rand">
+        <h3>📜 Benachrichtigungs Verlauf</h3>
+        <div id="notifVerlauf">
+            <div class="leer-portfolio">
+                <div>🔔</div>
+                <div>Noch keine Benachrichtigungen.</div>
+            </div>
+        </div>
+        <button class="btn-rot" style="margin-top:1rem;"
+            onclick="verlaufLeeren()">
+            🗑️ Verlauf leeren
+        </button>
+    </div>
+
+</div>
 <div id="budget" class="seite">
 
     <div class="karte regenbogen-rand">

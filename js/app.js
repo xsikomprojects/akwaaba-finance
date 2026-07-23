@@ -19,6 +19,7 @@ window.onload = function() {
     cryptoStarten();
     budgetAnzeigen();
     budgetDatumSetzen();
+    notificationsStarten();
 };
 
 // === NAVIGATION ===
@@ -1754,3 +1755,364 @@ function budgetDatumSetzen() {
 // Budget starten
 budgetAnzeigen();
 budgetDatumSetzen();
+// ============================================
+// PHASE 9 – PUSH NOTIFICATIONS
+// ============================================
+
+var preisAlarme = JSON.parse(
+    localStorage.getItem('akwaaba-alarme')) || [];
+var notifVerlauf = JSON.parse(
+    localStorage.getItem('akwaaba-verlauf')) || [];
+var alertEinstellungen = JSON.parse(
+    localStorage.getItem('akwaaba-alerts')) || {
+    markt: true, crypto: true,
+    budget: true, report: false, quantum: true
+};
+
+// === PERMISSION ANFORDERN ===
+function benachrichtigungAnfordern() {
+    if (!('Notification' in window)) {
+        alert('Dein Browser unterstützt keine Benachrichtigungen!');
+        return;
+    }
+
+    Notification.requestPermission().then(function(erlaubnis) {
+        permissionStatusAnzeigen(erlaubnis);
+
+        if (erlaubnis === 'granted') {
+            // Willkommens-Notification
+            setTimeout(function() {
+                benachrichtigungZeigen(
+                    '🎉 AKWAABA Finance aktiviert!',
+                    'Quantum AI Alerts sind jetzt aktiv. ' +
+                    'Du wirst über wichtige Marktbewegungen informiert! 🇹🇬',
+                    '🔔'
+                );
+            }, 1000);
+
+            // Auto-Alerts starten
+            autoAlertsStarten();
+        }
+    });
+}
+
+function permissionStatusAnzeigen(status) {
+    var statusEl = document.getElementById('permissionStatus');
+    var btnEl = document.getElementById('permBtn');
+    if (!statusEl) return;
+
+    if (status === 'granted') {
+        statusEl.innerHTML =
+            '<div class="perm-icon">🔔</div>' +
+            '<div class="perm-text perm-aktiv">✅ Aktiviert!</div>';
+        if (btnEl) {
+            btnEl.textContent = '✅ Benachrichtigungen aktiv';
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.6';
+        }
+    } else if (status === 'denied') {
+        statusEl.innerHTML =
+            '<div class="perm-icon">🔕</div>' +
+            '<div class="perm-text perm-blockiert">' +
+            '❌ Blockiert – Bitte in Browser-Einstellungen aktivieren</div>';
+        if (btnEl) {
+            btnEl.textContent = '⚙️ In Einstellungen aktivieren';
+        }
+    } else {
+        statusEl.innerHTML =
+            '<div class="perm-icon">🔕</div>' +
+            '<div class="perm-text">Noch nicht aktiviert</div>';
+    }
+}
+
+// === NOTIFICATION ANZEIGEN ===
+function benachrichtigungZeigen(titel, text, icon) {
+    // In Verlauf speichern
+    var eintrag = {
+        id: Date.now(),
+        titel: titel,
+        text: text,
+        icon: icon || '🔔',
+        zeit: new Date().toLocaleTimeString('de-DE', {
+            hour: '2-digit', minute: '2-digit'
+        })
+    };
+
+    notifVerlauf.unshift(eintrag);
+    if (notifVerlauf.length > 20) notifVerlauf.pop();
+    localStorage.setItem('akwaaba-verlauf', JSON.stringify(notifVerlauf));
+    verlaufAnzeigen();
+
+    // Browser Notification
+    if (Notification.permission === 'granted') {
+        try {
+            new Notification(titel, {
+                body: text,
+                icon: '/images/icon-192.png',
+                badge: '/images/icon-192.png',
+                vibrate: [200, 100, 200],
+                tag: 'akwaaba-' + Date.now()
+            });
+        } catch(e) {
+            console.log('Notification Fehler:', e);
+        }
+    }
+}
+
+// === TEST NOTIFICATIONS ===
+function testNotification(typ) {
+    var nachrichten = {
+        markt: {
+            titel: '📈 Markt Alert!',
+            text: 'DAX steigt um +3.2%! Starkes Momentum im Tech-Sektor erkannt.',
+            icon: '📈'
+        },
+        budget: {
+            titel: '💸 Budget Warnung!',
+            text: 'Du hast 80% deines Monatsbudgets erreicht. ' +
+                  'Noch €' + (Math.floor(Math.random() * 500) + 100) + ' verfügbar.',
+            icon: '💸'
+        },
+        crypto: {
+            titel: '₿ Crypto Signal!',
+            text: 'Quantum AI erkennt KAUF-Signal für Bitcoin. ' +
+                  'RSI überverkauft bei 28. Einstiegsgelegenheit!',
+            icon: '₿'
+        },
+        quantum: {
+            titel: '⚛️ Quantum Update!',
+            text: 'Neue AI-Analyse verfügbar. ' +
+                  'Konfidenz: 94.7% für Aufwärtstrend in den nächsten 7 Tagen.',
+            icon: '⚛️'
+        }
+    };
+
+    var msg = nachrichten[typ];
+    if (msg) {
+        benachrichtigungZeigen(msg.titel, msg.text, msg.icon);
+
+        // Visuelles Feedback
+        var btn = event.target;
+        var original = btn.textContent;
+        btn.textContent = '✅ Gesendet!';
+        btn.disabled = true;
+        setTimeout(function() {
+            btn.textContent = original;
+            btn.disabled = false;
+        }, 2000);
+    }
+}
+
+// === PREIS ALARM ===
+function preisAlarmSetzen() {
+    var coin = document.getElementById('alarmCoin').value;
+    var preis = parseFloat(document.getElementById('alarmPreis').value) || 0;
+    var typ = document.getElementById('alarmTyp').value;
+
+    if (preis <= 0) {
+        alert('Bitte einen gültigen Preis eingeben!');
+        return;
+    }
+
+    preisAlarme.push({
+        id: Date.now(),
+        coin: coin,
+        preis: preis,
+        typ: typ,
+        aktiv: true
+    });
+
+    localStorage.setItem('akwaaba-alarme', JSON.stringify(preisAlarme));
+    document.getElementById('alarmPreis').value = '';
+    preisAlarmAnzeigen();
+
+    benachrichtigungZeigen(
+        '🎯 Preis Alarm gesetzt!',
+        coin + ' Alarm bei $' + preis.toLocaleString() +
+        ' (' + (typ === 'ueber' ? 'über' : 'unter') + ') aktiv.',
+        '🎯'
+    );
+}
+
+function preisAlarmLoeschen(id) {
+    preisAlarme = preisAlarme.filter(function(a) { return a.id !== id; });
+    localStorage.setItem('akwaaba-alarme', JSON.stringify(preisAlarme));
+    preisAlarmAnzeigen();
+}
+
+function preisAlarmAnzeigen() {
+    var liste = document.getElementById('alarmListe');
+    if (!liste) return;
+
+    if (preisAlarme.length === 0) {
+        liste.innerHTML =
+            '<p style="color:#668844; font-size:0.85rem; text-align:center;">' +
+            'Noch keine Alarme gesetzt.</p>';
+        return;
+    }
+
+    liste.innerHTML = preisAlarme.map(function(alarm) {
+        return '<div class="alarm-item">' +
+            '<div class="alarm-info">' +
+                '<div class="alarm-name">₿ ' + alarm.coin + '</div>' +
+                '<div class="alarm-detail">' +
+                    (alarm.typ === 'ueber' ? '📈 Über' : '📉 Unter') +
+                    ' $' + alarm.preis.toLocaleString() +
+                '</div>' +
+            '</div>' +
+            '<div style="color:#00ff88; font-size:0.8rem; margin-right:0.5rem;">🟢 Aktiv</div>' +
+            '<button class="alarm-loeschen" ' +
+                'onclick="preisAlarmLoeschen(' + alarm.id + ')">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+// === VERLAUF ===
+function verlaufAnzeigen() {
+    var container = document.getElementById('notifVerlauf');
+    if (!container) return;
+
+    if (notifVerlauf.length === 0) {
+        container.innerHTML =
+            '<div class="leer-portfolio">' +
+            '<div>🔔</div>' +
+            '<div>Noch keine Benachrichtigungen.</div>' +
+            '</div>';
+        return;
+    }
+
+    container.innerHTML = notifVerlauf.map(function(n) {
+        return '<div class="notif-item">' +
+            '<div class="notif-icon">' + n.icon + '</div>' +
+            '<div class="notif-inhalt">' +
+                '<div class="notif-titel">' + n.titel + '</div>' +
+                '<div class="notif-text">' + n.text + '</div>' +
+                '<div class="notif-zeit">🕐 ' + n.zeit + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function verlaufLeeren() {
+    if (confirm('Verlauf wirklich leeren?')) {
+        notifVerlauf = [];
+        localStorage.setItem('akwaaba-verlauf', JSON.stringify(notifVerlauf));
+        verlaufAnzeigen();
+    }
+}
+
+// === ALERT SPEICHERN ===
+function alertSpeichern() {
+    alertEinstellungen = {
+        markt:   document.getElementById('marktAlert') ?
+                 document.getElementById('marktAlert').checked : true,
+        crypto:  document.getElementById('cryptoAlert') ?
+                 document.getElementById('cryptoAlert').checked : true,
+        budget:  document.getElementById('budgetAlert') ?
+                 document.getElementById('budgetAlert').checked : true,
+        report:  document.getElementById('reportAlert') ?
+                 document.getElementById('reportAlert').checked : false,
+        quantum: document.getElementById('quantumAlert') ?
+                 document.getElementById('quantumAlert').checked : true
+    };
+    localStorage.setItem('akwaaba-alerts',
+        JSON.stringify(alertEinstellungen));
+}
+
+// === AUTO ALERTS ===
+function autoAlertsStarten() {
+    // Markt Alert alle 5 Minuten
+    setInterval(function() {
+        if (!alertEinstellungen.markt) return;
+        if (Notification.permission !== 'granted') return;
+
+        var change = ((Math.random() * 8) - 3).toFixed(1);
+        if (Math.abs(parseFloat(change)) > 3) {
+            benachrichtigungZeigen(
+                '📈 Starke Marktbewegung!',
+                'DAX ' + (change > 0 ? '+' : '') + change +
+                '% – Quantum AI analysiert...',
+                '📈'
+            );
+        }
+    }, 300000); // 5 Minuten
+
+    // Crypto Signal alle 10 Minuten
+    setInterval(function() {
+        if (!alertEinstellungen.crypto) return;
+        if (Notification.permission !== 'granted') return;
+
+        var signale = ['KAUF', 'VERKAUF', 'HALTEN'];
+        var coins = ['Bitcoin', 'Ethereum', 'Solana'];
+        var signal = signale[Math.floor(Math.random() * signale.length)];
+        var coin = coins[Math.floor(Math.random() * coins.length)];
+
+        if (signal !== 'HALTEN') {
+            benachrichtigungZeigen(
+                '⚛️ Quantum Signal: ' + signal + '!',
+                coin + ' – Konfidenz: ' +
+                (75 + Math.floor(Math.random() * 20)) + '%',
+                '⚛️'
+            );
+        }
+    }, 600000); // 10 Minuten
+
+    // Preis Alarm prüfen alle Minute
+    setInterval(function() {
+        if (preisAlarme.length === 0) return;
+        preisAlarme.forEach(function(alarm) {
+            var coin = cryptoDaten.find(function(c) {
+                return c.symbol === alarm.coin;
+            });
+            if (!coin) return;
+
+            var aktuellerPreis = aktuellePreise[alarm.coin] || coin.preis;
+
+            if (alarm.typ === 'ueber' && aktuellerPreis > alarm.preis) {
+                benachrichtigungZeigen(
+                    '🎯 Preis Alarm ausgelöst!',
+                    alarm.coin + ' ist über $' +
+                    alarm.preis.toLocaleString() +
+                    '! Aktuell: $' + aktuellerPreis.toFixed(2),
+                    '🎯'
+                );
+            } else if (alarm.typ === 'unter' &&
+                       aktuellerPreis < alarm.preis) {
+                benachrichtigungZeigen(
+                    '🎯 Preis Alarm ausgelöst!',
+                    alarm.coin + ' ist unter $' +
+                    alarm.preis.toLocaleString() +
+                    '! Aktuell: $' + aktuellerPreis.toFixed(2),
+                    '🎯'
+                );
+            }
+        });
+    }, 60000); // 1 Minute
+}
+
+// === EINSTELLUNGEN LADEN ===
+function alertEinstellungenLaden() {
+    var felder = ['markt', 'crypto', 'budget', 'report', 'quantum'];
+    felder.forEach(function(feld) {
+        var el = document.getElementById(feld + 'Alert');
+        if (el && alertEinstellungen[feld] !== undefined) {
+            el.checked = alertEinstellungen[feld];
+        }
+    });
+}
+
+// === STARTEN ===
+function notificationsStarten() {
+    // Permission Status prüfen
+    if ('Notification' in window) {
+        permissionStatusAnzeigen(Notification.permission);
+        if (Notification.permission === 'granted') {
+            autoAlertsStarten();
+        }
+    }
+    alertEinstellungenLaden();
+    preisAlarmAnzeigen();
+    verlaufAnzeigen();
+}
+
+notificationsStarten();
