@@ -70,6 +70,7 @@
         <button class="tab" data-tab="uberki">🚗 UBER-KI</button>
         <button class="tab" data-tab="immoki">🏠 IMMO-KI</button>
         <button class="tab" data-tab="lernki">🎓 LERN-KI</button>
+        <button class="tab" data-tab="chefki">🍽️ CHEF-KI</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -2251,6 +2252,160 @@
 
     </div>
     <!-- ENDE LERN-KI -->
+    <!-- ============ CHEF-KI ============ -->
+    <div id="chefki" class="seite">
+
+        <!-- HEADER -->
+        <div class="chefki-header">
+            <div class="chefki-avatar">
+                <div class="chefki-emoji">👨‍🍳</div>
+            </div>
+            <div class="chefki-info">
+                <h2>CHEF-KI</h2>
+                <p>Food Business Meister</p>
+                <div class="chefki-status">
+                    <div class="status-dot"></div>
+                    <span>Von Streetfood bis Sternerestaurant 🍽️</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUSINESS TYP -->
+        <div class="karte gruen-rand">
+            <h3>🏢 Welches Food-Business?</h3>
+            <div class="food-typ-grid">
+                <button class="food-typ-btn aktiv" onclick="foodTypWaehlen('streetfood', this)">
+                    <div class="food-typ-icon">🥘</div>
+                    <div class="food-typ-name">Streetfood</div>
+                    <div class="food-typ-invest">500-3000€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('foodtruck', this)">
+                    <div class="food-typ-icon">🚚</div>
+                    <div class="food-typ-name">Food Truck</div>
+                    <div class="food-typ-invest">30-80k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('lieferservice', this)">
+                    <div class="food-typ-icon">📦</div>
+                    <div class="food-typ-name">Lieferservice</div>
+                    <div class="food-typ-invest">2-10k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('catering', this)">
+                    <div class="food-typ-icon">🍱</div>
+                    <div class="food-typ-name">Catering</div>
+                    <div class="food-typ-invest">1-5k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('cafe', this)">
+                    <div class="food-typ-icon">☕</div>
+                    <div class="food-typ-name">Café</div>
+                    <div class="food-typ-invest">50-150k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('restaurant', this)">
+                    <div class="food-typ-icon">🏛️</div>
+                    <div class="food-typ-name">Restaurant</div>
+                    <div class="food-typ-invest">100-500k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('afrikanisch', this)">
+                    <div class="food-typ-icon">🌍</div>
+                    <div class="food-typ-name">Afro Küche</div>
+                    <div class="food-typ-invest">1-50k€</div>
+                </button>
+                <button class="food-typ-btn" onclick="foodTypWaehlen('meal', this)">
+                    <div class="food-typ-icon">🥗</div>
+                    <div class="food-typ-name">Meal Prep</div>
+                    <div class="food-typ-invest">500-3k€</div>
+                </button>
+            </div>
+            <button class="btn-gruen" onclick="foodBusinessAnzeigen()">
+                🚀 Business-Plan anzeigen
+            </button>
+        </div>
+
+        <!-- BUSINESS PLAN -->
+        <div id="foodPlanErgebnis"></div>
+
+        <!-- PREIS KALKULATION -->
+        <div class="karte gelb-rand">
+            <h3>💰 Speisen-Preis Kalkulator</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Berechne den richtigen Verkaufspreis pro Gericht!
+            </p>
+            <label>Gerichts-Name</label>
+            <input type="text" id="gerichtName" placeholder="z.B. Jollof Rice">
+            <label>Zutaten-Kosten (€)</label>
+            <input type="number" id="zutatenKosten" placeholder="3.50" min="0" step="0.10">
+            <label>Portionen aus Zutaten</label>
+            <input type="number" id="portionen" placeholder="4" min="1">
+            <label>Personalkosten pro Portion (€)</label>
+            <input type="number" id="personalKosten" placeholder="1.50" min="0" step="0.10">
+            <label>Overhead % (Miete, Strom, etc.)</label>
+            <input type="number" id="overhead" value="30" min="0" max="100">
+            <label>Gewinnmarge (%)</label>
+            <input type="number" id="gewinnMarge" value="200" min="0" max="500">
+            <button class="btn-gruen" onclick="gerichtBerechnen()">
+                💰 Preis berechnen
+            </button>
+            <div id="gerichtErgebnis"></div>
+        </div>
+
+        <!-- MEIN MENÜ -->
+        <div class="karte gruen-rand">
+            <h3>📋 Mein Menü</h3>
+            <div id="meinMenue"></div>
+        </div>
+
+        <!-- BREAK EVEN -->
+        <div class="karte rot-rand">
+            <h3>📊 Break-Even Rechner</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Wie viele Gerichte musst du verkaufen um Gewinn zu machen?
+            </p>
+            <label>Monatliche Fixkosten (Miete, Personal, etc. €)</label>
+            <input type="number" id="fixkosten" placeholder="5000" min="0">
+            <label>Durchschnittlicher Preis pro Gericht (€)</label>
+            <input type="number" id="durchPreis" placeholder="12" min="0" step="0.50">
+            <label>Zutaten-Kosten pro Gericht (€)</label>
+            <input type="number" id="durchZutaten" placeholder="3" min="0" step="0.50">
+            <button class="btn-gruen" onclick="breakEvenBerechnen()">
+                📊 Berechnen
+            </button>
+            <div id="breakEvenErgebnis"></div>
+        </div>
+
+        <!-- BESTE STANDORTE -->
+        <div class="karte regenbogen-rand">
+            <h3>📍 Beste Food-Standorte</h3>
+            <div id="foodStandorte"></div>
+        </div>
+
+        <!-- MARKETING TIPPS -->
+        <div class="karte gelb-rand">
+            <h3>📣 Food-Marketing Tipps</h3>
+            <div id="foodMarketing"></div>
+        </div>
+
+        <!-- LIEFER PLATTFORMEN -->
+        <div class="karte gruen-rand">
+            <h3>🛵 Liefer-Plattformen</h3>
+            <div id="lieferPlattformen"></div>
+        </div>
+
+        <!-- AFRO REZEPTE -->
+        <div class="karte regenbogen-rand">
+            <h3>🌍 Afrikanische Bestseller-Gerichte</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Diese Gerichte funktionieren immer & haben hohe Marge!
+            </p>
+            <div id="afroGerichte"></div>
+        </div>
+
+        <!-- ERFOLGS TIPPS -->
+        <div class="karte gelb-rand">
+            <h3>🏆 Food-Business Erfolgs-Regeln</h3>
+            <div id="foodErfolg"></div>
+        </div>
+
+    </div>
+    <!-- ENDE CHEF-KI -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">

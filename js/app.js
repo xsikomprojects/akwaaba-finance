@@ -7674,3 +7674,609 @@ setTimeout(function() {
     youtubeKanaeleAnzeigen();
     lernplaeneAnzeigen();
 }, 1000);
+// ============================================
+// CHEF-KI – Food Business
+// ============================================
+
+var aktiverFoodTyp = 'streetfood';
+var meinMenue = JSON.parse(localStorage.getItem('mein-menue')) || [];
+
+var foodBusinessDB = {
+    streetfood: {
+        icon: '🥘',
+        name: 'Streetfood',
+        invest: '500-3000€',
+        marge: '250-400%',
+        breakEven: '1-3 Monate',
+        vorteile: [
+            'Sehr niedriges Startkapital',
+            'Schnell testbar',
+            'Flexibel bei Standorten',
+            'Direkter Kundenkontakt',
+            'Cash Business'
+        ],
+        nachteile: [
+            'Wetter-abhängig',
+            'Körperlich anstrengend',
+            'Wenig Sitzplätze',
+            'Genehmigungen nötig'
+        ],
+        schritte: [
+            'Nische finden (z.B. Afro-Streetfood)',
+            'Rezepte perfektionieren (5-10 Gerichte)',
+            'Gewerbeanmeldung (25-50€)',
+            'Gesundheitszeugnis besorgen (Pflicht!)',
+            'Sondernutzungserlaubnis Stadt',
+            'Standort testen (Wochenmärkte, Events)',
+            'Instagram/TikTok Account aufbauen',
+            'Preise smart kalkulieren (Marge 3x!)',
+            'Stammkunden gewinnen (Rabattkarte)',
+            'Skalieren mit 2. Standort'
+        ]
+    },
+    foodtruck: {
+        icon: '🚚',
+        name: 'Food Truck',
+        invest: '30.000-80.000€',
+        marge: '150-250%',
+        breakEven: '6-18 Monate',
+        vorteile: [
+            'Mobil = überall Kunden',
+            'Skalierbar',
+            'Trendy',
+            'Events & Festivals',
+            'Weniger Fixkosten als Restaurant'
+        ],
+        nachteile: [
+            'Hohe Anfangsinvestition',
+            'TÜV & Wartung',
+            'Wetter-Risiko',
+            'Genehmigungen komplex'
+        ],
+        schritte: [
+            'Konzept & Menü entwickeln',
+            'Truck kaufen oder leasen',
+            'Umbau & Ausstattung',
+            'Alle Genehmigungen holen',
+            'Versicherungen abschließen',
+            'Standort-Verträge mit Städten',
+            'Event-Kalender füllen',
+            'Social Media Community aufbauen',
+            'Firmen-Catering anbieten',
+            'Franchising erwägen (nach 2 Jahren)'
+        ]
+    },
+    lieferservice: {
+        icon: '📦',
+        name: 'Lieferservice',
+        invest: '2.000-10.000€',
+        marge: '100-200%',
+        breakEven: '3-9 Monate',
+        vorteile: [
+            'Wenig Startkapital',
+            'Nur Küche nötig',
+            'Skalierbar',
+            'Wachsender Markt'
+        ],
+        nachteile: [
+            'Hohe Plattform-Gebühren (30%!)',
+            'Viel Konkurrenz',
+            'Marketing-intensiv'
+        ],
+        schritte: [
+            'Menü digital-freundlich planen',
+            'Küche als Gewerbe anmelden (Ghost Kitchen möglich)',
+            'Lieferando/Uber Eats/Wolt registrieren',
+            'Professionelle Food-Fotos',
+            'Verpackung optimieren (Halt & CO2-neutral)',
+            'Local SEO (Google My Business)',
+            'Bewertungen sammeln (min 4.5 Sterne)',
+            'Meal-Deals & Kombis anbieten',
+            'Stammkunden-Rabatte',
+            'Eigene Website + WhatsApp Bestellung'
+        ]
+    },
+    catering: {
+        icon: '🍱',
+        name: 'Catering',
+        invest: '1.000-5.000€',
+        marge: '200-400%',
+        breakEven: '2-6 Monate',
+        vorteile: [
+            'Große Aufträge = viel Umsatz',
+            'Planbar (Vorbestellungen)',
+            'Firmen-Kunden = wiederkehrend',
+            'Hohe Margen'
+        ],
+        nachteile: [
+            'Saison-abhängig',
+            'Logistik komplex',
+            'Große Menge auf einmal'
+        ],
+        schritte: [
+            'Zielgruppe definieren (Firmen? Hochzeiten? Partys?)',
+            'Buffet-Konzepte entwickeln',
+            'Portionen genau kalkulieren',
+            'Website mit Anfrageformular',
+            'Firmen direkt anschreiben (LinkedIn)',
+            'Fotos von jedem Event',
+            'Google Bewertungen sammeln',
+            'Partnerschaft mit Event-Locations',
+            'Special Cuisines anbieten (z.B. Afrikanisch)',
+            'Skalieren mit Team'
+        ]
+    },
+    cafe: {
+        icon: '☕',
+        name: 'Café',
+        invest: '50.000-150.000€',
+        marge: '250-400% (Getränke)',
+        breakEven: '12-36 Monate',
+        vorteile: [
+            'Community-Aufbau',
+            'Sehr hohe Marge auf Kaffee',
+            'Stundenlange Kundschaft (WLAN, Arbeit)',
+            'Kuchen selbstgemacht'
+        ],
+        nachteile: [
+            'Hohe Miete',
+            'Personal-intensiv',
+            'Lange Amortisation'
+        ],
+        schritte: [
+            'Standort: Nähe Uni/Büros/Wohngebiet',
+            'Konzept einzigartig (nicht Starbucks)',
+            'Kaffeemaschine (5-15k€)',
+            'Baristas ausbilden',
+            'Instagram-taugliches Design',
+            'Kuchen selbst backen',
+            'WLAN + Steckdosen an jedem Tisch',
+            'Loyalty-Karte (10. Kaffee gratis)',
+            'Kooperationen mit lokalen Bäckern',
+            'Events (Live Musik, Lesungen)'
+        ]
+    },
+    restaurant: {
+        icon: '🏛️',
+        name: 'Restaurant',
+        invest: '100.000-500.000€',
+        marge: '60-120%',
+        breakEven: '18-60 Monate',
+        vorteile: [
+            'Höchste Umsätze möglich',
+            'Prestige',
+            'Skalierbar (Ketten)',
+            'Immobilien-Wert steigt mit Standort'
+        ],
+        nachteile: [
+            'Sehr hohe Investition',
+            'Viele Angestellte',
+            '80% aller Restaurants scheitern in 5 Jahren!',
+            'Lange Arbeitszeiten'
+        ],
+        schritte: [
+            'Konzept schärfen (USP!)',
+            'Location scouting (12+ Monate!)',
+            'Businessplan mit Bank',
+            'Finanzierung sichern',
+            'Ausstattung & Personal',
+            'Alle Genehmigungen',
+            'Soft-Opening mit Freunden',
+            'Grand Opening mit Presse',
+            'Bewertungen aktiv sammeln',
+            'Marketing = permanente Aufgabe'
+        ]
+    },
+    afrikanisch: {
+        icon: '🌍',
+        name: 'Afrikanische Küche',
+        invest: '1.000-50.000€',
+        marge: '200-350%',
+        breakEven: '3-12 Monate',
+        vorteile: [
+            'Wenig Konkurrenz (unique!)',
+            'Diaspora + Neugierige = große Zielgruppe',
+            'Sehr hohe Marge',
+            'Instagram-taugliche Gerichte',
+            'Storytelling einfach'
+        ],
+        nachteile: [
+            'Zutaten schwer zu bekommen',
+            'Erklärungs-bedarf',
+            'Nischen-Markt'
+        ],
+        schritte: [
+            'Klar positionieren (welches Land? Togo, Ghana, Senegal?)',
+            'Bestseller identifizieren (Jollof, Fufu, Attiéké)',
+            'Zutaten-Lieferanten aufbauen (Afro-Shops)',
+            'Storytelling in Menü (Herkunft, Tradition)',
+            'Foto-Session mit echten Farben',
+            'Instagram/TikTok mit Kochvideos',
+            'Erstmal Streetfood/Lieferservice testen',
+            'Kulturelle Events organisieren',
+            'Kollaboration mit afrikanischen Communities',
+            'Skalieren: Kochbuch, Kurse, Food Truck'
+        ]
+    },
+    meal: {
+        icon: '🥗',
+        name: 'Meal Prep',
+        invest: '500-3.000€',
+        marge: '150-300%',
+        breakEven: '2-6 Monate',
+        vorteile: [
+            'Sehr niedriges Startkapital',
+            'Abo-Modell = wiederkehrend',
+            'Wenig Personal nötig',
+            'Von zu Hause möglich'
+        ],
+        nachteile: [
+            'Marketing-lastig',
+            'Logistik am Auslieferungstag',
+            'Kühlung wichtig'
+        ],
+        schritte: [
+            'Zielgruppe wählen (Fitness? Familien? Vegan?)',
+            'Wochenmenü planen (5-7 Gerichte)',
+            'Nährwerte berechnen (Fitness-Kunden!)',
+            'Verpackung testen (Kühlketten)',
+            'Website mit Bestellsystem',
+            'Instagram für Vorher/Nachher-Bilder',
+            'Erstlieferung gratis für Testkunden',
+            'Bewertungen sammeln',
+            'Kooperation mit Fitnessstudios',
+            'Abo-Rabatt für 4-Wochen-Buchung'
+        ]
+    }
+};
+
+var foodStandorteDB = [
+    { icon: '🏢', titel: 'Bürogebiete', text: 'Mittagszeit 11:30-14:00. Hohe Kaufkraft, wollen schnell essen.' },
+    { icon: '🏫', titel: 'Universitäten', text: 'Studenten haben wenig Zeit + wenig Geld. Günstige, große Portionen!' },
+    { icon: '🚂', titel: 'Bahnhof & Verkehr', text: 'Pendler morgen 7-9 (Kaffee/Frühstück) und abends 17-19.' },
+    { icon: '🎪', titel: 'Events & Festivals', text: 'Musik-Festivals = Goldgrube! 10x normaler Umsatz an einem Tag.' },
+    { icon: '🏖️', titel: 'Strände & Parks', text: 'Sommer, Wochenenden, Familien. Streetfood perfekt.' },
+    { icon: '🏬', titel: 'Einkaufszentren', text: 'Food-Court in Malls. Stabile Kundenzahl, hohe Miete.' },
+    { icon: '🎭', titel: 'Theater & Kino', text: 'Vor Vorstellungen + Nachts. Snacks, Fingerfood, Cocktails.' },
+    { icon: '🌆', titel: 'Nachtleben-Viertel', text: 'Fr/Sa 22:00-04:00. Betrunkene = hungrig = zahlen alles!' }
+];
+
+var foodMarketingDB = [
+    { icon: '📸', titel: 'Instagram-taugliches Essen', text: 'Bunte, unique Gerichte = kostenlose Werbung durch Foodies!' },
+    { icon: '🎬', titel: 'TikTok Kochvideos', text: 'Zeige den Kochprozess. Ein viraler Post = 10.000 neue Kunden!' },
+    { icon: '⭐', titel: 'Google Bewertungen', text: '4.5+ Sterne sind Pflicht. Bitte jeden Kunden um Bewertung!' },
+    { icon: '🎁', titel: 'Rabattkarten', text: '10 Stempel = 1 Gratis. Kunden kommen 10x wieder!' },
+    { icon: '📱', titel: 'WhatsApp Bestellungen', text: 'Persönlicher als Apps. Stammkunden lieben es!' },
+    { icon: '🤝', titel: 'Local Influencer', text: 'Lokale Food-Blogger einladen. Kostenloses Essen = 5000+ Follower Reichweite.' },
+    { icon: '📧', titel: 'Newsletter', text: 'Wochenkarte per Email. Kostet nichts, bringt Bestellungen!' },
+    { icon: '🎉', titel: 'Events & Kollaborationen', text: 'Mit anderen lokalen Businesses zusammenarbeiten = neue Zielgruppen!' }
+];
+
+var lieferPlattformenDB = [
+    { name: 'Lieferando', desc: 'Deutschlands #1', region: 'Deutschland', gebuehr: '30-35%', color: '#ff8000', url: 'https://www.lieferando.de/partner-werden' },
+    { name: 'Uber Eats', desc: 'International, sehr groß', region: 'Weltweit', gebuehr: '30%', color: '#000000', url: 'https://www.uber.com/de/de/merchants' },
+    { name: 'Wolt', desc: 'Premium-Segment', region: 'Europa', gebuehr: '30%', color: '#009de0', url: 'https://merchants.wolt.com' },
+    { name: 'Deliveroo', desc: 'Fokus auf Premium-Restaurants', region: 'Europa/UK', gebuehr: '30-35%', color: '#00ccbc', url: 'https://restaurants.deliveroo.com' },
+    { name: 'Jumia Food', desc: 'Afrikas größte Plattform', region: 'Afrika', gebuehr: '20-25%', color: '#f68b1e', url: 'https://food.jumia.com' },
+    { name: 'Glovo', desc: 'Fokus Südeuropa & Afrika', region: 'Global', gebuehr: '25-30%', color: '#ffc244', url: 'https://sell.glovoapp.com' }
+];
+
+var afroGerichteDB = [
+    { flag: '🇳🇬🇬🇭', name: 'Jollof Rice', desc: 'Reisgericht mit Tomaten, Gewürzen und Hühnchen. Instagram-Star!', preis: '10-14€', marge: '350% Marge!' },
+    { flag: '🇹🇬🇬🇭', name: 'Fufu mit Suppe', desc: 'Weiches Yam-Fufu mit Palmnusssuppe. Sättigend & authentisch.', preis: '12-16€', marge: '300% Marge!' },
+    { flag: '🇸🇳🇨🇮', name: 'Attiéké mit Fisch', desc: 'Maniok-Couscous mit gegrilltem Fisch. Klassiker Westafrika!', preis: '11-15€', marge: '280% Marge!' },
+    { flag: '🇪🇹', name: 'Injera Platte', desc: 'Sauerteig-Fladenbrot mit Curry-Gerichten. Sehr einzigartig!', preis: '15-20€', marge: '400% Marge!' },
+    { flag: '🇲🇦', name: 'Tajine', desc: 'Marokkanischer Schmortopf mit Lamm oder Huhn. Aromen-Wunder!', preis: '13-18€', marge: '320% Marge!' },
+    { flag: '🇹🇬', name: 'Akoumé mit Sauce', desc: 'Togo-Spezialität: Maismehl mit Grünkohlsauce. Comfort Food!', preis: '10-13€', marge: '350% Marge!' },
+    { flag: '🇰🇪', name: 'Ugali & Nyama', desc: 'Ostafrikas Nationalgericht: Maisbrei mit gegrilltem Fleisch.', preis: '11-15€', marge: '310% Marge!' },
+    { flag: '🇹🇬🇧🇯', name: 'Grillspieße Suya', desc: 'Würzige Rindfleisch-Spieße mit Erdnusspulver. Streetfood-Hit!', preis: '5-8€/Spieß', marge: '400% Marge!' },
+    { flag: '🇨🇩', name: 'Poulet Moambé', desc: 'Kongolesisches Huhn in Palmnusssauce. Reichhaltig!', preis: '14-17€', marge: '290% Marge!' },
+    { flag: '🌍', name: 'Alloco (Bananen)', desc: 'Frittierte Kochbananen mit scharfer Sauce. Süß-scharfer Snack.', preis: '4-6€', marge: '450% Marge!' }
+];
+
+var foodErfolgDB = [
+    { icon: '⭐', titel: 'Qualität vor Preis', text: 'Nie an Zutaten sparen! Bessere Qualität = höhere Preise = mehr Gewinn!' },
+    { icon: '📊', titel: 'Zahlen im Blick', text: 'Wöchentlich Umsatz, Wareneinsatz, Gewinn checken. 30% Wareneinsatz ideal!' },
+    { icon: '👥', titel: 'Team ist alles', text: 'Zufriedene Mitarbeiter = zufriedene Kunden. Fair bezahlen!' },
+    { icon: '🎯', titel: 'Nische finden', text: 'Nicht "auch Italiener" – sei DER beste Togo-Restaurant der Stadt!' },
+    { icon: '🔄', titel: 'Speisekarte optimieren', text: 'Alle 3 Monate: schlechteste 20% streichen, neue 20% testen.' },
+    { icon: '🍷', titel: 'Getränke = Gold', text: 'Marge auf Getränke ist 300-500%. Immer aktiv anbieten!' },
+    { icon: '💚', titel: 'Nachhaltigkeit zählt', text: 'Regionale Zutaten, wenig Verpackung. Kunden lieben & zahlen dafür!' },
+    { icon: '📱', titel: 'Online-Präsenz', text: 'Google, Instagram, TikTok = tägliche Aufgabe. Nicht optional!' },
+    { icon: '🎁', titel: 'Extras die Gold wert sind', text: 'Kleines Amuse Bouche kostenlos = Kunde bestellt Wein = 20€ mehr Umsatz.' },
+    { icon: '🚀', titel: 'Nie stehen bleiben', text: 'Immer verbessern, testen, lernen. Erfolgreiche Chefs lernen ihr Leben lang!' }
+];
+
+function foodTypWaehlen(typ, btn) {
+    aktiverFoodTyp = typ;
+    document.querySelectorAll('.food-typ-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+}
+
+function foodBusinessAnzeigen() {
+    var b = foodBusinessDB[aktiverFoodTyp];
+    var container = document.getElementById('foodPlanErgebnis');
+
+    container.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>' + b.icon + ' ' + b.name + ' Business-Plan</h3>' +
+
+            '<div class="plan-section">' +
+                '<div class="plan-section-titel">💰 Übersicht</div>' +
+                '<div class="plan-punkt"><span>💵</span> Startkapital: ' + b.invest + '</div>' +
+                '<div class="plan-punkt"><span>📈</span> Marge: ' + b.marge + '</div>' +
+                '<div class="plan-punkt"><span>⏰</span> Break-Even: ' + b.breakEven + '</div>' +
+            '</div>' +
+
+            '<div class="plan-section" style="border-left-color:#00cc44;">' +
+                '<div class="plan-section-titel" style="color:#00ff88;">✅ Vorteile</div>' +
+                b.vorteile.map(function(v) {
+                    return '<div class="plan-punkt"><span>✓</span> ' + v + '</div>';
+                }).join('') +
+            '</div>' +
+
+            '<div class="plan-section" style="border-left-color:#d21034;">' +
+                '<div class="plan-section-titel" style="color:#ff4444;">⚠️ Nachteile</div>' +
+                b.nachteile.map(function(n) {
+                    return '<div class="plan-punkt"><span>✗</span> ' + n + '</div>';
+                }).join('') +
+            '</div>' +
+
+            '<div class="plan-section" style="border-left-color:#ffdf00;">' +
+                '<div class="plan-section-titel" style="color:#ffdf00;">🚀 Schritte zum Start</div>' +
+                b.schritte.map(function(s, i) {
+                    return '<div class="plan-punkt"><span>' + (i+1) + '.</span> ' + s + '</div>';
+                }).join('') +
+            '</div>' +
+        '</div>';
+
+    container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function gerichtBerechnen() {
+    var name = document.getElementById('gerichtName').value.trim();
+    var zutaten = parseFloat(document.getElementById('zutatenKosten').value) || 0;
+    var portionen = parseInt(document.getElementById('portionen').value) || 1;
+    var personal = parseFloat(document.getElementById('personalKosten').value) || 0;
+    var overhead = parseFloat(document.getElementById('overhead').value) || 0;
+    var marge = parseFloat(document.getElementById('gewinnMarge').value) || 200;
+
+    if (!name || zutaten <= 0) {
+        toast('Bitte Name und Zutaten-Kosten eingeben!', 'error');
+        return;
+    }
+
+    var zutatenProPortion = zutaten / portionen;
+    var kostenProPortion = zutatenProPortion + personal;
+    var mitOverhead = kostenProPortion * (1 + overhead/100);
+    var verkaufsPreis = mitOverhead * (1 + marge/100);
+    var gewinnProPortion = verkaufsPreis - mitOverhead;
+
+    // Auto-runden auf .90 (psychologisch besser)
+    var praktischerPreis = Math.floor(verkaufsPreis) + 0.90;
+    if (praktischerPreis < verkaufsPreis) praktischerPreis += 1;
+
+    document.getElementById('gerichtErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Preis-Kalkulation: ' + name + '</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Zutaten pro Portion:</span>' +
+                '<span>' + euro(zutatenProPortion) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>+ Personal:</span>' +
+                '<span>' + euro(personal) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>+ Overhead (' + overhead + '%):</span>' +
+                '<span>' + euro(mitOverhead - kostenProPortion) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💸 Gesamtkosten:</span>' +
+                '<span class="negativ">' + euro(mitOverhead) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💰 Verkaufspreis:</span>' +
+                '<span class="gold" style="font-size:1.4rem;">' + euro(praktischerPreis) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>✅ Gewinn pro Portion:</span>' +
+                '<span class="positiv">' + euro(praktischerPreis - mitOverhead) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 Bei 50 Portionen/Tag = ' + euro((praktischerPreis - mitOverhead) * 50) +
+                ' Gewinn täglich! Monat: ' +
+                euro((praktischerPreis - mitOverhead) * 50 * 22) + ' 🎉' +
+            '</div>' +
+            '<button class="btn-gruen" onclick="gerichtSpeichern(\'' + name + '\', ' +
+                praktischerPreis + ', ' + mitOverhead + ')">💾 Ins Menü speichern</button>' +
+        '</div>';
+}
+
+function gerichtSpeichern(name, preis, kosten) {
+    meinMenue.push({
+        id: Date.now(),
+        name: name,
+        preis: preis,
+        kosten: kosten,
+        gewinn: preis - kosten
+    });
+
+    localStorage.setItem('mein-menue', JSON.stringify(meinMenue));
+    menueAnzeigen();
+    toast('📋 Gericht ins Menü aufgenommen!');
+}
+
+function gerichtLoeschen(id) {
+    meinMenue = meinMenue.filter(function(m) { return m.id !== id; });
+    localStorage.setItem('mein-menue', JSON.stringify(meinMenue));
+    menueAnzeigen();
+}
+
+function menueAnzeigen() {
+    var container = document.getElementById('meinMenue');
+    if (!container) return;
+
+    if (meinMenue.length === 0) {
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; padding:1rem;">' +
+            'Noch keine Gerichte im Menü.</p>';
+        return;
+    }
+
+    var gesamtGewinn = 0;
+    meinMenue.forEach(function(m) { gesamtGewinn += m.gewinn; });
+
+    container.innerHTML =
+        meinMenue.map(function(m) {
+            return '<div class="gericht-item">' +
+                '<div class="gericht-info">' +
+                    '<div class="gericht-name">🍽️ ' + m.name + '</div>' +
+                    '<div class="gericht-detail">Kosten: ' + euro(m.kosten) +
+                        ' · Gewinn: ' + euro(m.gewinn) + '</div>' +
+                '</div>' +
+                '<div class="gericht-preis">' + euro(m.preis) + '</div>' +
+                '<button class="port-loeschen" onclick="gerichtLoeschen(' + m.id + ')">✕</button>' +
+            '</div>';
+        }).join('') +
+        '<div class="tipp-box" style="margin-top:1rem;">' +
+            '💰 <strong>Gesamt-Gewinn pro Portion (alle Gerichte):</strong> ' +
+            euro(gesamtGewinn) +
+        '</div>';
+}
+
+function breakEvenBerechnen() {
+    var fixkosten = parseFloat(document.getElementById('fixkosten').value) || 0;
+    var preis = parseFloat(document.getElementById('durchPreis').value) || 0;
+    var zutaten = parseFloat(document.getElementById('durchZutaten').value) || 0;
+
+    if (fixkosten <= 0 || preis <= zutaten) {
+        toast('Bitte alle Werte richtig eingeben!', 'error');
+        return;
+    }
+
+    var gewinnProGericht = preis - zutaten;
+    var gerichteNoetig = fixkosten / gewinnProGericht;
+    var proTag = gerichteNoetig / 30;
+    var stundeNoetig = proTag / 8;
+
+    document.getElementById('breakEvenErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>📊 Break-Even Analyse</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Gewinn pro Gericht:</span>' +
+                '<span class="positiv">' + euro(gewinnProGericht) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>🎯 Gerichte pro Monat:</span>' +
+                '<span class="gold" style="font-size:1.3rem;">' +
+                    Math.ceil(gerichteNoetig) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>📅 Pro Tag:</span>' +
+                '<span class="positiv">' + Math.ceil(proTag) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>⏰ Pro Stunde (8h):</span>' +
+                '<span>' + stundeNoetig.toFixed(1) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                (proTag < 30 ? '✅ Sehr machbar! Weniger als 30 Gerichte/Tag.' :
+                 proTag < 100 ? '👍 Machbar mit gutem Marketing.' :
+                 '⚠️ Ambitioniert! Über 100/Tag – guter Standort nötig!') +
+            '</div>' +
+        '</div>';
+}
+
+function foodStandorteAnzeigen() {
+    var container = document.getElementById('foodStandorte');
+    if (!container) return;
+
+    container.innerHTML = foodStandorteDB.map(function(s) {
+        return '<div class="standort-food">' +
+            '<div class="standort-food-icon">' + s.icon + '</div>' +
+            '<div>' +
+                '<div class="standort-food-titel">' + s.titel + '</div>' +
+                '<div class="standort-food-text">' + s.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function foodMarketingAnzeigen() {
+    var container = document.getElementById('foodMarketing');
+    if (!container) return;
+
+    container.innerHTML = foodMarketingDB.map(function(t) {
+        return '<div class="standort-food" style="border-left-color:#ffce00;">' +
+            '<div class="standort-food-icon">' + t.icon + '</div>' +
+            '<div>' +
+                '<div class="standort-food-titel">' + t.titel + '</div>' +
+                '<div class="standort-food-text">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function lieferPlattformenAnzeigen() {
+    var container = document.getElementById('lieferPlattformen');
+    if (!container) return;
+
+    container.innerHTML = lieferPlattformenDB.map(function(l) {
+        return '<div class="liefer-item" style="border-left-color:' + l.color + ';">' +
+            '<div class="liefer-icon" style="background:' + l.color + ';">' +
+                l.name.charAt(0) + '</div>' +
+            '<div class="liefer-info">' +
+                '<div class="liefer-name">' + l.name + '</div>' +
+                '<div class="liefer-region">🌍 ' + l.region + '</div>' +
+                '<div class="liefer-gebuehr">💸 Gebühr: ' + l.gebuehr + '</div>' +
+            '</div>' +
+            '<a href="' + l.url + '" target="_blank" class="liefer-link">Registrieren</a>' +
+        '</div>';
+    }).join('');
+}
+
+function afroGerichteAnzeigen() {
+    var container = document.getElementById('afroGerichte');
+    if (!container) return;
+
+    container.innerHTML = afroGerichteDB.map(function(g) {
+        return '<div class="afro-gericht">' +
+            '<div class="afro-gericht-flag">' + g.flag + '</div>' +
+            '<div class="afro-gericht-header">' +
+                '<div class="afro-gericht-name">🍽️ ' + g.name + '</div>' +
+                '<div class="afro-gericht-preis">' + g.preis + '</div>' +
+            '</div>' +
+            '<div class="afro-gericht-desc">' + g.desc + '</div>' +
+            '<div class="afro-gericht-marge">💰 ' + g.marge + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function foodErfolgAnzeigen() {
+    var container = document.getElementById('foodErfolg');
+    if (!container) return;
+
+    container.innerHTML = foodErfolgDB.map(function(e) {
+        return '<div class="standort-food" style="border-left-color:#00cc44;">' +
+            '<div class="standort-food-icon">' + e.icon + '</div>' +
+            '<div>' +
+                '<div class="standort-food-titel">' + e.titel + '</div>' +
+                '<div class="standort-food-text">' + e.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// Auto-Start
+setTimeout(function() {
+    foodStandorteAnzeigen();
+    foodMarketingAnzeigen();
+    lieferPlattformenAnzeigen();
+    afroGerichteAnzeigen();
+    foodErfolgAnzeigen();
+    menueAnzeigen();
+}, 1000);
+

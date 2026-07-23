@@ -7287,4 +7287,325 @@ canvas {
     color: #ccddaa;
     font-weight: 600;
 }
+/* ============================================
+   CHEF-KI
+   ============================================ */
+
+.chefki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #3d2a10, #2e1a1a);
+    border-bottom: 3px solid rgba(255,107,0,0.3);
+}
+
+.chefki-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff6b00, #ffce00, #d21034);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #8b3d00, 0 12px 30px rgba(255,107,0,0.5);
+    animation: chefFloat 3s ease-in-out infinite;
+}
+
+@keyframes chefFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(-10deg); }
+}
+
+.chefki-emoji {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.chefki-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #ff6b00, #ffce00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.chefki-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.chefki-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #ff6b00;
+    font-weight: 800;
+}
+
+/* Food Typ Grid */
+.food-typ-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.food-typ-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.food-typ-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,107,0,0.4);
+}
+
+.food-typ-btn.aktiv {
+    border-color: #ff6b00;
+    background: rgba(255,107,0,0.1);
+    box-shadow: 0 4px 0 #8b3d00;
+    transform: translateY(-2px);
+}
+
+.food-typ-icon { font-size: 2rem; margin-bottom: 0.3rem; }
+
+.food-typ-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #ffce00;
+    margin-bottom: 0.2rem;
+}
+
+.food-typ-invest {
+    font-size: 0.7rem;
+    color: #00ff88;
+    font-weight: 800;
+}
+
+/* Business Plan */
+.plan-section {
+    background: linear-gradient(145deg, #2e1a10, #1a0f08);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #ff6b00;
+}
+
+.plan-section-titel {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.plan-punkt {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+    color: #ccddaa;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.plan-punkt span:first-child {
+    color: #ff6b00;
+    font-weight: 900;
+}
+
+/* Standort Item */
+.standort-food {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(255,107,0,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ff6b00;
+}
+
+.standort-food-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.standort-food-titel {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+.standort-food-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* Gericht Item */
+.gericht-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ff6b00;
+    margin-top: 0.5rem;
+}
+
+.gericht-info { flex: 1; }
+
+.gericht-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.gericht-detail {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-weight: 600;
+}
+
+.gericht-preis {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+/* Afro Gericht */
+.afro-gericht {
+    background: linear-gradient(145deg, #2e1a10, #1a0f08);
+    border: 2px solid rgba(255,107,0,0.3);
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #d21034;
+}
+
+.afro-gericht-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.afro-gericht-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 1.1rem;
+}
+
+.afro-gericht-preis {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 1rem;
+    background: rgba(0,204,68,0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.afro-gericht-flag {
+    font-size: 0.8rem;
+    color: #00ddcc;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.afro-gericht-desc {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.afro-gericht-marge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,215,0,0.15);
+    color: #ffdf00;
+    border: 1px solid rgba(255,215,0,0.4);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+/* Liefer Plattform */
+.liefer-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    border-left: 4px solid;
+}
+
+.liefer-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    color: white;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.liefer-info { flex: 1; }
+
+.liefer-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.liefer-gebuehr {
+    font-size: 0.75rem;
+    color: #ff4444;
+    font-weight: 800;
+}
+
+.liefer-region {
+    font-size: 0.78rem;
+    color: #00ddcc;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.liefer-link {
+    padding: 0.5rem 0.8rem;
+    background: linear-gradient(135deg, #ff6b00, #ffce00);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
         
