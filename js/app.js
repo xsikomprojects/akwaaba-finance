@@ -4015,3 +4015,218 @@ setTimeout(function() {
         }
     }
 }, 1000);
+// ============================================
+// DESIGN VERBESSERUNGEN
+// ============================================
+
+// Toast Notification
+function toast(text, typ) {
+    typ = typ || 'success';
+    var toastEl = document.createElement('div');
+    toastEl.className = 'toast ' + (typ === 'error' ? 'error' :
+                        typ === 'warning' ? 'warning' : '');
+
+    var icon = typ === 'error' ? '❌' :
+               typ === 'warning' ? '⚠️' : '✅';
+
+    toastEl.innerHTML = icon + ' ' + text;
+    document.body.appendChild(toastEl);
+
+    setTimeout(function() {
+        toastEl.classList.add('aktiv');
+    }, 100);
+
+    setTimeout(function() {
+        toastEl.classList.remove('aktiv');
+        setTimeout(function() {
+            if (toastEl.parentNode) {
+                toastEl.parentNode.removeChild(toastEl);
+            }
+        }, 400);
+    }, 3000);
+}
+
+// Confetti Effekt
+function confetti() {
+    var farben = ['#cc0000', '#ffdf00', '#006a00', '#ff8800', '#00ddcc', '#cc44ff'];
+
+    for (var i = 0; i < 50; i++) {
+        var c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = farben[Math.floor(Math.random() * farben.length)];
+        c.style.animationDelay = Math.random() * 2 + 's';
+        c.style.animationDuration = (2 + Math.random() * 2) + 's';
+        c.style.width = (5 + Math.random() * 15) + 'px';
+        c.style.height = c.style.width;
+
+        if (Math.random() > 0.5) {
+            c.style.borderRadius = '50%';
+        }
+
+        document.body.appendChild(c);
+
+        setTimeout(function(el) {
+            return function() {
+                if (el.parentNode) el.parentNode.removeChild(el);
+            };
+        }(c), 4000);
+    }
+}
+
+// Zahlen Animation
+function animiereZahl(element, endWert, dauer) {
+    dauer = dauer || 1000;
+    var startWert = 0;
+    var startZeit = performance.now();
+
+    function update(zeit) {
+        var elapsed = zeit - startZeit;
+        var fortschritt = Math.min(elapsed / dauer, 1);
+
+        var easing = 1 - Math.pow(1 - fortschritt, 3);
+        var aktuellerWert = startWert + (endWert - startWert) * easing;
+
+        element.textContent = Math.floor(aktuellerWert).toLocaleString('de-DE');
+
+        if (fortschritt < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = endWert.toLocaleString('de-DE');
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+// Karten Mouse Position Tracker
+document.addEventListener('mousemove', function(e) {
+    document.querySelectorAll('.karte').forEach(function(karte) {
+        var rect = karte.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        karte.style.setProperty('--mouse-x', x + '%');
+        karte.style.setProperty('--mouse-y', y + '%');
+    });
+});
+
+// Tab Wechsel mit Animation
+setTimeout(function() {
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            // Kleine Vibration wenn möglich
+            if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+            }
+        });
+    });
+}, 1000);
+
+// Modal Öffnen
+function modalOeffnen(inhalt) {
+    var overlay = document.createElement('div');
+    overlay.className = 'modal-overlay aktiv';
+    overlay.innerHTML =
+        '<div class="modal-inhalt">' + inhalt + '</div>';
+
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            modalSchliessen(overlay);
+        }
+    });
+
+    document.body.appendChild(overlay);
+    return overlay;
+}
+
+function modalSchliessen(overlay) {
+    overlay.classList.remove('aktiv');
+    setTimeout(function() {
+        if (overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
+    }, 300);
+}
+
+// Willkommens-Confetti bei erstem Besuch
+setTimeout(function() {
+    var erstBesuch = localStorage.getItem('erster-besuch');
+    if (!erstBesuch) {
+        localStorage.setItem('erster-besuch', 'true');
+        setTimeout(function() {
+            confetti();
+            toast('🎉 Willkommen bei AKWAABA Finance!');
+        }, 4000);
+    }
+}, 3500);
+
+// Scroll to Top Button
+var scrollBtn = document.createElement('button');
+scrollBtn.innerHTML = '⬆️';
+scrollBtn.style.cssText =
+    'position: fixed; bottom: 80px; right: 20px; ' +
+    'width: 45px; height: 45px; border-radius: 50%; ' +
+    'background: linear-gradient(135deg, #00cc44, #00ddcc); ' +
+    'border: none; color: white; font-size: 1.2rem; ' +
+    'cursor: pointer; box-shadow: 0 4px 15px rgba(0,204,68,0.4); ' +
+    'z-index: 9995; opacity: 0; transition: all 0.3s; ' +
+    'pointer-events: none;';
+
+document.body.appendChild(scrollBtn);
+
+scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+        scrollBtn.style.opacity = '1';
+        scrollBtn.style.pointerEvents = 'auto';
+    } else {
+        scrollBtn.style.opacity = '0';
+        scrollBtn.style.pointerEvents = 'none';
+    }
+});
+
+// Long Press Detection (für Mobile)
+var pressTimer;
+document.querySelectorAll('.karte').forEach(function(karte) {
+    karte.addEventListener('touchstart', function() {
+        pressTimer = setTimeout(function() {
+            if ('vibrate' in navigator) navigator.vibrate(50);
+            karte.style.transform = 'scale(0.98)';
+        }, 500);
+    });
+
+    karte.addEventListener('touchend', function() {
+        clearTimeout(pressTimer);
+        karte.style.transform = '';
+    });
+});
+
+// Zeige Erfolg beim Speichern
+var alteFunktionen = {
+    portfolioHinzufuegen: window.portfolioHinzufuegen,
+    budgetHinzufuegen: window.budgetHinzufuegen,
+    flugAlarmSetzen: window.flugAlarmSetzen,
+    preisAlarmSetzen: window.preisAlarmSetzen
+};
+
+if (alteFunktionen.portfolioHinzufuegen) {
+    window.portfolioHinzufuegen = function() {
+        alteFunktionen.portfolioHinzufuegen();
+        toast('✅ Investment hinzugefügt!');
+    };
+}
+
+if (alteFunktionen.budgetHinzufuegen) {
+    window.budgetHinzufuegen = function() {
+        alteFunktionen.budgetHinzufuegen();
+        toast('✅ Eintrag hinzugefügt!');
+    };
+}
+
+console.log('%c🇹🇬 AKWAABA Finance v2.0', 'font-size:20px; color:#ffdf00; font-weight:bold;');
+console.log('%cMit XsiKOM-DIGITAL-Projects', 'font-size:12px; color:#00ddcc;');
+console.log('%c⚛️ Quantum AI aktiviert', 'font-size:10px; color:#00cc44;');
