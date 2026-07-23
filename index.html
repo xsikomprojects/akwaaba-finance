@@ -68,6 +68,7 @@
         <button class="tab" data-tab="aaliyah">🌟 AALIYAH</button>
         <button class="tab" data-tab="sankofa">🎨 SANKOFA</button>
         <button class="tab" data-tab="uberki">🚗 UBER-KI</button>
+        <button class="tab" data-tab="immoki">🏠 IMMO-KI</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -1812,6 +1813,281 @@
 
     </div>
     <!-- ENDE UBER-KI -->
+    <!-- ============ IMMO-KI ============ -->
+    <div id="immoki" class="seite">
+
+        <!-- HEADER -->
+        <div class="immoki-header">
+            <div class="immoki-avatar">
+                <div class="immoki-emoji">🏠</div>
+            </div>
+            <div class="immoki-info">
+                <h2>IMMO-KI</h2>
+                <p>Immobilien Togo 🇹🇬 & Deutschland 🇩🇪</p>
+                <div class="immoki-status">
+                    <div class="status-dot"></div>
+                    <span>Finde deine Traum-Immobilie 🏡</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAND WÄHLEN -->
+        <div class="karte gruen-rand">
+            <h3>🌍 Wo suchst du?</h3>
+            <div class="land-auswahl">
+                <button class="land-btn aktiv" onclick="immoLand('togo', this)">
+                    <div class="land-flag">🇹🇬</div>
+                    <div class="land-name">Togo</div>
+                </button>
+                <button class="land-btn" onclick="immoLand('deutschland', this)">
+                    <div class="land-flag">🇩🇪</div>
+                    <div class="land-name">Deutschland</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- SUCHE -->
+        <div class="karte gelb-rand">
+            <h3>🔍 Was suchst du?</h3>
+            <label>Immobilien-Typ</label>
+            <select id="immoTyp">
+                <option value="wohnung">🏢 Wohnung</option>
+                <option value="haus">🏠 Haus</option>
+                <option value="villa">🏛️ Villa</option>
+                <option value="grundstueck">🌾 Grundstück</option>
+                <option value="gewerbe">🏪 Gewerbe</option>
+                <option value="apartment">🏨 Apartment</option>
+            </select>
+
+            <label>Absicht</label>
+            <select id="immoAbsicht">
+                <option value="kaufen">💰 Kaufen</option>
+                <option value="mieten">🏠 Mieten</option>
+                <option value="investieren">📈 Investieren</option>
+            </select>
+
+            <label>Stadt / Region</label>
+            <select id="immoStadt"></select>
+
+            <label>Budget (€)</label>
+            <input type="number" id="immoBudget" placeholder="50000" min="0">
+
+            <label>Zimmer (mindestens)</label>
+            <input type="number" id="immoZimmer" placeholder="3" min="1" max="20">
+
+            <button class="btn-gruen" onclick="immoSuchen()">
+                🔍 Auf Plattformen suchen
+            </button>
+        </div>
+
+        <!-- ERGEBNISSE -->
+        <div id="immoErgebnisse"></div>
+
+        <!-- MARKT ANALYSE -->
+        <div class="karte regenbogen-rand">
+            <h3>📊 Markt-Analyse</h3>
+            <div id="marktAnalyse"></div>
+        </div>
+
+        <!-- MIET RECHNER -->
+        <div class="karte gruen-rand">
+            <h3>💰 Miet-Rendite Rechner</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Berechne ob eine Immobilie eine gute Investition ist!
+            </p>
+            <label>Kaufpreis (€)</label>
+            <input type="number" id="mietKaufpreis" placeholder="200000" min="0">
+            <label>Kaufnebenkosten (% - Notar, Steuer, Makler)</label>
+            <input type="number" id="mietNebenkosten" value="10" min="0" max="20" step="0.5">
+            <label>Monatliche Miete (€)</label>
+            <input type="number" id="mietMonatlich" placeholder="1000" min="0">
+            <label>Monatliche Nebenkosten Vermieter (€)</label>
+            <input type="number" id="mietKostenVermieter" placeholder="100" min="0">
+            <label>Sanierungs-Budget (€)</label>
+            <input type="number" id="mietSanierung" value="0" min="0">
+            <button class="btn-gruen" onclick="mietRenditeBerechnen()">
+                💰 Rendite berechnen
+            </button>
+            <div id="mietErgebnis"></div>
+        </div>
+
+        <!-- HYPOTHEK RECHNER -->
+        <div class="karte gelb-rand">
+            <h3>🏦 Hypothek/Kredit Rechner</h3>
+            <label>Kaufpreis (€)</label>
+            <input type="number" id="hypKaufpreis" placeholder="250000" min="0">
+            <label>Eigenkapital (€)</label>
+            <input type="number" id="hypEigen" placeholder="50000" min="0">
+            <label>Zinssatz (% pro Jahr)</label>
+            <input type="number" id="hypZins" value="3.8" min="0" step="0.1">
+            <label>Laufzeit (Jahre)</label>
+            <input type="number" id="hypJahre" value="25" min="1" max="40">
+            <label>Tilgung (% pro Jahr)</label>
+            <input type="number" id="hypTilgung" value="2" min="0" step="0.5">
+            <button class="btn-gruen" onclick="hypothekBerechnen()">
+                🏦 Berechnen
+            </button>
+            <div id="hypErgebnis"></div>
+        </div>
+
+        <!-- TOGO SPEZIAL -->
+        <div class="karte regenbogen-rand" id="togoBox">
+            <h3>🇹🇬 Togo Immobilien Guide</h3>
+            <div class="togo-immo-info">
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">🏝️</div>
+                    <div>
+                        <div class="togo-immo-titel">Beste Regionen</div>
+                        <div class="togo-immo-text">
+                            <strong>Lomé (Hauptstadt):</strong> Adidogomé, Bè, Agoè, Baguida (Strand)<br>
+                            <strong>Küste:</strong> Aného, Kpalimé (Berge)<br>
+                            <strong>Investment:</strong> Nähe Autobahn RN1
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">💰</div>
+                    <div>
+                        <div class="togo-immo-titel">Preise 2025 (Lomé)</div>
+                        <div class="togo-immo-text">
+                            <strong>Grundstück:</strong> 15-100€/m² (je nach Lage)<br>
+                            <strong>Haus 3 Zimmer:</strong> 25.000-80.000€<br>
+                            <strong>Villa:</strong> 100.000-500.000€<br>
+                            <strong>Miete 3-Zi:</strong> 100-400€/Monat
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">📋</div>
+                    <div>
+                        <div class="togo-immo-titel">Wichtige Dokumente</div>
+                        <div class="togo-immo-text">
+                            <strong>Titre Foncier (Landtitel):</strong> IMMER prüfen!<br>
+                            <strong>Notaire (Notar):</strong> Pflicht bei Kauf<br>
+                            <strong>Impôt Foncier:</strong> Jährliche Grundsteuer
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">⚠️</div>
+                    <div>
+                        <div class="togo-immo-titel">Vorsicht bei</div>
+                        <div class="togo-immo-text">
+                            <strong>Landkonflikte:</strong> Immer Titel prüfen!<br>
+                            <strong>Falsche Verkäufer:</strong> Notar einschalten<br>
+                            <strong>Doppelverkauf:</strong> Nur mit offizieller Registrierung
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">🚀</div>
+                    <div>
+                        <div class="togo-immo-titel">Diaspora Vorteile</div>
+                        <div class="togo-immo-text">
+                            Als Diaspora in Deutschland: Nutze Devisenkurs (1€ = 655 FCFA)!<br>
+                            Baue Haus zum Vermieten und generiere passives Einkommen 🇹🇬💚
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEUTSCHLAND SPEZIAL -->
+        <div class="karte regenbogen-rand" id="deutschBox" style="display:none;">
+            <h3>🇩🇪 Deutschland Immobilien Guide</h3>
+            <div class="togo-immo-info">
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">🏙️</div>
+                    <div>
+                        <div class="togo-immo-titel">Preise nach Städten (2025)</div>
+                        <div class="togo-immo-text">
+                            <strong>München:</strong> 9.000-15.000€/m² (Top-Lage)<br>
+                            <strong>Berlin:</strong> 5.000-9.000€/m²<br>
+                            <strong>Hamburg:</strong> 5.500-8.000€/m²<br>
+                            <strong>Leipzig:</strong> 3.000-4.500€/m² (Bester ROI!)<br>
+                            <strong>Ruhrgebiet:</strong> 1.500-3.000€/m²
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">💰</div>
+                    <div>
+                        <div class="togo-immo-titel">Nebenkosten beim Kauf</div>
+                        <div class="togo-immo-text">
+                            <strong>Grunderwerbsteuer:</strong> 3.5-6.5% (nach Bundesland)<br>
+                            <strong>Notar:</strong> 1.5-2%<br>
+                            <strong>Grundbuch:</strong> 0.5%<br>
+                            <strong>Makler:</strong> 3.57% (geteilt)<br>
+                            <strong>Gesamt:</strong> 9-15% Extra!
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">🏦</div>
+                    <div>
+                        <div class="togo-immo-titel">Finanzierung 2025</div>
+                        <div class="togo-immo-text">
+                            <strong>Zinsen:</strong> 3.5-4.5% (aktuell)<br>
+                            <strong>Eigenkapital:</strong> Min. 20% empfohlen<br>
+                            <strong>KfW Förderung:</strong> Bis 100.000€ günstig<br>
+                            <strong>BAFA:</strong> Zuschüsse für Sanierung
+                        </div>
+                    </div>
+                </div>
+                <div class="togo-immo-item">
+                    <div class="togo-immo-icon">📈</div>
+                    <div>
+                        <div class="togo-immo-titel">Beste Investment-Städte</div>
+                        <div class="togo-immo-text">
+                            <strong>#1 Leipzig:</strong> Beste Rendite 4-5%<br>
+                            <strong>#2 Dresden:</strong> Steigende Preise<br>
+                            <strong>#3 Magdeburg:</strong> Sehr günstig<br>
+                            <strong>#4 Chemnitz:</strong> Insider-Tipp<br>
+                            <strong>Vermeiden:</strong> München (überteuert)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHECKLISTE -->
+        <div class="karte gelb-rand">
+            <h3>✅ Immobilien Checkliste</h3>
+            <div class="check-liste">
+                <div class="check-item">☐ Grundbuchauszug prüfen (Eigentümer, Belastungen)</div>
+                <div class="check-item">☐ Energieausweis anfordern</div>
+                <div class="check-item">☐ Umgebung besichtigen (Tag & Nacht!)</div>
+                <div class="check-item">☐ Baujahr & letzte Sanierung erfragen</div>
+                <div class="check-item">☐ Nachbarschaft prüfen (Lärm, Infrastruktur)</div>
+                <div class="check-item">☐ Öffentlicher Verkehr in der Nähe?</div>
+                <div class="check-item">☐ Schulen/Kindergarten/Einkauf?</div>
+                <div class="check-item">☐ Handwerker-Gutachten einholen</div>
+                <div class="check-item">☐ Alle Nebenkosten kalkulieren</div>
+                <div class="check-item">☐ Finanzierung vor Besichtigung klären</div>
+                <div class="check-item">☐ Kaufvertrag von Anwalt prüfen lassen</div>
+                <div class="check-item">☐ Nie unter Zeitdruck kaufen!</div>
+            </div>
+        </div>
+
+        <!-- MEINE OBJEKTE -->
+        <div class="karte gruen-rand">
+            <h3>💾 Meine gemerkten Objekte</h3>
+            <label>Objekt-Name</label>
+            <input type="text" id="objName" placeholder="z.B. Haus Adidogomé">
+            <label>Preis (€)</label>
+            <input type="number" id="objPreis" placeholder="50000" min="0">
+            <label>Notizen</label>
+            <input type="text" id="objNotiz" placeholder="z.B. 3 Zimmer, Garten">
+            <label>Link (optional)</label>
+            <input type="text" id="objLink" placeholder="https://...">
+            <button class="btn-gruen" onclick="objektSpeichern()">
+                💾 Speichern
+            </button>
+            <div id="meineObjekte"></div>
+        </div>
+
+    </div>
+    <!-- ENDE IMMO-KI -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">

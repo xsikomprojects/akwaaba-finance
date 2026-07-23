@@ -6770,3 +6770,395 @@ setTimeout(function() {
     standortTippsAnzeigen();
     profiTippsAnzeigen();
 }, 1000);
+// ============================================
+// IMMO-KI – Immobilien Togo & Deutschland
+// ============================================
+
+var aktivesLand = 'togo';
+var meineObjekte = JSON.parse(localStorage.getItem('meine-objekte')) || [];
+
+var immoStaedte = {
+    togo: [
+        { value: 'lome', name: '🏙️ Lomé (Hauptstadt)' },
+        { value: 'agoe', name: '🏘️ Agoè' },
+        { value: 'adidogome', name: '🏘️ Adidogomé' },
+        { value: 'be', name: '🏘️ Bè' },
+        { value: 'baguida', name: '🏖️ Baguida (Strand)' },
+        { value: 'aneho', name: '🌊 Aného' },
+        { value: 'kpalime', name: '⛰️ Kpalimé (Berge)' },
+        { value: 'atakpame', name: '🌆 Atakpamé' },
+        { value: 'sokode', name: '🏙️ Sokodé' },
+        { value: 'kara', name: '🌾 Kara' }
+    ],
+    deutschland: [
+        { value: 'berlin', name: '🏙️ Berlin' },
+        { value: 'muenchen', name: '🏔️ München' },
+        { value: 'hamburg', name: '⚓ Hamburg' },
+        { value: 'frankfurt', name: '💼 Frankfurt' },
+        { value: 'koeln', name: '⛪ Köln' },
+        { value: 'stuttgart', name: '🚗 Stuttgart' },
+        { value: 'leipzig', name: '📈 Leipzig (Bester ROI!)' },
+        { value: 'dresden', name: '🏛️ Dresden' },
+        { value: 'hannover', name: '🐴 Hannover' },
+        { value: 'nuernberg', name: '🏰 Nürnberg' },
+        { value: 'duesseldorf', name: '👔 Düsseldorf' },
+        { value: 'magdeburg', name: '💰 Magdeburg (Günstig)' },
+        { value: 'chemnitz', name: '🔧 Chemnitz' }
+    ]
+};
+
+var immoPlattformen = {
+    togo: {
+        wohnung: [
+            { name: 'Expat.com Togo', desc: 'Internationale Wohnungen in Lomé', typ: 'Wohnung', url: 'https://www.expat.com/de/immobilien/west-afrika/togo/' },
+            { name: 'Afribaba Togo', desc: 'Größte lokale Kleinanzeigen Plattform', typ: 'Wohnung/Miete', url: 'https://tg.afribaba.com' },
+            { name: 'Jumia House Togo', desc: 'Wohnungen in Lomé und Umgebung', typ: 'Wohnung', url: 'https://house.jumia.com/togo' },
+            { name: 'Coin Afrique Togo', desc: 'Beliebte Kleinanzeigen', typ: 'Wohnung', url: 'https://tg.coinafrique.com' }
+        ],
+        haus: [
+            { name: 'Afribaba Togo', desc: 'Häuser zum Kauf und Miete', typ: 'Haus/Kauf', url: 'https://tg.afribaba.com' },
+            { name: 'Expat.com Togo', desc: 'Häuser für Expats & Diaspora', typ: 'Haus', url: 'https://www.expat.com/de/immobilien/west-afrika/togo/' },
+            { name: 'Facebook Togo Immobilier', desc: 'Aktive Facebook Gruppen', typ: 'Haus', url: 'https://www.facebook.com/search/top/?q=togo%20immobilier' },
+            { name: 'ImmoAfrique', desc: 'Panafrikanische Plattform', typ: 'Haus', url: 'https://www.immoafrique.com/togo' }
+        ],
+        villa: [
+            { name: 'Expat.com Premium', desc: 'Luxus-Villen in Baguida', typ: 'Villa', url: 'https://www.expat.com/de/immobilien/west-afrika/togo/' },
+            { name: 'ImmoAfrique Premium', desc: 'High-End Immobilien', typ: 'Villa', url: 'https://www.immoafrique.com/togo' },
+            { name: 'Direkt-Kontakte', desc: 'Persönliche Empfehlungen via Diaspora-Netzwerk', typ: 'Villa', url: 'https://www.facebook.com/groups/togodiaspora' }
+        ],
+        grundstueck: [
+            { name: 'Afribaba Grundstücke', desc: 'Bauland in ganz Togo', typ: 'Grundstück', url: 'https://tg.afribaba.com' },
+            { name: 'Coin Afrique Terrain', desc: 'Grundstücke mit Titel', typ: 'Bauland', url: 'https://tg.coinafrique.com' },
+            { name: 'Togo Real Estate', desc: 'Vermittler mit Landtitel-Prüfung', typ: 'Terrain', url: 'https://www.togorealestate.com' }
+        ],
+        gewerbe: [
+            { name: 'Expat.com Gewerbe', desc: 'Büros und Läden in Lomé', typ: 'Gewerbe', url: 'https://www.expat.com/de/immobilien/west-afrika/togo/' },
+            { name: 'Afribaba Business', desc: 'Ladenlokale und Büros', typ: 'Gewerbe', url: 'https://tg.afribaba.com' }
+        ],
+        apartment: [
+            { name: 'Airbnb Togo', desc: 'Möblierte Apartments kurz/langfristig', typ: 'Apartment', url: 'https://www.airbnb.de/s/Lome--Togo' },
+            { name: 'Booking Togo', desc: 'Apartments zur Kurzzeitmiete', typ: 'Apartment', url: 'https://www.booking.com/city/tg/lome.de.html' }
+        ]
+    },
+    deutschland: {
+        wohnung: [
+            { name: 'ImmoScout24', desc: 'Größte Immobilienplattform Deutschlands', typ: 'Wohnung', url: 'https://www.immobilienscout24.de' },
+            { name: 'Immowelt', desc: 'Zweitgrößte Plattform', typ: 'Wohnung', url: 'https://www.immowelt.de' },
+            { name: 'Kleinanzeigen', desc: 'Viele private Angebote', typ: 'Wohnung', url: 'https://www.kleinanzeigen.de/s-immobilien/c195' },
+            { name: 'Immonet', desc: 'Immobilien deutschlandweit', typ: 'Wohnung', url: 'https://www.immonet.de' }
+        ],
+        haus: [
+            { name: 'ImmoScout24', desc: 'Häuser zum Kauf/Miete', typ: 'Haus', url: 'https://www.immobilienscout24.de/Suche/de/haus-kaufen' },
+            { name: 'Immowelt Häuser', desc: 'Große Auswahl an Häusern', typ: 'Haus', url: 'https://www.immowelt.de/liste/haeuser' },
+            { name: 'Sparkassen-Immo', desc: 'Von Sparkassen vermittelt', typ: 'Haus', url: 'https://immobilien.sparkasse.de' },
+            { name: 'ebay Immobilien', desc: 'Auktionen und Sofortkauf', typ: 'Haus', url: 'https://www.ebay.de/b/Haeuser/10428' }
+        ],
+        villa: [
+            { name: 'Engel & Völkers', desc: 'Premium Immobilien', typ: 'Villa', url: 'https://www.engelvoelkers.com/de' },
+            { name: 'Sotheby\'s Realty', desc: 'Luxus Immobilien international', typ: 'Villa', url: 'https://www.sothebysrealty.com' },
+            { name: 'Von Poll Immobilien', desc: 'Premium Segment', typ: 'Villa', url: 'https://www.von-poll.com' }
+        ],
+        grundstueck: [
+            { name: 'ImmoScout24 Grundstücke', desc: 'Bauland deutschlandweit', typ: 'Grundstück', url: 'https://www.immobilienscout24.de/Suche/de/grundstueck-kaufen' },
+            { name: 'Grundstücke.de', desc: 'Spezialisiert auf Bauland', typ: 'Grundstück', url: 'https://www.grundstueck.de' },
+            { name: 'Immowelt Grundstücke', desc: 'Baulücken und Grundstücke', typ: 'Bauland', url: 'https://www.immowelt.de/liste/grundstuecke' }
+        ],
+        gewerbe: [
+            { name: 'ImmoScout24 Gewerbe', desc: 'Büros, Läden, Hallen', typ: 'Gewerbe', url: 'https://www.immobilienscout24.de/gewerbe' },
+            { name: 'Realbest', desc: 'Gewerbeimmobilien Marktplatz', typ: 'Gewerbe', url: 'https://www.realbest.de' },
+            { name: 'Immowelt Gewerbe', desc: 'Gewerbeobjekte', typ: 'Gewerbe', url: 'https://gewerbe.immowelt.de' }
+        ],
+        apartment: [
+            { name: 'Airbnb Deutschland', desc: 'Kurz- und Langzeitmiete', typ: 'Apartment', url: 'https://www.airbnb.de' },
+            { name: 'Wunderflats', desc: 'Möblierte Apartments 1-24 Monate', typ: 'Apartment', url: 'https://wunderflats.com' },
+            { name: 'HousingAnywhere', desc: 'International möbliert', typ: 'Apartment', url: 'https://housinganywhere.com' }
+        ]
+    }
+};
+
+function immoLand(land, btn) {
+    aktivesLand = land;
+    document.querySelectorAll('.land-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+
+    // Städte aktualisieren
+    var stadtSelect = document.getElementById('immoStadt');
+    stadtSelect.innerHTML = immoStaedte[land].map(function(s) {
+        return '<option value="' + s.value + '">' + s.name + '</option>';
+    }).join('');
+
+    // Box wechseln
+    document.getElementById('togoBox').style.display =
+        (land === 'togo') ? 'block' : 'none';
+    document.getElementById('deutschBox').style.display =
+        (land === 'deutschland') ? 'block' : 'none';
+
+    marktAnalyseAnzeigen();
+}
+
+function immoSuchen() {
+    var typ = document.getElementById('immoTyp').value;
+    var absicht = document.getElementById('immoAbsicht').value;
+    var stadt = document.getElementById('immoStadt').value;
+    var budget = document.getElementById('immoBudget').value;
+    var zimmer = document.getElementById('immoZimmer').value;
+
+    var plattformen = immoPlattformen[aktivesLand][typ] || [];
+
+    if (plattformen.length === 0) {
+        toast('Keine Plattformen gefunden', 'error');
+        return;
+    }
+
+    var container = document.getElementById('immoErgebnisse');
+    container.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>🔍 ' + plattformen.length + ' Plattformen gefunden</h3>' +
+            '<p style="font-size:0.85rem; margin-bottom:1rem;">' +
+                'Für ' + typ + ' zum ' + absicht + ' in ' +
+                (aktivesLand === 'togo' ? 'Togo' : 'Deutschland') + '</p>' +
+            plattformen.map(function(p) {
+                return '<div class="immo-plattform">' +
+                    '<div class="immo-plat-header">' +
+                        '<div class="immo-plat-name">🏠 ' + p.name + '</div>' +
+                        '<div class="immo-plat-typ">' + p.typ + '</div>' +
+                    '</div>' +
+                    '<div class="immo-plat-desc">' + p.desc + '</div>' +
+                    '<a href="' + p.url + '" target="_blank" class="immo-plat-link">' +
+                        '🔗 Jetzt suchen</a>' +
+                '</div>';
+            }).join('') +
+            '<div class="tipp-box" style="margin-top:1rem;">' +
+                '💡 <strong>Tipp:</strong> Nutze mehrere Plattformen! Jede hat andere Angebote. ' +
+                (aktivesLand === 'togo' ?
+                    'In Togo sind Facebook-Gruppen sehr aktiv! Suche "Togo Immobilier"' :
+                    'In Deutschland lohnt sich ImmoScout24 Premium für bessere Deals!') +
+            '</div>' +
+        '</div>';
+
+    container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function marktAnalyseAnzeigen() {
+    var container = document.getElementById('marktAnalyse');
+    if (!container) return;
+
+    var analyse;
+
+    if (aktivesLand === 'togo') {
+        analyse = [
+            { label: '📈 Preisentwicklung 2024/2025', wert: '+8% pro Jahr' },
+            { label: '🏙️ Boom-Region', wert: 'Baguida (Küste)' },
+            { label: '💰 Miet-Rendite Ø', wert: '6-10% pro Jahr' },
+            { label: '⏰ Verkaufsdauer', wert: '2-6 Monate' },
+            { label: '💎 Beste Investition', wert: 'Grundstücke Peri-Lomé' },
+            { label: '⚠️ Risiko', wert: 'Landtitel prüfen!' },
+            { label: '🚀 Trend', wert: 'Diaspora-Investments steigen' },
+            { label: '💡 Insider Tipp', wert: 'Kauf in FCFA, spare Kursverluste' }
+        ];
+    } else {
+        analyse = [
+            { label: '📈 Preisentwicklung 2024/2025', wert: '-2% bis +3% (stabil)' },
+            { label: '🏙️ Boom-Region', wert: 'Leipzig, Dresden' },
+            { label: '💰 Miet-Rendite Ø', wert: '3-5% pro Jahr' },
+            { label: '⏰ Verkaufsdauer', wert: '3-8 Monate' },
+            { label: '💎 Beste Investition', wert: 'Sanierungsobjekte Ost-DE' },
+            { label: '⚠️ Risiko', wert: 'München-Blase' },
+            { label: '🚀 Trend', wert: 'Landflucht rückläufig' },
+            { label: '💡 Insider Tipp', wert: 'KfW-Förderung nutzen!' }
+        ];
+    }
+
+    container.innerHTML =
+        '<div class="stats-liste">' +
+            analyse.map(function(a) {
+                return '<div class="stat-zeile">' +
+                    '<span>' + a.label + '</span>' +
+                    '<span class="wert">' + a.wert + '</span>' +
+                '</div>';
+            }).join('') +
+        '</div>';
+}
+
+// MIET RENDITE
+function mietRenditeBerechnen() {
+    var kauf = parseFloat(document.getElementById('mietKaufpreis').value) || 0;
+    var neben = parseFloat(document.getElementById('mietNebenkosten').value) || 0;
+    var miete = parseFloat(document.getElementById('mietMonatlich').value) || 0;
+    var kostenV = parseFloat(document.getElementById('mietKostenVermieter').value) || 0;
+    var sanierung = parseFloat(document.getElementById('mietSanierung').value) || 0;
+
+    var gesamtInvest = kauf + (kauf * neben/100) + sanierung;
+    var jahresMiete = (miete - kostenV) * 12;
+    var bruttoRendite = (miete * 12 / kauf) * 100;
+    var nettoRendite = (jahresMiete / gesamtInvest) * 100;
+    var amortisation = gesamtInvest / jahresMiete;
+
+    var bewertung = '';
+    if (nettoRendite >= 6) bewertung = '🏆 <strong>Exzellent!</strong> Sehr gute Investition!';
+    else if (nettoRendite >= 4) bewertung = '👍 <strong>Gut!</strong> Solide Investition.';
+    else if (nettoRendite >= 2) bewertung = '⚠️ <strong>Mäßig.</strong> Prüfe alternative Objekte.';
+    else bewertung = '❌ <strong>Schlecht!</strong> Überdenke den Kauf!';
+
+    document.getElementById('mietErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Miet-Rendite Analyse</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Kaufpreis + Nebenkosten:</span>' +
+                '<span>' + euro(gesamtInvest) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Jahresmiete (netto):</span>' +
+                '<span class="positiv">' + euro(jahresMiete) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Brutto-Rendite:</span>' +
+                '<span class="gold">' + bruttoRendite.toFixed(2) + '%</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💎 Netto-Rendite:</span>' +
+                '<span class="positiv" style="font-size:1.4rem;">' +
+                    nettoRendite.toFixed(2) + '%</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Amortisation:</span>' +
+                '<span>' + amortisation.toFixed(1) + ' Jahre</span>' +
+            '</div>' +
+            '<div class="tipp-box">' + bewertung + '</div>' +
+        '</div>';
+}
+
+// HYPOTHEK
+function hypothekBerechnen() {
+    var kauf = parseFloat(document.getElementById('hypKaufpreis').value) || 0;
+    var eigen = parseFloat(document.getElementById('hypEigen').value) || 0;
+    var zins = parseFloat(document.getElementById('hypZins').value) / 100 || 0.038;
+    var jahre = parseInt(document.getElementById('hypJahre').value) || 25;
+    var tilgung = parseFloat(document.getElementById('hypTilgung').value) / 100 || 0.02;
+
+    var darlehen = kauf - eigen;
+    var monatlicheRate = (darlehen * (zins + tilgung)) / 12;
+    var jahresZins = darlehen * zins;
+    var monatsZins = jahresZins / 12;
+    var monatsTilgung = monatlicheRate - monatsZins;
+    var gesamtZinsen = monatlicheRate * jahre * 12 - darlehen;
+
+    document.getElementById('hypErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>🏦 Hypothek-Berechnung</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Darlehen (Kredit):</span>' +
+                '<span class="negativ">' + euro(darlehen) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Monatliche Rate:</span>' +
+                '<span class="gold" style="font-size:1.3rem;">' +
+                    euro(monatlicheRate) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Davon Zinsen:</span>' +
+                '<span>' + euro(monatsZins) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Davon Tilgung:</span>' +
+                '<span class="positiv">' + euro(monatsTilgung) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Gesamt Zinsen (' + jahre + ' Jahre):</span>' +
+                '<span class="negativ">' + euro(gesamtZinsen) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Tipp:</strong> Höhere Tilgung = schneller schuldenfrei! ' +
+                'Sondertilgungen prüfen (2-5% jährlich meist möglich).' +
+            '</div>' +
+        '</div>';
+}
+
+// OBJEKTE SPEICHERN
+function objektSpeichern() {
+    var name = document.getElementById('objName').value.trim();
+    var preis = parseFloat(document.getElementById('objPreis').value) || 0;
+    var notiz = document.getElementById('objNotiz').value.trim();
+    var link = document.getElementById('objLink').value.trim();
+
+    if (!name || preis <= 0) {
+        toast('Bitte Name und Preis eingeben!', 'error');
+        return;
+    }
+
+    meineObjekte.push({
+        id: Date.now(),
+        name: name,
+        preis: preis,
+        notiz: notiz,
+        link: link,
+        land: aktivesLand,
+        datum: new Date().toLocaleDateString('de-DE')
+    });
+
+    localStorage.setItem('meine-objekte', JSON.stringify(meineObjekte));
+
+    document.getElementById('objName').value = '';
+    document.getElementById('objPreis').value = '';
+    document.getElementById('objNotiz').value = '';
+    document.getElementById('objLink').value = '';
+
+    meineObjekteAnzeigen();
+    toast('💾 Objekt gespeichert!');
+}
+
+function objektLoeschen(id) {
+    meineObjekte = meineObjekte.filter(function(o) { return o.id !== id; });
+    localStorage.setItem('meine-objekte', JSON.stringify(meineObjekte));
+    meineObjekteAnzeigen();
+}
+
+function meineObjekteAnzeigen() {
+    var container = document.getElementById('meineObjekte');
+    if (!container) return;
+
+    if (meineObjekte.length === 0) {
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; margin-top:1rem;">' +
+            'Noch keine Objekte gespeichert.</p>';
+        return;
+    }
+
+    container.innerHTML = meineObjekte.map(function(o) {
+        var flag = o.land === 'togo' ? '🇹🇬' : '🇩🇪';
+        return '<div class="objekt-item">' +
+            '<div class="objekt-header">' +
+                '<div class="objekt-name">' + flag + ' ' + o.name + '</div>' +
+                '<div class="objekt-preis">' + euro(o.preis) + '</div>' +
+            '</div>' +
+            (o.notiz ? '<div class="objekt-notiz">📝 ' + o.notiz + '</div>' : '') +
+            '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">' +
+                (o.link ? '<a href="' + o.link + '" target="_blank" class="objekt-link">🔗 Zum Angebot</a>' :
+                    '<span style="font-size:0.75rem; color:#668844;">📅 ' + o.datum + '</span>') +
+                '<button class="port-loeschen" onclick="objektLoeschen(' + o.id + ')">✕</button>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// Auto-Start
+setTimeout(function() {
+    immoLand('togo', document.querySelector('.land-btn.aktiv'));
+    meineObjekteAnzeigen();
+}, 500);
+
+// Checkliste anklickbar
+setTimeout(function() {
+    document.querySelectorAll('.check-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            this.classList.toggle('done');
+            if (this.textContent.startsWith('☐')) {
+                this.textContent = this.textContent.replace('☐', '✅');
+            } else {
+                this.textContent = this.textContent.replace('✅', '☐');
+            }
+        });
+    });
+}, 1500);

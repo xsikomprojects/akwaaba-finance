@@ -6614,4 +6614,289 @@ canvas {
     font-size: 1.3rem;
     color: #ffd700;
 }
+/* ============================================
+   IMMO-KI
+   ============================================ */
+
+.immoki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #2a3d1a, #1a2e2e);
+    border-bottom: 3px solid rgba(0,204,68,0.3);
+}
+
+.immoki-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #004400, 0 12px 30px rgba(0,204,68,0.5);
+    animation: immoBounce 3s ease-in-out infinite;
+}
+
+@keyframes immoBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.immoki-emoji {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.immoki-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #00cc44, #ffdf00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.immoki-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.immoki-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #00cc44;
+    font-weight: 800;
+}
+
+/* Land Auswahl */
+.land-auswahl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.land-btn {
+    padding: 1.5rem 1rem;
+    background: rgba(0,0,0,0.3);
+    border: 3px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+}
+
+.land-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 rgba(0,0,0,0.3);
+}
+
+.land-btn.aktiv {
+    border-color: #ffdf00;
+    background: rgba(255,223,0,0.1);
+    box-shadow: 0 6px 0 #8b6c00, 0 10px 20px rgba(255,223,0,0.3);
+    transform: translateY(-3px);
+}
+
+.land-flag {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.land-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #ffdf00;
+    letter-spacing: 2px;
+}
+
+/* Immo Item */
+.immo-plattform {
+    background: linear-gradient(145deg, #1a2e0a, #0f1a05);
+    border: 2px solid rgba(0,204,68,0.3);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #00cc44;
+    transition: all 0.3s;
+}
+
+.immo-plattform:hover {
+    transform: translateX(5px);
+    border-color: rgba(0,204,68,0.5);
+    box-shadow: 0 8px 20px rgba(0,204,68,0.2);
+}
+
+.immo-plat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.immo-plat-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #00ff88;
+}
+
+.immo-plat-typ {
+    font-size: 0.7rem;
+    color: #ffdf00;
+    background: rgba(255,223,0,0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 800;
+}
+
+.immo-plat-desc {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.5;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.immo-plat-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #00cc44, #00a67e);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    box-shadow: 0 3px 0 #004400;
+    transition: all 0.2s;
+}
+
+.immo-plat-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #004400;
+}
+
+/* Togo Immo Info */
+.togo-immo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.togo-immo-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border-left: 4px solid #00cc44;
+}
+
+.togo-immo-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.togo-immo-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #ffdf00;
+    margin-bottom: 0.4rem;
+}
+
+.togo-immo-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+/* Checkliste */
+.check-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 1rem;
+}
+
+.check-item {
+    padding: 0.7rem 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-left: 3px solid #ffdf00;
+}
+
+.check-item:hover {
+    background: rgba(0,204,68,0.1);
+    color: #00ff88;
+    transform: translateX(5px);
+}
+
+.check-item.done {
+    background: rgba(0,204,68,0.15);
+    color: #00ff88;
+    text-decoration: line-through;
+    border-left-color: #00cc44;
+}
+
+/* Meine Objekte */
+.objekt-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00cc44;
+    margin-top: 0.5rem;
+}
+
+.objekt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.objekt-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffdf00;
+    font-size: 1rem;
+}
+
+.objekt-preis {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 1.1rem;
+}
+
+.objekt-notiz {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    line-height: 1.5;
+}
+
+.objekt-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #00ddcc;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
         
