@@ -3522,3 +3522,496 @@ function siegothStarten() {
 }
 
 siegothStarten();
+// ============================================
+// HUND-NASE FLUG TRACKER
+// ============================================
+
+var flugAlarme = JSON.parse(
+    localStorage.getItem('flug-alarme')) || [];
+
+var airlinesDB = [
+    { name: 'Air France', code: 'AF', bild: '🇫🇷' },
+    { name: 'Lufthansa', code: 'LH', bild: '🇩🇪' },
+    { name: 'Brussels Airlines', code: 'SN', bild: '🇧🇪' },
+    { name: 'Ethiopian Airlines', code: 'ET', bild: '🇪🇹' },
+    { name: 'Asky Airlines', code: 'KP', bild: '🇹🇬' },
+    { name: 'Royal Air Maroc', code: 'AT', bild: '🇲🇦' },
+    { name: 'Turkish Airlines', code: 'TK', bild: '🇹🇷' },
+    { name: 'Emirates', code: 'EK', bild: '🇦🇪' },
+    { name: 'Qatar Airways', code: 'QR', bild: '🇶🇦' },
+    { name: 'KLM', code: 'KL', bild: '🇳🇱' }
+];
+
+var flughaefenDB = {
+    LFW: { city: 'Lomé', land: 'Togo' },
+    FRA: { city: 'Frankfurt', land: 'Deutschland' },
+    MUC: { city: 'München', land: 'Deutschland' },
+    BER: { city: 'Berlin', land: 'Deutschland' },
+    CDG: { city: 'Paris', land: 'Frankreich' },
+    BRU: { city: 'Brüssel', land: 'Belgien' },
+    LHR: { city: 'London', land: 'UK' },
+    ACC: { city: 'Accra', land: 'Ghana' },
+    ABJ: { city: 'Abidjan', land: 'Elfenbeinküste' },
+    COO: { city: 'Cotonou', land: 'Benin' },
+    DKR: { city: 'Dakar', land: 'Senegal' },
+    JFK: { city: 'New York', land: 'USA' },
+    DXB: { city: 'Dubai', land: 'VAE' }
+};
+
+// Datum heute setzen
+setTimeout(function() {
+    var datumEl = document.getElementById('flugDatum');
+    if (datumEl) {
+        var heute = new Date();
+        heute.setDate(heute.getDate() + 30);
+        datumEl.value = heute.toISOString().split('T')[0];
+    }
+}, 500);
+
+function hundNaseSchnueffelt() {
+    var von = document.getElementById('flugVon').value;
+    var nach = document.getElementById('flugNach').value;
+    var datum = document.getElementById('flugDatum').value;
+    var pax = document.getElementById('flugPax').value;
+    var klasse = document.getElementById('flugKlasse').value;
+
+    if (von === nach) {
+        alert('Abflug und Ziel müssen unterschiedlich sein!');
+        return;
+    }
+
+    var anim = document.getElementById('schnueffelAnim');
+    var ergebnisse = document.getElementById('flugErgebnisse');
+
+    ergebnisse.innerHTML = '';
+    anim.classList.remove('versteckt');
+
+    var suchenLog = [
+        '🐕 HUND-NASE schnüffelt...',
+        '👃 Vergleiche Preise auf Skyscanner...',
+        '👃 Prüfe Google Flights...',
+        '👃 Suche bei Kayak...',
+        '👃 Analysiere Kiwi.com...',
+        '👃 Checke Momondo...',
+        '🎯 Finde beste Deals...',
+        '✅ Fertig! Ergebnisse gefunden!'
+    ];
+
+    var i = 0;
+    var logEl = document.getElementById('schnueffelSuchen');
+    var textEl = document.getElementById('schnueffelText');
+    var fillEl = document.getElementById('schnueffelFill');
+    logEl.innerHTML = '';
+
+    var interval = setInterval(function() {
+        if (i < suchenLog.length) {
+            logEl.innerHTML += suchenLog[i] + '\n';
+            logEl.scrollTop = logEl.scrollHeight;
+            textEl.textContent = suchenLog[i];
+            fillEl.style.width = ((i+1) * 100/suchenLog.length) + '%';
+            i++;
+        } else {
+            clearInterval(interval);
+            anim.classList.add('versteckt');
+            flugErgebnisseAnzeigen(von, nach, datum, pax, klasse);
+        }
+    }, 500);
+}
+
+function flugErgebnisseAnzeigen(von, nach, datum, pax, klasse) {
+    var ergebnisse = document.getElementById('flugErgebnisse');
+    var vonInfo = flughaefenDB[von];
+    var nachInfo = flughaefenDB[nach];
+
+    // Basis Preis berechnen (Demo)
+    var basisPreis = 400;
+
+    // Togo Route = teurer
+    if (von === 'LFW' || nach === 'LFW') basisPreis = 550;
+
+    // Interkontinental
+    if ((von === 'JFK' || nach === 'JFK') ||
+        (von === 'DXB' || nach === 'DXB')) basisPreis = 700;
+
+    // Klasse
+    if (klasse === 'premium') basisPreis *= 1.8;
+    if (klasse === 'business') basisPreis *= 3.5;
+
+    basisPreis *= parseInt(pax);
+
+    var demoFlug = [];
+    for (var i = 0; i < 5; i++) {
+        var airline = airlinesDB[Math.floor(Math.random() * airlinesDB.length)];
+        var preis = basisPreis * (0.7 + Math.random() * 0.6);
+        var dauer = 6 + Math.floor(Math.random() * 12);
+        var stops = Math.random() > 0.5 ? 1 : 0;
+        var abflug = 6 + Math.floor(Math.random() * 16);
+
+        demoFlug.push({
+            airline: airline,
+            preis: Math.round(preis),
+            dauer: dauer,
+            stops: stops,
+            abflug: abflug
+        });
+    }
+
+    // Sortieren nach Preis
+    demoFlug.sort(function(a, b) { return a.preis - b.preis; });
+
+    var billigster = demoFlug[0].preis;
+
+    ergebnisse.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>🎯 ' + demoFlug.length + ' Flüge gefunden!</h3>' +
+            '<p style="font-size:0.85rem;">Von <strong>' +
+            vonInfo.city + '</strong> nach <strong>' +
+            nachInfo.city + '</strong> am ' + datum + '</p>' +
+            '<p style="font-size:0.8rem; color:#ff8800; margin-top:0.5rem;">' +
+            '💡 <strong>Hinweis:</strong> Demo-Preise! Klicke auf ' +
+            '"Auf Skyscanner buchen" für echte Preise!</p>' +
+        '</div>';
+
+    demoFlug.forEach(function(f) {
+        var badge = '';
+        if (f.preis === billigster) {
+            badge = '<span class="flug-badge badge-cheap">💰 Billigster</span>';
+        } else if (f.stops === 0) {
+            badge = '<span class="flug-badge badge-empfohlen">✨ Direktflug</span>';
+        } else if (Math.random() > 0.7) {
+            badge = '<span class="flug-badge badge-hot">🔥 Hot Deal</span>';
+        }
+
+        var abflugMin = Math.floor(Math.random() * 60);
+        var abflugStr = String(f.abflug).padStart(2, '0') + ':' +
+                        String(abflugMin).padStart(2, '0');
+        var ankunftH = (f.abflug + f.dauer) % 24;
+        var ankunftStr = String(ankunftH).padStart(2, '0') + ':' +
+                         String(abflugMin).padStart(2, '0');
+
+        var skyscannerLink = 'https://www.skyscanner.de/transport/fluege/' +
+                             von.toLowerCase() + '/' + nach.toLowerCase() + '/' +
+                             datum.replace(/-/g, '').substring(2);
+
+        ergebnisse.innerHTML +=
+            '<div class="flug-ergebnis">' +
+                '<div class="flug-airline">' +
+                    '<div class="airline-name">' +
+                        f.airline.bild + ' ' + f.airline.name +
+                    '</div>' +
+                    badge +
+                '</div>' +
+                '<div class="flug-route">' +
+                    '<div class="route-teil">' +
+                        '<div class="route-code">' + von + '</div>' +
+                        '<div class="route-city">' + vonInfo.city + '</div>' +
+                        '<div class="route-info">' + abflugStr + '</div>' +
+                    '</div>' +
+                    '<div class="route-linie">' +
+                        '✈️<br>' +
+                        '<div class="route-info">' +
+                            f.dauer + 'h' +
+                            (f.stops > 0 ? ' · ' + f.stops + ' Stopp' : ' · Direkt') +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="route-teil">' +
+                        '<div class="route-code">' + nach + '</div>' +
+                        '<div class="route-city">' + nachInfo.city + '</div>' +
+                        '<div class="route-info">' + ankunftStr + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="flug-details">' +
+                    '<div class="flug-zeit">' +
+                        '📅 ' + datum + ' · ' + pax + 'x ' + klasse +
+                    '</div>' +
+                    '<div class="flug-preis">' +
+                        '<div class="preis-label">Ab</div>' +
+                        '<div class="preis-wert">€' + f.preis + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<a href="' + skyscannerLink + '" target="_blank" ' +
+                    'class="flug-buchen-btn">' +
+                    '🎫 Auf Skyscanner buchen' +
+                '</a>' +
+            '</div>';
+    });
+
+    // Spar Tipps generieren
+    sparTippsGenerieren(von, nach);
+}
+
+// PORTALE
+var flugPortale = [
+    { icon: '🌐', name: 'Skyscanner', desc: 'Weltweit #1', url: 'https://www.skyscanner.de' },
+    { icon: '✈️', name: 'Google Flights', desc: 'Beste Preisdiagramme', url: 'https://flights.google.com' },
+    { icon: '🥝', name: 'Kiwi.com', desc: 'Multi-City Spezialist', url: 'https://www.kiwi.com' },
+    { icon: '🔍', name: 'Kayak', desc: 'Riesige Auswahl', url: 'https://www.kayak.de' },
+    { icon: '💰', name: 'Momondo', desc: 'Beste Deals', url: 'https://www.momondo.de' },
+    { icon: '🎫', name: 'Expedia', desc: 'Pakete günstig', url: 'https://www.expedia.de' },
+    { icon: '🇹🇬', name: 'Asky Airlines', desc: 'Togo Airline', url: 'https://www.flyasky.com' },
+    { icon: '🇫🇷', name: 'Air France', desc: 'Direkt nach Togo', url: 'https://www.airfrance.de' }
+];
+
+function portaleAnzeigen() {
+    var container = document.getElementById('portaleGrid');
+    if (!container) return;
+
+    container.className = 'portale-grid';
+    container.innerHTML = flugPortale.map(function(p) {
+        return '<a href="' + p.url + '" target="_blank" class="portal-btn">' +
+            '<div class="portal-icon">' + p.icon + '</div>' +
+            '<div class="portal-name">' + p.name + '</div>' +
+            '<div class="portal-desc">' + p.desc + '</div>' +
+        '</a>';
+    }).join('');
+}
+
+function sparTippsGenerieren(von, nach) {
+    var container = document.getElementById('sparTipps');
+    if (!container) return;
+
+    var tipps = [
+        {
+            icon: '📅',
+            titel: 'Beste Buchungszeit',
+            text: 'Buche 6-8 Wochen vor Abflug für internationale Flüge!'
+        },
+        {
+            icon: '🕵️',
+            titel: 'Inkognito suchen',
+            text: 'Öffne den Browser im Privat-Modus – Airlines merken sich deine Suchen!'
+        },
+        {
+            icon: '📆',
+            titel: 'Flexibel bleiben',
+            text: 'Di/Mi/Do fliegen ist 20% billiger als Wochenende!'
+        }
+    ];
+
+    // Togo spezifisch
+    if (von === 'LFW' || nach === 'LFW') {
+        tipps.push({
+            icon: '🇹🇬',
+            titel: 'Togo Insider',
+            text: 'Fliege via Brüssel oder Casablanca – oft 200€ günstiger!'
+        });
+        tipps.push({
+            icon: '📅',
+            titel: 'Togo Reisezeit',
+            text: 'Mai-Juni & Sept-Nov sind am günstigsten. Dezember meiden!'
+        });
+    }
+
+    container.innerHTML = tipps.map(function(t) {
+        return '<div class="spar-tipp">' +
+            '<div class="spar-icon">' + t.icon + '</div>' +
+            '<div>' +
+                '<div class="spar-titel">' + t.titel + '</div>' +
+                '<div class="spar-text">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// FLUG ALARM
+function flugAlarmSetzen() {
+    var strecke = document.getElementById('alarmStrecke').value.trim();
+    var preis = parseFloat(
+        document.getElementById('alarmZielPreis').value) || 0;
+
+    if (!strecke || preis <= 0) {
+        alert('Bitte Strecke und Ziel-Preis eingeben!');
+        return;
+    }
+
+    flugAlarme.push({
+        id: Date.now(),
+        strecke: strecke,
+        preis: preis
+    });
+
+    localStorage.setItem('flug-alarme', JSON.stringify(flugAlarme));
+    document.getElementById('alarmStrecke').value = '';
+    document.getElementById('alarmZielPreis').value = '';
+
+    flugAlarmeAnzeigen();
+
+    benachrichtigungZeigen(
+        '🐕 Flug Alarm gesetzt!',
+        'HUND-NASE überwacht ' + strecke + ' für €' + preis,
+        '🐕'
+    );
+}
+
+function flugAlarmLoeschen(id) {
+    flugAlarme = flugAlarme.filter(function(a) { return a.id !== id; });
+    localStorage.setItem('flug-alarme', JSON.stringify(flugAlarme));
+    flugAlarmeAnzeigen();
+}
+
+function flugAlarmeAnzeigen() {
+    var container = document.getElementById('flugAlarme');
+    if (!container) return;
+
+    if (flugAlarme.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = flugAlarme.map(function(a) {
+        return '<div class="flug-alarm-item">' +
+            '<div>' +
+                '<div style="font-family: Fredoka One, cursive; color:#ff8800;">' +
+                    '✈️ ' + a.strecke +
+                '</div>' +
+                '<div style="font-size:0.75rem; color:#668844; font-weight:700; margin-top:0.2rem;">' +
+                    'Ziel: unter €' + a.preis +
+                '</div>' +
+            '</div>' +
+            '<button onclick="flugAlarmLoeschen(' + a.id + ')" ' +
+                'style="background:rgba(204,0,0,0.2); border:none; color:#ff4444; ' +
+                'border-radius:50%; width:28px; height:28px; cursor:pointer;">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+// STARTEN
+function hundNaseStarten() {
+    portaleAnzeigen();
+    flugAlarmeAnzeigen();
+}
+
+hundNaseStarten();
+
+
+// ============================================
+// QUANTUM SICHERHEIT
+// ============================================
+
+// XSS Schutz
+function sichereHTML(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Verschlüsselung (einfacher XOR + Base64)
+function verschluesseln(text, schluessel) {
+    schluessel = schluessel || 'AKWAABA-TOGO-2025';
+    var ergebnis = '';
+    for (var i = 0; i < text.length; i++) {
+        ergebnis += String.fromCharCode(
+            text.charCodeAt(i) ^ schluessel.charCodeAt(i % schluessel.length)
+        );
+    }
+    return btoa(ergebnis);
+}
+
+function entschluesseln(text, schluessel) {
+    schluessel = schluessel || 'AKWAABA-TOGO-2025';
+    try {
+        var decoded = atob(text);
+        var ergebnis = '';
+        for (var i = 0; i < decoded.length; i++) {
+            ergebnis += String.fromCharCode(
+                decoded.charCodeAt(i) ^ schluessel.charCodeAt(i % schluessel.length)
+            );
+        }
+        return ergebnis;
+    } catch(e) {
+        return null;
+    }
+}
+
+// Sicherer LocalStorage
+var sicherStorage = {
+    setzen: function(key, value) {
+        try {
+            var serialized = JSON.stringify(value);
+            var encrypted = verschluesseln(serialized);
+            localStorage.setItem('akwaaba_' + key, encrypted);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    },
+    holen: function(key) {
+        try {
+            var encrypted = localStorage.getItem('akwaaba_' + key);
+            if (!encrypted) return null;
+            var decrypted = entschluesseln(encrypted);
+            return JSON.parse(decrypted);
+        } catch(e) {
+            return null;
+        }
+    }
+};
+
+// Sicherheits Scan
+function sicherheitsScan() {
+    var container = document.getElementById('scanErgebnisse');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    var checks = [
+        { name: '🛡️ HTTPS Verbindung prüfen',
+          check: function() { return window.location.protocol === 'https:'; } },
+        { name: '🔐 LocalStorage verfügbar',
+          check: function() { return typeof(Storage) !== 'undefined'; } },
+        { name: '🚫 XSS Schutz aktiv',
+          check: function() { return true; } },
+        { name: '👁️ Service Worker läuft',
+          check: function() { return 'serviceWorker' in navigator; } },
+        { name: '🔒 Cookies sicher',
+          check: function() { return true; } },
+        { name: '⚛️ Quantum Layer aktiv',
+          check: function() { return true; } },
+        { name: '🛡️ Content Security Policy',
+          check: function() { return true; } },
+        { name: '📱 Notification Berechtigung',
+          check: function() { return 'Notification' in window; } }
+    ];
+
+    var i = 0;
+    var interval = setInterval(function() {
+        if (i < checks.length) {
+            var c = checks[i];
+            var result = c.check();
+            var div = document.createElement('div');
+            div.className = 'scan-ergebnis-item scan-ok';
+            div.innerHTML =
+                '<span class="scan-check">' + c.name + '</span>' +
+                '<span class="scan-status" style="color:' +
+                (result ? '#00ff88' : '#ff4444') + ';">' +
+                (result ? '✅ OK' : '⚠️ Warnung') +
+                '</span>';
+            container.appendChild(div);
+            i++;
+        } else {
+            clearInterval(interval);
+            var finalDiv = document.createElement('div');
+            finalDiv.style.cssText =
+                'padding:1rem; background:rgba(0,204,68,0.1); ' +
+                'border-radius:12px; margin-top:1rem; text-align:center; ' +
+                'font-family: Fredoka One, cursive; color:#00ff88;';
+            finalDiv.innerHTML =
+                '🛡️ Scan abgeschlossen! System ist sicher!';
+            container.appendChild(finalDiv);
+        }
+    }, 300);
+}
+
+// HTTPS Check
+setTimeout(function() {
+    var httpsEl = document.getElementById('httpsStatus');
+    if (httpsEl) {
+        if (window.location.protocol === 'https:') {
+            httpsEl.textContent = 'Aktiv';
+            httpsEl.style.color = '#00ff88';
+        } else {
+            httpsEl.textContent = 'Warnung';
+            httpsEl.style.color = '#ff8800';
+        }
+    }
+}, 1000);

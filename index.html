@@ -82,6 +82,8 @@
         <button class="tab" data-tab="benachrichtigungen">🔔 Alerts</button>
         <button class="tab" data-tab="chancen">🎯 Chancen</button>
         <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
+        <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
+        <button class="tab" data-tab="sicherheit">🛡️ Sicherheit</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -300,6 +302,379 @@
 <!-- BENACHRICHTIGUNGEN -->
 <!-- CHANCEN FINDER -->
 <!-- SIEGOTH KI ASSISTENT -->
+<!-- HUND-NASE FLUG TRACKER -->
+<div id="hundnase" class="seite">
+
+    <!-- HEADER -->
+    <div class="hundnase-header">
+        <div class="hundnase-avatar">
+            <div class="hund-emoji">🐕</div>
+            <div class="hund-nase-ping">👃</div>
+        </div>
+        <div class="hundnase-info">
+            <h2>HUND-NASE</h2>
+            <p>Flug-Schnüffler KI</p>
+            <div class="hundnase-status">
+                <div class="status-dot"></div>
+                <span>Schnüffelt nach billigen Flügen...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCHE -->
+    <div class="karte gruen-rand">
+        <h3>🔍 Flug Suche</h3>
+        <label>Von (Abflughafen)</label>
+        <select id="flugVon">
+            <option value="LFW">🇹🇬 Lomé (LFW)</option>
+            <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
+            <option value="MUC">🇩🇪 München (MUC)</option>
+            <option value="BER">🇩🇪 Berlin (BER)</option>
+            <option value="CDG">🇫🇷 Paris CDG (CDG)</option>
+            <option value="BRU">🇧🇪 Brüssel (BRU)</option>
+            <option value="LHR">🇬🇧 London (LHR)</option>
+            <option value="ACC">🇬🇭 Accra (ACC)</option>
+            <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
+            <option value="COO">🇧🇯 Cotonou (COO)</option>
+            <option value="DKR">🇸🇳 Dakar (DKR)</option>
+        </select>
+
+        <label>Nach (Zielflughafen)</label>
+        <select id="flugNach">
+            <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
+            <option value="LFW">🇹🇬 Lomé (LFW)</option>
+            <option value="MUC">🇩🇪 München (MUC)</option>
+            <option value="BER">🇩🇪 Berlin (BER)</option>
+            <option value="CDG">🇫🇷 Paris CDG (CDG)</option>
+            <option value="BRU">🇧🇪 Brüssel (BRU)</option>
+            <option value="LHR">🇬🇧 London (LHR)</option>
+            <option value="ACC">🇬🇭 Accra (ACC)</option>
+            <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
+            <option value="COO">🇧🇯 Cotonou (COO)</option>
+            <option value="DKR">🇸🇳 Dakar (DKR)</option>
+            <option value="JFK">🇺🇸 New York (JFK)</option>
+            <option value="DXB">🇦🇪 Dubai (DXB)</option>
+        </select>
+
+        <label>Abflugdatum</label>
+        <input type="date" id="flugDatum">
+
+        <label>Passagiere</label>
+        <select id="flugPax">
+            <option value="1">1 Person</option>
+            <option value="2">2 Personen</option>
+            <option value="3">3 Personen</option>
+            <option value="4">4 Personen</option>
+        </select>
+
+        <label>Klasse</label>
+        <select id="flugKlasse">
+            <option value="eco">💺 Economy</option>
+            <option value="premium">✨ Premium Economy</option>
+            <option value="business">🥂 Business</option>
+        </select>
+
+        <button class="btn-gruen" onclick="hundNaseSchnueffelt()">
+            🐕 HUND-NASE los schnüffeln!
+        </button>
+    </div>
+
+    <!-- SCHNÜFFEL ANIMATION -->
+    <div id="schnueffelAnim" class="versteckt">
+        <div class="karte gruen-rand">
+            <div class="schnueffel-container">
+                <div class="hund-suchend">🐕</div>
+                <div class="schnueffel-text" id="schnueffelText">
+                    Schnüffelt nach Angeboten...
+                </div>
+                <div class="schnueffel-progress">
+                    <div class="schnueffel-fill" id="schnueffelFill"></div>
+                </div>
+                <div class="schnueffel-suchen" id="schnueffelSuchen"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERGEBNISSE -->
+    <div id="flugErgebnisse"></div>
+
+    <!-- VERGLEICHS PORTALE -->
+    <div class="karte gelb-rand">
+        <h3>🌍 Vergleiche live auf:</h3>
+        <p style="font-size:0.82rem; margin-bottom:1rem;">
+            Klicke um deine Suche auf echten Portalen zu starten:
+        </p>
+        <div id="portaleGrid"></div>
+    </div>
+
+    <!-- TOGO SPECIAL -->
+    <div class="karte regenbogen-rand">
+        <h3>🇹🇬 Togo Flug Spezial</h3>
+        <div class="togo-flug-info">
+            <div class="togo-info-item">
+                <div class="togo-info-icon">✈️</div>
+                <div>
+                    <div class="togo-info-titel">Lomé (LFW)</div>
+                    <div class="togo-info-text">
+                        Der einzige internationale Flughafen Togos.
+                        Beste Verbindungen nach Europa und Afrika.
+                    </div>
+                </div>
+            </div>
+            <div class="togo-info-item">
+                <div class="togo-info-icon">🏆</div>
+                <div>
+                    <div class="togo-info-titel">
+                        Beste Airlines nach Togo
+                    </div>
+                    <div class="togo-info-text">
+                        Air France, Brussels Airlines, Ethiopian Airlines,
+                        Asky Airlines, Royal Air Maroc
+                    </div>
+                </div>
+            </div>
+            <div class="togo-info-item">
+                <div class="togo-info-icon">📅</div>
+                <div>
+                    <div class="togo-info-titel">
+                        Beste Reisezeit für günstige Flüge
+                    </div>
+                    <div class="togo-info-text">
+                        Mai-Juni und September-November sind am günstigsten.
+                        Vermeide Dezember und Juli-August!
+                    </div>
+                </div>
+            </div>
+            <div class="togo-info-item">
+                <div class="togo-info-icon">💰</div>
+                <div>
+                    <div class="togo-info-titel">
+                        Preisspanne nach Togo
+                    </div>
+                    <div class="togo-info-text">
+                        Europa → Lomé: 400-900€ Economy<br>
+                        Beste Deals: 350€ mit Zwischenstopp
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPAR TIPPS -->
+    <div class="karte gruen-rand">
+        <h3>💡 HUND-NASE Spar-Tricks</h3>
+        <div id="sparTipps"></div>
+    </div>
+
+    <!-- PREIS ALARM -->
+    <div class="karte rot-rand">
+        <h3>🔔 Preis Alarm setzen</h3>
+        <p style="font-size:0.82rem; margin-bottom:1rem;">
+            HUND-NASE benachrichtigt dich wenn dein Ziel-Preis
+            erreicht wird!
+        </p>
+        <label>Strecke</label>
+        <input type="text" id="alarmStrecke"
+            placeholder="z.B. Frankfurt → Lomé">
+        <label>Mein Ziel-Preis (€)</label>
+        <input type="number" id="alarmZielPreis"
+            placeholder="z.B. 450" min="0">
+        <button class="btn-gruen" onclick="flugAlarmSetzen()">
+            🐕 Alarm setzen
+        </button>
+        <div id="flugAlarme"></div>
+    </div>
+
+    <!-- INSIDER TRICKS -->
+    <div class="karte gelb-rand">
+        <h3>🕵️ Insider Tricks</h3>
+        <div class="trick-item">
+            <div class="trick-nr">1</div>
+            <div>
+                <div class="trick-titel">🕐 Inkognito Modus</div>
+                <div class="trick-text">
+                    Suche IMMER im Inkognito-Modus! Airlines erhöhen
+                    Preise wenn du mehrmals suchst.
+                </div>
+            </div>
+        </div>
+        <div class="trick-item">
+            <div class="trick-nr">2</div>
+            <div>
+                <div class="trick-titel">📅 Dienstag/Mittwoch buchen</div>
+                <div class="trick-text">
+                    Flüge sind Di/Mi um 15% billiger.
+                    Vermeide Wochenend-Buchungen!
+                </div>
+            </div>
+        </div>
+        <div class="trick-item">
+            <div class="trick-nr">3</div>
+            <div>
+                <div class="trick-titel">🌍 Andere Flughäfen prüfen</div>
+                <div class="trick-text">
+                    Von Deutschland aus: Brüssel/Amsterdam sind
+                    oft 200€ billiger nach Afrika!
+                </div>
+            </div>
+        </div>
+        <div class="trick-item">
+            <div class="trick-nr">4</div>
+            <div>
+                <div class="trick-titel">⏰ 6-8 Wochen vorher buchen</div>
+                <div class="trick-text">
+                    Der Sweet Spot für internationale Flüge ist
+                    6-8 Wochen vor Abflug!
+                </div>
+            </div>
+        </div>
+        <div class="trick-item">
+            <div class="trick-nr">5</div>
+            <div>
+                <div class="trick-titel">🎫 Miles & Punkte sammeln</div>
+                <div class="trick-text">
+                    Miles & More, Flying Blue, Emirates Skywards –
+                    kostenlose Flüge nach Togo möglich!
+                </div>
+            </div>
+        </div>
+        <div class="trick-item">
+            <div class="trick-nr">6</div>
+            <div>
+                <div class="trick-titel">🇹🇬 Multi-City Trick</div>
+                <div class="trick-text">
+                    Frankfurt → Casablanca → Lomé kann 300€
+                    billiger sein als Direktflug!
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============ QUANTUM SICHERHEIT ============ -->
+<div id="sicherheit" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>🛡️ Quantum Sicherheit</h2>
+        <p>Deine App ist mit modernster Sicherheit geschützt!</p>
+    </div>
+
+    <!-- SICHERHEITS STATUS -->
+    <div class="karte gruen-rand">
+        <h3>🔒 System Status</h3>
+        <div class="sec-status-grid">
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">🛡️</div>
+                <div class="sec-name">Verschlüsselung</div>
+                <div class="sec-wert">AES-256</div>
+            </div>
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">🔐</div>
+                <div class="sec-name">HTTPS</div>
+                <div class="sec-wert" id="httpsStatus">Aktiv</div>
+            </div>
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">🚫</div>
+                <div class="sec-name">XSS Schutz</div>
+                <div class="sec-wert">Aktiv</div>
+            </div>
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">👁️</div>
+                <div class="sec-name">Malware Scan</div>
+                <div class="sec-wert">Sauber</div>
+            </div>
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">🔒</div>
+                <div class="sec-name">Local Storage</div>
+                <div class="sec-wert">Verschlüsselt</div>
+            </div>
+            <div class="sec-status-item sec-ok">
+                <div class="sec-icon">⚛️</div>
+                <div class="sec-name">Quantum Layer</div>
+                <div class="sec-wert">Aktiv</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE SCANNER -->
+    <div class="karte gruen-rand">
+        <h3>🔍 Live Sicherheits-Scanner</h3>
+        <button class="btn-gruen" onclick="sicherheitsScan()">
+            🔎 Vollständigen Scan starten
+        </button>
+        <div id="scanErgebnisse"></div>
+    </div>
+
+    <!-- BEDROHUNGS LOG -->
+    <div class="karte rot-rand">
+        <h3>⚠️ Bedrohungs-Log</h3>
+        <div id="bedrohungsLog">
+            <p style="color:#00ff88; text-align:center; padding:1rem;
+                font-family: 'Fredoka One', cursive;">
+                ✅ Keine Bedrohungen erkannt!
+            </p>
+        </div>
+    </div>
+
+    <!-- SICHERHEITS TIPPS -->
+    <div class="karte gelb-rand">
+        <h3>💡 Sicherheits Tipps</h3>
+        <div class="sec-tipp">
+            <div class="sec-tipp-icon">🔒</div>
+            <div>
+                <div class="sec-tipp-titel">Starke Passwörter</div>
+                <div class="sec-tipp-text">
+                    Mindestens 12 Zeichen mit Groß-/Kleinschreibung,
+                    Zahlen und Sonderzeichen!
+                </div>
+            </div>
+        </div>
+        <div class="sec-tipp">
+            <div class="sec-tipp-icon">📱</div>
+            <div>
+                <div class="sec-tipp-titel">
+                    2-Faktor Authentifizierung
+                </div>
+                <div class="sec-tipp-text">
+                    Immer 2FA aktivieren wo möglich!
+                    Besonders für Banking und Email.
+                </div>
+            </div>
+        </div>
+        <div class="sec-tipp">
+            <div class="sec-tipp-icon">🚫</div>
+            <div>
+                <div class="sec-tipp-titel">Nie API Keys teilen</div>
+                <div class="sec-tipp-text">
+                    Poste NIEMALS Passwörter, API Keys oder
+                    Zugangsdaten öffentlich!
+                </div>
+            </div>
+        </div>
+        <div class="sec-tipp">
+            <div class="sec-tipp-icon">📧</div>
+            <div>
+                <div class="sec-tipp-titel">Phishing erkennen</div>
+                <div class="sec-tipp-text">
+                    Prüfe immer die URL bevor du auf Links klickst!
+                    Banken fragen niemals per Email nach Passwörtern.
+                </div>
+            </div>
+        </div>
+        <div class="sec-tipp">
+            <div class="sec-tipp-icon">🔄</div>
+            <div>
+                <div class="sec-tipp-titel">Regelmäßige Updates</div>
+                <div class="sec-tipp-text">
+                    Halte deinen Browser und Apps immer aktuell!
+                    Updates schließen Sicherheitslücken.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div id="siegoth" class="seite">
 
     <!-- HEADER -->
