@@ -5594,4 +5594,611 @@ canvas {
         opacity: 0;
     }
 }
+/* ============================================
+   AALIYAH LOTTO KI
+   ============================================ */
+
+.aaliyah-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #2e2e0a, #0a1a2e);
+    border-bottom: 3px solid rgba(255,215,0,0.3);
+}
+
+.aaliyah-avatar {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ffd700, #ffec8b, #ff44aa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #8b6c00, 0 12px 30px rgba(255,215,0,0.6);
+    overflow: hidden;
+    animation: aaliyahFloat 3s ease-in-out infinite;
+}
+
+@keyframes aaliyahFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.aaliyah-glow {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 50%);
+    animation: aaliyahGlow 4s ease-in-out infinite;
+}
+
+@keyframes aaliyahGlow {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+}
+
+.aaliyah-emoji {
+    font-size: 2.2rem;
+    z-index: 1;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.aaliyah-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #ffd700, #ff44aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.aaliyah-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.aaliyah-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #ffd700;
+    font-weight: 800;
+}
+
+/* Warnung Karte */
+.warnung-karte {
+    background: linear-gradient(145deg, #3d1010, #1a0505) !important;
+}
+
+.warnung-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1rem;
+}
+
+.warnung-punkt {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+    border-left: 3px solid #ff4444;
+}
+
+.warnung-punkt span:first-child {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* Lotterie Info */
+.lotterie-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 600;
+    border-left: 3px solid #ffd700;
+    line-height: 1.6;
+}
+
+/* Strategie Grid */
+.strategie-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.strategie-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.strategie-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,215,0,0.4);
+}
+
+.strategie-btn.aktiv {
+    border-color: #ffd700;
+    background: rgba(255,215,0,0.1);
+    box-shadow: 0 4px 0 #8b6c00, 0 6px 15px rgba(255,215,0,0.3);
+    transform: translateY(-2px);
+}
+
+.strategie-icon {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.strategie-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #ffd700;
+    margin-bottom: 0.2rem;
+}
+
+.strategie-desc {
+    font-size: 0.7rem;
+    color: #668844;
+    font-weight: 700;
+}
+
+/* Generator Animation */
+.aaliyah-generator {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.lotto-kugeln-anim {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.lotto-kugel-mini {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: white;
+    background: linear-gradient(145deg, #ffd700, #daa520);
+    box-shadow:
+        0 8px 15px rgba(0,0,0,0.4),
+        inset 0 -3px 8px rgba(139,110,0,0.4),
+        inset 0 3px 8px rgba(255,236,139,0.6);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    animation: kugelSpin 1s ease-in-out infinite;
+    color: #1a0f08;
+}
+
+.k1 { animation-delay: 0s; }
+.k2 { animation-delay: 0.15s; }
+.k3 { animation-delay: 0.3s; }
+.k4 { animation-delay: 0.45s; }
+.k5 { animation-delay: 0.6s; }
+.k6 { animation-delay: 0.75s; }
+
+@keyframes kugelSpin {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(360deg); }
+}
+
+.aaliyah-gen-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #ffd700;
+    margin: 1rem 0;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.aaliyah-progress {
+    width: 100%;
+    height: 10px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.aaliyah-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff44aa, #ffd700, #ff44aa);
+    background-size: 200% 100%;
+    animation: progressGlow 1s linear infinite;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+@keyframes progressGlow {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Zahlen Ergebnis */
+.zahlen-ergebnis {
+    background: linear-gradient(145deg, #2e2800, #1a1400);
+    border: 3px solid rgba(255,215,0,0.4);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    margin: 0.8rem;
+    text-align: center;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(255,215,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.zahlen-ergebnis::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.05), transparent 50%);
+    animation: ergebnisGlow 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ergebnisGlow {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+}
+
+.zahlen-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #ffd700, #ff44aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.lotto-kugeln {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.lotto-kugel {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    background: linear-gradient(145deg, #ffec8b, #ffd700, #daa520);
+    color: #1a0f08;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+    box-shadow:
+        0 10px 0 #8b6c00,
+        0 15px 25px rgba(255,215,0,0.5),
+        inset 0 -4px 10px rgba(139,110,0,0.4),
+        inset 0 4px 10px rgba(255,255,255,0.4);
+    position: relative;
+    animation: kugelDrop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-style: preserve-3d;
+}
+
+.lotto-kugel::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 30%;
+    height: 20%;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    filter: blur(3px);
+}
+
+.lotto-kugel.zusatz {
+    background: linear-gradient(145deg, #ff8888, #d21034, #8b0f1a);
+    color: white;
+    box-shadow:
+        0 10px 0 #4d0810,
+        0 15px 25px rgba(210,16,52,0.5),
+        inset 0 -4px 10px rgba(80,10,20,0.4),
+        inset 0 4px 10px rgba(255,150,150,0.4);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.lotto-kugel.super {
+    background: linear-gradient(145deg, #66ddff, #0088ff, #003d75);
+    color: white;
+    box-shadow:
+        0 10px 0 #001a3d,
+        0 15px 25px rgba(0,136,255,0.5),
+        inset 0 -4px 10px rgba(0,40,80,0.4),
+        inset 0 4px 10px rgba(150,220,255,0.4);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes kugelDrop {
+    0% {
+        transform: translateY(-100px) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(10px) scale(1.1);
+    }
+    100% {
+        transform: translateY(0) scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.strategie-info {
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.ergebnis-aktionen {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.ergebnis-aktion-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.aktion-speichern {
+    background: linear-gradient(135deg, #00cc44, #00a67e);
+    color: white;
+    box-shadow: 0 4px 0 #004d2a;
+}
+
+.aktion-neu {
+    background: linear-gradient(135deg, #ffd700, #daa520);
+    color: #1a0f08;
+    box-shadow: 0 4px 0 #8b6c00;
+}
+
+/* Statistik */
+.stats-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.stat-zeile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #ccddaa;
+    font-weight: 700;
+    border-left: 3px solid #ffd700;
+}
+
+.stat-zeile .wert {
+    font-family: 'Fredoka One', cursive;
+    color: #ffd700;
+}
+
+/* Meine Scheine */
+.schein-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ffd700;
+}
+
+.schein-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.schein-lotterie {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #ffd700;
+}
+
+.schein-datum {
+    font-size: 0.75rem;
+    color: #668844;
+    font-weight: 700;
+}
+
+.schein-zahlen {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.schein-kugel {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(145deg, #ffd700, #daa520);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #1a0f08;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.schein-loeschen {
+    background: rgba(204,0,0,0.2);
+    border: none;
+    color: #ff4444;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* Hot & Cold */
+.hotcold-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.numbers-mini {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.number-mini {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #ffd700, #daa520);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #1a0f08;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.number-mini.hot {
+    background: linear-gradient(145deg, #ff8888, #d21034);
+    color: white;
+    box-shadow: 0 3px 8px rgba(210,16,52,0.4);
+}
+
+.number-mini.cold {
+    background: linear-gradient(145deg, #66ddff, #0088ff);
+    color: white;
+    box-shadow: 0 3px 8px rgba(0,136,255,0.4);
+}
+
+/* Bilanz */
+.bilanz-anzeige {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid;
+}
+
+.bilanz-anzeige.gewinn { border-color: #00cc44; }
+.bilanz-anzeige.verlust { border-color: #d21034; }
+
+.bilanz-label {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.bilanz-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+}
+
+.bilanz-warnung {
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    background: rgba(204,0,0,0.1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #ff8888;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* Hilfe Liste */
+.hilfe-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.hilfe-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border-left: 4px solid #ffd700;
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.7;
+    font-weight: 600;
+}
+
+.hilfe-item span:first-child {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
         

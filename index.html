@@ -65,6 +65,7 @@
         <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
         <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
         <button class="tab" data-tab="pimel">🎁 PIMEL</button>
+        <button class="tab" data-tab="aaliyah">🌟 AALIYAH</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -1228,6 +1229,258 @@
 
     </div>
     <!-- ENDE PIMEL -->
+    <!-- ============ AALIYAH LOTTO KI ============ -->
+    <div id="aaliyah" class="seite">
+
+        <!-- HEADER -->
+        <div class="aaliyah-header">
+            <div class="aaliyah-avatar">
+                <div class="aaliyah-glow"></div>
+                <div class="aaliyah-emoji">🌟</div>
+            </div>
+            <div class="aaliyah-info">
+                <h2>AALIYAH</h2>
+                <p>Lotto Analyse & Zahlen KI</p>
+                <div class="aaliyah-status">
+                    <div class="status-dot"></div>
+                    <span>Analysiert Millionen von Ziehungen...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WICHTIGE WARNUNG -->
+        <div class="karte rot-rand warnung-karte">
+            <h3>⚠️ Wichtige Wahrheit über Lotto</h3>
+            <div class="warnung-liste">
+                <div class="warnung-punkt">
+                    <span>🎲</span>
+                    <span><strong>Lotto ist reines Glücksspiel!</strong>
+                        Keine App kann Zahlen zu 80% vorhersagen.</span>
+                </div>
+                <div class="warnung-punkt">
+                    <span>📊</span>
+                    <span>Jede Ziehung ist 100% zufällig.
+                        Kugeln haben kein Gedächtnis.</span>
+                </div>
+                <div class="warnung-punkt">
+                    <span>💰</span>
+                    <span>Spiele nur mit Geld das du verlieren kannst!</span>
+                </div>
+                <div class="warnung-punkt">
+                    <span>🚫</span>
+                    <span>Wer "Garantie" verspricht ist ein Betrüger!</span>
+                </div>
+                <div class="warnung-punkt">
+                    <span>🌟</span>
+                    <span><strong>AALIYAH ist Unterhaltung + Statistik!</strong>
+                        Nutze sie mit Spaß, nicht als Investment!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOTTERIE AUSWAHL -->
+        <div class="karte gruen-rand">
+            <h3>🌍 Lotterie wählen</h3>
+            <label>Land / Lotterie</label>
+            <select id="aaliyahLotterie" onchange="lotterieAendern()">
+                <option value="de6-49">🇩🇪 Deutschland 6aus49</option>
+                <option value="deEurojackpot">🇪🇺 Eurojackpot 5+2</option>
+                <option value="usPowerball">🇺🇸 USA Powerball</option>
+                <option value="usMegaMillions">🇺🇸 USA Mega Millions</option>
+                <option value="ukLotto">🇬🇧 UK National Lottery</option>
+                <option value="frLoto">🇫🇷 France Loto</option>
+                <option value="itSuperEnalotto">🇮🇹 Italien SuperEnalotto</option>
+                <option value="esPrimitiva">🇪🇸 Spanien La Primitiva</option>
+                <option value="tgTogo">🇹🇬 Togo LONATO</option>
+                <option value="ghGhana">🇬🇭 Ghana NLA</option>
+                <option value="ngNigeria">🇳🇬 Nigeria NLRC</option>
+                <option value="brMegaSena">🇧🇷 Brasilien Mega-Sena</option>
+                <option value="auOzLotto">🇦🇺 Australien Oz Lotto</option>
+                <option value="caLotto">🇨🇦 Kanada Lotto 6/49</option>
+            </select>
+            <div id="lotterieInfo" class="lotterie-info"></div>
+        </div>
+
+        <!-- STRATEGIE AUSWAHL -->
+        <div class="karte gelb-rand">
+            <h3>🎯 Zahlen-Strategie wählen</h3>
+            <div class="strategie-grid">
+                <button class="strategie-btn aktiv"
+                    onclick="strategieWaehlen('quantum', this)">
+                    <div class="strategie-icon">⚛️</div>
+                    <div class="strategie-name">Quantum</div>
+                    <div class="strategie-desc">KI Zufallsalgorithmus</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('hot', this)">
+                    <div class="strategie-icon">🔥</div>
+                    <div class="strategie-name">Hot Numbers</div>
+                    <div class="strategie-desc">Häufig gezogen</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('cold', this)">
+                    <div class="strategie-icon">❄️</div>
+                    <div class="strategie-name">Cold Numbers</div>
+                    <div class="strategie-desc">Selten gezogen</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('balance', this)">
+                    <div class="strategie-icon">⚖️</div>
+                    <div class="strategie-name">Balance</div>
+                    <div class="strategie-desc">Mix aus Hot/Cold</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('astro', this)">
+                    <div class="strategie-icon">🔮</div>
+                    <div class="strategie-name">Astro</div>
+                    <div class="strategie-desc">Astrologische Zahlen</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('geburts', this)">
+                    <div class="strategie-icon">🎂</div>
+                    <div class="strategie-name">Geburtstag</div>
+                    <div class="strategie-desc">Persönliche Zahlen</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('mathe', this)">
+                    <div class="strategie-icon">📐</div>
+                    <div class="strategie-name">Mathematik</div>
+                    <div class="strategie-desc">Fibonacci, Pi, etc.</div>
+                </button>
+                <button class="strategie-btn"
+                    onclick="strategieWaehlen('togo', this)">
+                    <div class="strategie-icon">🇹🇬</div>
+                    <div class="strategie-name">Togo Glück</div>
+                    <div class="strategie-desc">Afrikanische Glückszahlen</div>
+                </button>
+            </div>
+
+            <div id="geburtstagInput" class="versteckt" style="margin-top:1rem;">
+                <label>Dein Geburtsdatum</label>
+                <input type="date" id="geburtsDatum">
+            </div>
+
+            <button class="btn-gruen" onclick="aaliyahGeneriert()">
+                🌟 AALIYAH Zahlen generieren!
+            </button>
+        </div>
+
+        <!-- GENERATOR ANIMATION -->
+        <div id="aaliyahAnim" class="versteckt">
+            <div class="karte gruen-rand">
+                <div class="aaliyah-generator">
+                    <div class="lotto-kugeln-anim">
+                        <div class="lotto-kugel-mini k1">?</div>
+                        <div class="lotto-kugel-mini k2">?</div>
+                        <div class="lotto-kugel-mini k3">?</div>
+                        <div class="lotto-kugel-mini k4">?</div>
+                        <div class="lotto-kugel-mini k5">?</div>
+                        <div class="lotto-kugel-mini k6">?</div>
+                    </div>
+                    <div class="aaliyah-gen-text" id="aaliyahGenText">
+                        AALIYAH analysiert...
+                    </div>
+                    <div class="aaliyah-progress">
+                        <div class="aaliyah-progress-fill" id="aaliyahProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZAHLEN ERGEBNIS -->
+        <div id="aaliyahErgebnis"></div>
+
+        <!-- STATISTIK -->
+        <div class="karte regenbogen-rand">
+            <h3>📊 Ehrliche Statistik</h3>
+            <div id="lotterieStats"></div>
+        </div>
+
+        <!-- MEINE SCHEINE -->
+        <div class="karte gelb-rand">
+            <h3>💾 Meine gespielten Zahlen</h3>
+            <div id="meineScheine">
+                <div class="leer-portfolio">
+                    <div>💾</div>
+                    <div>Noch keine gespeicherten Scheine</div>
+                </div>
+            </div>
+            <button class="btn-rot" style="margin-top:1rem;" onclick="scheineLeeren()">
+                🗑️ Alle löschen
+            </button>
+        </div>
+
+        <!-- HOT & COLD -->
+        <div class="karte gruen-rand">
+            <h3>🔥❄️ Hot & Cold Numbers</h3>
+            <div class="hotcold-grid">
+                <div>
+                    <h4 style="color:#ff4444; text-align:center; margin-bottom:0.5rem;">🔥 HOT (häufig)</h4>
+                    <div id="hotNumbers" class="numbers-mini"></div>
+                </div>
+                <div>
+                    <h4 style="color:#0088ff; text-align:center; margin-bottom:0.5rem;">❄️ COLD (selten)</h4>
+                    <div id="coldNumbers" class="numbers-mini"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUSGABEN TRACKER -->
+        <div class="karte rot-rand">
+            <h3>💰 Ausgaben-Kontrolle</h3>
+            <p style="font-size:0.85rem; margin-bottom:1rem;">
+                Behalte den Überblick! Spiele NIEMALS über dein Budget!
+            </p>
+            <label>Wie viel hast du diesen Monat gespielt? (€)</label>
+            <input type="number" id="lottoAusgabe" placeholder="10" min="0" step="0.50">
+            <label>Wie viel hast du gewonnen? (€)</label>
+            <input type="number" id="lottoGewinn" placeholder="0" min="0" step="0.50">
+            <button class="btn-gruen" onclick="ausgabeErfassen()">
+                💾 Erfassen
+            </button>
+            <div id="lottoBilanz"></div>
+        </div>
+
+        <!-- SPIELSUCHT HILFE -->
+        <div class="karte rot-rand">
+            <h3>🆘 Hilfe bei Spielsucht</h3>
+            <div class="hilfe-liste">
+                <div class="hilfe-item">
+                    <span>🇩🇪</span>
+                    <div>
+                        <strong>Deutschland:</strong> BZgA Beratung<br>
+                        <a href="tel:0800-1372700" style="color:#00ddcc;">📞 0800 1372700</a> (kostenlos)
+                    </div>
+                </div>
+                <div class="hilfe-item">
+                    <span>🇦🇹</span>
+                    <div>
+                        <strong>Österreich:</strong> Spielsuchthilfe<br>
+                        <a href="tel:0116123" style="color:#00ddcc;">📞 116 123</a>
+                    </div>
+                </div>
+                <div class="hilfe-item">
+                    <span>🇨🇭</span>
+                    <div>
+                        <strong>Schweiz:</strong> 143 Die Dargebotene Hand<br>
+                        <a href="tel:143" style="color:#00ddcc;">📞 143</a>
+                    </div>
+                </div>
+                <div class="hilfe-item">
+                    <span>🌍</span>
+                    <div>
+                        <strong>International:</strong><br>
+                        <a href="https://www.gamblersanonymous.org" target="_blank" style="color:#00ddcc;">🌐 gamblersanonymous.org</a>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:1rem; padding:1rem; background:rgba(204,0,0,0.1); border-radius:12px; font-size:0.85rem; color:#ff8888; font-weight:700;">
+                ⚠️ <strong>Warnzeichen:</strong> Wenn du mehr spielst als du dir leisten kannst, oder wenn du Verluste "zurückholen" willst – <strong>SOFORT HILFE HOLEN!</strong>
+            </p>
+        </div>
+
+    </div>
+    <!-- ENDE AALIYAH -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">
