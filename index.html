@@ -4,40 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKWAABA Finance – Quantum AI</title>
-<meta name="description" content="Premium KI-Finanzplattform aus Togo mit Quantum Intelligence">
-<meta name="keywords" content="Finance, Crypto, Budget, Investment, Togo, Afrika, Quantum AI">
-<meta name="author" content="XsiKOM-DIGITAL-Projects">
-<meta name="robots" content="index, follow">
-
-<!-- Theme -->
-<meta name="theme-color" content="#006a00">
-<meta name="background-color" content="#0a1200">
-
-<!-- Apple PWA -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AKWAABA">
-<link rel="apple-touch-icon" href="images/icon-192.png">
-
-<!-- Microsoft -->
-<meta name="msapplication-TileColor" content="#006a00">
-<meta name="msapplication-TileImage" content="images/icon-192.png">
-
-<!-- Open Graph -->
-<meta property="og:title" content="AKWAABA Finance – Quantum AI">
-<meta property="og:description" content="Premium KI-Finanzplattform mit Quantum Intelligence">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://xsikomprojects.github.io/akwaaba-finance/">
-<meta property="og:image" content="images/icon-512.png">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AKWAABA Finance">
-<meta name="twitter:description" content="Quantum AI Finanzplattform">
+    <meta name="description" content="Premium KI-Finanzplattform aus Togo mit Quantum Intelligence">
+    <meta name="keywords" content="Finance, Crypto, Budget, Investment, Togo, Afrika, Quantum AI">
+    <meta name="author" content="XsiKOM-DIGITAL-Projects">
+    <meta name="theme-color" content="#006a00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="AKWAABA">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<!-- SPLASH SCREEN -->
 <div id="splash">
     <div class="splash-logo">AQ</div>
     <h1>AKWAABA</h1>
@@ -45,24 +24,25 @@
     <p class="brand">Mit XsiKOM-DIGITAL-Projects</p>
 </div>
 
+<!-- MAIN APP -->
 <div id="app" class="versteckt">
 
-    <!-- HEADER -->
     <div class="togo-streifen"></div>
-<!-- PWA INSTALL BANNER -->
-<div id="installBanner" class="install-banner versteckt">
-    <div class="install-banner-inhalt">
-        <div class="install-logo">AQ</div>
-        <div class="install-text">
-            <div class="install-titel">AKWAABA Finance</div>
-            <div class="install-sub">Als App installieren</div>
+
+    <!-- INSTALL BANNER -->
+    <div id="installBanner" class="install-banner versteckt">
+        <div class="install-banner-inhalt">
+            <div class="install-logo">AQ</div>
+            <div class="install-text">
+                <div class="install-titel">AKWAABA Finance</div>
+                <div class="install-sub">Als App installieren</div>
+            </div>
+            <button class="install-btn" id="installBtn">📲 Installieren</button>
+            <button class="install-close" id="installClose">✕</button>
         </div>
-        <button class="install-btn" id="installBtn">
-            📲 Installieren
-        </button>
-        <button class="install-close" id="installClose">✕</button>
     </div>
-</div>
+
+    <!-- HEADER -->
     <header>
         <div class="logo">AQ</div>
         <div>
@@ -78,17 +58,17 @@
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
         <button class="tab" data-tab="crypto">₿ Crypto</button>
+        <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="budget">💸 Budget</button>
         <button class="tab" data-tab="benachrichtigungen">🔔 Alerts</button>
         <button class="tab" data-tab="chancen">🎯 Chancen</button>
         <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
         <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
         <button class="tab" data-tab="sicherheit">🛡️ Sicherheit</button>
-        <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
 
-    <!-- DASHBOARD -->
+    <!-- ============ DASHBOARD ============ -->
     <div id="dashboard" class="seite aktiv">
         <div class="banner">
             <div class="flagge">
@@ -127,60 +107,60 @@
             </div>
         </div>
 
-        <!-- QUANTUM PULSE -->
-<div class="karte gruen-rand">
-    <h3>⚛️ Quantum Pulse Monitor</h3>
-    <canvas id="quantumPulse"></canvas>
-</div>
+        <div class="karte gruen-rand">
+            <h3>⚛️ Quantum Pulse Monitor</h3>
+            <canvas id="quantumPulse"></canvas>
+        </div>
 
-<!-- LIVE CHARTS -->
-<div class="karte gelb-rand">
-    <h3>📈 Markt Live Charts</h3>
-    <div class="chart-tabs">
-        <button class="chart-tab aktiv" onclick="chartWechseln('aktien', this)">📈 Aktien</button>
-        <button class="chart-tab" onclick="chartWechseln('crypto', this)">₿ Crypto</button>
-        <button class="chart-tab" onclick="chartWechseln('gold', this)">🥇 Gold</button>
-        <button class="chart-tab" onclick="chartWechseln('forex', this)">💱 Forex</button>
-    </div>
-    <div class="chart-info">
-        <span id="chartName">📈 DAX / Aktienmarkt</span>
-        <span id="chartWert" class="positiv">+2.4%</span>
-    </div>
-    <canvas id="hauptChart"></canvas>
-    <div class="chart-legende">
-        <div class="legende-punkt gruen-punkt"></div>
-        <span id="chartLabel">Live Simulation · Quantum AI</span>
-    </div>
-</div>
+        <div class="karte gelb-rand">
+            <h3>📈 Markt Live Charts</h3>
+            <div class="chart-tabs">
+                <button class="chart-tab aktiv" onclick="chartWechseln('aktien', this)">📈 Aktien</button>
+                <button class="chart-tab" onclick="chartWechseln('crypto', this)">₿ Crypto</button>
+                <button class="chart-tab" onclick="chartWechseln('gold', this)">🥇 Gold</button>
+                <button class="chart-tab" onclick="chartWechseln('forex', this)">💱 Forex</button>
+            </div>
+            <div class="chart-info">
+                <span id="chartName">📈 DAX / Aktienmarkt</span>
+                <span id="chartWert" class="positiv">+2.4%</span>
+            </div>
+            <canvas id="hauptChart"></canvas>
+            <div class="chart-legende">
+                <div class="legende-punkt gruen-punkt"></div>
+                <span id="chartLabel">Live Simulation · Quantum AI</span>
+            </div>
+        </div>
 
-<!-- MINI CHARTS -->
-<div class="mini-charts-grid">
-    <div class="mini-chart-karte rot-rand">
-        <div class="mini-chart-titel">₿ Bitcoin</div>
-        <canvas id="miniChart1"></canvas>
-        <div class="mini-chart-wert" id="btcWert">$43,250</div>
-        <div class="mini-chart-change positiv" id="btcChange">+3.2%</div>
+        <div class="mini-charts-grid">
+            <div class="mini-chart-karte rot-rand">
+                <div class="mini-chart-titel">₿ Bitcoin</div>
+                <canvas id="miniChart1"></canvas>
+                <div class="mini-chart-wert" id="btcWert">$43,250</div>
+                <div class="mini-chart-change positiv" id="btcChange">+3.2%</div>
+            </div>
+            <div class="mini-chart-karte gruen-rand">
+                <div class="mini-chart-titel">Ξ Ethereum</div>
+                <canvas id="miniChart2"></canvas>
+                <div class="mini-chart-wert" id="ethWert">$2,840</div>
+                <div class="mini-chart-change positiv" id="ethChange">+1.8%</div>
+            </div>
+            <div class="mini-chart-karte gelb-rand">
+                <div class="mini-chart-titel">🥇 Gold</div>
+                <canvas id="miniChart3"></canvas>
+                <div class="mini-chart-wert" id="goldWert">$2,015</div>
+                <div class="mini-chart-change negativ" id="goldChange">-0.5%</div>
+            </div>
+            <div class="mini-chart-karte" style="border-color:rgba(0,136,255,0.4);">
+                <div class="mini-chart-titel">💶 EUR/USD</div>
+                <canvas id="miniChart4"></canvas>
+                <div class="mini-chart-wert" id="eurWert">1.0842</div>
+                <div class="mini-chart-change positiv" id="eurChange">+0.3%</div>
+            </div>
+        </div>
     </div>
-    <div class="mini-chart-karte gruen-rand">
-        <div class="mini-chart-titel">Ξ Ethereum</div>
-        <canvas id="miniChart2"></canvas>
-        <div class="mini-chart-wert" id="ethWert">$2,840</div>
-        <div class="mini-chart-change positiv" id="ethChange">+1.8%</div>
-    </div>
-    <div class="mini-chart-karte gelb-rand">
-        <div class="mini-chart-titel">🥇 Gold</div>
-        <canvas id="miniChart3"></canvas>
-        <div class="mini-chart-wert" id="goldWert">$2,015</div>
-        <div class="mini-chart-change negativ" id="goldChange">-0.5%</div>
-    </div>
-    <div class="mini-chart-karte" style="border-color:rgba(0,136,255,0.4);">
-        <div class="mini-chart-titel">💶 EUR/USD</div>
-        <canvas id="miniChart4"></canvas>
-        <div class="mini-chart-wert" id="eurWert">1.0842</div>
-        <div class="mini-chart-change positiv" id="eurChange">+0.3%</div>
-    </div>
-</div>
-    <!-- RECHNER -->
+    <!-- ENDE DASHBOARD -->
+
+    <!-- ============ RECHNER ============ -->
     <div id="rechner" class="seite">
         <div class="karte gelb-rand">
             <h2>💰 Finanzrechner</h2>
@@ -192,7 +172,6 @@
             </div>
         </div>
 
-        <!-- ZINSESZINS -->
         <div id="zins" class="rechner-panel aktiv">
             <div class="karte gruen-rand">
                 <h3>📈 Zinseszinsrechner</h3>
@@ -209,7 +188,6 @@
             </div>
         </div>
 
-        <!-- KREDIT -->
         <div id="kredit" class="rechner-panel">
             <div class="karte rot-rand">
                 <h3>🏦 Kreditrechner</h3>
@@ -224,7 +202,6 @@
             </div>
         </div>
 
-        <!-- SPAREN -->
         <div id="sparen" class="rechner-panel">
             <div class="karte gelb-rand">
                 <h3>🐖 Sparzielrechner</h3>
@@ -239,7 +216,6 @@
             </div>
         </div>
 
-        <!-- INVEST -->
         <div id="invest" class="rechner-panel">
             <div class="karte gruen-rand">
                 <h3>📊 Investment-Rechner</h3>
@@ -258,8 +234,9 @@
             </div>
         </div>
     </div>
+    <!-- ENDE RECHNER -->
 
-    <!-- QUANTUM AI -->
+    <!-- ============ QUANTUM AI ============ -->
     <div id="quantum" class="seite">
         <div class="karte regenbogen-rand">
             <h2>⚛️ Quantum AI Analyse</h2>
@@ -294,1069 +271,746 @@
             <p id="konfidenzText"></p>
         </div>
     </div>
+    <!-- ENDE QUANTUM -->
 
-    <!-- TIPPS -->
- <!-- PORTFOLIO -->
-<!-- CRYPTO -->
-<!-- BUDGET -->
-<!-- BENACHRICHTIGUNGEN -->
-<!-- CHANCEN FINDER -->
-<!-- SIEGOTH KI ASSISTENT -->
-<!-- HUND-NASE FLUG TRACKER -->
-<div id="hundnase" class="seite">
-
-    <!-- HEADER -->
-    <div class="hundnase-header">
-        <div class="hundnase-avatar">
-            <div class="hund-emoji">🐕</div>
-            <div class="hund-nase-ping">👃</div>
+    <!-- ============ CRYPTO ============ -->
+    <div id="crypto" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>₿ Crypto Live Preise</h2>
+            <p>Echtzeit Quantum AI Preisüberwachung 🚀</p>
         </div>
-        <div class="hundnase-info">
-            <h2>HUND-NASE</h2>
-            <p>Flug-Schnüffler KI</p>
-            <div class="hundnase-status">
-                <div class="status-dot"></div>
-                <span>Schnüffelt nach billigen Flügen...</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- SUCHE -->
-    <div class="karte gruen-rand">
-        <h3>🔍 Flug Suche</h3>
-        <label>Von (Abflughafen)</label>
-        <select id="flugVon">
-            <option value="LFW">🇹🇬 Lomé (LFW)</option>
-            <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
-            <option value="MUC">🇩🇪 München (MUC)</option>
-            <option value="BER">🇩🇪 Berlin (BER)</option>
-            <option value="CDG">🇫🇷 Paris CDG (CDG)</option>
-            <option value="BRU">🇧🇪 Brüssel (BRU)</option>
-            <option value="LHR">🇬🇧 London (LHR)</option>
-            <option value="ACC">🇬🇭 Accra (ACC)</option>
-            <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
-            <option value="COO">🇧🇯 Cotonou (COO)</option>
-            <option value="DKR">🇸🇳 Dakar (DKR)</option>
-        </select>
-
-        <label>Nach (Zielflughafen)</label>
-        <select id="flugNach">
-            <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
-            <option value="LFW">🇹🇬 Lomé (LFW)</option>
-            <option value="MUC">🇩🇪 München (MUC)</option>
-            <option value="BER">🇩🇪 Berlin (BER)</option>
-            <option value="CDG">🇫🇷 Paris CDG (CDG)</option>
-            <option value="BRU">🇧🇪 Brüssel (BRU)</option>
-            <option value="LHR">🇬🇧 London (LHR)</option>
-            <option value="ACC">🇬🇭 Accra (ACC)</option>
-            <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
-            <option value="COO">🇧🇯 Cotonou (COO)</option>
-            <option value="DKR">🇸🇳 Dakar (DKR)</option>
-            <option value="JFK">🇺🇸 New York (JFK)</option>
-            <option value="DXB">🇦🇪 Dubai (DXB)</option>
-        </select>
-
-        <label>Abflugdatum</label>
-        <input type="date" id="flugDatum">
-
-        <label>Passagiere</label>
-        <select id="flugPax">
-            <option value="1">1 Person</option>
-            <option value="2">2 Personen</option>
-            <option value="3">3 Personen</option>
-            <option value="4">4 Personen</option>
-        </select>
-
-        <label>Klasse</label>
-        <select id="flugKlasse">
-            <option value="eco">💺 Economy</option>
-            <option value="premium">✨ Premium Economy</option>
-            <option value="business">🥂 Business</option>
-        </select>
-
-        <button class="btn-gruen" onclick="hundNaseSchnueffelt()">
-            🐕 HUND-NASE los schnüffeln!
-        </button>
-    </div>
-
-    <!-- SCHNÜFFEL ANIMATION -->
-    <div id="schnueffelAnim" class="versteckt">
         <div class="karte gruen-rand">
-            <div class="schnueffel-container">
-                <div class="hund-suchend">🐕</div>
-                <div class="schnueffel-text" id="schnueffelText">
-                    Schnüffelt nach Angeboten...
+            <h3>🌍 Markt Übersicht</h3>
+            <div class="markt-grid">
+                <div class="markt-box">
+                    <div class="markt-label">Marktkapitalisierung</div>
+                    <div class="markt-wert" id="marktKap">$2.41T</div>
                 </div>
-                <div class="schnueffel-progress">
-                    <div class="schnueffel-fill" id="schnueffelFill"></div>
+                <div class="markt-box">
+                    <div class="markt-label">24h Volumen</div>
+                    <div class="markt-wert" id="marktVol">$98.3B</div>
                 </div>
-                <div class="schnueffel-suchen" id="schnueffelSuchen"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ERGEBNISSE -->
-    <div id="flugErgebnisse"></div>
-
-    <!-- VERGLEICHS PORTALE -->
-    <div class="karte gelb-rand">
-        <h3>🌍 Vergleiche live auf:</h3>
-        <p style="font-size:0.82rem; margin-bottom:1rem;">
-            Klicke um deine Suche auf echten Portalen zu starten:
-        </p>
-        <div id="portaleGrid"></div>
-    </div>
-
-    <!-- TOGO SPECIAL -->
-    <div class="karte regenbogen-rand">
-        <h3>🇹🇬 Togo Flug Spezial</h3>
-        <div class="togo-flug-info">
-            <div class="togo-info-item">
-                <div class="togo-info-icon">✈️</div>
-                <div>
-                    <div class="togo-info-titel">Lomé (LFW)</div>
-                    <div class="togo-info-text">
-                        Der einzige internationale Flughafen Togos.
-                        Beste Verbindungen nach Europa und Afrika.
-                    </div>
+                <div class="markt-box">
+                    <div class="markt-label">BTC Dominanz</div>
+                    <div class="markt-wert" id="btcDom">52.3%</div>
                 </div>
-            </div>
-            <div class="togo-info-item">
-                <div class="togo-info-icon">🏆</div>
-                <div>
-                    <div class="togo-info-titel">
-                        Beste Airlines nach Togo
-                    </div>
-                    <div class="togo-info-text">
-                        Air France, Brussels Airlines, Ethiopian Airlines,
-                        Asky Airlines, Royal Air Maroc
-                    </div>
-                </div>
-            </div>
-            <div class="togo-info-item">
-                <div class="togo-info-icon">📅</div>
-                <div>
-                    <div class="togo-info-titel">
-                        Beste Reisezeit für günstige Flüge
-                    </div>
-                    <div class="togo-info-text">
-                        Mai-Juni und September-November sind am günstigsten.
-                        Vermeide Dezember und Juli-August!
-                    </div>
-                </div>
-            </div>
-            <div class="togo-info-item">
-                <div class="togo-info-icon">💰</div>
-                <div>
-                    <div class="togo-info-titel">
-                        Preisspanne nach Togo
-                    </div>
-                    <div class="togo-info-text">
-                        Europa → Lomé: 400-900€ Economy<br>
-                        Beste Deals: 350€ mit Zwischenstopp
-                    </div>
+                <div class="markt-box">
+                    <div class="markt-label">Aktive Coins</div>
+                    <div class="markt-wert">22,847</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- SPAR TIPPS -->
-    <div class="karte gruen-rand">
-        <h3>💡 HUND-NASE Spar-Tricks</h3>
-        <div id="sparTipps"></div>
-    </div>
+        <div class="karte gelb-rand">
+            <h3>😱 Fear & Greed Index</h3>
+            <div class="fear-meter">
+                <div class="fear-fill" id="fearFill"></div>
+            </div>
+            <div class="fear-labels">
+                <span>😱 Angst</span>
+                <span id="fearWert" class="fear-zahl">65</span>
+                <span>🤑 Gier</span>
+            </div>
+            <div id="fearText" class="fear-beschreibung"></div>
+        </div>
 
-    <!-- PREIS ALARM -->
-    <div class="karte rot-rand">
-        <h3>🔔 Preis Alarm setzen</h3>
-        <p style="font-size:0.82rem; margin-bottom:1rem;">
-            HUND-NASE benachrichtigt dich wenn dein Ziel-Preis
-            erreicht wird!
-        </p>
-        <label>Strecke</label>
-        <input type="text" id="alarmStrecke"
-            placeholder="z.B. Frankfurt → Lomé">
-        <label>Mein Ziel-Preis (€)</label>
-        <input type="number" id="alarmZielPreis"
-            placeholder="z.B. 450" min="0">
-        <button class="btn-gruen" onclick="flugAlarmSetzen()">
-            🐕 Alarm setzen
-        </button>
-        <div id="flugAlarme"></div>
-    </div>
+        <div class="karte rot-rand">
+            <h3>🔥 Top Kryptowährungen</h3>
+            <div class="crypto-suche">
+                <input type="text" id="cryptoSuche" placeholder="🔍 Suche..." oninput="cryptoFiltern()">
+            </div>
+            <div id="cryptoListe"></div>
+        </div>
 
-    <!-- INSIDER TRICKS -->
-    <div class="karte gelb-rand">
-        <h3>🕵️ Insider Tricks</h3>
-        <div class="trick-item">
-            <div class="trick-nr">1</div>
-            <div>
-                <div class="trick-titel">🕐 Inkognito Modus</div>
-                <div class="trick-text">
-                    Suche IMMER im Inkognito-Modus! Airlines erhöhen
-                    Preise wenn du mehrmals suchst.
+        <div class="karte gruen-rand" id="cryptoDetail" style="display:none;">
+            <h3 id="detailTitel">₿ Bitcoin Detail</h3>
+            <canvas id="cryptoChart"></canvas>
+            <div id="detailInfos"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>⭐ Meine Watchlist</h3>
+            <div id="watchlistContainer">
+                <div class="leer-portfolio">
+                    <div>⭐</div>
+                    <div>Noch keine Coins auf der Watchlist!</div>
                 </div>
             </div>
         </div>
-        <div class="trick-item">
-            <div class="trick-nr">2</div>
-            <div>
-                <div class="trick-titel">📅 Dienstag/Mittwoch buchen</div>
-                <div class="trick-text">
-                    Flüge sind Di/Mi um 15% billiger.
-                    Vermeide Wochenend-Buchungen!
-                </div>
-            </div>
-        </div>
-        <div class="trick-item">
-            <div class="trick-nr">3</div>
-            <div>
-                <div class="trick-titel">🌍 Andere Flughäfen prüfen</div>
-                <div class="trick-text">
-                    Von Deutschland aus: Brüssel/Amsterdam sind
-                    oft 200€ billiger nach Afrika!
-                </div>
-            </div>
-        </div>
-        <div class="trick-item">
-            <div class="trick-nr">4</div>
-            <div>
-                <div class="trick-titel">⏰ 6-8 Wochen vorher buchen</div>
-                <div class="trick-text">
-                    Der Sweet Spot für internationale Flüge ist
-                    6-8 Wochen vor Abflug!
-                </div>
-            </div>
-        </div>
-        <div class="trick-item">
-            <div class="trick-nr">5</div>
-            <div>
-                <div class="trick-titel">🎫 Miles & Punkte sammeln</div>
-                <div class="trick-text">
-                    Miles & More, Flying Blue, Emirates Skywards –
-                    kostenlose Flüge nach Togo möglich!
-                </div>
-            </div>
-        </div>
-        <div class="trick-item">
-            <div class="trick-nr">6</div>
-            <div>
-                <div class="trick-titel">🇹🇬 Multi-City Trick</div>
-                <div class="trick-text">
-                    Frankfurt → Casablanca → Lomé kann 300€
-                    billiger sein als Direktflug!
-                </div>
-            </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>⚛️ Quantum Trading Signale</h3>
+            <div id="quantumSignale"></div>
+            <button class="btn-gruen" onclick="signaleGenerieren()">🔄 Aktualisieren</button>
         </div>
     </div>
+    <!-- ENDE CRYPTO -->
 
-</div>
-
-<!-- ============ QUANTUM SICHERHEIT ============ -->
-<div id="sicherheit" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>🛡️ Quantum Sicherheit</h2>
-        <p>Deine App ist mit modernster Sicherheit geschützt!</p>
-    </div>
-
-    <!-- SICHERHEITS STATUS -->
-    <div class="karte gruen-rand">
-        <h3>🔒 System Status</h3>
-        <div class="sec-status-grid">
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">🛡️</div>
-                <div class="sec-name">Verschlüsselung</div>
-                <div class="sec-wert">AES-256</div>
-            </div>
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">🔐</div>
-                <div class="sec-name">HTTPS</div>
-                <div class="sec-wert" id="httpsStatus">Aktiv</div>
-            </div>
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">🚫</div>
-                <div class="sec-name">XSS Schutz</div>
-                <div class="sec-wert">Aktiv</div>
-            </div>
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">👁️</div>
-                <div class="sec-name">Malware Scan</div>
-                <div class="sec-wert">Sauber</div>
-            </div>
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">🔒</div>
-                <div class="sec-name">Local Storage</div>
-                <div class="sec-wert">Verschlüsselt</div>
-            </div>
-            <div class="sec-status-item sec-ok">
-                <div class="sec-icon">⚛️</div>
-                <div class="sec-name">Quantum Layer</div>
-                <div class="sec-wert">Aktiv</div>
-            </div>
+    <!-- ============ PORTFOLIO ============ -->
+    <div id="portfolio" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>💼 Mein Portfolio</h2>
+            <p>Verfolge deine Investments in Echtzeit!</p>
         </div>
-    </div>
 
-    <!-- LIVE SCANNER -->
-    <div class="karte gruen-rand">
-        <h3>🔍 Live Sicherheits-Scanner</h3>
-        <button class="btn-gruen" onclick="sicherheitsScan()">
-            🔎 Vollständigen Scan starten
-        </button>
-        <div id="scanErgebnisse"></div>
-    </div>
-
-    <!-- BEDROHUNGS LOG -->
-    <div class="karte rot-rand">
-        <h3>⚠️ Bedrohungs-Log</h3>
-        <div id="bedrohungsLog">
-            <p style="color:#00ff88; text-align:center; padding:1rem;
-                font-family: 'Fredoka One', cursive;">
-                ✅ Keine Bedrohungen erkannt!
-            </p>
-        </div>
-    </div>
-
-    <!-- SICHERHEITS TIPPS -->
-    <div class="karte gelb-rand">
-        <h3>💡 Sicherheits Tipps</h3>
-        <div class="sec-tipp">
-            <div class="sec-tipp-icon">🔒</div>
-            <div>
-                <div class="sec-tipp-titel">Starke Passwörter</div>
-                <div class="sec-tipp-text">
-                    Mindestens 12 Zeichen mit Groß-/Kleinschreibung,
-                    Zahlen und Sonderzeichen!
-                </div>
-            </div>
-        </div>
-        <div class="sec-tipp">
-            <div class="sec-tipp-icon">📱</div>
-            <div>
-                <div class="sec-tipp-titel">
-                    2-Faktor Authentifizierung
-                </div>
-                <div class="sec-tipp-text">
-                    Immer 2FA aktivieren wo möglich!
-                    Besonders für Banking und Email.
-                </div>
-            </div>
-        </div>
-        <div class="sec-tipp">
-            <div class="sec-tipp-icon">🚫</div>
-            <div>
-                <div class="sec-tipp-titel">Nie API Keys teilen</div>
-                <div class="sec-tipp-text">
-                    Poste NIEMALS Passwörter, API Keys oder
-                    Zugangsdaten öffentlich!
-                </div>
-            </div>
-        </div>
-        <div class="sec-tipp">
-            <div class="sec-tipp-icon">📧</div>
-            <div>
-                <div class="sec-tipp-titel">Phishing erkennen</div>
-                <div class="sec-tipp-text">
-                    Prüfe immer die URL bevor du auf Links klickst!
-                    Banken fragen niemals per Email nach Passwörtern.
-                </div>
-            </div>
-        </div>
-        <div class="sec-tipp">
-            <div class="sec-tipp-icon">🔄</div>
-            <div>
-                <div class="sec-tipp-titel">Regelmäßige Updates</div>
-                <div class="sec-tipp-text">
-                    Halte deinen Browser und Apps immer aktuell!
-                    Updates schließen Sicherheitslücken.
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<div id="siegoth" class="seite">
-
-    <!-- HEADER -->
-    <div class="siegoth-header">
-        <div class="siegoth-avatar">
-            <div class="siegoth-ring"></div>
-            <div class="siegoth-gesicht">🤖</div>
-        </div>
-        <div class="siegoth-info">
-            <h2>SIEGOTH</h2>
-            <p>Quantum AI Financial Assistant</p>
-            <div class="siegoth-status">
-                <div class="status-dot"></div>
-                <span>Online & Aktiv</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- CHAT -->
-    <div class="siegoth-chat" id="siegothChat">
-        <div class="chat-nachricht bot">
-            <div class="chat-avatar">🤖</div>
-            <div class="chat-bubble">
-                <p>Hallo! Ich bin <strong>SIEGOTH</strong> 👋</p>
-                <p>Dein persönlicher KI-Finanzassistent!</p>
-                <p>Ich helfe dir dabei legale Wege zu finden
-                um Geld zu verdienen. Was möchtest du heute
-                wissen? 🚀</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCHNELL FRAGEN -->
-    <div class="schnell-fragen">
-        <div class="schnell-titel">💬 Schnellfragen:</div>
-        <div class="schnell-grid">
-            <button class="schnell-btn"
-                onclick="siegothFrage('umfragen')">
-                📊 Beste Umfragen heute
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('produkte')">
-                📦 Gratis Produkte testen
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('rezensionen')">
-                ⭐ Rezensionen schreiben
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('cashback')">
-                💰 Cashback Angebote
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('boni')">
-                🎁 Registrierungs-Boni
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('nebenjobs')">
-                💼 Online Nebenjobs
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('togo')">
-                🇹🇬 Chancen in Togo
-            </button>
-            <button class="schnell-btn"
-                onclick="siegothFrage('passiv')">
-                😴 Passives Einkommen
-            </button>
-        </div>
-    </div>
-
-    <!-- EINGABE -->
-    <div class="chat-eingabe">
-        <input type="text" id="chatInput"
-            placeholder="Frage SIEGOTH etwas..."
-            onkeypress="chatEnter(event)">
-        <button class="chat-senden" onclick="chatSenden()">
-            ➤
-        </button>
-    </div>
-
-    <!-- TÄGLICH BESTE ANGEBOTE -->
-    <div class="karte gruen-rand" style="margin-top:1rem;">
-        <h3>🔥 Heute beste Angebote</h3>
-        <div id="tagesAngebote"></div>
-        <button class="btn-gruen" onclick="angeboteAktualisieren()">
-            🔄 Aktualisieren
-        </button>
-    </div>
-
-    <!-- UMFRAGE PLATTFORMEN -->
-    <div class="karte gelb-rand">
-        <h3>📊 Umfrage Plattformen</h3>
-        <p style="font-size:0.82rem; margin-bottom:1rem;">
-            Klicke auf eine Plattform um Details zu sehen:
-        </p>
-        <div id="umfragePlattformen"></div>
-    </div>
-
-    <!-- PRODUKT TESTER -->
-    <div class="karte rot-rand">
-        <h3>📦 Produkt Tester Programme</h3>
-        <p style="font-size:0.82rem; margin-bottom:1rem;">
-            Erhalte kostenlose Produkte gegen ehrliche Rezension:
-        </p>
-        <div id="produktTester"></div>
-    </div>
-
-    <!-- REZENSIONS JOBS -->
-    <div class="karte regenbogen-rand">
-        <h3>⭐ Rezensions Plattformen</h3>
-        <p style="font-size:0.82rem; margin-bottom:1rem;">
-            Schreibe Rezensionen und verdiene Geld oder Produkte:
-        </p>
-        <div id="rezensionsJobs"></div>
-    </div>
-
-    <!-- EINNAHMEN TRACKER -->
-    <div class="karte gruen-rand">
-        <h3>💰 Meine SIEGOTH Einnahmen</h3>
-        <div class="einnahmen-gesamt">
-            <div class="einnahmen-box">
-                <div>Diese Woche</div>
-                <div id="wocheEinnahmen" class="positiv">€0.00</div>
-            </div>
-            <div class="einnahmen-box">
-                <div>Dieser Monat</div>
-                <div id="monatEinnahmen" class="positiv">€0.00</div>
-            </div>
-            <div class="einnahmen-box">
-                <div>Gesamt</div>
-                <div id="gesamtSiegoth" class="gold">€0.00</div>
-            </div>
-        </div>
-        <div class="einnahmen-hinzufuegen">
-            <input type="number" id="siegothBetrag"
-                placeholder="Betrag (€)" min="0" step="0.01">
-            <input type="text" id="siegothQuelle"
-                placeholder="Quelle (z.B. Toluna)">
-            <button class="btn-gruen"
-                onclick="siegothEinnahmeHinzufuegen()">
-                ➕ Einnahme erfassen
-            </button>
-        </div>
-        <div id="siegothVerlauf"></div>
-    </div>
-
-</div>
-<div id="chancen" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>🎯 Legale Finanz-Chancen</h2>
-        <p>Quantum AI scannt das Internet nach legalen
-        Möglichkeiten Geld zu verdienen! 🚀</p>
-    </div>
-
-    <!-- SCANNER -->
-    <div class="karte gruen-rand">
-        <h3>⚛️ Opportunity Scanner</h3>
-        <label>Dein verfügbares Kapital (€)</label>
-        <input type="number" id="chancenKapital"
-            placeholder="z.B. 1000" min="0">
-        <label>Deine Fähigkeiten</label>
-        <select id="chancenFaehigkeit">
-            <option value="alle">🌍 Alle anzeigen</option>
-            <option value="tech">💻 Technik / IT</option>
-            <option value="kreativ">🎨 Kreativ / Design</option>
-            <option value="handel">📦 Handel / Verkauf</option>
-            <option value="finanzen">📈 Finanzen / Invest</option>
-            <option value="bildung">📚 Bildung / Coaching</option>
-            <option value="handwerk">🔧 Handwerk / Service</option>
-            <option value="digital">📱 Digital / Online</option>
-        </select>
-        <label>Zeitaufwand pro Woche</label>
-        <select id="chancenZeit">
-            <option value="wenig">⏰ 1-5 Stunden</option>
-            <option value="mittel">⏰ 5-20 Stunden</option>
-            <option value="viel">⏰ 20-40 Stunden</option>
-            <option value="vollzeit">⏰ Vollzeit</option>
-        </select>
-        <label>Risiko Bereitschaft</label>
-        <div class="risiko-auswahl">
-            <button class="risiko-btn aktiv"
-                onclick="risikoWaehlen('niedrig', this)">
-                🛡️ Niedrig
-            </button>
-            <button class="risiko-btn"
-                onclick="risikoWaehlen('mittel', this)">
-                ⚖️ Mittel
-            </button>
-            <button class="risiko-btn"
-                onclick="risikoWaehlen('hoch', this)">
-                🚀 Hoch
-            </button>
-        </div>
-        <button class="btn-gruen" onclick="chancenScannen()">
-            ⚛️ Quantum Scan starten
-        </button>
-    </div>
-
-    <!-- SCAN ANIMATION -->
-    <div id="scanAnimation" class="versteckt">
         <div class="karte gruen-rand">
-            <div class="scan-container">
-                <div class="scan-ring"></div>
-                <div class="scan-text" id="scanText">
-                    Initialisiere Quantum Scanner...
+            <h3>➕ Investment hinzufügen</h3>
+            <label>Name</label>
+            <input type="text" id="portName" placeholder="z.B. Bitcoin">
+            <label>Kategorie</label>
+            <select id="portKat">
+                <option value="crypto">₿ Krypto</option>
+                <option value="aktien">📈 Aktien</option>
+                <option value="etf">📊 ETF</option>
+                <option value="rohstoffe">🥇 Rohstoffe</option>
+                <option value="immobilien">🏠 Immobilien</option>
+                <option value="sonstiges">💰 Sonstiges</option>
+            </select>
+            <label>Investierter Betrag (€)</label>
+            <input type="number" id="portBetrag" placeholder="1000" min="0">
+            <label>Aktueller Wert (€)</label>
+            <input type="number" id="portWert" placeholder="1250" min="0">
+            <button class="btn-gruen" onclick="portfolioHinzufuegen()">➕ Hinzufügen</button>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>📊 Portfolio Übersicht</h3>
+            <div class="portfolio-gesamt">
+                <div class="gesamt-box rot-karte">
+                    <div>💰 Investiert</div>
+                    <div id="gesamtInvestiert">€0.00</div>
                 </div>
-            </div>
-            <div class="scan-log" id="scanLog"></div>
-        </div>
-    </div>
-
-    <!-- ERGEBNISSE -->
-    <div id="chancenErgebnisse"></div>
-
-    <!-- MARKT LÜCKEN -->
-    <div class="karte rot-rand" id="marktLueckenBox"
-        style="display:none;">
-        <h3>🔍 Erkannte Marktlücken</h3>
-        <div id="marktLuecken"></div>
-    </div>
-
-    <!-- PASSIVE INCOME -->
-    <div class="karte gelb-rand" id="passiveIncomeBox"
-        style="display:none;">
-        <h3>💰 Passive Einkommens-Strategien</h3>
-        <div id="passiveIncome"></div>
-    </div>
-
-    <!-- AKTIONSPLAN -->
-    <div class="karte regenbogen-rand" id="aktionsplanBox"
-        style="display:none;">
-        <h3>📋 Dein persönlicher Aktionsplan</h3>
-        <div id="aktionsplan"></div>
-        <button class="btn-gruen" onclick="planSpeichern()">
-            💾 Plan speichern
-        </button>
-    </div>
-
-</div>
-<div id="benachrichtigungen" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>🔔 Smart Alerts</h2>
-        <p>Bleibe immer informiert mit Quantum AI Benachrichtigungen!</p>
-    </div>
-
-    <!-- PERMISSION -->
-    <div class="karte gruen-rand" id="permissionBox">
-        <h3>🔐 Benachrichtigungen aktivieren</h3>
-        <p style="margin-bottom:1rem;">
-            Erhalte wichtige Markt-Alerts, Crypto-Signale
-            und Budget-Warnungen direkt auf dein Gerät!
-        </p>
-        <div class="permission-status" id="permissionStatus">
-            <div class="perm-icon">🔕</div>
-            <div class="perm-text">Noch nicht aktiviert</div>
-        </div>
-        <button class="btn-gruen" id="permBtn"
-            onclick="benachrichtigungAnfordern()">
-            🔔 Jetzt aktivieren
-        </button>
-    </div>
-
-    <!-- ALERT EINSTELLUNGEN -->
-    <div class="karte gelb-rand">
-        <h3>⚙️ Alert Einstellungen</h3>
-
-        <div class="alert-setting">
-            <div class="alert-setting-info">
-                <div class="alert-setting-name">📈 Markt Alerts</div>
-                <div class="alert-setting-desc">
-                    Bei starken Marktbewegungen informiert werden
+                <div class="gesamt-box gruen-karte">
+                    <div>📈 Aktuell</div>
+                    <div id="gesamtWert">€0.00</div>
                 </div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="marktAlert" checked
-                    onchange="alertSpeichern()">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-
-        <div class="alert-setting">
-            <div class="alert-setting-info">
-                <div class="alert-setting-name">₿ Crypto Signale</div>
-                <div class="alert-setting-desc">
-                    Quantum AI Kauf/Verkauf Signale
+                <div class="gesamt-box gelb-karte">
+                    <div>🎯 Gewinn</div>
+                    <div id="gesamtGewinn">€0.00</div>
                 </div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="cryptoAlert" checked
-                    onchange="alertSpeichern()">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-
-        <div class="alert-setting">
-            <div class="alert-setting-info">
-                <div class="alert-setting-name">💸 Budget Warnungen</div>
-                <div class="alert-setting-desc">
-                    Wenn Ausgaben das Budget überschreiten
-                </div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="budgetAlert" checked
-                    onchange="alertSpeichern()">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-
-        <div class="alert-setting">
-            <div class="alert-setting-info">
-                <div class="alert-setting-name">🌅 Täglicher Report</div>
-                <div class="alert-setting-desc">
-                    Jeden Morgen deine Finanz-Zusammenfassung
-                </div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="reportAlert"
-                    onchange="alertSpeichern()">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-
-        <div class="alert-setting">
-            <div class="alert-setting-info">
-                <div class="alert-setting-name">⚛️ Quantum Updates</div>
-                <div class="alert-setting-desc">
-                    Neue AI Analysen und Prognosen
-                </div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="quantumAlert" checked
-                    onchange="alertSpeichern()">
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-    </div>
-
-    <!-- PREIS ALARM -->
-    <div class="karte rot-rand">
-        <h3>🎯 Preis Alarm setzen</h3>
-        <label>Kryptowährung</label>
-        <select id="alarmCoin">
-            <option value="BTC">₿ Bitcoin (BTC)</option>
-            <option value="ETH">Ξ Ethereum (ETH)</option>
-            <option value="SOL">◎ Solana (SOL)</option>
-            <option value="BNB">🔶 BNB</option>
-            <option value="XRP">✕ XRP</option>
-        </select>
-        <label>Alarm bei Preis über/unter ($)</label>
-        <input type="number" id="alarmPreis"
-            placeholder="z.B. 50000">
-        <label>Alarm Typ</label>
-        <select id="alarmTyp">
-            <option value="ueber">📈 Preis ÜBER diesem Wert</option>
-            <option value="unter">📉 Preis UNTER diesem Wert</option>
-        </select>
-        <button class="btn-gruen" onclick="preisAlarmSetzen()">
-            🎯 Alarm setzen
-        </button>
-        <div id="alarmListe" style="margin-top:1rem;"></div>
-    </div>
-
-    <!-- TEST NOTIFICATIONS -->
-    <div class="karte gruen-rand">
-        <h3>🧪 Test Benachrichtigungen</h3>
-        <p style="margin-bottom:1rem; font-size:0.85rem;">
-            Teste verschiedene Benachrichtigungs-Typen:
-        </p>
-        <div class="test-btns">
-            <button class="btn-gruen" onclick="testNotification('markt')">
-                📈 Markt Alert
-            </button>
-            <button class="btn-rot" onclick="testNotification('budget')">
-                💸 Budget Warnung
-            </button>
-            <button class="btn-gelb" onclick="testNotification('crypto')">
-                ₿ Crypto Signal
-            </button>
-            <button class="btn-gruen" onclick="testNotification('quantum')">
-                ⚛️ Quantum Update
-            </button>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION VERLAUF -->
-    <div class="karte gelb-rand">
-        <h3>📜 Benachrichtigungs Verlauf</h3>
-        <div id="notifVerlauf">
-            <div class="leer-portfolio">
-                <div>🔔</div>
-                <div>Noch keine Benachrichtigungen.</div>
-            </div>
-        </div>
-        <button class="btn-rot" style="margin-top:1rem;"
-            onclick="verlaufLeeren()">
-            🗑️ Verlauf leeren
-        </button>
-    </div>
-
-</div>
-<div id="budget" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>💸 Budget Planer</h2>
-        <p>Behalte deine Finanzen im Griff! 🎯</p>
-    </div>
-
-    <!-- MONATS ÜBERSICHT -->
-    <div class="budget-uebersicht">
-        <div class="budget-box gruen-karte">
-            <div class="budget-box-icon">💚</div>
-            <div class="budget-box-label">Einnahmen</div>
-            <div class="budget-box-wert" id="gesamtEinnahmen">€0</div>
-        </div>
-        <div class="budget-box rot-karte">
-            <div class="budget-box-icon">❤️</div>
-            <div class="budget-box-label">Ausgaben</div>
-            <div class="budget-box-wert" id="gesamtAusgaben">€0</div>
-        </div>
-        <div class="budget-box gelb-karte" id="bilanzBox">
-            <div class="budget-box-icon">⭐</div>
-            <div class="budget-box-label">Bilanz</div>
-            <div class="budget-box-wert" id="gesamtBilanz">€0</div>
-        </div>
-    </div>
-
-    <!-- FORTSCHRITT -->
-    <div class="karte gruen-rand">
-        <h3>📊 Budget Fortschritt</h3>
-        <div class="budget-progress-label">
-            <span>Ausgaben vs Einnahmen</span>
-            <span id="budgetProzent">0%</span>
-        </div>
-        <div class="budget-progress-aussen">
-            <div class="budget-progress-innen" id="budgetProgress"></div>
-        </div>
-        <p id="budgetTipp" class="budget-tipp-text"></p>
-    </div>
-
-    <!-- EINTRAG HINZUFÜGEN -->
-    <div class="karte gelb-rand">
-        <h3>➕ Eintrag hinzufügen</h3>
-        <div class="typ-auswahl">
-            <button class="typ-btn aktiv" id="einnahmeBtn"
-                onclick="typWaehlen('einnahme')">
-                💚 Einnahme
-            </button>
-            <button class="typ-btn" id="ausgabeBtn"
-                onclick="typWaehlen('ausgabe')">
-                ❤️ Ausgabe
-            </button>
-        </div>
-        <label>Beschreibung</label>
-        <input type="text" id="budgetName"
-            placeholder="z.B. Gehalt, Miete, Essen...">
-        <label>Kategorie</label>
-        <select id="budgetKat">
-            <option value="gehalt">💼 Gehalt</option>
-            <option value="nebeneinkommen">💰 Nebeneinkommen</option>
-            <option value="miete">🏠 Miete</option>
-            <option value="essen">🍔 Essen & Trinken</option>
-            <option value="transport">🚗 Transport</option>
-            <option value="unterhaltung">🎮 Unterhaltung</option>
-            <option value="gesundheit">💊 Gesundheit</option>
-            <option value="kleidung">👕 Kleidung</option>
-            <option value="sparen">🐖 Sparen</option>
-            <option value="sonstiges">📦 Sonstiges</option>
-        </select>
-        <label>Betrag (€)</label>
-        <input type="number" id="budgetBetrag"
-            placeholder="z.B. 500" min="0">
-        <label>Datum</label>
-        <input type="date" id="budgetDatum">
-        <button class="btn-gruen" onclick="budgetHinzufuegen()">
-            ➕ Hinzufügen
-        </button>
-    </div>
-
-    <!-- KATEGORIEN CHART -->
-    <div class="karte rot-rand">
-        <h3>🥧 Ausgaben nach Kategorien</h3>
-        <canvas id="budgetChart" height="200"></canvas>
-        <div id="budgetLegende" class="portfolio-legende"></div>
-    </div>
-
-    <!-- TRANSAKTIONEN -->
-    <div class="karte gruen-rand">
-        <h3>📋 Transaktionen</h3>
-        <div class="trans-filter">
-            <button class="filter-btn aktiv"
-                onclick="transFilter('alle', this)">Alle</button>
-            <button class="filter-btn"
-                onclick="transFilter('einnahme', this)">💚 Einnahmen</button>
-            <button class="filter-btn"
-                onclick="transFilter('ausgabe', this)">❤️ Ausgaben</button>
-        </div>
-        <div id="transListe"></div>
-    </div>
-
-    <!-- AI ANALYSE -->
-    <div class="karte regenbogen-rand">
-        <h3>🤖 AI Budget Analyse</h3>
-        <div id="aiAnalyse">
-            <p style="color:#668844;">
-                Füge Einnahmen und Ausgaben hinzu für eine
-                personalisierte AI-Analyse!
-            </p>
-        </div>
-        <button class="btn-gruen" onclick="aiAnalyseErstellen()">
-            ⚛️ AI Analyse starten
-        </button>
-    </div>
-
-    <!-- LÖSCHEN -->
-    <div style="margin: 0 0.8rem 2rem;">
-        <button class="btn-rot" onclick="budgetLeeren()">
-            🗑️ Alle Einträge löschen
-        </button>
-    </div>
-
-</div>
-<div id="crypto" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>₿ Crypto Live Preise</h2>
-        <p>Echtzeit Quantum AI Preisüberwachung 🚀</p>
-    </div>
-
-    <!-- MARKT ÜBERSICHT -->
-    <div class="karte gruen-rand">
-        <h3>🌍 Markt Übersicht</h3>
-        <div class="markt-grid">
-            <div class="markt-box">
-                <div class="markt-label">Marktkapitalisierung</div>
-                <div class="markt-wert" id="marktKap">$2.41T</div>
-            </div>
-            <div class="markt-box">
-                <div class="markt-label">24h Volumen</div>
-                <div class="markt-wert" id="marktVol">$98.3B</div>
-            </div>
-            <div class="markt-box">
-                <div class="markt-label">BTC Dominanz</div>
-                <div class="markt-wert" id="btcDom">52.3%</div>
-            </div>
-            <div class="markt-box">
-                <div class="markt-label">Aktive Coins</div>
-                <div class="markt-wert">22,847</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FEAR & GREED -->
-    <div class="karte gelb-rand">
-        <h3>😱 Fear & Greed Index</h3>
-        <div class="fear-meter">
-            <div class="fear-fill" id="fearFill"></div>
-        </div>
-        <div class="fear-labels">
-            <span>😱 Angst</span>
-            <span id="fearWert" class="fear-zahl">65</span>
-            <span>🤑 Gier</span>
-        </div>
-        <div id="fearText" class="fear-beschreibung"></div>
-    </div>
-
-    <!-- CRYPTO LISTE -->
-    <div class="karte rot-rand">
-        <h3>🔥 Top Kryptowährungen</h3>
-        <div class="crypto-suche">
-            <input type="text" id="cryptoSuche"
-                placeholder="🔍 Suche (z.B. Bitcoin)..."
-                oninput="cryptoFiltern()">
-        </div>
-        <div id="cryptoListe"></div>
-    </div>
-
-    <!-- CRYPTO DETAIL -->
-    <div class="karte gruen-rand" id="cryptoDetail" style="display:none;">
-        <h3 id="detailTitel">₿ Bitcoin Detail</h3>
-        <canvas id="cryptoChart"></canvas>
-        <div id="detailInfos"></div>
-    </div>
-
-    <!-- WATCHLIST -->
-    <div class="karte gelb-rand">
-        <h3>⭐ Meine Watchlist</h3>
-        <div id="watchlistContainer">
-            <div class="leer-portfolio">
-                <div>⭐</div>
-                <div>Noch keine Coins auf der Watchlist!</div>
-                <div style="font-size:0.8rem; margin-top:0.5rem;">
-                    Klicke auf ⭐ bei einem Coin um ihn hinzuzufügen.
+                <div class="gesamt-box blau-karte">
+                    <div>📊 Rendite</div>
+                    <div id="gesamtRendite">0%</div>
                 </div>
             </div>
         </div>
+
+        <div id="portfolioListe"></div>
+
+        <div class="karte gruen-rand" id="portfolioChartBox" style="display:none;">
+            <h3>🥧 Portfolio Verteilung</h3>
+            <canvas id="portfolioChart" height="200"></canvas>
+            <div id="portfolioLegende" class="portfolio-legende"></div>
+        </div>
+
+        <div style="margin: 0 0.8rem;">
+            <button class="btn-rot" onclick="portfolioLeeren()">🗑️ Portfolio leeren</button>
+        </div>
     </div>
+    <!-- ENDE PORTFOLIO -->
+    <!-- ============ BUDGET ============ -->
+    <div id="budget" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>💸 Budget Planer</h2>
+            <p>Behalte deine Finanzen im Griff! 🎯</p>
+        </div>
 
-    <!-- QUANTUM SIGNAL -->
-    <div class="karte regenbogen-rand">
-        <h3>⚛️ Quantum Trading Signale</h3>
-        <div id="quantumSignale"></div>
-        <button class="btn-gruen" onclick="signaleGenerieren()">
-            🔄 Signale aktualisieren
-        </button>
-    </div>
-
-</div>
-<div id="portfolio" class="seite">
-
-    <div class="karte regenbogen-rand">
-        <h2>💼 Mein Portfolio</h2>
-        <p>Verfolge deine Investments in Echtzeit!</p>
-    </div>
-
-    <!-- PORTFOLIO HINZUFÜGEN -->
-    <div class="karte gruen-rand">
-        <h3>➕ Investment hinzufügen</h3>
-        <label>Name (z.B. Bitcoin, Apple, Gold)</label>
-        <input type="text" id="portName" placeholder="z.B. Bitcoin">
-        <label>Kategorie</label>
-        <select id="portKat">
-            <option value="crypto">₿ Krypto</option>
-            <option value="aktien">📈 Aktien</option>
-            <option value="etf">📊 ETF</option>
-            <option value="rohstoffe">🥇 Rohstoffe</option>
-            <option value="immobilien">🏠 Immobilien</option>
-            <option value="sonstiges">💰 Sonstiges</option>
-        </select>
-        <label>Investierter Betrag (€)</label>
-        <input type="number" id="portBetrag" placeholder="z.B. 1000" min="0">
-        <label>Aktueller Wert (€)</label>
-        <input type="number" id="portWert" placeholder="z.B. 1250" min="0">
-        <button class="btn-gruen" onclick="portfolioHinzufuegen()">
-            ➕ Zum Portfolio hinzufügen
-        </button>
-    </div>
-
-    <!-- PORTFOLIO ÜBERSICHT -->
-    <div class="karte gelb-rand">
-        <h3>📊 Portfolio Übersicht</h3>
-        <div class="portfolio-gesamt">
-            <div class="gesamt-box rot-karte">
-                <div>💰 Investiert</div>
-                <div id="gesamtInvestiert">€0.00</div>
+        <div class="budget-uebersicht">
+            <div class="budget-box gruen-karte">
+                <div class="budget-box-icon">💚</div>
+                <div class="budget-box-label">Einnahmen</div>
+                <div class="budget-box-wert" id="gesamtEinnahmen">€0</div>
             </div>
-            <div class="gesamt-box gruen-karte">
-                <div>📈 Aktuell</div>
-                <div id="gesamtWert">€0.00</div>
+            <div class="budget-box rot-karte">
+                <div class="budget-box-icon">❤️</div>
+                <div class="budget-box-label">Ausgaben</div>
+                <div class="budget-box-wert" id="gesamtAusgaben">€0</div>
             </div>
-            <div class="gesamt-box gelb-karte">
-                <div>🎯 Gewinn/Verlust</div>
-                <div id="gesamtGewinn">€0.00</div>
+            <div class="budget-box gelb-karte" id="bilanzBox">
+                <div class="budget-box-icon">⭐</div>
+                <div class="budget-box-label">Bilanz</div>
+                <div class="budget-box-wert" id="gesamtBilanz">€0</div>
             </div>
-            <div class="gesamt-box blau-karte">
-                <div>📊 Rendite</div>
-                <div id="gesamtRendite">0%</div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>📊 Budget Fortschritt</h3>
+            <div class="budget-progress-label">
+                <span>Ausgaben vs Einnahmen</span>
+                <span id="budgetProzent">0%</span>
+            </div>
+            <div class="budget-progress-aussen">
+                <div class="budget-progress-innen" id="budgetProgress"></div>
+            </div>
+            <p id="budgetTipp" class="budget-tipp-text"></p>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>➕ Eintrag hinzufügen</h3>
+            <div class="typ-auswahl">
+                <button class="typ-btn aktiv" id="einnahmeBtn" onclick="typWaehlen('einnahme')">💚 Einnahme</button>
+                <button class="typ-btn" id="ausgabeBtn" onclick="typWaehlen('ausgabe')">❤️ Ausgabe</button>
+            </div>
+            <label>Beschreibung</label>
+            <input type="text" id="budgetName" placeholder="z.B. Gehalt, Miete...">
+            <label>Kategorie</label>
+            <select id="budgetKat">
+                <option value="gehalt">💼 Gehalt</option>
+                <option value="nebeneinkommen">💰 Nebeneinkommen</option>
+                <option value="sonstiges">📦 Sonstiges</option>
+            </select>
+            <label>Betrag (€)</label>
+            <input type="number" id="budgetBetrag" placeholder="500" min="0">
+            <label>Datum</label>
+            <input type="date" id="budgetDatum">
+            <button class="btn-gruen" onclick="budgetHinzufuegen()">➕ Hinzufügen</button>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🥧 Ausgaben nach Kategorien</h3>
+            <canvas id="budgetChart" height="200"></canvas>
+            <div id="budgetLegende" class="portfolio-legende"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>📋 Transaktionen</h3>
+            <div class="trans-filter">
+                <button class="filter-btn aktiv" onclick="transFilter('alle', this)">Alle</button>
+                <button class="filter-btn" onclick="transFilter('einnahme', this)">💚 Einnahmen</button>
+                <button class="filter-btn" onclick="transFilter('ausgabe', this)">❤️ Ausgaben</button>
+            </div>
+            <div id="transListe"></div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🤖 AI Budget Analyse</h3>
+            <div id="aiAnalyse">
+                <p style="color:#668844;">Füge Einträge hinzu für personalisierte AI-Analyse!</p>
+            </div>
+            <button class="btn-gruen" onclick="aiAnalyseErstellen()">⚛️ AI Analyse starten</button>
+        </div>
+
+        <div style="margin: 0 0.8rem 2rem;">
+            <button class="btn-rot" onclick="budgetLeeren()">🗑️ Alle Einträge löschen</button>
+        </div>
+    </div>
+    <!-- ENDE BUDGET -->
+
+    <!-- ============ BENACHRICHTIGUNGEN ============ -->
+    <div id="benachrichtigungen" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>🔔 Smart Alerts</h2>
+            <p>Bleibe immer informiert mit Quantum AI Benachrichtigungen!</p>
+        </div>
+
+        <div class="karte gruen-rand" id="permissionBox">
+            <h3>🔐 Benachrichtigungen aktivieren</h3>
+            <p style="margin-bottom:1rem;">Erhalte wichtige Alerts direkt auf dein Gerät!</p>
+            <div class="permission-status" id="permissionStatus">
+                <div class="perm-icon">🔕</div>
+                <div class="perm-text">Noch nicht aktiviert</div>
+            </div>
+            <button class="btn-gruen" id="permBtn" onclick="benachrichtigungAnfordern()">🔔 Jetzt aktivieren</button>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>⚙️ Alert Einstellungen</h3>
+            <div class="alert-setting">
+                <div class="alert-setting-info">
+                    <div class="alert-setting-name">📈 Markt Alerts</div>
+                    <div class="alert-setting-desc">Bei starken Marktbewegungen</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="marktAlert" checked onchange="alertSpeichern()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="alert-setting">
+                <div class="alert-setting-info">
+                    <div class="alert-setting-name">₿ Crypto Signale</div>
+                    <div class="alert-setting-desc">Quantum AI Kauf/Verkauf Signale</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="cryptoAlert" checked onchange="alertSpeichern()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="alert-setting">
+                <div class="alert-setting-info">
+                    <div class="alert-setting-name">💸 Budget Warnungen</div>
+                    <div class="alert-setting-desc">Wenn Ausgaben zu hoch</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="budgetAlert" checked onchange="alertSpeichern()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="alert-setting">
+                <div class="alert-setting-info">
+                    <div class="alert-setting-name">🌅 Täglicher Report</div>
+                    <div class="alert-setting-desc">Jeden Morgen Zusammenfassung</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="reportAlert" onchange="alertSpeichern()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="alert-setting">
+                <div class="alert-setting-info">
+                    <div class="alert-setting-name">⚛️ Quantum Updates</div>
+                    <div class="alert-setting-desc">Neue AI Analysen</div>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="quantumAlert" checked onchange="alertSpeichern()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🎯 Preis Alarm setzen</h3>
+            <label>Kryptowährung</label>
+            <select id="alarmCoin">
+                <option value="BTC">₿ Bitcoin</option>
+                <option value="ETH">Ξ Ethereum</option>
+                <option value="SOL">◎ Solana</option>
+                <option value="BNB">🔶 BNB</option>
+                <option value="XRP">✕ XRP</option>
+            </select>
+            <label>Preis ($)</label>
+            <input type="number" id="alarmPreis" placeholder="50000">
+            <label>Typ</label>
+            <select id="alarmTyp">
+                <option value="ueber">📈 Über diesem Wert</option>
+                <option value="unter">📉 Unter diesem Wert</option>
+            </select>
+            <button class="btn-gruen" onclick="preisAlarmSetzen()">🎯 Alarm setzen</button>
+            <div id="alarmListe" style="margin-top:1rem;"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🧪 Test Benachrichtigungen</h3>
+            <div class="test-btns">
+                <button class="btn-gruen" onclick="testNotification('markt')">📈 Markt</button>
+                <button class="btn-rot" onclick="testNotification('budget')">💸 Budget</button>
+                <button class="btn-gelb" onclick="testNotification('crypto')">₿ Crypto</button>
+                <button class="btn-gruen" onclick="testNotification('quantum')">⚛️ Quantum</button>
+            </div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>📜 Verlauf</h3>
+            <div id="notifVerlauf">
+                <div class="leer-portfolio">
+                    <div>🔔</div>
+                    <div>Noch keine Benachrichtigungen.</div>
+                </div>
+            </div>
+            <button class="btn-rot" style="margin-top:1rem;" onclick="verlaufLeeren()">🗑️ Verlauf leeren</button>
+        </div>
+    </div>
+    <!-- ENDE BENACHRICHTIGUNGEN -->
+
+    <!-- ============ CHANCEN ============ -->
+    <div id="chancen" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>🎯 Legale Finanz-Chancen</h2>
+            <p>Quantum AI scannt das Internet nach legalen Möglichkeiten! 🚀</p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>⚛️ Opportunity Scanner</h3>
+            <label>Verfügbares Kapital (€)</label>
+            <input type="number" id="chancenKapital" placeholder="1000" min="0">
+            <label>Fähigkeiten</label>
+            <select id="chancenFaehigkeit">
+                <option value="alle">🌍 Alle anzeigen</option>
+                <option value="tech">💻 Technik / IT</option>
+                <option value="kreativ">🎨 Kreativ / Design</option>
+                <option value="handel">📦 Handel / Verkauf</option>
+                <option value="finanzen">📈 Finanzen / Invest</option>
+                <option value="bildung">📚 Bildung / Coaching</option>
+                <option value="digital">📱 Digital / Online</option>
+            </select>
+            <label>Zeitaufwand pro Woche</label>
+            <select id="chancenZeit">
+                <option value="wenig">⏰ 1-5 Stunden</option>
+                <option value="mittel">⏰ 5-20 Stunden</option>
+                <option value="viel">⏰ 20-40 Stunden</option>
+                <option value="vollzeit">⏰ Vollzeit</option>
+            </select>
+            <label>Risiko Bereitschaft</label>
+            <div class="risiko-auswahl">
+                <button class="risiko-btn aktiv" onclick="risikoWaehlen('niedrig', this)">🛡️ Niedrig</button>
+                <button class="risiko-btn" onclick="risikoWaehlen('mittel', this)">⚖️ Mittel</button>
+                <button class="risiko-btn" onclick="risikoWaehlen('hoch', this)">🚀 Hoch</button>
+            </div>
+            <button class="btn-gruen" onclick="chancenScannen()">⚛️ Quantum Scan starten</button>
+        </div>
+
+        <div id="scanAnimation" class="versteckt">
+            <div class="karte gruen-rand">
+                <div class="scan-container">
+                    <div class="scan-ring"></div>
+                    <div class="scan-text" id="scanText">Initialisiere Scanner...</div>
+                </div>
+                <div class="scan-log" id="scanLog"></div>
+            </div>
+        </div>
+
+        <div id="chancenErgebnisse"></div>
+
+        <div class="karte rot-rand" id="marktLueckenBox" style="display:none;">
+            <h3>🔍 Erkannte Marktlücken</h3>
+            <div id="marktLuecken"></div>
+        </div>
+
+        <div class="karte gelb-rand" id="passiveIncomeBox" style="display:none;">
+            <h3>💰 Passive Einkommens-Strategien</h3>
+            <div id="passiveIncome"></div>
+        </div>
+
+        <div class="karte regenbogen-rand" id="aktionsplanBox" style="display:none;">
+            <h3>📋 Aktionsplan</h3>
+            <div id="aktionsplan"></div>
+            <button class="btn-gruen" onclick="planSpeichern()">💾 Plan speichern</button>
+        </div>
+    </div>
+    <!-- ENDE CHANCEN -->
+
+    <!-- ============ SIEGOTH ============ -->
+    <div id="siegoth" class="seite">
+        <div class="siegoth-header">
+            <div class="siegoth-avatar">
+                <div class="siegoth-ring"></div>
+                <div class="siegoth-gesicht">🤖</div>
+            </div>
+            <div class="siegoth-info">
+                <h2>SIEGOTH</h2>
+                <p>Quantum AI Financial Assistant</p>
+                <div class="siegoth-status">
+                    <div class="status-dot"></div>
+                    <span>Online & Aktiv</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="siegoth-chat" id="siegothChat">
+            <div class="chat-nachricht bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">
+                    <p>Hallo! Ich bin <strong>SIEGOTH</strong> 👋</p>
+                    <p>Dein KI-Finanzassistent! Was möchtest du wissen? 🚀</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="schnell-fragen">
+            <div class="schnell-titel">💬 Schnellfragen:</div>
+            <div class="schnell-grid">
+                <button class="schnell-btn" onclick="siegothFrage('umfragen')">📊 Umfragen</button>
+                <button class="schnell-btn" onclick="siegothFrage('produkte')">📦 Gratis Produkte</button>
+                <button class="schnell-btn" onclick="siegothFrage('rezensionen')">⭐ Rezensionen</button>
+                <button class="schnell-btn" onclick="siegothFrage('cashback')">💰 Cashback</button>
+                <button class="schnell-btn" onclick="siegothFrage('boni')">🎁 Boni</button>
+                <button class="schnell-btn" onclick="siegothFrage('nebenjobs')">💼 Nebenjobs</button>
+                <button class="schnell-btn" onclick="siegothFrage('togo')">🇹🇬 Togo</button>
+                <button class="schnell-btn" onclick="siegothFrage('passiv')">😴 Passiv</button>
+            </div>
+        </div>
+
+        <div class="chat-eingabe">
+            <input type="text" id="chatInput" placeholder="Frage SIEGOTH..." onkeypress="chatEnter(event)">
+            <button class="chat-senden" onclick="chatSenden()">➤</button>
+        </div>
+
+        <div class="karte gruen-rand" style="margin-top:1rem;">
+            <h3>🔥 Heute beste Angebote</h3>
+            <div id="tagesAngebote"></div>
+            <button class="btn-gruen" onclick="angeboteAktualisieren()">🔄 Aktualisieren</button>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>📊 Umfrage Plattformen</h3>
+            <div id="umfragePlattformen"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>📦 Produkt Tester</h3>
+            <div id="produktTester"></div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>⭐ Rezensions Plattformen</h3>
+            <div id="rezensionsJobs"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💰 Meine Einnahmen</h3>
+            <div class="einnahmen-gesamt">
+                <div class="einnahmen-box">
+                    <div>Woche</div>
+                    <div id="wocheEinnahmen" class="positiv">€0.00</div>
+                </div>
+                <div class="einnahmen-box">
+                    <div>Monat</div>
+                    <div id="monatEinnahmen" class="positiv">€0.00</div>
+                </div>
+                <div class="einnahmen-box">
+                    <div>Gesamt</div>
+                    <div id="gesamtSiegoth" class="gold">€0.00</div>
+                </div>
+            </div>
+            <div class="einnahmen-hinzufuegen">
+                <input type="number" id="siegothBetrag" placeholder="Betrag (€)" min="0" step="0.01">
+                <input type="text" id="siegothQuelle" placeholder="Quelle">
+                <button class="btn-gruen" onclick="siegothEinnahmeHinzufuegen()">➕ Erfassen</button>
+            </div>
+            <div id="siegothVerlauf"></div>
+        </div>
+    </div>
+    <!-- ENDE SIEGOTH -->
+
+    <!-- ============ HUND-NASE ============ -->
+    <div id="hundnase" class="seite">
+        <div class="hundnase-header">
+            <div class="hundnase-avatar">
+                <div class="hund-emoji">🐕</div>
+                <div class="hund-nase-ping">👃</div>
+            </div>
+            <div class="hundnase-info">
+                <h2>HUND-NASE</h2>
+                <p>Flug-Schnüffler KI</p>
+                <div class="hundnase-status">
+                    <div class="status-dot"></div>
+                    <span>Schnüffelt nach billigen Flügen...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🔍 Flug Suche</h3>
+            <label>Von</label>
+            <select id="flugVon">
+                <option value="LFW">🇹🇬 Lomé (LFW)</option>
+                <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
+                <option value="MUC">🇩🇪 München (MUC)</option>
+                <option value="BER">🇩🇪 Berlin (BER)</option>
+                <option value="CDG">🇫🇷 Paris (CDG)</option>
+                <option value="BRU">🇧🇪 Brüssel (BRU)</option>
+                <option value="LHR">🇬🇧 London (LHR)</option>
+                <option value="ACC">🇬🇭 Accra (ACC)</option>
+                <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
+                <option value="COO">🇧🇯 Cotonou (COO)</option>
+                <option value="DKR">🇸🇳 Dakar (DKR)</option>
+            </select>
+            <label>Nach</label>
+            <select id="flugNach">
+                <option value="FRA">🇩🇪 Frankfurt (FRA)</option>
+                <option value="LFW">🇹🇬 Lomé (LFW)</option>
+                <option value="MUC">🇩🇪 München (MUC)</option>
+                <option value="BER">🇩🇪 Berlin (BER)</option>
+                <option value="CDG">🇫🇷 Paris (CDG)</option>
+                <option value="BRU">🇧🇪 Brüssel (BRU)</option>
+                <option value="LHR">🇬🇧 London (LHR)</option>
+                <option value="ACC">🇬🇭 Accra (ACC)</option>
+                <option value="ABJ">🇨🇮 Abidjan (ABJ)</option>
+                <option value="COO">🇧🇯 Cotonou (COO)</option>
+                <option value="DKR">🇸🇳 Dakar (DKR)</option>
+                <option value="JFK">🇺🇸 New York (JFK)</option>
+                <option value="DXB">🇦🇪 Dubai (DXB)</option>
+            </select>
+            <label>Abflugdatum</label>
+            <input type="date" id="flugDatum">
+            <label>Passagiere</label>
+            <select id="flugPax">
+                <option value="1">1 Person</option>
+                <option value="2">2 Personen</option>
+                <option value="3">3 Personen</option>
+                <option value="4">4 Personen</option>
+            </select>
+            <label>Klasse</label>
+            <select id="flugKlasse">
+                <option value="eco">💺 Economy</option>
+                <option value="premium">✨ Premium Economy</option>
+                <option value="business">🥂 Business</option>
+            </select>
+            <button class="btn-gruen" onclick="hundNaseSchnueffelt()">🐕 Los schnüffeln!</button>
+        </div>
+
+        <div id="schnueffelAnim" class="versteckt">
+            <div class="karte gruen-rand">
+                <div class="schnueffel-container">
+                    <div class="hund-suchend">🐕</div>
+                    <div class="schnueffel-text" id="schnueffelText">Schnüffelt...</div>
+                    <div class="schnueffel-progress">
+                        <div class="schnueffel-fill" id="schnueffelFill"></div>
+                    </div>
+                    <div class="schnueffel-suchen" id="schnueffelSuchen"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="flugErgebnisse"></div>
+
+        <div class="karte gelb-rand">
+            <h3>🌍 Vergleiche live auf:</h3>
+            <div id="portaleGrid"></div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🇹🇬 Togo Flug Spezial</h3>
+            <div class="togo-flug-info">
+                <div class="togo-info-item">
+                    <div class="togo-info-icon">✈️</div>
+                    <div>
+                        <div class="togo-info-titel">Lomé (LFW)</div>
+                        <div class="togo-info-text">Einziger internationaler Flughafen Togos.</div>
+                    </div>
+                </div>
+                <div class="togo-info-item">
+                    <div class="togo-info-icon">🏆</div>
+                    <div>
+                        <div class="togo-info-titel">Beste Airlines</div>
+                        <div class="togo-info-text">Air France, Brussels Airlines, Ethiopian, Asky, Royal Air Maroc</div>
+                    </div>
+                </div>
+                <div class="togo-info-item">
+                    <div class="togo-info-icon">📅</div>
+                    <div>
+                        <div class="togo-info-titel">Beste Reisezeit</div>
+                        <div class="togo-info-text">Mai-Juni & September-November am günstigsten!</div>
+                    </div>
+                </div>
+                <div class="togo-info-item">
+                    <div class="togo-info-icon">💰</div>
+                    <div>
+                        <div class="togo-info-titel">Preisspanne</div>
+                        <div class="togo-info-text">Europa→Lomé: 400-900€ · Deals ab 350€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💡 Spar-Tricks</h3>
+            <div id="sparTipps"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🔔 Preis Alarm</h3>
+            <label>Strecke</label>
+            <input type="text" id="alarmStrecke" placeholder="z.B. Frankfurt → Lomé">
+            <label>Ziel-Preis (€)</label>
+            <input type="number" id="alarmZielPreis" placeholder="450" min="0">
+            <button class="btn-gruen" onclick="flugAlarmSetzen()">🐕 Alarm setzen</button>
+            <div id="flugAlarme"></div>
+        </div>
+    </div>
+    <!-- ENDE HUND-NASE -->
+
+    <!-- ============ SICHERHEIT ============ -->
+    <div id="sicherheit" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>🛡️ Quantum Sicherheit</h2>
+            <p>Deine App ist geschützt!</p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🔒 System Status</h3>
+            <div class="sec-status-grid">
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">🛡️</div>
+                    <div class="sec-name">Verschlüsselung</div>
+                    <div class="sec-wert">AES-256</div>
+                </div>
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">🔐</div>
+                    <div class="sec-name">HTTPS</div>
+                    <div class="sec-wert" id="httpsStatus">Aktiv</div>
+                </div>
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">🚫</div>
+                    <div class="sec-name">XSS Schutz</div>
+                    <div class="sec-wert">Aktiv</div>
+                </div>
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">👁️</div>
+                    <div class="sec-name">Malware Scan</div>
+                    <div class="sec-wert">Sauber</div>
+                </div>
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">🔒</div>
+                    <div class="sec-name">Local Storage</div>
+                    <div class="sec-wert">Verschlüsselt</div>
+                </div>
+                <div class="sec-status-item sec-ok">
+                    <div class="sec-icon">⚛️</div>
+                    <div class="sec-name">Quantum Layer</div>
+                    <div class="sec-wert">Aktiv</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🔍 Live Scanner</h3>
+            <button class="btn-gruen" onclick="sicherheitsScan()">🔎 Scan starten</button>
+            <div id="scanErgebnisse"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>⚠️ Bedrohungs-Log</h3>
+            <div id="bedrohungsLog">
+                <p style="color:#00ff88; text-align:center; padding:1rem; font-family:'Fredoka One', cursive;">
+                    ✅ Keine Bedrohungen erkannt!
+                </p>
+            </div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💡 Sicherheits Tipps</h3>
+            <div class="sec-tipp">
+                <div class="sec-tipp-icon">🔒</div>
+                <div>
+                    <div class="sec-tipp-titel">Starke Passwörter</div>
+                    <div class="sec-tipp-text">Mindestens 12 Zeichen mit Zahlen und Sonderzeichen!</div>
+                </div>
+            </div>
+            <div class="sec-tipp">
+                <div class="sec-tipp-icon">📱</div>
+                <div>
+                    <div class="sec-tipp-titel">2-Faktor Authentifizierung</div>
+                    <div class="sec-tipp-text">Immer 2FA aktivieren wo möglich!</div>
+                </div>
+            </div>
+            <div class="sec-tipp">
+                <div class="sec-tipp-icon">🚫</div>
+                <div>
+                    <div class="sec-tipp-titel">Nie API Keys teilen</div>
+                    <div class="sec-tipp-text">Poste NIEMALS Passwörter oder Keys öffentlich!</div>
+                </div>
+            </div>
+            <div class="sec-tipp">
+                <div class="sec-tipp-icon">📧</div>
+                <div>
+                    <div class="sec-tipp-titel">Phishing erkennen</div>
+                    <div class="sec-tipp-text">Prüfe URLs bevor du auf Links klickst!</div>
+                </div>
+            </div>
+            <div class="sec-tipp">
+                <div class="sec-tipp-icon">🔄</div>
+                <div>
+                    <div class="sec-tipp-titel">Updates installieren</div>
+                    <div class="sec-tipp-text">Browser und Apps immer aktuell halten!</div>
+                </div>
             </div>
         </div>
     </div>
+    <!-- ENDE SICHERHEIT -->
 
-    <!-- PORTFOLIO LISTE -->
-    <div id="portfolioListe"></div>
-
-    <!-- PORTFOLIO CHART -->
-    <div class="karte gruen-rand" id="portfolioChartBox" style="display:none;">
-        <h3>🥧 Portfolio Verteilung</h3>
-        <canvas id="portfolioChart" height="200"></canvas>
-        <div id="portfolioLegende" class="portfolio-legende"></div>
-    </div>
-
-    <!-- LÖSCHEN -->
-    <div style="margin: 0 0.8rem;">
-        <button class="btn-rot" onclick="portfolioLeeren()">
-            🗑️ Portfolio leeren
-        </button>
-    </div>
-
-</div>  
- <div id="tipps" class="seite">
+    <!-- ============ TIPPS ============ -->
+    <div id="tipps" class="seite">
         <div class="karte regenbogen-rand">
             <h2>💡 Finanz-Tipps</h2>
             <p>KI-Ratschläge für finanziellen Erfolg 🚀</p>
@@ -1368,6 +1022,7 @@
             <blockquote id="weisheit"></blockquote>
         </div>
     </div>
+    <!-- ENDE TIPPS -->
 
     <!-- FOOTER -->
     <footer>
@@ -1375,18 +1030,23 @@
         <div class="footer-name">AKWAABA FINANCE</div>
         <div class="footer-brand">Mit XsiKOM-DIGITAL-Projects</div>
         <div class="footer-flaggen">🇹🇬 🌍 🇬🇭 🇩🇪 🇫🇷 🌟</div>
-<button class="btn-gruen" onclick="appTeilen()"
-    style="margin: 0.8rem auto; max-width:300px; display:block;">
-    📲 App teilen
-</button>
+        <button class="btn-gruen" onclick="appTeilen()" style="margin: 0.8rem auto; max-width:300px; display:block;">
+            📲 App teilen
+        </button>
         <p>© 2025 · Quantum AI v2.0 · Togo Premium Edition</p>
     </footer>
 
 </div>
+<!-- ENDE APP -->
 
 <script src="js/app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/akwaaba-finance/sw.js')
+        .then(function() { console.log('SW registriert'); })
+        .catch(function(err) { console.log('SW Fehler:', err); });
+}
+</script>
+
 </body>
 </html>
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/akwaaba-finance/sw.js')
