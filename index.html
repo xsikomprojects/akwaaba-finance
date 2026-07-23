@@ -79,6 +79,7 @@
         <button class="tab" data-tab="hochzeitki">💒 HOCHZEIT</button>
         <button class="tab" data-tab="gamingki">🎮 GAMING</button>
         <button class="tab" data-tab="rechtliches">📜 Rechtliches</button>
+        <button class="tab" data-tab="einstellungen">⚙️ Einstellungen</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -2922,6 +2923,272 @@
             <div id="gamingTipps"></div>
         </div>
     </div>
+    <!-- ============ EINSTELLUNGEN ============ -->
+    <div id="einstellungen" class="seite">
+
+        <div class="ki-header" style="background:linear-gradient(135deg,#1a1a3d,#3d1a3d);border-bottom:3px solid rgba(255,215,0,0.3);">
+            <div class="ki-avatar-mini" style="background:linear-gradient(135deg,#ffdf00,#ff44aa);">⚙️</div>
+            <div>
+                <h2 style="background:linear-gradient(135deg,#ffdf00,#ff44aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    Einstellungen
+                </h2>
+                <p>Personalisiere deine App 🎨</p>
+            </div>
+        </div>
+
+        <!-- APP INFO -->
+        <div class="karte gruen-rand">
+            <h3>📱 App Info</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span>📦</span>
+                    <div>
+                        <strong>Version</strong>
+                        <p>2.5 (2025)</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span>💾</span>
+                    <div>
+                        <strong>Datenspeicher</strong>
+                        <p id="speicherGroesse">Berechne...</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span>🤖</span>
+                    <div>
+                        <strong>KI Assistenten</strong>
+                        <p>16 aktiv</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span>🌍</span>
+                    <div>
+                        <strong>Sprachen</strong>
+                        <p>8 verfügbar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESIGN THEMES -->
+        <div class="karte gelb-rand">
+            <h3>🎨 Design Themes</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">Wähle dein bevorzugtes Design:</p>
+            <div class="theme-grid">
+                <button class="theme-btn aktiv" onclick="themeWaehlen('togo', this)">
+                    <div class="theme-preview theme-togo"></div>
+                    <div class="theme-name">🇹🇬 Togo Standard</div>
+                </button>
+                <button class="theme-btn" onclick="themeWaehlen('dark', this)">
+                    <div class="theme-preview theme-dark"></div>
+                    <div class="theme-name">🌙 Ultra Dark</div>
+                </button>
+                <button class="theme-btn" onclick="themeWaehlen('ocean', this)">
+                    <div class="theme-preview theme-ocean"></div>
+                    <div class="theme-name">🌊 Ozean Blau</div>
+                </button>
+                <button class="theme-btn" onclick="themeWaehlen('sunset', this)">
+                    <div class="theme-preview theme-sunset"></div>
+                    <div class="theme-name">🌅 Sonnenuntergang</div>
+                </button>
+                <button class="theme-btn" onclick="themeWaehlen('forest', this)">
+                    <div class="theme-preview theme-forest"></div>
+                    <div class="theme-name">🌲 Wald Grün</div>
+                </button>
+                <button class="theme-btn" onclick="themeWaehlen('kente', this)">
+                    <div class="theme-preview theme-kente"></div>
+                    <div class="theme-name">👘 Kente</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- SICHERHEIT -->
+        <div class="karte rot-rand">
+            <h3>🔐 Sicherheit</h3>
+            <div class="setting-item">
+                <div>
+                    <strong>🔒 App-Passwort</strong>
+                    <p>Schütze deine App mit einem Passwort</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="passwortSchutz" onchange="passwortToggle()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="passwortInput" style="display:none; margin-top:1rem;">
+                <label>Neues Passwort (min. 4 Zeichen)</label>
+                <input type="password" id="neuesPasswort" placeholder="****">
+                <button class="btn-gruen" onclick="passwortSpeichern()">
+                    💾 Passwort speichern
+                </button>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>👆 Biometrie</strong>
+                    <p>Fingerabdruck/Face-ID (falls verfügbar)</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="biometrie">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>🔒 Auto-Sperre</strong>
+                    <p>App sperren nach Inaktivität</p>
+                </div>
+                <select id="autoSperre" onchange="autoSperreSpeichern()">
+                    <option value="0">Nie</option>
+                    <option value="60">1 Minute</option>
+                    <option value="300">5 Minuten</option>
+                    <option value="900">15 Minuten</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- BACKUP & EXPORT -->
+        <div class="karte gruen-rand">
+            <h3>💾 Backup & Export</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Sichere alle deine Daten oder importiere sie auf einem neuen Gerät!
+            </p>
+
+            <button class="btn-gruen" onclick="datenExportieren()" style="margin-bottom:0.5rem;">
+                📥 Alle Daten exportieren (Backup)
+            </button>
+
+            <button class="btn-gelb" onclick="document.getElementById('importFile').click();">
+                📤 Daten importieren
+            </button>
+            <input type="file" id="importFile" accept=".json"
+                onchange="datenImportieren(event)" style="display:none;">
+
+            <div class="tipp-box" style="margin-top:1rem;">
+                💡 <strong>Tipp:</strong> Erstelle regelmäßig Backups! So verlierst du nie deine Daten.
+                Speichere die Datei sicher (z.B. in der Cloud).
+            </div>
+        </div>
+
+        <!-- SOUND & VIBRATION -->
+        <div class="karte gelb-rand">
+            <h3>🔊 Sound & Feedback</h3>
+            <div class="setting-item">
+                <div>
+                    <strong>🔊 Sound-Effekte</strong>
+                    <p>Klick-Sounds und Benachrichtigungen</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="soundAn" checked onchange="soundToggle()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <strong>📳 Vibration</strong>
+                    <p>Feedback bei Aktionen (nur Mobile)</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="vibrationAn" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <strong>✨ Animationen</strong>
+                    <p>Alle Animationen ein/aus</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="animAn" checked onchange="animToggle()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE -->
+        <div class="karte gruen-rand">
+            <h3>⚡ Performance</h3>
+            <div class="setting-item">
+                <div>
+                    <strong>🚀 Turbo Modus</strong>
+                    <p>Weniger Animationen für ältere Geräte</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="turboMode" onchange="turboToggle()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <strong>💾 Cache leeren</strong>
+                    <p>Löscht temporäre Daten</p>
+                </div>
+                <button class="btn-rot" onclick="cacheLoeschen()" style="width:auto; margin:0; padding:0.5rem 1rem;">
+                    Leeren
+                </button>
+            </div>
+        </div>
+
+        <!-- UPDATES -->
+        <div class="karte regenbogen-rand">
+            <h3>🔄 Auto-Updates</h3>
+            <div class="setting-item">
+                <div>
+                    <strong>🤖 KI Auto-Updates</strong>
+                    <p>Automatische Verbesserungen jeden Monat</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="autoUpdate" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div style="margin-top:1rem; padding:1rem; background:rgba(0,204,68,0.1); border-radius:12px;">
+                <p style="color:#00ff88; margin:0; font-weight:700;">
+                    ✅ Letztes Update: <span id="lastUpdate">Heute</span>
+                </p>
+                <p style="color:#ccddaa; font-size:0.85rem; margin-top:0.5rem;">
+                    Nächstes Update in <span id="naechstesUpdate">30 Tagen</span>
+                </p>
+            </div>
+            <button class="btn-gruen" onclick="jetztUpdaten()" style="margin-top:1rem;">
+                🔄 Jetzt nach Updates suchen
+            </button>
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="karte gelb-rand">
+            <h3>📊 Deine Nutzung</h3>
+            <div id="nutzungsStats"></div>
+        </div>
+
+        <!-- ÜBER -->
+        <div class="karte gruen-rand">
+            <h3>ℹ️ Über AKWAABA</h3>
+            <div style="text-align:center; padding:2rem;">
+                <div style="font-size:4rem; margin-bottom:1rem;">🇹🇬</div>
+                <h2 style="background:linear-gradient(135deg,#d21034,#ffce00,#006a4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:2rem;margin-bottom:0.5rem;">
+                    AKWAABA Finance
+                </h2>
+                <p style="color:#ccddaa; margin-bottom:1rem;">
+                    Deine Finanz-App aus Togo für die Welt
+                </p>
+                <p style="color:#ffdf00; font-weight:800;">
+                    by XsiKOM-DIGITAL-Projects
+                </p>
+                <p style="color:#00ddcc; font-size:0.9rem; margin-top:0.5rem;">
+                    📧 xsikom.projects@gmail.com
+                </p>
+                <p style="color:#668844; font-size:0.75rem; margin-top:1rem;">
+                    Version 2.5 · Build 2025<br>
+                    Made with 💚 in West Africa
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <!-- ENDE EINSTELLUNGEN -->
     <!-- ============ RECHTLICHES ============ -->
     <div id="rechtliches" class="seite">
 

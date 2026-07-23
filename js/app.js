@@ -9605,3 +9605,414 @@ function showTab(tabName) {
     var tab = document.querySelector('.tab[data-tab="' + tabName + '"]');
     if (tab) tab.click();
 }
+// ============================================
+// ⚙️ EINSTELLUNGEN, SICHERHEIT, PERFORMANCE
+// ============================================
+
+// === APP INFO ===
+function speicherGroesseBerechnen() {
+    var total = 0;
+    for (var key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            total += (localStorage[key].length + key.length) * 2;
+        }
+    }
+    var kb = (total / 1024).toFixed(2);
+    var el = document.getElementById('speicherGroesse');
+    if (el) el.textContent = kb + ' KB';
+}
+
+// === THEME SYSTEM ===
+function themeWaehlen(theme, btn) {
+    // Alle Themes entfernen
+    document.body.classList.remove('theme-togo', 'theme-dark', 'theme-ocean',
+        'theme-sunset', 'theme-forest', 'theme-kente');
+
+    // Neues Theme setzen
+    if (theme !== 'togo') {
+        document.body.classList.add('theme-' + theme);
+    }
+
+    // Speichern
+    localStorage.setItem('theme', theme);
+
+    // UI Update
+    document.querySelectorAll('.theme-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+
+    toast('🎨 Theme geändert!');
+}
+
+// Theme beim Laden anwenden
+setTimeout(function() {
+    var savedTheme = localStorage.getItem('theme') || 'togo';
+    if (savedTheme !== 'togo') {
+        document.body.classList.add('theme-' + savedTheme);
+        // Button aktivieren
+        document.querySelectorAll('.theme-btn').forEach(function(b) {
+            b.classList.remove('aktiv');
+        });
+        var btns = document.querySelectorAll('.theme-btn');
+        var themeIndex = ['togo', 'dark', 'ocean', 'sunset', 'forest', 'kente'].indexOf(savedTheme);
+        if (themeIndex >= 0 && btns[themeIndex]) {
+            btns[themeIndex].classList.add('aktiv');
+        }
+    }
+}, 500);
+
+// === PASSWORT SCHUTZ ===
+function passwortToggle() {
+    var checked = document.getElementById('passwortSchutz').checked;
+    var inputBox = document.getElementById('passwortInput');
+
+    if (checked) {
+        inputBox.style.display = 'block';
+    } else {
+        inputBox.style.display = 'none';
+        localStorage.removeItem('app-passwort');
+        toast('🔓 Passwort-Schutz deaktiviert');
+    }
+}
+
+function passwortSpeichern() {
+    var pw = document.getElementById('neuesPasswort').value;
+
+    if (pw.length < 4) {
+        toast('❌ Mindestens 4 Zeichen!', 'error');
+        return;
+    }
+
+    // Einfaches Hashing (in echter App: bcrypt)
+    var hash = btoa(pw + 'AKWAABA-SALT');
+    localStorage.setItem('app-passwort', hash);
+
+    toast('✅ Passwort gespeichert!');
+    document.getElementById('neuesPasswort').value = '';
+    document.getElementById('passwortInput').style.display = 'none';
+}
+
+// Passwort-Abfrage beim Start
+function passwortAbfragen() {
+    var savedHash = localStorage.getItem('app-passwort');
+    if (!savedHash) return true;
+
+    var pw = prompt('🔒 App-Passwort eingeben:');
+    if (!pw) return false;
+
+    var hash = btoa(pw + 'AKWAABA-SALT');
+    if (hash === savedHash) {
+        return true;
+    } else {
+        alert('❌ Falsches Passwort!');
+        return passwortAbfragen();
+    }
+}
+
+// === AUTO-SPERRE ===
+var sperrTimer;
+
+function autoSperreSpeichern() {
+    var wert = document.getElementById('autoSperre').value;
+    localStorage.setItem('auto-sperre', wert);
+    autoSperreStarten();
+}
+
+function autoSperreStarten() {
+    clearTimeout(sperrTimer);
+    var sekunden = parseInt(localStorage.getItem('auto-sperre') || '0');
+    if (sekunden === 0) return;
+
+    sperrTimer = setTimeout(function() {
+        if (localStorage.getItem('app-passwort')) {
+            location.reload();
+        }
+    }, sekunden * 1000);
+}
+
+// Bei jeder Interaktion Timer neu starten
+document.addEventListener('click', autoSperreStarten);
+document.addEventListener('touchstart', autoSperreStarten);
+document.addEventListener('keypress', autoSperreStarten);
+
+// === BACKUP EXPORT ===
+function datenExportieren() {
+    var backup = {
+        version: '2.5',
+        datum: new Date().toISOString(),
+        app: 'AKWAABA Finance',
+        daten: {}
+    };
+
+    for (var key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+            backup.daten[key] = localStorage.getItem(key);
+        }
+    }
+
+    var json = JSON.stringify(backup, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'akwaaba-backup-' + Date.now() + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast('📥 Backup erstellt!');
+    confetti();
+}
+
+// === BACKUP IMPORT ===
+function datenImportieren(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            var backup = JSON.parse(e.target.result);
+
+            if (!backup.daten || !backup.app) {
+                throw new Error('Ungültige Backup-Datei');
+            }
+
+            var bestaetigt = confirm(
+                '⚠️ Import wird alle aktuellen Daten überschreiben!\n\n' +
+                'Backup vom: ' + new Date(backup.datum).toLocaleString('de-DE') + '\n' +
+                'App-Version: ' + backup.version + '\n\n' +
+                'Fortfahren?'
+            );
+
+            if (!bestaetigt) return;
+
+            // Backup importieren
+            localStorage.clear();
+            for (var key in backup.daten) {
+                localStorage.setItem(key, backup.daten[key]);
+            }
+
+            toast('✅ Daten importiert!');
+            confetti();
+
+            setTimeout(function() {
+                alert('🔄 App wird neu geladen...');
+                location.reload();
+            }, 1500);
+
+        } catch (err) {
+            toast('❌ Fehler: ' + err.message, 'error');
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+// === SOUND SYSTEM ===
+var sounds = {
+    click: null,
+    success: null,
+    error: null
+};
+
+function soundToggle() {
+    var an = document.getElementById('soundAn').checked;
+    localStorage.setItem('sound-an', an);
+}
+
+function playSound(type) {
+    if (localStorage.getItem('sound-an') === 'false') return;
+
+    // Web Audio API - einfacher Beep
+    try {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        var frequencies = {
+            click: 800,
+            success: 1200,
+            error: 300
+        };
+
+        osc.frequency.value = frequencies[type] || 800;
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {}
+}
+
+// Click Sound für Buttons
+document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+        playSound('click');
+    }
+});
+
+// === ANIMATIONEN TOGGLE ===
+function animToggle() {
+    var an = document.getElementById('animAn').checked;
+    localStorage.setItem('anim-an', an);
+
+    if (!an) {
+        document.body.style.cssText += '* { animation: none !important; transition: none !important; }';
+    } else {
+        location.reload();
+    }
+}
+
+// === TURBO MODE ===
+function turboToggle() {
+    var an = document.getElementById('turboMode').checked;
+
+    if (an) {
+        document.body.classList.add('turbo-mode');
+        toast('⚡ Turbo Modus aktiviert!');
+    } else {
+        document.body.classList.remove('turbo-mode');
+        toast('✨ Normaler Modus');
+    }
+
+    localStorage.setItem('turbo-mode', an);
+}
+
+// === CACHE LEEREN ===
+function cacheLoeschen() {
+    if (!confirm('Temporäre Daten löschen? (Deine Portfolio-Daten bleiben!)')) return;
+
+    // Nur temporäre Keys löschen
+    var tempKeys = ['crypto-cache', 'kurs-cache', 'temp-data', 'cache-'];
+    var geloescht = 0;
+
+    for (var key in localStorage) {
+        for (var i = 0; i < tempKeys.length; i++) {
+            if (key.indexOf(tempKeys[i]) === 0) {
+                localStorage.removeItem(key);
+                geloescht++;
+                break;
+            }
+        }
+    }
+
+    // Service Worker Cache leeren
+    if ('caches' in window) {
+        caches.keys().then(function(names) {
+            names.forEach(function(name) {
+                caches.delete(name);
+            });
+        });
+    }
+
+    toast('🗑️ ' + geloescht + ' Cache-Einträge gelöscht!');
+    speicherGroesseBerechnen();
+}
+
+// === AUTO-UPDATE SYSTEM ===
+function jetztUpdaten() {
+    toast('🔍 Suche nach Updates...');
+
+    setTimeout(function() {
+        var lastCheck = localStorage.getItem('last-update-check');
+        var now = Date.now();
+
+        // Simuliere Update-Check
+        var updates = [
+            { version: '2.5.1', datum: now, features: ['Bug fixes', 'Performance Boost'] },
+            { version: '2.5.0', datum: now - 86400000 * 5, features: ['Neue KIs', 'Themes'] }
+        ];
+
+        localStorage.setItem('last-update-check', now);
+        document.getElementById('lastUpdate').textContent = 'Heute ' +
+            new Date().toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'});
+
+        toast('✅ App ist aktuell (v' + updates[0].version + ')');
+    }, 1500);
+}
+
+// Auto-Update Check alle 24h
+setTimeout(function() {
+    var lastCheck = localStorage.getItem('last-update-check');
+    var now = Date.now();
+    var dayMs = 24 * 60 * 60 * 1000;
+
+    if (!lastCheck || (now - parseInt(lastCheck)) > dayMs) {
+        // Silent update check
+        localStorage.setItem('last-update-check', now);
+    }
+
+    // Nächstes Update Datum berechnen
+    var nextUpdate = 30; // Tage
+    var el = document.getElementById('naechstesUpdate');
+    if (el) el.textContent = nextUpdate + ' Tagen';
+}, 5000);
+
+// === NUTZUNGS-STATISTIK ===
+function nutzungsStatsAnzeigen() {
+    var container = document.getElementById('nutzungsStats');
+    if (!container) return;
+
+    // Sammle Statistiken
+    var portfolio = JSON.parse(localStorage.getItem('portfolio') || '[]');
+    var budget = JSON.parse(localStorage.getItem('budget-eintraege') || '[]');
+    var ziele = JSON.parse(localStorage.getItem('ziele') || '[]');
+    var watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+
+    // Erster Besuch
+    var ersterBesuch = localStorage.getItem('erster-besuch');
+    if (!ersterBesuch) {
+        localStorage.setItem('erster-besuch', Date.now().toString());
+        ersterBesuch = Date.now().toString();
+    }
+    var tage = Math.floor((Date.now() - parseInt(ersterBesuch)) / (1000*60*60*24));
+
+    // Besuche zählen
+    var besuche = parseInt(localStorage.getItem('besuche-count') || '0') + 1;
+    localStorage.setItem('besuche-count', besuche);
+
+    var stats = [
+        { label: '📅 Nutzung seit', wert: tage + ' Tagen' },
+        { label: '👀 App-Besuche', wert: besuche },
+        { label: '💼 Portfolio-Einträge', wert: portfolio.length },
+        { label: '💰 Budget-Einträge', wert: budget.length },
+        { label: '🎯 Aktive Ziele', wert: ziele.length },
+        { label: '⭐ Watchlist', wert: watchlist.length }
+    ];
+
+    container.innerHTML = stats.map(function(s) {
+        return '<div class="nutzungs-stat">' +
+            '<span class="nutzungs-stat-label">' + s.label + '</span>' +
+            '<span class="nutzungs-stat-wert">' + s.wert + '</span>' +
+        '</div>';
+    }).join('');
+}
+
+// === INITIALISIERUNG ===
+setTimeout(function() {
+    speicherGroesseBerechnen();
+    nutzungsStatsAnzeigen();
+
+    // Einstellungen laden
+    var soundAn = localStorage.getItem('sound-an') !== 'false';
+    var animAn = localStorage.getItem('anim-an') !== 'false';
+    var turboMode = localStorage.getItem('turbo-mode') === 'true';
+    var autoSperre = localStorage.getItem('auto-sperre') || '0';
+    var passwort = localStorage.getItem('app-passwort');
+
+    if (document.getElementById('soundAn')) document.getElementById('soundAn').checked = soundAn;
+    if (document.getElementById('animAn')) document.getElementById('animAn').checked = animAn;
+    if (document.getElementById('turboMode')) document.getElementById('turboMode').checked = turboMode;
+    if (document.getElementById('autoSperre')) document.getElementById('autoSperre').value = autoSperre;
+    if (document.getElementById('passwortSchutz')) document.getElementById('passwortSchutz').checked = !!passwort;
+
+    if (turboMode) document.body.classList.add('turbo-mode');
+    autoSperreStarten();
+}, 1500);

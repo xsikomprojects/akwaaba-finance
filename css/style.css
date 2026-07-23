@@ -9001,4 +9001,281 @@ a:hover {
         font-size: 1.3rem;
     }
 }
+/* ============================================
+   ⚙️ EINSTELLUNGEN & OPTIMIERUNG
+   ============================================ */
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border-left: 4px solid #00cc44;
+}
+
+.info-item span {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.info-item strong {
+    display: block;
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    margin-bottom: 0.2rem;
+}
+
+.info-item p {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Theme Grid */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.theme-btn {
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.theme-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,215,0,0.4);
+}
+
+.theme-btn.aktiv {
+    border-color: #ffdf00;
+    background: rgba(255,215,0,0.1);
+    box-shadow: 0 4px 0 #8b6c00;
+}
+
+.theme-preview {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.theme-togo {
+    background: linear-gradient(135deg, #d21034 0%, #ffce00 50%, #006a4e 100%);
+}
+
+.theme-dark {
+    background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
+}
+
+.theme-ocean {
+    background: linear-gradient(135deg, #003d5c, #0088cc, #00ddcc);
+}
+
+.theme-sunset {
+    background: linear-gradient(135deg, #ff6b00, #ff44aa, #cc44ff);
+}
+
+.theme-forest {
+    background: linear-gradient(135deg, #0a3d1a, #00cc44, #7fff7f);
+}
+
+.theme-kente {
+    background: repeating-linear-gradient(
+        45deg,
+        #d21034 0px, #d21034 10px,
+        #ffce00 10px, #ffce00 20px,
+        #006a4e 20px, #006a4e 30px,
+        #6b3fa0 30px, #6b3fa0 40px
+    );
+}
+
+.theme-name {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+}
+
+/* Setting Items */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+}
+
+.setting-item strong {
+    display: block;
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.setting-item p {
+    color: #ccddaa;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.setting-item select {
+    padding: 0.5rem 1rem !important;
+    background: rgba(0,0,0,0.5) !important;
+    border: 2px solid rgba(255,215,0,0.3) !important;
+    color: #ffdf00 !important;
+    border-radius: 10px !important;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive !important;
+    width: auto !important;
+    margin: 0 !important;
+}
+
+/* Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 2px;
+    bottom: 2px;
+    background: linear-gradient(135deg, #ccddaa, #ffdf00);
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.switch input:checked + .slider {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border-color: #00cc44;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(23px);
+    background: white;
+}
+
+/* Nutzungs Stats */
+.nutzungs-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #ffdf00;
+}
+
+.nutzungs-stat-label {
+    color: #ccddaa;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.nutzungs-stat-wert {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+}
+
+/* Turbo Mode */
+body.turbo-mode * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Themes anwenden */
+body.theme-dark {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #151515;
+    --bg-card: #1a1a1a;
+    --togo-rot: #ffffff;
+    --togo-gelb: #cccccc;
+    --togo-gruen: #999999;
+}
+
+body.theme-ocean {
+    --bg-primary: #001a2e;
+    --bg-secondary: #002a4e;
+    --bg-card: #003d5c;
+    --togo-rot: #00ddcc;
+    --togo-gelb: #66aaff;
+    --togo-gruen: #0088cc;
+}
+
+body.theme-sunset {
+    --bg-primary: #2e0a1a;
+    --bg-secondary: #3d1a2e;
+    --bg-card: #4e2a3d;
+    --togo-rot: #ff6b00;
+    --togo-gelb: #ff44aa;
+    --togo-gruen: #cc44ff;
+}
+
+body.theme-forest {
+    --bg-primary: #0a1a0a;
+    --bg-secondary: #0f2a0f;
+    --bg-card: #1a3d1a;
+    --togo-rot: #7fff7f;
+    --togo-gelb: #aaff00;
+    --togo-gruen: #00cc44;
+}
+
+body.theme-kente {
+    background-image:
+        repeating-linear-gradient(45deg,
+            rgba(210,16,52,0.02) 0px,
+            rgba(210,16,52,0.02) 20px,
+            rgba(255,206,0,0.02) 20px,
+            rgba(255,206,0,0.02) 40px);
+}
         
