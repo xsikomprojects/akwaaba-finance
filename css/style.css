@@ -8020,4 +8020,170 @@ canvas {
     font-weight: 900;
     flex-shrink: 0;
 }
+/* ============================================
+   NEUE KIs KOMPAKT
+   ============================================ */
+
+.ki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 3px solid;
+}
+
+.ki-avatar-mini {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3);
+    animation: kiAvatarFloat 3s ease-in-out infinite;
+}
+
+@keyframes kiAvatarFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.ki-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.ki-header p {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+/* Musik */
+.ki-header-musik {
+    background: linear-gradient(135deg, #2e0a3d, #0a2e3d);
+    border-bottom-color: rgba(204,68,255,0.3);
+}
+.ki-header-musik .ki-avatar-mini {
+    background: linear-gradient(135deg, #cc44ff, #ff44aa);
+}
+.ki-header-musik h2 {
+    background: linear-gradient(135deg, #cc44ff, #ff44aa);
+    -webkit-background-clip: text;
+}
+
+/* Gesundheit */
+.ki-header-gesund {
+    background: linear-gradient(135deg, #0a3d1a, #1a3d3d);
+    border-bottom-color: rgba(0,204,68,0.3);
+}
+.ki-header-gesund .ki-avatar-mini {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+}
+.ki-header-gesund h2 {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    -webkit-background-clip: text;
+}
+
+/* Tier */
+.ki-header-tier {
+    background: linear-gradient(135deg, #3d2a10, #2e3d1a);
+    border-bottom-color: rgba(255,140,0,0.3);
+}
+.ki-header-tier .ki-avatar-mini {
+    background: linear-gradient(135deg, #ff8800, #ffdf00);
+}
+.ki-header-tier h2 {
+    background: linear-gradient(135deg, #ff8800, #ffdf00);
+    -webkit-background-clip: text;
+}
+
+/* Baby */
+.ki-header-baby {
+    background: linear-gradient(135deg, #3d1a3d, #3d1a2e);
+    border-bottom-color: rgba(255,180,220,0.3);
+}
+.ki-header-baby .ki-avatar-mini {
+    background: linear-gradient(135deg, #ffb4dc, #ff44aa);
+}
+.ki-header-baby h2 {
+    background: linear-gradient(135deg, #ffb4dc, #ff44aa);
+    -webkit-background-clip: text;
+}
+
+/* Hochzeit */
+.ki-header-hochzeit {
+    background: linear-gradient(135deg, #3d3d1a, #3d1a1a);
+    border-bottom-color: rgba(255,215,0,0.3);
+}
+.ki-header-hochzeit .ki-avatar-mini {
+    background: linear-gradient(135deg, #ffd700, #ffec8b);
+}
+.ki-header-hochzeit h2 {
+    background: linear-gradient(135deg, #ffd700, #ffec8b);
+    -webkit-background-clip: text;
+}
+
+/* Gaming */
+.ki-header-gaming {
+    background: linear-gradient(135deg, #1a1a3d, #3d0a3d);
+    border-bottom-color: rgba(0,136,255,0.3);
+}
+.ki-header-gaming .ki-avatar-mini {
+    background: linear-gradient(135deg, #0088ff, #cc44ff);
+}
+.ki-header-gaming h2 {
+    background: linear-gradient(135deg, #0088ff, #cc44ff);
+    -webkit-background-clip: text;
+}
+
+/* Kompakte Business-Karten */
+.mini-biz {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid;
+    align-items: center;
+}
+
+.mini-biz-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.mini-biz-info { flex: 1; }
+
+.mini-biz-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.mini-biz-desc {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.mini-biz-verdienst {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    padding: 0.3rem 0.7rem;
+    background: rgba(0,204,68,0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(0,204,68,0.3);
+}
         

@@ -8733,4 +8733,483 @@ setTimeout(function() {
     startplanAnzeigen();
     meineFotosAnzeigen();
 }, 1000);
+// ============================================
+// 6 NEUE KIs – Musik, Gesundheit, Tier, Baby, Hochzeit, Gaming
+// ============================================
+
+// === MUSIK KI ===
+var musikPlattformenDB = [
+    { icon: '🎵', name: 'DistroKid', desc: 'Spotify, Apple Music, alle Streaming Dienste', verdienst: '100% deiner Streams', url: 'https://distrokid.com' },
+    { icon: '🎧', name: 'BeatStars', desc: 'Beats an Rapper verkaufen (50-500€ pro Beat)', verdienst: '70% Anteil', url: 'https://www.beatstars.com' },
+    { icon: '🎼', name: 'Bandcamp', desc: 'Direkt an Fans verkaufen', verdienst: '85% Anteil', url: 'https://bandcamp.com' },
+    { icon: '🎬', name: 'AudioJungle', desc: 'Musik für Videos, Werbung, Games', verdienst: '25-50% pro Sale', url: 'https://audiojungle.net' },
+    { icon: '📻', name: 'SoundCloud Pro', desc: 'Monetarisiere ab 5000 Streams', verdienst: 'Werbe-Anteile', url: 'https://soundcloud.com' },
+    { icon: '💰', name: 'YouTube Music', desc: 'Über YouTube monetarisieren', verdienst: '$1-3/1000 Views', url: 'https://music.youtube.com' }
+];
+
+var musikGenresDB = [
+    { icon: '🎤', name: 'Hip-Hop/Rap Beats', desc: 'Riesige Nachfrage von Rappern weltweit', verdienst: '50-500€/Beat' },
+    { icon: '🎹', name: 'Chill/Lo-Fi', desc: 'Perfekt für Study-Videos und Playlists', verdienst: '$0.003/Stream' },
+    { icon: '🎬', name: 'Cinematic/Trailer', desc: 'Für Filme, YouTube, Werbung', verdienst: '$50-500/Lizenz' },
+    { icon: '🌍', name: 'Afrobeats', desc: 'Boomt weltweit! Weniger Konkurrenz!', verdienst: '$5-50/Beat' },
+    { icon: '🎧', name: 'Electronic/EDM', desc: 'Für DJs, Clubs, Festivals', verdienst: '$20-200/Track' },
+    { icon: '🕉️', name: 'Meditation/Ambient', desc: 'Wellness-App Trend', verdienst: 'Playlist-Streams' }
+];
+
+var musikTippsDB = [
+    { icon: '🎯', titel: 'Nische wählen', text: 'Ein Genre, ein Stil. Werde DER Experte für Afrobeats oder Chill Beats!' },
+    { icon: '📱', titel: 'TikTok nutzen', text: 'Ein viraler TikTok-Song = Millionen Streams auf Spotify!' },
+    { icon: '🎨', titel: 'Cover-Art professionell', text: 'Canva nutzen! Erstes was Hörer sehen entscheidet über Klick.' },
+    { icon: '🔄', titel: 'Regelmäßig releasen', text: 'Spotify Algorithmus liebt aktive Künstler. Alle 2-4 Wochen!' },
+    { icon: '🤝', titel: 'Kollaborationen', text: '1+1=3! Mit anderen Künstlern gemeinsame Fanbase aufbauen.' },
+    { icon: '📊', titel: 'Analytics nutzen', text: 'Spotify for Artists zeigt was funktioniert. Danach optimieren!' }
+];
+
+function musikPlattformenAnzeigen() {
+    var container = document.getElementById('musikPlattformen');
+    if (!container) return;
+    container.innerHTML = musikPlattformenDB.map(function(p) {
+        return '<div class="mini-biz" style="border-left-color:#cc44ff;">' +
+            '<div class="mini-biz-icon">' + p.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + p.name + '</div>' +
+                '<div class="mini-biz-desc">' + p.desc + '</div>' +
+                '<a href="' + p.url + '" target="_blank" style="color:#cc44ff; font-size:0.8rem; font-weight:800;">🔗 Anmelden</a>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + p.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function musikBerechnen() {
+    var anzahl = parseFloat(document.getElementById('musikAnzahl').value) || 0;
+    var streams = parseFloat(document.getElementById('musikStreams').value) || 0;
+    var pro = parseFloat(document.getElementById('musikProStream').value) || 3;
+
+    var monat = (anzahl * streams / 1000) * pro;
+    var jahr = monat * 12;
+
+    document.getElementById('musikErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Musik-Einkommen</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Gesamt Streams/Monat:</span>' +
+                '<span>' + (anzahl * streams).toLocaleString('de-DE') + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💰 Pro Monat:</span>' +
+                '<span class="positiv" style="font-size:1.3rem;">' + euro(monat) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>🚀 Pro Jahr:</span>' +
+                '<span class="gold" style="font-size:1.4rem;">' + euro(jahr) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">💡 Katalog wächst = passives Einkommen steigt jedes Jahr!</div>' +
+        '</div>';
+}
+
+function musikGenresAnzeigen() {
+    var container = document.getElementById('musikGenres');
+    if (!container) return;
+    container.innerHTML = musikGenresDB.map(function(g) {
+        return '<div class="mini-biz" style="border-left-color:#ff44aa;">' +
+            '<div class="mini-biz-icon">' + g.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + g.name + '</div>' +
+                '<div class="mini-biz-desc">' + g.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + g.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function musikTippsAnzeigen() {
+    var container = document.getElementById('musikTipps');
+    if (!container) return;
+    container.innerHTML = musikTippsDB.map(function(t) {
+        return '<div class="mini-biz" style="border-left-color:#ffce00;">' +
+            '<div class="mini-biz-icon">' + t.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + t.titel + '</div>' +
+                '<div class="mini-biz-desc">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === GESUNDHEIT KI ===
+var gesundBusinessDB = [
+    { icon: '🧘', name: 'Yoga/Meditation Kurse', desc: 'Online oder Studio. Anfänger-freundlich', verdienst: '30-80€/Std' },
+    { icon: '💪', name: 'Personal Trainer', desc: 'Persönlich oder Online (Zoom)', verdienst: '40-150€/Std' },
+    { icon: '🥗', name: 'Ernährungsberatung', desc: 'Meal Plans für Kunden', verdienst: '50-200€/Sitzung' },
+    { icon: '📱', name: 'Fitness-App/Kurse', desc: 'Skalierbar, passiv', verdienst: '500-5000€/Monat' },
+    { icon: '🧴', name: 'Naturkosmetik', desc: 'Handmade, auf Etsy verkaufen', verdienst: '20-100€/Produkt' },
+    { icon: '🌿', name: 'Wellness Retreats', desc: 'Wochenenden organisieren', verdienst: '2000-10000€/Event' }
+];
+
+var gesundZertsDB = [
+    { icon: '🧘', name: 'Yoga Alliance 200h', desc: 'Weltweit anerkannt (~1500€)' },
+    { icon: '💪', name: 'ACE Personal Trainer', desc: 'US-Zertifikat, online (~500€)' },
+    { icon: '🥗', name: 'Precision Nutrition', desc: 'Coach L1 (~800€)' },
+    { icon: '🎓', name: 'Coursera Wellness', desc: 'Yale Kurs kostenlos!' }
+];
+
+function gesundBusinessAnzeigen() {
+    var container = document.getElementById('gesundBusiness');
+    if (!container) return;
+    container.innerHTML = gesundBusinessDB.map(function(b) {
+        return '<div class="mini-biz" style="border-left-color:#00cc44;">' +
+            '<div class="mini-biz-icon">' + b.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + b.name + '</div>' +
+                '<div class="mini-biz-desc">' + b.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + b.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('gesundVerdienst').innerHTML =
+        '<div class="ergebnis"><h4>💰 Realistische Verdienste</h4>' +
+        '<div class="ergebnis-zeile"><span>Yoga Lehrer (Vollzeit):</span><span class="positiv">2500-4500€/Monat</span></div>' +
+        '<div class="ergebnis-zeile"><span>Personal Trainer:</span><span class="positiv">3000-8000€/Monat</span></div>' +
+        '<div class="ergebnis-zeile"><span>Online Fitness Coach:</span><span class="gold">5000-20000€/Monat</span></div>' +
+        '<div class="ergebnis-zeile"><span>Wellness App:</span><span class="gold">Unbegrenzt (skalierbar)</span></div>' +
+        '</div>';
+
+    var zertContainer = document.getElementById('gesundZerts');
+    if (zertContainer) {
+        zertContainer.innerHTML = gesundZertsDB.map(function(z) {
+            return '<div class="mini-biz" style="border-left-color:#00ddcc;">' +
+                '<div class="mini-biz-icon">' + z.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + z.name + '</div>' +
+                    '<div class="mini-biz-desc">' + z.desc + '</div>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+// === TIER KI ===
+var tierBusinessDB = [
+    { icon: '🐕', name: 'Hundesitter/Gassigehen', desc: 'Nachbarschaft, sehr gefragt', verdienst: '15-25€/Std' },
+    { icon: '🏠', name: 'Pet Hotel/Boarding', desc: 'Ferien-Betreuung', verdienst: '25-50€/Nacht' },
+    { icon: '🎓', name: 'Hundetrainer', desc: 'Ausbildung nötig', verdienst: '50-120€/Sitzung' },
+    { icon: '💇', name: 'Hundefriseur', desc: 'Mobile oder Studio', verdienst: '30-80€/Hund' },
+    { icon: '📸', name: 'Tier-Fotografie', desc: 'Für Instagram-Trend', verdienst: '100-300€/Shooting' },
+    { icon: '🛍️', name: 'Tier-Shop Online', desc: 'Halsbänder, Spielzeug handmade', verdienst: '15-50€/Produkt' },
+    { icon: '🎬', name: 'YouTube Tier-Kanal', desc: 'Katzen/Hunde Videos', verdienst: '$3-15/1000 Views' },
+    { icon: '🍖', name: 'BARF/Rohfütterung', desc: 'Selbstgemachte Menüs', verdienst: '5-15€/Portion' }
+];
+
+var tierPlattformenDB = [
+    { icon: '🐕', name: 'Rover', desc: 'Weltweite Hundesitter-Plattform', url: 'https://www.rover.com' },
+    { icon: '🏠', name: 'PetBnB', desc: 'Airbnb für Tiere', url: 'https://petbnb.com' },
+    { icon: '🎓', name: 'Wag!', desc: 'Hunde-Services USA', url: 'https://wagwalking.com' },
+    { icon: '🌍', name: 'Etsy Pet', desc: 'Handmade Tier-Produkte', url: 'https://www.etsy.com/market/pets' }
+];
+
+function tierBusinessAnzeigen() {
+    var container = document.getElementById('tierBusiness');
+    if (!container) return;
+    container.innerHTML = tierBusinessDB.map(function(b) {
+        return '<div class="mini-biz" style="border-left-color:#ff8800;">' +
+            '<div class="mini-biz-icon">' + b.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + b.name + '</div>' +
+                '<div class="mini-biz-desc">' + b.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + b.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+
+    var pContainer = document.getElementById('tierPlattformen');
+    if (pContainer) {
+        pContainer.innerHTML = tierPlattformenDB.map(function(p) {
+            return '<div class="mini-biz" style="border-left-color:#ffdf00;">' +
+                '<div class="mini-biz-icon">' + p.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + p.name + '</div>' +
+                    '<div class="mini-biz-desc">' + p.desc + '</div>' +
+                    '<a href="' + p.url + '" target="_blank" style="color:#ffdf00; font-size:0.8rem; font-weight:800;">🔗 Öffnen</a>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+function hundeBerechnen() {
+    var std = parseFloat(document.getElementById('hundeStunde').value) || 0;
+    var hunde = parseFloat(document.getElementById('hundeAnzahl').value) || 0;
+    var dauer = parseFloat(document.getElementById('hundeStd').value) || 0;
+
+    var woche = std * hunde * dauer;
+    var monat = woche * 4;
+    var jahr = monat * 12;
+
+    document.getElementById('hundeErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Verdienst als Hundesitter</h4>' +
+            '<div class="ergebnis-zeile"><span>Pro Woche:</span><span class="positiv">' + euro(woche) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.3rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+        '</div>';
+}
+
+// === BABY KI ===
+var babyBusinessDB = [
+    { icon: '🍼', name: 'Baby-Kleidung Handmade', desc: 'Bio-Baumwolle, individuell', verdienst: '15-50€/Stück' },
+    { icon: '🧸', name: 'Baby-Spielzeug Holz', desc: 'Nachhaltig = teuer', verdienst: '20-80€/Stück' },
+    { icon: '📚', name: 'Kinderbücher schreiben', desc: 'Amazon KDP', verdienst: '100-2000€/Monat' },
+    { icon: '🎓', name: 'Eltern-Coach', desc: 'Schlaf, Trotzphase, etc.', verdienst: '80-200€/Sitzung' },
+    { icon: '📸', name: 'Baby-Fotografie', desc: 'Newborn Shootings', verdienst: '300-1000€/Shooting' },
+    { icon: '💒', name: 'Rückbildungs-Kurse', desc: 'Nach Geburt (Hebamme)', verdienst: '15-25€/Teilnehmer' },
+    { icon: '👶', name: 'Babysitter-Service', desc: 'Nachbarschaft/App', verdienst: '10-20€/Std' },
+    { icon: '🎁', name: 'Baby-Geschenkboxen', desc: 'Kuratierte Boxen', verdienst: '40-150€/Box' }
+];
+
+var babyPlattformenDB = [
+    { icon: '🌍', name: 'Etsy Baby', desc: 'Handmade Baby-Artikel', url: 'https://www.etsy.com/market/baby' },
+    { icon: '📚', name: 'Amazon KDP', desc: 'Kinderbücher publizieren', url: 'https://kdp.amazon.com' },
+    { icon: '👶', name: 'Betreut.de', desc: 'Babysitter finden', url: 'https://www.betreut.de' },
+    { icon: '📸', name: 'Instagram', desc: 'Baby-Fotografie Marketing', url: 'https://www.instagram.com' }
+];
+
+function babyBusinessAnzeigen() {
+    var container = document.getElementById('babyBusiness');
+    if (!container) return;
+    container.innerHTML = babyBusinessDB.map(function(b) {
+        return '<div class="mini-biz" style="border-left-color:#ff44aa;">' +
+            '<div class="mini-biz-icon">' + b.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + b.name + '</div>' +
+                '<div class="mini-biz-desc">' + b.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + b.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+
+    var pContainer = document.getElementById('babyPlattformen');
+    if (pContainer) {
+        pContainer.innerHTML = babyPlattformenDB.map(function(p) {
+            return '<div class="mini-biz" style="border-left-color:#ffb4dc;">' +
+                '<div class="mini-biz-icon">' + p.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + p.name + '</div>' +
+                    '<div class="mini-biz-desc">' + p.desc + '</div>' +
+                    '<a href="' + p.url + '" target="_blank" style="color:#ff44aa; font-size:0.8rem; font-weight:800;">🔗 Öffnen</a>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+function babyKostenBerechnen() {
+    var alter = parseInt(document.getElementById('babyAlter').value) || 1;
+    var land = document.getElementById('babyLand').value;
+
+    var proMonat = land === 'de' ? 700 : 150; // DE: 700€, TG: 150€
+    var proJahr = proMonat * 12;
+    var bisher = proJahr * alter;
+    var bis18 = proJahr * 18;
+
+    document.getElementById('babyKostenErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Kosten für ein Kind</h4>' +
+            '<div class="ergebnis-zeile"><span>Pro Monat:</span><span class="negativ">' + euro(proMonat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Pro Jahr:</span><span class="negativ">' + euro(proJahr) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Bisher (' + alter + ' Jahre):</span><span class="negativ">' + euro(bisher) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Bis 18 Jahre gesamt:</span><span class="gold" style="font-size:1.3rem;">' + euro(bis18) + '</span></div>' +
+            '<div class="tipp-box">💡 Kinder sind ein Segen! Aber auch teuer. Sparen ab Geburt!</div>' +
+        '</div>';
+}
+
+// === HOCHZEIT KI ===
+var hochzeitBusinessDB = [
+    { icon: '📸', name: 'Hochzeitsfotograf', desc: 'Höchste Nachfrage!', verdienst: '2000-5000€/Hochzeit' },
+    { icon: '🎬', name: 'Hochzeitsvideos', desc: 'Cinematic Style trendet', verdienst: '2500-7000€/Hochzeit' },
+    { icon: '📋', name: 'Wedding Planner', desc: 'Alles organisieren', verdienst: '3000-15000€/Hochzeit' },
+    { icon: '🎵', name: 'DJ/Musiker', desc: 'Party & Zeremonie', verdienst: '800-3000€/Event' },
+    { icon: '💐', name: 'Blumendekoration', desc: 'Kreativ & saisonal', verdienst: '500-3000€/Event' },
+    { icon: '🎂', name: 'Torten-Bäcker', desc: 'Custom Designs', verdienst: '200-1500€/Torte' },
+    { icon: '👰', name: 'Braut-Styling', desc: 'Make-up & Haare', verdienst: '300-800€/Braut' },
+    { icon: '🚗', name: 'Hochzeitsauto', desc: 'Oldtimer, Limousine', verdienst: '400-1200€/Tag' }
+];
+
+var hochzeitTippsDB = [
+    { icon: '📸', titel: 'Portfolio ist Alles', text: 'Investiere in 1-2 KOSTENLOSE Hochzeiten für Freunde = Referenz!' },
+    { icon: '💒', titel: 'Instagram Business', text: 'Bräute suchen auf Instagram! Regelmäßig posten ist Pflicht.' },
+    { icon: '🎯', titel: 'Nische finden', text: 'Boho-Hochzeiten? Afrikanisch? Luxus? Positioniere dich!' },
+    { icon: '🤝', titel: 'Netzwerk aufbauen', text: 'Mit anderen Dienstleistern zusammenarbeiten = Empfehlungen!' }
+];
+
+function hochzeitBusinessAnzeigen() {
+    var container = document.getElementById('hochzeitBusiness');
+    if (!container) return;
+    container.innerHTML = hochzeitBusinessDB.map(function(b) {
+        return '<div class="mini-biz" style="border-left-color:#ffd700;">' +
+            '<div class="mini-biz-icon">' + b.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + b.name + '</div>' +
+                '<div class="mini-biz-desc">' + b.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + b.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+
+    var tContainer = document.getElementById('hochzeitTipps');
+    if (tContainer) {
+        tContainer.innerHTML = hochzeitTippsDB.map(function(t) {
+            return '<div class="mini-biz" style="border-left-color:#ff44aa;">' +
+                '<div class="mini-biz-icon">' + t.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + t.titel + '</div>' +
+                    '<div class="mini-biz-desc">' + t.text + '</div>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+function hochzeitBerechnen() {
+    var gaeste = parseInt(document.getElementById('hochzeitGaeste').value) || 80;
+    var level = document.getElementById('hochzeitLevel').value;
+    var land = document.getElementById('hochzeitLand').value;
+
+    var proGast = { einfach: 150, mittel: 300, luxus: 600 }[level];
+    if (land === 'tg') proGast *= 0.3; // Togo günstiger
+
+    var gesamt = proGast * gaeste;
+    var location = gesamt * 0.3;
+    var essen = gesamt * 0.4;
+    var deko = gesamt * 0.1;
+    var fotograf = land === 'de' ? 3000 : 800;
+    var sonstiges = gesamt * 0.2;
+
+    document.getElementById('hochzeitErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💒 Hochzeits-Budget</h4>' +
+            '<div class="ergebnis-zeile"><span>📍 Location:</span><span>' + euro(location) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🍽️ Essen/Getränke:</span><span>' + euro(essen) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>📸 Fotograf:</span><span>' + euro(fotograf) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💐 Deko:</span><span>' + euro(deko) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>👗 Sonstiges:</span><span>' + euro(sonstiges) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 GESAMT:</span><span class="gold" style="font-size:1.5rem;">' + euro(gesamt + fotograf) + '</span></div>' +
+            '<div class="tipp-box">💡 Tipp: Freitag/Sonntag statt Samstag = 30% günstiger!</div>' +
+        '</div>';
+}
+
+// === GAMING KI ===
+var gamingBusinessDB = [
+    { icon: '🎥', name: 'Twitch Streamer', desc: 'Live Gaming, große Community', verdienst: '500-50000€/Monat' },
+    { icon: '📹', name: 'YouTube Gaming', desc: 'Let\'s Plays, Tutorials', verdienst: '$3-15/1000 Views' },
+    { icon: '🏆', name: 'E-Sports Spieler', desc: 'Turniere, Sponsoring', verdienst: '$1000-1M/Jahr' },
+    { icon: '🎓', name: 'Gaming Coach', desc: 'Anderen beibringen', verdienst: '30-100€/Stunde' },
+    { icon: '💰', name: 'Game Testing', desc: 'Bugs finden, für Studios', verdienst: '$10-30/Stunde' },
+    { icon: '🎨', name: 'Game Assets', desc: 'Grafiken für Entwickler', verdienst: '$50-500/Asset' },
+    { icon: '📝', name: 'Gaming Journalist', desc: 'Reviews schreiben', verdienst: '$50-500/Artikel' },
+    { icon: '🎮', name: 'Speedrunner', desc: 'Marathons + Spenden', verdienst: 'Community-basiert' }
+];
+
+var gamingPlattformenDB = [
+    { icon: '🎥', name: 'Twitch', desc: '#1 Live Streaming', url: 'https://www.twitch.tv' },
+    { icon: '📹', name: 'YouTube Gaming', desc: 'Gaming Videos', url: 'https://gaming.youtube.com' },
+    { icon: '🎮', name: 'Kick', desc: 'Twitch Konkurrent, 95% zum Streamer', url: 'https://kick.com' },
+    { icon: '💎', name: 'Patreon', desc: 'Fans zahlen monatlich', url: 'https://www.patreon.com' },
+    { icon: '🎨', name: 'Unity Asset Store', desc: 'Game Assets verkaufen', url: 'https://assetstore.unity.com' },
+    { icon: '🏆', name: 'ESL', desc: 'E-Sport Turniere', url: 'https://pro.eslgaming.com' }
+];
+
+var gamingTippsDB = [
+    { icon: '⏰', titel: 'Konsistenz ist King', text: 'Feste Streaming-Zeiten! 3-4x pro Woche minimum!' },
+    { icon: '🎯', titel: 'Nische wählen', text: 'Ein Spiel zu meistern = Community aufbauen!' },
+    { icon: '💬', titel: 'Community interagieren', text: 'Chat lesen, Namen nennen! Fans zahlen für Verbindung.' },
+    { icon: '🎨', titel: 'Professionelles Setup', text: 'Gute Cam + Mikro + Beleuchtung = 10x mehr Zuschauer!' },
+    { icon: '📱', titel: 'TikTok Clips', text: 'Beste Momente als Shorts posten = Zuschauer wachsen!' },
+    { icon: '🤝', titel: 'Kollaborationen', text: 'Mit anderen Streamern spielen = Fans teilen!' }
+];
+
+function gamingBusinessAnzeigen() {
+    var container = document.getElementById('gamingBusiness');
+    if (!container) return;
+    container.innerHTML = gamingBusinessDB.map(function(b) {
+        return '<div class="mini-biz" style="border-left-color:#0088ff;">' +
+            '<div class="mini-biz-icon">' + b.icon + '</div>' +
+            '<div class="mini-biz-info">' +
+                '<div class="mini-biz-name">' + b.name + '</div>' +
+                '<div class="mini-biz-desc">' + b.desc + '</div>' +
+            '</div>' +
+            '<div class="mini-biz-verdienst">' + b.verdienst + '</div>' +
+        '</div>';
+    }).join('');
+
+    var pContainer = document.getElementById('gamingPlattformen');
+    if (pContainer) {
+        pContainer.innerHTML = gamingPlattformenDB.map(function(p) {
+            return '<div class="mini-biz" style="border-left-color:#cc44ff;">' +
+                '<div class="mini-biz-icon">' + p.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + p.name + '</div>' +
+                    '<div class="mini-biz-desc">' + p.desc + '</div>' +
+                    '<a href="' + p.url + '" target="_blank" style="color:#cc44ff; font-size:0.8rem; font-weight:800;">🔗 Öffnen</a>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    var tContainer = document.getElementById('gamingTipps');
+    if (tContainer) {
+        tContainer.innerHTML = gamingTippsDB.map(function(t) {
+            return '<div class="mini-biz" style="border-left-color:#00ddcc;">' +
+                '<div class="mini-biz-icon">' + t.icon + '</div>' +
+                '<div class="mini-biz-info">' +
+                    '<div class="mini-biz-name">' + t.titel + '</div>' +
+                    '<div class="mini-biz-desc">' + t.text + '</div>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+function streamerBerechnen() {
+    var views = parseFloat(document.getElementById('streamViews').value) || 0;
+    var std = parseFloat(document.getElementById('streamStd').value) || 0;
+    var subs = parseFloat(document.getElementById('streamSubs').value) || 0;
+
+    // Twitch Bits: ~$0.01 pro View/Stunde
+    var bits = views * std * 4 * 0.05;
+    // Subs bringen ~2.50€
+    var subVerdienst = subs * 2.5;
+    // Werbung
+    var werbung = views * std * 4 * 0.02;
+    // Donations (optional)
+    var donations = views * std * 4 * 0.10;
+
+    var monat = bits + subVerdienst + werbung + donations;
+    var jahr = monat * 12;
+
+    document.getElementById('streamerErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Streamer-Verdienst</h4>' +
+            '<div class="ergebnis-zeile"><span>Bits/Cheers:</span><span>' + euro(bits) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Abos:</span><span class="positiv">' + euro(subVerdienst) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Werbung:</span><span>' + euro(werbung) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>Donations:</span><span class="positiv">' + euro(donations) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>💰 Pro Monat:</span><span class="gold" style="font-size:1.3rem;">' + euro(monat) + '</span></div>' +
+            '<div class="ergebnis-zeile"><span>🚀 Pro Jahr:</span><span class="positiv" style="font-size:1.2rem;">' + euro(jahr) + '</span></div>' +
+            '<div class="tipp-box">💡 Realistisch nach 6-12 Monaten Aufbau. Konsistenz ist alles!</div>' +
+        '</div>';
+}
+
+// AUTO-START ALLE
+setTimeout(function() {
+    musikPlattformenAnzeigen();
+    musikGenresAnzeigen();
+    musikTippsAnzeigen();
+    gesundBusinessAnzeigen();
+    tierBusinessAnzeigen();
+    babyBusinessAnzeigen();
+    hochzeitBusinessAnzeigen();
+    gamingBusinessAnzeigen();
+}, 1500);
 

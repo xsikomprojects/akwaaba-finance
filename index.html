@@ -72,6 +72,12 @@
         <button class="tab" data-tab="lernki">🎓 LERN-KI</button>
         <button class="tab" data-tab="chefki">🍽️ CHEF-KI</button>
         <button class="tab" data-tab="fotoki">📸 FOTO-KI</button>
+        <button class="tab" data-tab="musikki">🎧 MUSIK-KI</button>
+        <button class="tab" data-tab="gesundki">💊 GESUNDHEIT</button>
+        <button class="tab" data-tab="tierki">🐾 TIER-KI</button>
+        <button class="tab" data-tab="babyki">👶 BABY-KI</button>
+        <button class="tab" data-tab="hochzeitki">💒 HOCHZEIT</button>
+        <button class="tab" data-tab="gamingki">🎮 GAMING</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -2654,6 +2660,267 @@
 
     </div>
     <!-- ENDE FOTO-KI -->
+    <!-- ============ MUSIK-KI ============ -->
+    <div id="musikki" class="seite">
+        <div class="ki-header ki-header-musik">
+            <div class="ki-avatar-mini">🎧</div>
+            <div>
+                <h2>MUSIK-KI</h2>
+                <p>Musik verkaufen weltweit 🎵</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🎵 Was möchtest du machen?</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Als Musiker/Producer kannst du heute komplett unabhängig verdienen!
+                Beats, Songs, Sound-Effekte – alles ist gefragt!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🎼 Top Musik-Plattformen</h3>
+            <div id="musikPlattformen"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Musik-Verdienst Rechner</h3>
+            <label>Anzahl Songs/Beats</label>
+            <input type="number" id="musikAnzahl" placeholder="50" min="1">
+            <label>Streams pro Song/Monat</label>
+            <input type="number" id="musikStreams" placeholder="1000" min="0">
+            <label>€ pro 1000 Streams</label>
+            <input type="number" id="musikProStream" value="3" min="0" step="0.5">
+            <button class="btn-gruen" onclick="musikBerechnen()">💰 Berechnen</button>
+            <div id="musikErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🎯 Musik-Genres mit hoher Nachfrage</h3>
+            <div id="musikGenres"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🏆 Erfolgs-Tipps für Musiker</h3>
+            <div id="musikTipps"></div>
+        </div>
+    </div>
+
+    <!-- ============ GESUNDHEIT-KI ============ -->
+    <div id="gesundki" class="seite">
+        <div class="ki-header ki-header-gesund">
+            <div class="ki-avatar-mini">💊</div>
+            <div>
+                <h2>GESUNDHEIT-KI</h2>
+                <p>Gesundheit + Business 💚</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>💚 Wellness-Business Möglichkeiten</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Die Gesundheits-Industrie boomt! Von Yoga bis Nahrungsergänzung – hier verdienst du gut und hilfst Menschen!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🏢 Business-Modelle</h3>
+            <div id="gesundBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Verdienst-Übersicht</h3>
+            <div id="gesundVerdienst"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>⚠️ Wichtige Warnung</h3>
+            <p style="color:#ff8888; font-weight:700; line-height:1.7;">
+                <strong>NIEMALS:</strong> Krankheiten diagnostizieren, Medikamente empfehlen ohne Ausbildung, "Wunder-Heilung" versprechen! Nur legale Wellness-Angebote!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🎓 Kostenlose Zertifikate</h3>
+            <div id="gesundZerts"></div>
+        </div>
+    </div>
+
+    <!-- ============ TIER-KI ============ -->
+    <div id="tierki" class="seite">
+        <div class="ki-header ki-header-tier">
+            <div class="ki-avatar-mini">🐾</div>
+            <div>
+                <h2>TIER-KI</h2>
+                <p>Tier-Business 🐕🐱</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🐾 Tier-Business Ideen</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Haustier-Besitzer geben durchschnittlich 1.500€/Jahr aus! Riesiger Markt mit vielen Möglichkeiten!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Tier-Business Ideen</h3>
+            <div id="tierBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>🐕 Hundesitter-Rechner</h3>
+            <label>Preis pro Stunde (€)</label>
+            <input type="number" id="hundeStunde" value="15" min="0">
+            <label>Hunde pro Woche</label>
+            <input type="number" id="hundeAnzahl" value="10" min="0">
+            <label>Stunden pro Hund</label>
+            <input type="number" id="hundeStd" value="2" min="0" step="0.5">
+            <button class="btn-gruen" onclick="hundeBerechnen()">💰 Verdienst berechnen</button>
+            <div id="hundeErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🌐 Tier-Plattformen</h3>
+            <div id="tierPlattformen"></div>
+        </div>
+    </div>
+
+    <!-- ============ BABY-KI ============ -->
+    <div id="babyki" class="seite">
+        <div class="ki-header ki-header-baby">
+            <div class="ki-avatar-mini">👶</div>
+            <div>
+                <h2>BABY-KI</h2>
+                <p>Baby & Familie Business 🍼</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>👶 Baby-Markt: 300 Mrd $ Global!</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Eltern investieren viel in ihre Kinder. Handmade Baby-Artikel, Kurse, Coaching – alles boomt!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💡 Business Ideen</h3>
+            <div id="babyBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Kosten-Rechner für Eltern</h3>
+            <p style="font-size:0.85rem; margin-bottom:1rem;">
+                Wie viel kostet ein Kind wirklich?
+            </p>
+            <label>Alter des Kindes (Jahre)</label>
+            <input type="number" id="babyAlter" value="1" min="0" max="18">
+            <label>Land</label>
+            <select id="babyLand">
+                <option value="de">🇩🇪 Deutschland</option>
+                <option value="tg">🇹🇬 Togo</option>
+            </select>
+            <button class="btn-gruen" onclick="babyKostenBerechnen()">💰 Berechnen</button>
+            <div id="babyKostenErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🌐 Verkaufs-Plattformen</h3>
+            <div id="babyPlattformen"></div>
+        </div>
+    </div>
+
+    <!-- ============ HOCHZEIT-KI ============ -->
+    <div id="hochzeitki" class="seite">
+        <div class="ki-header ki-header-hochzeit">
+            <div class="ki-avatar-mini">💒</div>
+            <div>
+                <h2>HOCHZEIT-KI</h2>
+                <p>Hochzeit als Business 💍</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>💍 Hochzeits-Industrie: 300+ Mrd $</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Brautpaare geben durchschnittlich 30.000€ aus! Als Fotograf, Planer, DJ oder Deko-Spezialist verdienst du sehr gut!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Hochzeit Business Ideen</h3>
+            <div id="hochzeitBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Hochzeits-Planer für Brautpaare</h3>
+            <label>Anzahl Gäste</label>
+            <input type="number" id="hochzeitGaeste" value="80" min="10">
+            <label>Budget-Level</label>
+            <select id="hochzeitLevel">
+                <option value="einfach">💰 Einfach (150€/Gast)</option>
+                <option value="mittel" selected>💰💰 Standard (300€/Gast)</option>
+                <option value="luxus">💰💰💰 Luxus (600€/Gast)</option>
+            </select>
+            <label>Land</label>
+            <select id="hochzeitLand">
+                <option value="de">🇩🇪 Deutschland</option>
+                <option value="tg">🇹🇬 Togo (Traditionell)</option>
+            </select>
+            <button class="btn-gruen" onclick="hochzeitBerechnen()">💰 Kosten berechnen</button>
+            <div id="hochzeitErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🎯 Erfolgs-Tipps</h3>
+            <div id="hochzeitTipps"></div>
+        </div>
+    </div>
+
+    <!-- ============ GAMING-KI ============ -->
+    <div id="gamingki" class="seite">
+        <div class="ki-header ki-header-gaming">
+            <div class="ki-avatar-mini">🎮</div>
+            <div>
+                <h2>GAMING-KI</h2>
+                <p>Gaming als Karriere 🕹️</p>
+            </div>
+        </div>
+
+        <div class="karte regenbogen-rand">
+            <h3>🎮 Gaming: 200+ Mrd $ Industrie!</h3>
+            <p style="font-size:0.9rem; color:#ccddaa; line-height:1.7;">
+                Gaming ist die größte Entertainment-Industrie! Streaming, E-Sports, Coaching – alles möglich!
+            </p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>💼 Gaming-Karriere Optionen</h3>
+            <div id="gamingBusiness"></div>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>💰 Twitch/YouTube Verdienst-Rechner</h3>
+            <label>Live-Zuschauer im Schnitt</label>
+            <input type="number" id="streamViews" value="50" min="0">
+            <label>Stream-Stunden pro Woche</label>
+            <input type="number" id="streamStd" value="20" min="0">
+            <label>Subs (Abonnenten)</label>
+            <input type="number" id="streamSubs" value="10" min="0">
+            <button class="btn-gruen" onclick="streamerBerechnen()">💰 Verdienst</button>
+            <div id="streamerErgebnis"></div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>🌐 Gaming-Plattformen</h3>
+            <div id="gamingPlattformen"></div>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>🏆 Streamer Erfolgs-Tipps</h3>
+            <div id="gamingTipps"></div>
+        </div>
+    </div>
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">
