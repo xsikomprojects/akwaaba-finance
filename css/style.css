@@ -8186,4 +8186,626 @@ canvas {
     border-radius: 20px;
     border: 1px solid rgba(0,204,68,0.3);
 }
+/* ============================================
+   🎨 DESIGN POLIERUNG - PREMIUM FINISH
+   ============================================ */
+
+/* === GLASMORPHISMUS FÜR KARTEN === */
+.karte {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* === TAB CONTAINER SCROLLBAR === */
+nav {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,215,0,0.3) transparent;
+}
+
+nav::-webkit-scrollbar {
+    height: 4px;
+}
+
+nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #d21034, #ffce00, #006a4e);
+    border-radius: 4px;
+}
+
+/* === SMOOTH TAB TRANSITIONS === */
+.seite {
+    animation: pageSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* === PREMIUM LADE-ANIMATION === */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.lade-effekt {
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,215,0,0.1) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* === BUTTON RIPPLE EFFEKT === */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255,255,255,0.6);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    pointer-events: none;
+}
+
+button:active::after {
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(30, 30);
+        opacity: 0;
+    }
+}
+
+/* === PARALLAX HOVER 3D === */
+.karte, .stat, .strategie-btn, .plat-btn, .kunst-btn,
+.food-typ-btn, .lern-kat-btn, .foto-typ-btn, .land-btn {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease;
+}
+
+/* === GLÜHENDER RAND EFFEKT === */
+.karte.gruen-rand {
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(0,204,68,0.2),
+        0 0 20px rgba(0,204,68,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.karte.rot-rand {
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(210,16,52,0.2),
+        0 0 20px rgba(210,16,52,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.karte.gelb-rand {
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,206,0,0.2),
+        0 0 20px rgba(255,206,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.karte.regenbogen-rand {
+    animation: rainbowGlow 8s linear infinite;
+}
+
+@keyframes rainbowGlow {
+    0%, 100% {
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.5),
+            0 0 30px rgba(210,16,52,0.3);
+    }
+    25% {
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.5),
+            0 0 30px rgba(255,206,0,0.3);
+    }
+    50% {
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.5),
+            0 0 30px rgba(0,106,78,0.3);
+    }
+    75% {
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.5),
+            0 0 30px rgba(107,63,160,0.3);
+    }
+}
+
+/* === PREMIUM INPUT FIELDS === */
+input, select, textarea {
+    position: relative;
+    overflow: hidden;
+}
+
+input:focus, select:focus, textarea:focus {
+    transform: translateY(-2px);
+    background: linear-gradient(145deg, #1a0f08, #241610) !important;
+}
+
+/* === HOVER TRANSFORM ALLE BUTTONS === */
+.btn-gruen:hover, .btn-rot:hover, .btn-gelb:hover {
+    animation: btnPulse 0.6s ease;
+}
+
+@keyframes btnPulse {
+    0%, 100% { transform: perspective(400px) rotateX(0deg) translateY(-8px) scale(1.03); }
+    50% { transform: perspective(400px) rotateX(0deg) translateY(-12px) scale(1.05); }
+}
+
+/* === NAVIGATION FLOATING === */
+nav {
+    transition: all 0.3s ease;
+}
+
+nav:hover {
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.7),
+        inset 0 -3px 10px rgba(0,0,0,0.3);
+}
+
+/* === HEADER PARALLAX === */
+header {
+    transform-style: preserve-3d;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255,215,0,0.5),
+        transparent);
+    animation: headerScan 4s linear infinite;
+}
+
+@keyframes headerScan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* === FLOATING PARTICLES === */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatParticle 15s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.3; }
+    90% { opacity: 0.3; }
+    100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* === HOVER GLOW AUF ICONS === */
+.stat > div:first-child,
+.food-typ-icon,
+.kunst-icon,
+.lern-kat-icon,
+.foto-typ-icon,
+.land-flag,
+.strategie-icon {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+}
+
+.stat:hover > div:first-child,
+button:hover .food-typ-icon,
+button:hover .kunst-icon,
+button:hover .lern-kat-icon,
+button:hover .foto-typ-icon,
+button:hover .strategie-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 8px 15px rgba(255,215,0,0.4));
+}
+
+/* === TABS AKTIV ANIMATION === */
+.tab.aktiv {
+    animation: tabActive 0.5s ease;
+}
+
+@keyframes tabActive {
+    0% { transform: perspective(300px) rotateX(0deg) translateY(-2px) scale(1); }
+    50% { transform: perspective(300px) rotateX(0deg) translateY(-6px) scale(1.1); }
+    100% { transform: perspective(300px) rotateX(0deg) translateY(-2px) scale(1.05); }
+}
+
+/* === TOAST NOTIFICATIONS PREMIUM === */
+.toast, .snackbar {
+    animation: toastSlide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes toastSlide {
+    from {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* === SCROLL BEHAVIOR SMOOTH === */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+/* === FOOTER SPARKLES === */
+footer::after {
+    content: '✨';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    font-size: 1.5rem;
+    animation: sparkle 3s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+    50% { transform: scale(1.3) rotate(180deg); opacity: 0.7; }
+}
+
+/* === EMOJI ANIMATIONEN === */
+.emojis {
+    display: inline-block;
+    animation: emojiFloat 3s ease-in-out infinite;
+}
+
+@keyframes emojiFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.05); }
+}
+
+/* === STAT-WERT COUNTER GLOW === */
+.stat > div:nth-child(2) {
+    animation: valueGlow 3s ease-in-out infinite;
+}
+
+@keyframes valueGlow {
+    0%, 100% {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.6),
+                     0 4px 10px rgba(255,206,0,0.3);
+    }
+    50% {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.6),
+                     0 4px 20px rgba(255,206,0,0.6),
+                     0 0 30px rgba(255,206,0,0.3);
+    }
+}
+
+/* === ERGEBNIS BOX PREMIUM === */
+.ergebnis {
+    animation: ergebnisReveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes ergebnisReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* === ERGEBNIS ZEILEN HOVER === */
+.ergebnis-zeile {
+    transition: all 0.2s ease;
+    padding: 0.8rem 0;
+    cursor: default;
+}
+
+.ergebnis-zeile:hover {
+    background: rgba(255,215,0,0.03);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 8px;
+}
+
+/* === LIVE CURSOR EFFEKT === */
+.karte {
+    position: relative;
+}
+
+.karte::before {
+    content: '';
+    position: absolute;
+    top: var(--mouse-y, 50%);
+    left: var(--mouse-x, 50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle,
+        rgba(255,215,0,0.05) 0%,
+        transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.karte:hover::before {
+    opacity: 1;
+}
+
+/* === MOBILE OPTIMIERUNG === */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    nav {
+        padding: 0.5rem !important;
+        gap: 0.3rem !important;
+    }
+
+    .tab {
+        font-size: 0.7rem !important;
+        padding: 0.6rem 0.4rem !important;
+        min-width: 90px;
+        white-space: nowrap;
+    }
+
+    .karte {
+        padding: 1.2rem !important;
+        margin: 0.5rem !important;
+    }
+
+    .banner h2 {
+        font-size: 2.5rem !important;
+    }
+
+    .statistiken {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.6rem !important;
+        padding: 0 0.6rem !important;
+    }
+
+    header {
+        padding: 0.7rem !important;
+    }
+
+    header div h1 {
+        font-size: 1rem !important;
+    }
+
+    .btn-gruen, .btn-rot, .btn-gelb {
+        font-size: 0.9rem !important;
+        padding: 1rem !important;
+    }
+
+    footer {
+        padding: 2rem 1rem !important;
+    }
+
+    .ki-header, .siegoth-header, .hundnase-header,
+    .aaliyah-header, .sankofa-header, .uberki-header,
+    .immoki-header, .lernki-header, .chefki-header,
+    .fotoki-header, .pimel-header {
+        padding: 1rem !important;
+    }
+}
+
+/* === TABLET OPTIMIERUNG === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .statistiken {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* === DESKTOP OPTIMIERUNG === */
+@media (min-width: 1025px) {
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    #app {
+        max-width: 900px;
+        margin: 0 auto;
+        border-left: 1px solid rgba(255,215,0,0.1);
+        border-right: 1px solid rgba(255,215,0,0.1);
+        box-shadow: 0 0 60px rgba(255,215,0,0.05);
+    }
+
+    #splash {
+        max-width: 100%;
+    }
+}
+
+/* === DARK MODE (bereits Standard, aber optimiert) === */
+@media (prefers-color-scheme: dark) {
+    body {
+        color-scheme: dark;
+    }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+    .karte {
+        border-width: 3px !important;
+    }
+
+    input, select, textarea {
+        border-width: 3px !important;
+    }
+}
+
+/* === REDUCE MOTION === */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* === PRINT OPTIMIERUNG === */
+@media print {
+    header, nav, footer, .install-banner {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .karte {
+        background: white !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+    }
+}
+
+/* === TOOLTIP === */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    color: #ffdf00;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: tooltipShow 0.3s ease;
+    border: 1px solid rgba(255,215,0,0.3);
+}
+
+@keyframes tooltipShow {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* === LINK STYLE === */
+a {
+    color: #ffdf00;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s;
+}
+
+a:hover {
+    color: #fff8e7;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+/* === SELECTION FARBE === */
+::selection {
+    background: #ffce00;
+    color: #1a0f08;
+}
+
+::-moz-selection {
+    background: #ffce00;
+    color: #1a0f08;
+}
+
+/* === LOADING SPINNER === */
+.loading-spinner {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255,215,0,0.3);
+    border-radius: 50%;
+    border-top-color: #ffce00;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* === PULSE EFFEKT FÜR NEUES === */
+.neu-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #d21034, #ff6b00);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    animation: neuPulse 2s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 0.5rem;
+}
+
+@keyframes neuPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(210,16,52,0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 8px rgba(210,16,52,0);
+    }
+}
         

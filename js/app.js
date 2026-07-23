@@ -9212,4 +9212,270 @@ setTimeout(function() {
     hochzeitBusinessAnzeigen();
     gamingBusinessAnzeigen();
 }, 1500);
+// ============================================
+// 🎨 DESIGN POLIERUNG - INTERAKTIONEN
+// ============================================
+
+// === MOUSE TRACKING FÜR KARTEN ===
+document.addEventListener('mousemove', function(e) {
+    document.querySelectorAll('.karte').forEach(function(karte) {
+        var rect = karte.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            var x = ((e.clientX - rect.left) / rect.width) * 100;
+            var y = ((e.clientY - rect.top) / rect.height) * 100;
+            karte.style.setProperty('--mouse-x', x + '%');
+            karte.style.setProperty('--mouse-y', y + '%');
+        }
+    });
+});
+
+// === 3D TILT EFFEKT ===
+function apply3DTilt(elements) {
+    elements.forEach(function(el) {
+        el.addEventListener('mousemove', function(e) {
+            var rect = el.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+
+            var rotateX = (y - centerY) / 30;
+            var rotateY = (centerX - x) / 30;
+
+            el.style.transform =
+                'perspective(1000px) rotateX(' + rotateX +
+                'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+        });
+
+        el.addEventListener('mouseleave', function() {
+            el.style.transform = '';
+        });
+    });
+}
+
+// === TAB SMOOTH SCROLL ===
+document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+    });
+});
+
+// === PARTICLE SYSTEM ===
+function createParticle() {
+    var particle = document.createElement('div');
+    particle.className = 'particle';
+
+    var emojis = ['✨', '⭐', '🌟', '💫', '🇹🇬'];
+    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.fontSize = (Math.random() * 15 + 10) + 'px';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    particle.style.animationDelay = Math.random() * 3 + 's';
+
+    document.body.appendChild(particle);
+
+    setTimeout(function() {
+        if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+        }
+    }, 25000);
+}
+
+// Erstelle 8 Partikel initial
+setTimeout(function() {
+    for (var i = 0; i < 8; i++) {
+        setTimeout(createParticle, i * 500);
+    }
+}, 3000);
+
+// Erstelle regelmäßig neue Partikel
+setInterval(createParticle, 4000);
+
+// === TOOLTIP SYSTEM ===
+setTimeout(function() {
+    // Automatische Tooltips für Buttons
+    var tabTooltips = {
+        'dashboard': 'Übersicht deiner Finanzen',
+        'rechner': 'Zinsen, Kredite, Sparen',
+        'quantum': 'AI Analysen',
+        'crypto': 'Krypto Live-Preise',
+        'portfolio': 'Deine Investments',
+        'budget': 'Einnahmen & Ausgaben',
+        'benachrichtigungen': 'Alerts einstellen',
+        'chancen': 'Legale Verdienst-Möglichkeiten',
+        'siegoth': 'Money-Making AI',
+        'hundnase': 'Günstige Flüge finden',
+        'sicherheit': 'App Sicherheit',
+        'tipps': 'Finanz-Weisheiten',
+        'ziele': 'Deine Träume',
+        'rente': 'Ruhestand planen',
+        'akademie': 'Finanz-Lernen',
+        'kalender': 'Termine & Zahlungen',
+        'aaliyah': 'Lotto Analyse KI',
+        'pimel': 'Gratis Sachen & Business',
+        'sankofa': 'Kunst verkaufen',
+        'uberki': 'Fahrer-Optimierung',
+        'immoki': 'Immobilien Togo/DE',
+        'lernki': 'Kostenlose Bildung',
+        'chefki': 'Food Business',
+        'fotoki': 'Fotos verkaufen',
+        'musikki': 'Musik verkaufen',
+        'gesundki': 'Wellness Business',
+        'tierki': 'Tier Business',
+        'babyki': 'Baby Business',
+        'hochzeitki': 'Hochzeit Business',
+        'gamingki': 'Gaming Business'
+    };
+
+    document.querySelectorAll('.tab').forEach(function(tab) {
+        var target = tab.getAttribute('data-tab');
+        if (tabTooltips[target]) {
+            tab.setAttribute('data-tooltip', tabTooltips[target]);
+        }
+    });
+}, 1000);
+
+// === SMOOTH LOADING === (Ladeanimation entfernen wenn fertig)
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        document.body.classList.add('loaded');
+    }, 100);
+});
+
+// === PERFORMANCE OPTIMIERUNG ===
+// Lazy Loading für Bilder
+if ('IntersectionObserver' in window) {
+    var lazyImages = document.querySelectorAll('img[data-src]');
+    var imageObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(function(img) {
+        imageObserver.observe(img);
+    });
+}
+
+// === VIBRATIONS-FEEDBACK (Mobile) ===
+function vibrate(pattern) {
+    if ('vibrate' in navigator) {
+        navigator.vibrate(pattern);
+    }
+}
+
+// Button Vibration
+document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+        vibrate(30);
+    }
+});
+
+// === ANIMIERTE ZAHLEN ===
+function animateNumber(element, start, end, duration) {
+    var startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        var progress = Math.min((currentTime - startTime) / duration, 1);
+        var currentValue = start + (end - start) * progress;
+        element.textContent = Math.floor(currentValue).toLocaleString('de-DE');
+
+        if (progress < 1) {
+            requestAnimationFrame(animation);
+        }
+    }
+
+    requestAnimationFrame(animation);
+}
+
+// === PWA INSTALL PROMPT ===
+var deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Zeige Install Button
+    setTimeout(function() {
+        showInstallBanner();
+    }, 5000);
+});
+
+function showInstallBanner() {
+    if (!deferredPrompt) return;
+
+    var banner = document.createElement('div');
+    banner.style.cssText =
+        'position:fixed;bottom:20px;left:20px;right:20px;' +
+        'background:linear-gradient(135deg,#d21034,#ffce00,#006a4e);' +
+        'padding:1.5rem;border-radius:20px;z-index:9999;' +
+        'box-shadow:0 20px 60px rgba(0,0,0,0.5);' +
+        'display:flex;align-items:center;gap:1rem;' +
+        'animation:toastSlide 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);';
+
+    banner.innerHTML =
+        '<div style="font-size:2.5rem;">📱</div>' +
+        '<div style="flex:1;color:white;">' +
+            '<div style="font-family:Fredoka One,cursive;font-size:1.1rem;text-shadow:0 2px 4px rgba(0,0,0,0.5);">' +
+                'AKWAABA installieren!' +
+            '</div>' +
+            '<div style="font-size:0.85rem;opacity:0.9;">' +
+                'Nutze die App wie eine echte App' +
+            '</div>' +
+        '</div>' +
+        '<button id="installBtn" style="background:white;color:#d21034;' +
+            'border:none;padding:0.8rem 1.2rem;border-radius:12px;' +
+            'font-family:Fredoka One,cursive;cursor:pointer;' +
+            'box-shadow:0 4px 0 rgba(0,0,0,0.2);">Install</button>' +
+        '<button id="installClose" style="background:rgba(255,255,255,0.2);' +
+            'color:white;border:none;width:36px;height:36px;' +
+            'border-radius:50%;cursor:pointer;font-size:1.2rem;">✕</button>';
+
+    document.body.appendChild(banner);
+
+    document.getElementById('installBtn').addEventListener('click', function() {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choice) {
+            if (choice.outcome === 'accepted') {
+                toast('🎉 AKWAABA wurde installiert!');
+                confetti();
+            }
+            banner.remove();
+            deferredPrompt = null;
+        });
+    });
+
+    document.getElementById('installClose').addEventListener('click', function() {
+        banner.remove();
+    });
+}
+
+// === WELCOME MESSAGE ===
+setTimeout(function() {
+    var visited = localStorage.getItem('akwaaba-visited');
+    if (!visited) {
+        localStorage.setItem('akwaaba-visited', 'true');
+        setTimeout(function() {
+            toast('🇹🇬 AKWAABA! Willkommen in der App!');
+            setTimeout(function() {
+                confetti();
+            }, 500);
+        }, 2000);
+    }
+}, 4000);
+
+console.log('%c🇹🇬 AKWAABA Finance', 'font-size:32px;font-weight:900;background:linear-gradient(90deg,#d21034,#ffce00,#006a4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:10px;');
+console.log('%c✨ Design polished with love from Togo ✨', 'font-size:14px;color:#ffce00;font-weight:700;');
+console.log('%c💚 Mit XsiKOM-DIGITAL-Projects 💚', 'font-size:12px;color:#00cc44;');
 
