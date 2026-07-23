@@ -8808,4 +8808,197 @@ a:hover {
         box-shadow: 0 0 0 8px rgba(210,16,52,0);
     }
 }
+/* ============================================
+   📜 RECHTLICHES
+   ============================================ */
+
+.ki-header-recht {
+    background: linear-gradient(135deg, #2e1a3d, #3d2a1a);
+    border-bottom-color: rgba(255,215,0,0.3);
+}
+
+.ki-header-recht .ki-avatar-mini {
+    background: linear-gradient(135deg, #ffdf00, #d21034);
+}
+
+.ki-header-recht h2 {
+    background: linear-gradient(135deg, #ffdf00, #d21034);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Recht Tabs */
+.recht-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.recht-tab-btn {
+    padding: 0.8rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.recht-tab-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,215,0,0.4);
+}
+
+.recht-tab-btn.aktiv {
+    border-color: #ffdf00;
+    background: rgba(255,215,0,0.1);
+    color: #ffdf00;
+    box-shadow: 0 4px 0 #8b6c00;
+}
+
+/* Recht Docs */
+.recht-doc {
+    display: none;
+    animation: fadeInUp 0.4s ease;
+}
+
+.recht-doc.aktiv {
+    display: block;
+}
+
+.recht-doc h2 {
+    background: linear-gradient(135deg, #ffdf00, #ff6b00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.recht-section {
+    background: rgba(0,0,0,0.2);
+    padding: 1.5rem;
+    border-radius: 14px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #ffdf00;
+}
+
+.recht-section h3 {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+}
+
+.recht-section p {
+    color: #ccddaa;
+    line-height: 1.8;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.recht-section ul {
+    color: #ccddaa;
+    padding-left: 1.5rem;
+    line-height: 1.8;
+    font-size: 0.9rem;
+}
+
+.recht-section ul li {
+    margin-bottom: 0.4rem;
+}
+
+.recht-section a {
+    color: #00ddcc;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.recht-section a:hover {
+    color: #ffdf00;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.recht-section strong {
+    color: #ffdf00;
+    font-weight: 800;
+}
+
+/* Quick Links */
+.quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: linear-gradient(145deg, #1a0f08, #2a1810);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.3s;
+    color: #ccddaa;
+}
+
+.quick-link:hover {
+    transform: translateY(-3px);
+    border-color: #ffdf00;
+    box-shadow: 0 10px 20px rgba(255,215,0,0.2);
+}
+
+.quick-link span {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.quick-link strong {
+    display: block;
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.quick-link p {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Mobile Optimierung für Recht Tabs */
+@media (max-width: 480px) {
+    .recht-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recht-section {
+        padding: 1rem;
+    }
+
+    .recht-section h3 {
+        font-size: 1rem;
+    }
+
+    .recht-doc h2 {
+        font-size: 1.3rem;
+    }
+}
         

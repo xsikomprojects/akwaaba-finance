@@ -9478,4 +9478,130 @@ setTimeout(function() {
 console.log('%c🇹🇬 AKWAABA Finance', 'font-size:32px;font-weight:900;background:linear-gradient(90deg,#d21034,#ffce00,#006a4e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:10px;');
 console.log('%c✨ Design polished with love from Togo ✨', 'font-size:14px;color:#ffce00;font-weight:700;');
 console.log('%c💚 Mit XsiKOM-DIGITAL-Projects 💚', 'font-size:12px;color:#00cc44;');
+// ============================================
+// 📜 RECHTLICHES
+// ============================================
 
+function rechtTab(doc, btn) {
+    // Alle Tabs deaktivieren
+    document.querySelectorAll('.recht-tab-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+
+    // Alle Docs verstecken
+    document.querySelectorAll('.recht-doc').forEach(function(d) {
+        d.classList.remove('aktiv');
+    });
+
+    // Aktiven Tab und Doc anzeigen
+    btn.classList.add('aktiv');
+    var docEl = document.getElementById('doc-' + doc);
+    if (docEl) docEl.classList.add('aktiv');
+
+    // Smooth scroll to top
+    setTimeout(function() {
+        docEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+}
+
+// === ALLE DATEN LÖSCHEN ===
+function alleDatenLoeschen() {
+    var bestaetigt = confirm(
+        '⚠️ ACHTUNG!\n\n' +
+        'Willst du wirklich ALLE deine Daten löschen?\n\n' +
+        'Das umfasst:\n' +
+        '• Portfolio\n' +
+        '• Budget\n' +
+        '• Ziele\n' +
+        '• Watchlist\n' +
+        '• Einstellungen\n' +
+        '• Alle KI-Daten\n\n' +
+        'Dieser Vorgang kann NICHT rückgängig gemacht werden!'
+    );
+
+    if (bestaetigt) {
+        var zweiteBestaetigung = confirm(
+            '❓ Bist du dir wirklich sicher?\n\n' +
+            'Klicke OK zum endgültigen Löschen.'
+        );
+
+        if (zweiteBestaetigung) {
+            // Alle LocalStorage Daten löschen
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Cookies löschen
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "")
+                    .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+
+            toast('✅ Alle Daten wurden gelöscht!');
+
+            setTimeout(function() {
+                alert('🔄 Die Seite wird jetzt neu geladen...');
+                window.location.reload();
+            }, 1500);
+        }
+    }
+}
+
+// === COOKIE BANNER BEIM ERSTEN BESUCH ===
+setTimeout(function() {
+    var cookieAccepted = localStorage.getItem('cookie-accepted');
+    if (!cookieAccepted) {
+        showCookieBanner();
+    }
+}, 3000);
+
+function showCookieBanner() {
+    var banner = document.createElement('div');
+    banner.id = 'cookieBanner';
+    banner.style.cssText =
+        'position:fixed;bottom:20px;left:20px;right:20px;' +
+        'background:linear-gradient(145deg,#1a0f08,#2a1810);' +
+        'padding:1.5rem;border-radius:20px;z-index:99999;' +
+        'box-shadow:0 20px 60px rgba(0,0,0,0.6);' +
+        'border:2px solid rgba(255,215,0,0.4);' +
+        'max-width:600px;margin:0 auto;' +
+        'animation:toastSlide 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);';
+
+    banner.innerHTML =
+        '<div style="display:flex;align-items:flex-start;gap:1rem;">' +
+            '<div style="font-size:2.5rem;">🍪</div>' +
+            '<div style="flex:1;color:#ccddaa;font-size:0.9rem;line-height:1.6;">' +
+                '<div style="font-family:\'Fredoka One\',cursive;color:#ffdf00;font-size:1.1rem;margin-bottom:0.5rem;">' +
+                    'Datenschutz & Cookies' +
+                '</div>' +
+                'Diese App speichert Daten <strong style="color:#00ff88;">ausschließlich lokal</strong> auf deinem Gerät. ' +
+                'Wir verwenden KEINE Tracking-Cookies! ' +
+                '<a href="#" onclick="showTab(\'rechtliches\');return false;" style="color:#00ddcc;font-weight:700;">Mehr erfahren</a>' +
+            '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:0.5rem;margin-top:1rem;">' +
+            '<button onclick="acceptCookies()" style="flex:1;padding:0.8rem;background:linear-gradient(135deg,#00cc44,#00a67e);color:white;border:none;border-radius:12px;font-family:\'Fredoka One\',cursive;cursor:pointer;box-shadow:0 4px 0 #003d2a;">' +
+                '✅ Verstanden' +
+            '</button>' +
+            '<button onclick="showTab(\'rechtliches\');acceptCookies();" style="flex:1;padding:0.8rem;background:rgba(255,215,0,0.1);color:#ffdf00;border:2px solid rgba(255,215,0,0.3);border-radius:12px;font-family:\'Fredoka One\',cursive;cursor:pointer;">' +
+                '📜 Details' +
+            '</button>' +
+        '</div>';
+
+    document.body.appendChild(banner);
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookie-accepted', 'true');
+    var banner = document.getElementById('cookieBanner');
+    if (banner) {
+        banner.style.animation = 'toastSlide 0.5s reverse';
+        setTimeout(function() {
+            banner.remove();
+        }, 500);
+    }
+}
+
+function showTab(tabName) {
+    var tab = document.querySelector('.tab[data-tab="' + tabName + '"]');
+    if (tab) tab.click();
+}
