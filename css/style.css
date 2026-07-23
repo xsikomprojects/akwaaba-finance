@@ -9520,4 +9520,355 @@ body.theme-kente {
     line-height: 1.6;
     margin: 0;
 }
+/* ============================================
+   🤖 AUTO-UPDATE SYSTEM
+   ============================================ */
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Update Status Grid */
+.update-status {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.status-item.status-ok {
+    border-left-color: #00cc44;
+}
+
+.status-item.status-warn {
+    border-left-color: #ffdf00;
+}
+
+.status-item.status-error {
+    border-left-color: #ff4444;
+}
+
+.status-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.status-item strong {
+    display: block;
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.status-item p {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Update Progress */
+.update-progress-bar {
+    width: 100%;
+    height: 24px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(0,255,136,0.3);
+}
+
+.update-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00cc44, #00ff88, #00ddcc);
+    background-size: 200% 100%;
+    animation: gradientMove 2s linear infinite;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,255,136,0.5);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Update Item */
+.update-item {
+    padding: 1.2rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 14px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #00cc44;
+    animation: fadeInUp 0.5s ease;
+}
+
+.update-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.update-version {
+    color: #00ff88;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+}
+
+.update-size {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.update-description {
+    color: #ccddaa;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.update-features {
+    color: #ffdf00;
+    font-size: 0.85rem;
+    line-height: 1.8;
+}
+
+.update-features li {
+    margin-bottom: 0.3rem;
+    padding-left: 0.5rem;
+}
+
+/* Changelog */
+.changelog-item {
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+    border-left: 3px solid #ffdf00;
+}
+
+.changelog-version {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.changelog-date {
+    color: #668844;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.changelog-changes {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.changelog-changes strong {
+    color: #00ff88;
+}
+
+/* KI Analyse */
+.ki-analyse-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00cc44;
+}
+
+.ki-analyse-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.ki-analyse-titel {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    margin-bottom: 0.3rem;
+}
+
+.ki-analyse-text {
+    color: #ccddaa;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* Coming Soon */
+.coming-soon-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255,215,0,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ffdf00;
+    align-items: center;
+}
+
+.coming-icon { font-size: 2rem; flex-shrink: 0; }
+
+.coming-info { flex: 1; }
+
+.coming-titel {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+.coming-desc {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.coming-eta {
+    color: #00ff88;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.3rem 0.7rem;
+    background: rgba(0,204,68,0.1);
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+/* Live Monitor */
+.monitor-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #00ff88;
+}
+
+.monitor-label {
+    color: #ccddaa;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.monitor-value {
+    color: #00ff88;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+}
+
+.monitor-pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* Feature Voting */
+.vote-item {
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+    border-left: 4px solid #cc44ff;
+}
+
+.vote-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.vote-titel {
+    color: #ffdf00;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.vote-count {
+    color: #cc44ff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(204,68,255,0.15);
+    border-radius: 20px;
+}
+
+.vote-desc {
+    color: #ccddaa;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.vote-btn {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #cc44ff, #ff44aa);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    cursor: pointer;
+    font-size: 0.85rem;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+    transition: all 0.2s;
+}
+
+.vote-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+}
+
+.vote-btn.voted {
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+}
+
+.vote-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.vote-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #cc44ff, #ff44aa);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
         

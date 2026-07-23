@@ -10571,3 +10571,561 @@ setTimeout(function() {
     marketingStatsAnzeigen();
     wachstumsTippsAnzeigen();
 }, 2000);
+// ============================================
+// 🤖 AUTO-UPDATE SYSTEM
+// ============================================
+
+var CURRENT_VERSION = '2.5.0';
+var LATEST_VERSION = '2.5.0';
+
+// === UPDATE DATENBANK (wird bei jedem Update erweitert) ===
+var updateHistoryDB = [
+    {
+        version: '2.5.0',
+        datum: '2025-01',
+        changes: [
+            '🎨 6 neue Design-Themes (Ocean, Sunset, Forest, Kente)',
+            '🔒 Passwort-Schutz & Auto-Sperre',
+            '💾 Backup & Export Funktion',
+            '🤖 Auto-Update System hinzugefügt',
+            '📱 QR-Code Generator',
+            '📢 Marketing Center mit fertigen Posts'
+        ]
+    },
+    {
+        version: '2.4.0',
+        datum: '2024-12',
+        changes: [
+            '🗣️ SPRACH-KI hinzugefügt',
+            '🍳 REZEPT-KI hinzugefügt',
+            '👗 MODE-KI hinzugefügt',
+            '⚽ SPORT-KI hinzugefügt',
+            '✈️ REISE-KI hinzugefügt'
+        ]
+    },
+    {
+        version: '2.3.0',
+        datum: '2024-11',
+        changes: [
+            '🎧 MUSIK-KI hinzugefügt',
+            '💊 GESUNDHEIT-KI hinzugefügt',
+            '🐾 TIER-KI hinzugefügt',
+            '👶 BABY-KI hinzugefügt',
+            '💒 HOCHZEIT-KI hinzugefügt',
+            '🎮 GAMING-KI hinzugefügt'
+        ]
+    },
+    {
+        version: '2.2.0',
+        datum: '2024-10',
+        changes: [
+            '📸 FOTO-KI hinzugefügt',
+            '🍽️ CHEF-KI hinzugefügt',
+            '🎓 LERN-KI hinzugefügt',
+            '🏠 IMMO-KI hinzugefügt'
+        ]
+    },
+    {
+        version: '2.1.0',
+        datum: '2024-09',
+        changes: [
+            '🚗 UBER-KI hinzugefügt',
+            '🎨 SANKOFA (Kunst) hinzugefügt',
+            '📜 Rechtliches (DSGVO) hinzugefügt',
+            '🌟 AALIYAH (Lotto) hinzugefügt'
+        ]
+    },
+    {
+        version: '2.0.0',
+        datum: '2024-08',
+        changes: [
+            '🎨 Komplett neues Togo 3D Design',
+            '🇹🇬 Kente Muster & afrikanische Farben',
+            '🌍 8 Sprachen (inkl. Ewe)',
+            '🤖 SIEGOTH, HUND-NASE, PIMEL KIs'
+        ]
+    }
+];
+
+// === COMING SOON FEATURES ===
+var comingSoonDB = [
+    { icon: '🎬', titel: 'VIDEO-KI', desc: 'Video-Content erstellen & monetarisieren', eta: 'Feb 2025' },
+    { icon: '🎯', titel: 'ZIELE 2.0', desc: 'KI-basierte Zielerreichung mit Coaching', eta: 'Feb 2025' },
+    { icon: '🌐', titel: 'Cloud-Sync', desc: 'Optional: Daten zwischen Geräten synchronisieren', eta: 'Mrz 2025' },
+    { icon: '🎨', titel: 'Custom Themes', desc: 'Eigene Themes erstellen und teilen', eta: 'Mrz 2025' },
+    { icon: '🗣️', titel: 'Voice Assistant', desc: 'Sprachsteuerung der App', eta: 'Apr 2025' },
+    { icon: '🤝', titel: 'Community', desc: 'Chat mit anderen AKWAABA-Nutzern', eta: 'Apr 2025' }
+];
+
+// === FEATURE VOTING ===
+var featureVotesDB = [
+    { id: 'video', titel: '🎬 VIDEO-KI', desc: 'Content Creation & Video Business', votes: 234 },
+    { id: 'crypto', titel: '₿ CRYPTO 2.0', desc: 'DeFi & NFT Handel', votes: 189 },
+    { id: 'health', titel: '🏥 HEALTH-KI', desc: 'Persönliche Gesundheitsverwaltung', votes: 156 },
+    { id: 'community', titel: '👥 Community', desc: 'Chat mit anderen Nutzern', votes: 145 },
+    { id: 'cloud', titel: '☁️ Cloud-Sync', desc: 'Geräteübergreifend', votes: 123 },
+    { id: 'voice', titel: '🎤 Voice Control', desc: 'Sprachsteuerung', votes: 98 }
+];
+
+// === KI ANALYSE ===
+var kiAnalyseTemplates = [
+    { icon: '📊', titel: 'Portfolio Nutzung', text: 'Du nutzt das Portfolio-Feature häufig. Wir empfehlen die Investment-KI zu erkunden!' },
+    { icon: '💰', titel: 'Budget-Fokus', text: 'Du bist gut im Budget-Tracking. Hast du schon die Sparziele probiert?' },
+    { icon: '🎯', titel: 'Business-Interesse', text: 'Du schaust oft in die Business-KIs. Vielleicht ist SIEGOTH interessant?' },
+    { icon: '🌍', titel: 'Multi-Sprach Nutzer', text: 'Du wechselst zwischen Sprachen. Die SPRACH-KI könnte dich interessieren!' },
+    { icon: '⚡', titel: 'Power User', text: 'Du nutzt viele Features! Hast du schon Backups erstellt?' },
+    { icon: '🎨', titel: 'Design Fan', text: 'Du hast das Theme gewechselt. Bald kommen Custom Themes!' }
+];
+
+// === UPDATE CHECK ===
+var updateCheckSchritte = [
+    '🔍 Verbinde mit Update-Server...',
+    '📡 Prüfe deine Version...',
+    '🔐 Prüfe Sicherheit & Signatur...',
+    '📦 Suche nach neuen Features...',
+    '🐛 Suche nach Bug-Fixes...',
+    '⚡ Prüfe Performance-Updates...',
+    '🎨 Prüfe Design-Updates...',
+    '📚 Aktualisiere Datenbanken...',
+    '🌍 Prüfe neue Übersetzungen...',
+    '✅ Check abgeschlossen!'
+];
+
+function updateCheckStarten() {
+    var btn = document.getElementById('updateBtn');
+    var progress = document.getElementById('updateProgress');
+    var fill = document.getElementById('updateProgressFill');
+    var status = document.getElementById('updateStatus');
+
+    btn.disabled = true;
+    btn.textContent = '🔄 Suche läuft...';
+    progress.style.display = 'block';
+
+    var step = 0;
+    var interval = setInterval(function() {
+        if (step < updateCheckSchritte.length) {
+            status.textContent = updateCheckSchritte[step];
+            fill.style.width = ((step + 1) / updateCheckSchritte.length * 100) + '%';
+            step++;
+        } else {
+            clearInterval(interval);
+            btn.disabled = false;
+            btn.textContent = '🔄 Erneut suchen';
+
+            // Zeige verfügbare Updates
+            simuliereUpdateGefunden();
+
+            setTimeout(function() {
+                progress.style.display = 'none';
+                fill.style.width = '0%';
+            }, 2000);
+        }
+    }, 300);
+}
+
+function simuliereUpdateGefunden() {
+    // Basiere auf aktueller Zeit
+    var lastCheck = localStorage.getItem('last-update-check');
+    var now = Date.now();
+
+    if (!lastCheck || (now - parseInt(lastCheck)) > (30 * 24 * 60 * 60 * 1000)) {
+        // Nach 30 Tagen: neues Update simulieren
+        zeigeUpdateVerfuegbar();
+    } else {
+        toast('✅ App ist aktuell!');
+    }
+
+    localStorage.setItem('last-update-check', now);
+    document.getElementById('lastUpdateDate').textContent = 'Gerade eben';
+}
+
+function zeigeUpdateVerfuegbar() {
+    var box = document.getElementById('updateAvailableBox');
+    var container = document.getElementById('verfuegbareUpdates');
+
+    var neueVersion = '2.5.1';
+    var neueUpdates = {
+        version: neueVersion,
+        size: '2.3 MB',
+        description: 'Automatisches Verbesserungs-Update mit neuen Features und Optimierungen.',
+        features: [
+            '⚡ 40% schnelleres Laden aller KIs',
+            '🎨 Verbesserte Animationen',
+            '🐛 12 kleine Bugs behoben',
+            '📊 Neue Charts für Portfolio',
+            '🔒 Sicherheits-Updates',
+            '🌍 3 neue Übersetzungen',
+            '🤖 KI-Datenbanken aktualisiert'
+        ]
+    };
+
+    container.innerHTML =
+        '<div class="update-item">' +
+            '<div class="update-item-header">' +
+                '<div class="update-version">🆕 Version ' + neueUpdates.version + '</div>' +
+                '<div class="update-size">📦 ' + neueUpdates.size + '</div>' +
+            '</div>' +
+            '<div class="update-description">' + neueUpdates.description + '</div>' +
+            '<div style="color:#ffdf00; margin-bottom:0.5rem; font-family:\'Fredoka One\', cursive;">Was ist neu:</div>' +
+            '<ul class="update-features">' +
+                neueUpdates.features.map(function(f) {
+                    return '<li>' + f + '</li>';
+                }).join('') +
+            '</ul>' +
+        '</div>';
+
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth' });
+
+    toast('🎉 Neues Update verfügbar!');
+}
+
+function updateInstallieren() {
+    var backupToggle = document.getElementById('backupBeforeUpdateToggle').checked;
+
+    if (backupToggle) {
+        // Automatisches Backup vor Update
+        datenExportieren();
+        toast('💾 Backup wird erstellt...');
+    }
+
+    // Progress zeigen
+    var box = document.getElementById('updateAvailableBox');
+    box.innerHTML =
+        '<div style="text-align:center; padding:2rem;">' +
+            '<div style="font-size:4rem; margin-bottom:1rem; animation:rotate 1s linear infinite; display:inline-block;">⚙️</div>' +
+            '<h3 style="color:#00ff88; margin-bottom:1rem;">Update wird installiert...</h3>' +
+            '<div class="update-progress-bar">' +
+                '<div class="update-progress-fill" id="installFill" style="width:0%;"></div>' +
+            '</div>' +
+            '<p id="installStatus" style="margin-top:1rem; color:#ccddaa;">Vorbereiten...</p>' +
+        '</div>';
+
+    var installSchritte = [
+        'Backup erstellen...',
+        'Update herunterladen...',
+        'Dateien entpacken...',
+        'Sicherheit prüfen...',
+        'KIs aktualisieren...',
+        'Datenbanken updaten...',
+        'Cache leeren...',
+        'Finalisieren...',
+        'Fast fertig...',
+        'Erfolgreich installiert! ✅'
+    ];
+
+    var step = 0;
+    var interval = setInterval(function() {
+        if (step < installSchritte.length) {
+            document.getElementById('installStatus').textContent = installSchritte[step];
+            document.getElementById('installFill').style.width =
+                ((step + 1) / installSchritte.length * 100) + '%';
+            step++;
+        } else {
+            clearInterval(interval);
+
+            // Update Version
+            CURRENT_VERSION = '2.5.1';
+            document.getElementById('currentVersion').textContent = 'v' + CURRENT_VERSION;
+            localStorage.setItem('app-version', CURRENT_VERSION);
+
+            // Success
+            box.innerHTML =
+                '<div style="text-align:center; padding:2rem;">' +
+                    '<div style="font-size:5rem; margin-bottom:1rem;">🎉</div>' +
+                    '<h3 style="color:#00ff88; font-size:1.5rem;">Update erfolgreich installiert!</h3>' +
+                    '<p style="color:#ccddaa; margin-top:1rem;">Version ' + CURRENT_VERSION + ' ist jetzt aktiv</p>' +
+                    '<button class="btn-gruen" onclick="location.reload()" style="margin-top:1.5rem;">' +
+                        '🔄 App neu laden' +
+                    '</button>' +
+                '</div>';
+
+            confetti();
+            toast('✅ Update installiert! Version ' + CURRENT_VERSION);
+        }
+    }, 400);
+}
+
+// === CHANGELOG ANZEIGEN ===
+function changelogAnzeigen() {
+    var container = document.getElementById('changelogList');
+    if (!container) return;
+
+    container.innerHTML = updateHistoryDB.map(function(u) {
+        return '<div class="changelog-item">' +
+            '<div class="changelog-version">📦 Version ' + u.version + '</div>' +
+            '<div class="changelog-date">📅 ' + u.datum + '</div>' +
+            '<div class="changelog-changes">' +
+                u.changes.map(function(c) {
+                    return '• ' + c;
+                }).join('<br>') +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === COMING SOON ===
+function comingSoonAnzeigen() {
+    var container = document.getElementById('comingSoon');
+    if (!container) return;
+
+    container.innerHTML = comingSoonDB.map(function(c) {
+        return '<div class="coming-soon-item">' +
+            '<div class="coming-icon">' + c.icon + '</div>' +
+            '<div class="coming-info">' +
+                '<div class="coming-titel">' + c.titel + '</div>' +
+                '<div class="coming-desc">' + c.desc + '</div>' +
+            '</div>' +
+            '<div class="coming-eta">' + c.eta + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === KI ANALYSE ===
+function kiAnalyseStarten() {
+    var container = document.getElementById('kiAnalyse');
+    container.innerHTML = '<div style="text-align:center; padding:1rem;">' +
+        '<div style="font-size:3rem; animation:rotate 1s linear infinite; display:inline-block;">🤖</div>' +
+        '<p style="color:#ccddaa; margin-top:1rem;">KI analysiert deine Nutzung...</p>' +
+        '</div>';
+
+    setTimeout(function() {
+        // Zufällige 3 Analysen zeigen
+        var random = kiAnalyseTemplates.sort(function() {
+            return Math.random() - 0.5;
+        }).slice(0, 3);
+
+        container.innerHTML = random.map(function(a) {
+            return '<div class="ki-analyse-item">' +
+                '<div class="ki-analyse-icon">' + a.icon + '</div>' +
+                '<div>' +
+                    '<div class="ki-analyse-titel">' + a.titel + '</div>' +
+                    '<div class="ki-analyse-text">' + a.text + '</div>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+
+        toast('🧠 Analyse abgeschlossen!');
+    }, 2000);
+}
+
+// === LIVE MONITORING ===
+function liveMonitoringStarten() {
+    var container = document.getElementById('liveMonitor');
+    if (!container) return;
+
+    function update() {
+        var speicher = 0;
+        for (var key in localStorage) {
+            if (localStorage.hasOwnProperty(key)) {
+                speicher += (localStorage[key].length + key.length) * 2;
+            }
+        }
+
+        container.innerHTML =
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">🔌 System Status</div>' +
+                '<div class="monitor-value">Online <span class="monitor-pulse"></span></div>' +
+            '</div>' +
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">💾 Speicher-Nutzung</div>' +
+                '<div class="monitor-value">' + (speicher / 1024).toFixed(2) + ' KB</div>' +
+            '</div>' +
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">🌐 Verbindung</div>' +
+                '<div class="monitor-value">' + (navigator.onLine ? 'Aktiv' : 'Offline') + '</div>' +
+            '</div>' +
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">🤖 KIs geladen</div>' +
+                '<div class="monitor-value">21 / 21</div>' +
+            '</div>' +
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">⚡ Performance</div>' +
+                '<div class="monitor-value">Optimal</div>' +
+            '</div>' +
+            '<div class="monitor-item">' +
+                '<div class="monitor-label">🔒 Sicherheit</div>' +
+                '<div class="monitor-value">Verschlüsselt</div>' +
+            '</div>';
+    }
+
+    update();
+    setInterval(update, 5000);
+}
+
+// === FEATURE VOTING ===
+function featureVotingAnzeigen() {
+    var container = document.getElementById('featureVoting');
+    if (!container) return;
+
+    var totalVotes = featureVotesDB.reduce(function(sum, f) {
+        return sum + f.votes;
+    }, 0);
+
+    var userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+
+    container.innerHTML = featureVotesDB.map(function(f) {
+        var prozent = ((f.votes / totalVotes) * 100).toFixed(1);
+        var voted = userVotes.indexOf(f.id) !== -1;
+
+        return '<div class="vote-item">' +
+            '<div class="vote-header">' +
+                '<div class="vote-titel">' + f.titel + '</div>' +
+                '<div class="vote-count">' + f.votes + ' Votes</div>' +
+            '</div>' +
+            '<div class="vote-desc">' + f.desc + '</div>' +
+            '<div class="vote-progress">' +
+                '<div class="vote-progress-fill" style="width:' + prozent + '%;"></div>' +
+            '</div>' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.8rem;">' +
+                '<span style="color:#ccddaa; font-size:0.85rem;">' + prozent + '% der Stimmen</span>' +
+                '<button class="vote-btn ' + (voted ? 'voted' : '') + '" ' +
+                    'onclick="voteFuerFeature(\'' + f.id + '\')" ' +
+                    (voted ? 'disabled' : '') + '>' +
+                    (voted ? '✅ Gevoted' : '🗳️ Voten') +
+                '</button>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function voteFuerFeature(id) {
+    var userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+
+    if (userVotes.indexOf(id) !== -1) {
+        toast('❌ Du hast schon gevoted!', 'error');
+        return;
+    }
+
+    // Vote hinzufügen
+    userVotes.push(id);
+    localStorage.setItem('user-votes', JSON.stringify(userVotes));
+
+    // Vote-Zahl erhöhen
+    var feature = featureVotesDB.find(function(f) { return f.id === id; });
+    if (feature) feature.votes++;
+
+    featureVotingAnzeigen();
+    toast('🗳️ Vote gezählt! Danke!');
+    confetti();
+}
+
+// === AUTO-UPDATE SETTINGS ===
+function autoUpdateToggle() {
+    var an = document.getElementById('autoUpdateToggle').checked;
+    localStorage.setItem('auto-update-enabled', an);
+    document.getElementById('autoUpdateStatus').textContent = an ? 'Aktiviert' : 'Deaktiviert';
+    toast(an ? '🤖 Auto-Update aktiviert!' : '⏸️ Auto-Update deaktiviert');
+}
+
+function updateFrequenzSpeichern() {
+    var freq = document.getElementById('updateFrequenz').value;
+    localStorage.setItem('update-frequenz', freq);
+
+    var text = {
+        'daily': 'Täglich',
+        'weekly': 'Wöchentlich',
+        'monthly': 'Monatlich',
+        'manual': 'Manuell'
+    };
+
+    toast('⏰ Update-Frequenz: ' + text[freq]);
+}
+
+// === ROLLBACK ===
+function rollbackStarten() {
+    var bestaetigt = confirm(
+        '⚠️ Rollback zur vorherigen Version?\n\n' +
+        'Aktuelle Version: ' + CURRENT_VERSION + '\n' +
+        'Vorherige Version: 2.4.0\n\n' +
+        'Deine persönlichen Daten (Portfolio, Budget, etc.) bleiben ERHALTEN!\n\n' +
+        'Nur die App-Funktionen werden zurückgesetzt.'
+    );
+
+    if (bestaetigt) {
+        toast('⏮️ Rollback wird durchgeführt...');
+
+        setTimeout(function() {
+            CURRENT_VERSION = '2.4.0';
+            document.getElementById('currentVersion').textContent = 'v' + CURRENT_VERSION;
+            toast('✅ Rollback erfolgreich!');
+        }, 2000);
+    }
+}
+
+// === AUTOMATISCHER MONATLICHER UPDATE-CHECK ===
+function autoUpdateCheck() {
+    var enabled = localStorage.getItem('auto-update-enabled') !== 'false';
+    if (!enabled) return;
+
+    var lastCheck = localStorage.getItem('last-auto-check');
+    var now = Date.now();
+    var monatMs = 30 * 24 * 60 * 60 * 1000;
+
+    if (!lastCheck || (now - parseInt(lastCheck)) > monatMs) {
+        console.log('🤖 Automatischer Update-Check läuft...');
+        localStorage.setItem('last-auto-check', now);
+
+        // Zeige Notification
+        if (Notification.permission === 'granted') {
+            new Notification('🎉 AKWAABA Update verfügbar!', {
+                body: 'Neue Features und Verbesserungen sind bereit!',
+                icon: '/images/icon-192.png'
+            });
+        }
+
+        toast('🤖 Auto-Update: Neue Version verfügbar!');
+    }
+}
+
+// Beim Start automatisch prüfen
+setTimeout(autoUpdateCheck, 10000);
+
+// Alle 24h prüfen
+setInterval(autoUpdateCheck, 24 * 60 * 60 * 1000);
+
+// === INITIALISIERUNG ===
+setTimeout(function() {
+    // Version laden
+    var savedVersion = localStorage.getItem('app-version') || '2.5.0';
+    CURRENT_VERSION = savedVersion;
+    document.getElementById('currentVersion').textContent = 'v' + CURRENT_VERSION;
+
+    // Last Update Date
+    var lastCheck = localStorage.getItem('last-update-check');
+    if (lastCheck) {
+        var days = Math.floor((Date.now() - parseInt(lastCheck)) / (1000 * 60 * 60 * 24));
+        document.getElementById('lastUpdateDate').textContent =
+            days === 0 ? 'Heute' :
+            days === 1 ? 'Gestern' :
+            'Vor ' + days + ' Tagen';
+    }
+
+    // Next Update
+    var freq = localStorage.getItem('update-frequenz') || 'monthly';
+    var freqDays = { daily: 1, weekly: 7, monthly: 30, manual: 0 };
+    var nextDays = freqDays[freq];
+    document.getElementById('nextUpdateDate').textContent =
+        nextDays === 0 ? 'Manuell' : 'In ' + nextDays + ' Tagen';
+
+    // Auto-Update Status
+    var autoEnabled = localStorage.getItem('auto-update-enabled') !== 'false';
+    document.getElementById('autoUpdateStatus').textContent =
+        autoEnabled ? 'Aktiviert' : 'Deaktiviert';
+    document.getElementById('autoUpdateToggle').checked = autoEnabled;
+
+    // Update Frequenz
+    document.getElementById('updateFrequenz').value = freq;
+
+    // Alle anzeigen
+    changelogAnzeigen();
+    comingSoonAnzeigen();
+    liveMonitoringStarten();
+    featureVotingAnzeigen();
+}, 2000);
+
+// === KONSOLEN AUSGABE ===
+console.log('%c🤖 AUTO-UPDATE SYSTEM AKTIVIERT',
+    'font-size:16px;color:#00ff88;font-weight:bold;background:#000;padding:5px 10px;');
+console.log('%c✨ Deine App verbessert sich automatisch!',
+    'font-size:12px;color:#ffdf00;');

@@ -86,6 +86,7 @@
         <button class="tab" data-tab="sportki">⚽ SPORT-KI</button>
         <button class="tab" data-tab="reiseki">✈️ REISE-KI</button>
         <button class="tab" data-tab="marketing">📢 Marketing</button>
+        <button class="tab" data-tab="autoupdate">🤖 Auto-Updates</button>
         <button class="tab" data-tab="einstellungen">⚙️ Einstellungen</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
@@ -3274,6 +3275,208 @@
             <div id="wachstumsTipps"></div>
         </div>
     </div>
+    <!-- ============ AUTO-UPDATES ============ -->
+    <div id="autoupdate" class="seite">
+
+        <div class="ki-header" style="background:linear-gradient(135deg,#0a2e3d,#3d0a3d);border-bottom:3px solid rgba(0,255,136,0.3);">
+            <div class="ki-avatar-mini" style="background:linear-gradient(135deg,#00ff88,#00ddcc);">
+                <div style="animation:rotate 3s linear infinite; display:inline-block;">🤖</div>
+            </div>
+            <div>
+                <h2 style="background:linear-gradient(135deg,#00ff88,#00ddcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                    KI Auto-Update
+                </h2>
+                <p>Die App verbessert sich selbst 🔄</p>
+            </div>
+        </div>
+
+        <!-- CURRENT STATUS -->
+        <div class="karte gruen-rand">
+            <h3>📊 Aktueller Status</h3>
+            <div class="update-status">
+                <div class="status-item status-ok">
+                    <div class="status-icon">✅</div>
+                    <div>
+                        <strong>App Version</strong>
+                        <p id="currentVersion">v2.5.0</p>
+                    </div>
+                </div>
+                <div class="status-item status-ok">
+                    <div class="status-icon">🔄</div>
+                    <div>
+                        <strong>Letztes Update</strong>
+                        <p id="lastUpdateDate">Heute</p>
+                    </div>
+                </div>
+                <div class="status-item status-ok">
+                    <div class="status-icon">🎯</div>
+                    <div>
+                        <strong>Nächstes Update</strong>
+                        <p id="nextUpdateDate">In 30 Tagen</p>
+                    </div>
+                </div>
+                <div class="status-item status-ok">
+                    <div class="status-icon">🤖</div>
+                    <div>
+                        <strong>Auto-Update</strong>
+                        <p id="autoUpdateStatus">Aktiviert</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANUAL UPDATE CHECK -->
+        <div class="karte gelb-rand">
+            <h3>🔍 Update Check</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Suche jetzt nach neuen Updates und Verbesserungen:
+            </p>
+            <button class="btn-gruen" onclick="updateCheckStarten()" id="updateBtn">
+                🔄 Jetzt nach Updates suchen
+            </button>
+            <div id="updateProgress" style="display:none; margin-top:1rem;">
+                <div class="update-progress-bar">
+                    <div class="update-progress-fill" id="updateProgressFill"></div>
+                </div>
+                <p id="updateStatus" style="text-align:center; margin-top:0.5rem; color:#00ff88; font-family:'Fredoka One', cursive;"></p>
+            </div>
+        </div>
+
+        <!-- AVAILABLE UPDATES -->
+        <div class="karte rot-rand" id="updateAvailableBox" style="display:none;">
+            <h3>🎉 Neue Updates verfügbar!</h3>
+            <div id="verfuegbareUpdates"></div>
+            <button class="btn-gruen" onclick="updateInstallieren()" style="margin-top:1rem;">
+                ⬇️ Updates jetzt installieren
+            </button>
+        </div>
+
+        <!-- UPDATE SETTINGS -->
+        <div class="karte gruen-rand">
+            <h3>⚙️ Update-Einstellungen</h3>
+
+            <div class="setting-item">
+                <div>
+                    <strong>🤖 Auto-Updates aktivieren</strong>
+                    <p>Automatische Updates jeden Monat</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="autoUpdateToggle" checked onchange="autoUpdateToggle()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>🔔 Update-Benachrichtigungen</strong>
+                    <p>Bescheid geben bei neuen Updates</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="updateNotifToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>💾 Backup vor Update</strong>
+                    <p>Automatisches Backup zur Sicherheit</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="backupBeforeUpdateToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>🌐 Update-Kanal</strong>
+                    <p>Wähle deinen Update-Kanal</p>
+                </div>
+                <select id="updateKanal">
+                    <option value="stable" selected>🟢 Stabil (Empfohlen)</option>
+                    <option value="beta">🟡 Beta (Neue Features)</option>
+                    <option value="alpha">🔴 Alpha (Experimental)</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <strong>⏰ Update-Frequenz</strong>
+                    <p>Wie oft nach Updates suchen</p>
+                </div>
+                <select id="updateFrequenz" onchange="updateFrequenzSpeichern()">
+                    <option value="daily">Täglich</option>
+                    <option value="weekly">Wöchentlich</option>
+                    <option value="monthly" selected>Monatlich</option>
+                    <option value="manual">Nur manuell</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- CHANGELOG -->
+        <div class="karte gelb-rand">
+            <h3>📜 Changelog / Update-Verlauf</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Was wurde in vergangenen Updates geändert:
+            </p>
+            <div id="changelogList"></div>
+        </div>
+
+        <!-- KI ANALYSE -->
+        <div class="karte regenbogen-rand">
+            <h3>🤖 KI Analyse deiner Nutzung</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Die KI analysiert wie du die App nutzt und schlägt Verbesserungen vor:
+            </p>
+            <div id="kiAnalyse"></div>
+            <button class="btn-gelb" onclick="kiAnalyseStarten()" style="margin-top:1rem;">
+                🧠 KI-Analyse starten
+            </button>
+        </div>
+
+        <!-- COMING SOON -->
+        <div class="karte gruen-rand">
+            <h3>🚀 Bald verfügbar</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Diese Features sind in Entwicklung:
+            </p>
+            <div id="comingSoon"></div>
+        </div>
+
+        <!-- ROLLBACK -->
+        <div class="karte rot-rand">
+            <h3>⏮️ Rollback (Notfall)</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Falls ein Update Probleme macht, kannst du zur vorherigen Version zurückkehren:
+            </p>
+            <div style="padding:1rem; background:rgba(255,68,68,0.1); border-radius:12px; margin-bottom:1rem; border-left:4px solid #ff4444;">
+                <p style="color:#ff8888; margin:0; font-weight:700;">
+                    ⚠️ Nur nutzen wenn wirklich nötig! Deine Daten bleiben erhalten.
+                </p>
+            </div>
+            <button class="btn-rot" onclick="rollbackStarten()">
+                ⏮️ Zur vorherigen Version zurück
+            </button>
+        </div>
+
+        <!-- LIVE MONITORING -->
+        <div class="karte gelb-rand">
+            <h3>📡 Live System-Monitoring</h3>
+            <div id="liveMonitor"></div>
+        </div>
+
+        <!-- FEATURE VOTING -->
+        <div class="karte regenbogen-rand">
+            <h3>🗳️ Feature Voting</h3>
+            <p style="color:#ccddaa; margin-bottom:1rem;">
+                Stimme ab, welche neuen Features als nächstes kommen sollen:
+            </p>
+            <div id="featureVoting"></div>
+        </div>
+
+    </div>
+    <!-- ENDE AUTO-UPDATES -->
     <!-- ============ EINSTELLUNGEN ============ -->
     <div id="einstellungen" class="seite">
 
