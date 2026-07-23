@@ -948,3 +948,178 @@ canvas {
     width: 100%;
     border-radius: 8px;
 }
+/* ============================================
+   PHASE 6 – PORTFOLIO TRACKER
+   ============================================ */
+
+.portfolio-gesamt {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.gesamt-box {
+    border-radius: 14px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.gesamt-box div:first-child {
+    font-size: 0.7rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.gesamt-box div:last-child {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.portfolio-item {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin: 0.8rem;
+    position: relative;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff3333, #ffee00, #00cc44);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 0 rgba(0,0,0,0.3);
+}
+
+.port-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.port-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #ffdf00;
+}
+
+.port-kat {
+    font-size: 0.7rem;
+    color: #00ddcc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.port-loeschen {
+    background: rgba(204,0,0,0.2);
+    border: 1px solid rgba(204,0,0,0.4);
+    color: #ff4444;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.port-loeschen:hover {
+    background: rgba(204,0,0,0.4);
+    transform: scale(1.1);
+}
+
+.port-zahlen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.port-zahl {
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.port-zahl-label {
+    font-size: 0.65rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+}
+
+.port-zahl-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.port-fortschritt {
+    margin-top: 0.8rem;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.port-fortschritt-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.portfolio-legende {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.legende-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.legende-farbe {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.leer-portfolio {
+    text-align: center;
+    padding: 2rem;
+    color: #668844;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.leer-portfolio div:first-child {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}

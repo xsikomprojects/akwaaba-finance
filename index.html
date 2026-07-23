@@ -33,6 +33,7 @@
         <button class="tab aktiv" data-tab="dashboard">📊 Dashboard</button>
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
+        <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
 
@@ -244,7 +245,79 @@
     </div>
 
     <!-- TIPPS -->
-    <div id="tipps" class="seite">
+ <!-- PORTFOLIO -->
+<div id="portfolio" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>💼 Mein Portfolio</h2>
+        <p>Verfolge deine Investments in Echtzeit!</p>
+    </div>
+
+    <!-- PORTFOLIO HINZUFÜGEN -->
+    <div class="karte gruen-rand">
+        <h3>➕ Investment hinzufügen</h3>
+        <label>Name (z.B. Bitcoin, Apple, Gold)</label>
+        <input type="text" id="portName" placeholder="z.B. Bitcoin">
+        <label>Kategorie</label>
+        <select id="portKat">
+            <option value="crypto">₿ Krypto</option>
+            <option value="aktien">📈 Aktien</option>
+            <option value="etf">📊 ETF</option>
+            <option value="rohstoffe">🥇 Rohstoffe</option>
+            <option value="immobilien">🏠 Immobilien</option>
+            <option value="sonstiges">💰 Sonstiges</option>
+        </select>
+        <label>Investierter Betrag (€)</label>
+        <input type="number" id="portBetrag" placeholder="z.B. 1000" min="0">
+        <label>Aktueller Wert (€)</label>
+        <input type="number" id="portWert" placeholder="z.B. 1250" min="0">
+        <button class="btn-gruen" onclick="portfolioHinzufuegen()">
+            ➕ Zum Portfolio hinzufügen
+        </button>
+    </div>
+
+    <!-- PORTFOLIO ÜBERSICHT -->
+    <div class="karte gelb-rand">
+        <h3>📊 Portfolio Übersicht</h3>
+        <div class="portfolio-gesamt">
+            <div class="gesamt-box rot-karte">
+                <div>💰 Investiert</div>
+                <div id="gesamtInvestiert">€0.00</div>
+            </div>
+            <div class="gesamt-box gruen-karte">
+                <div>📈 Aktuell</div>
+                <div id="gesamtWert">€0.00</div>
+            </div>
+            <div class="gesamt-box gelb-karte">
+                <div>🎯 Gewinn/Verlust</div>
+                <div id="gesamtGewinn">€0.00</div>
+            </div>
+            <div class="gesamt-box blau-karte">
+                <div>📊 Rendite</div>
+                <div id="gesamtRendite">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PORTFOLIO LISTE -->
+    <div id="portfolioListe"></div>
+
+    <!-- PORTFOLIO CHART -->
+    <div class="karte gruen-rand" id="portfolioChartBox" style="display:none;">
+        <h3>🥧 Portfolio Verteilung</h3>
+        <canvas id="portfolioChart" height="200"></canvas>
+        <div id="portfolioLegende" class="portfolio-legende"></div>
+    </div>
+
+    <!-- LÖSCHEN -->
+    <div style="margin: 0 0.8rem;">
+        <button class="btn-rot" onclick="portfolioLeeren()">
+            🗑️ Portfolio leeren
+        </button>
+    </div>
+
+</div>  
+ <div id="tipps" class="seite">
         <div class="karte regenbogen-rand">
             <h2>💡 Finanz-Tipps</h2>
             <p>KI-Ratschläge für finanziellen Erfolg 🚀</p>

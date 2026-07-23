@@ -832,3 +832,236 @@ function chartsStarten() {
         }
     }, 5000);
 }
+// ============================================
+// PHASE 6 – PORTFOLIO TRACKER
+// ============================================
+
+var portfolio = JSON.parse(localStorage.getItem('akwaaba-portfolio')) || [];
+
+var portfolioFarben = [
+    '#ff3333', '#ffee00', '#00cc44', '#0088ff',
+    '#cc44ff', '#ff8800', '#00ddcc', '#ff44aa'
+];
+
+var katEmojis = {
+    crypto: '₿',
+    aktien: '📈',
+    etf: '📊',
+    rohstoffe: '🥇',
+    immobilien: '🏠',
+    sonstiges: '💰'
+};
+
+function portfolioHinzufuegen() {
+    var name = document.getElementById('portName').value.trim();
+    var kat = document.getElementById('portKat').value;
+    var betrag = parseFloat(document.getElementById('portBetrag').value) || 0;
+    var wert = parseFloat(document.getElementById('portWert').value) || 0;
+
+    if (!name || betrag <= 0) {
+        alert('Bitte Name und Betrag eingeben!');
+        return;
+    }
+
+    var item = {
+        id: Date.now(),
+        name: name,
+        kat: kat,
+        betrag: betrag,
+        wert: wert || betrag
+    };
+
+    portfolio.push(item);
+    portfolioSpeichern();
+    portfolioAnzeigen();
+
+    // Felder leeren
+    document.getElementById('portName').value = '';
+    document.getElementById('portBetrag').value = '';
+    document.getElementById('portWert').value = '';
+}
+
+function portfolioLoeschen(id) {
+    portfolio = portfolio.filter(function(item) {
+        return item.id !== id;
+    });
+    portfolioSpeichern();
+    portfolioAnzeigen();
+}
+
+function portfolioLeeren() {
+    if (confirm('Portfolio wirklich leeren?')) {
+        portfolio = [];
+        portfolioSpeichern();
+        portfolioAnzeigen();
+    }
+}
+
+function portfolioSpeichern() {
+    localStorage.setItem('akwaaba-portfolio', JSON.stringify(portfolio));
+}
+
+function portfolioAnzeigen() {
+    var liste = document.getElementById('portfolioListe');
+    var chartBox = document.getElementById('portfolioChartBox');
+
+    // Gesamtwerte berechnen
+    var gesamtInvestiert = 0;
+    var gesamtWert = 0;
+    portfolio.forEach(function(item) {
+        gesamtInvestiert += item.betrag;
+        gesamtWert += item.wert;
+    });
+
+    var gesamtGewinn = gesamtWert - gesamtInvestiert;
+    var gesamtRendite = gesamtInvestiert > 0
+        ? ((gesamtGewinn / gesamtInvestiert) * 100)
+        : 0;
+
+    // Gesamtwerte anzeigen
+    document.getElementById('gesamtInvestiert').textContent = euro(gesamtInvestiert);
+    document.getElementById('gesamtWert').textContent = euro(gesamtWert);
+
+    var gewinnEl = document.getElementById('gesamtGewinn');
+    gewinnEl.textContent = (gesamtGewinn >= 0 ? '+' : '') + euro(gesamtGewinn);
+    gewinnEl.className = gesamtGewinn >= 0 ? 'positiv' : 'negativ';
+
+    var renditeEl = document.getElementById('gesamtRendite');
+    renditeEl.textContent = (gesamtRendite >= 0 ? '+' : '') + gesamtRendite.toFixed(1) + '%';
+    renditeEl.className = gesamtRendite >= 0 ? 'positiv' : 'negativ';
+
+    // Liste anzeigen
+    if (portfolio.length === 0) {
+        liste.innerHTML =
+            '<div class="leer-portfolio">' +
+            '<div>💼</div>' +
+            '<div>Noch keine Investments!</div>' +
+            '<div style="font-size:0.8rem; margin-top:0.5rem;">Füge dein erstes Investment hinzu.</div>' +
+            '</div>';
+        if (chartBox) chartBox.style.display = 'none';
+        return;
+    }
+
+    if (chartBox) chartBox.style.display = 'block';
+
+    liste.innerHTML = portfolio.map(function(item, index) {
+        var gewinn = item.wert - item.betrag;
+        var rendite = ((gewinn / item.betrag) * 100);
+        var fortschritt = Math.min((item.wert / item.betrag) * 100, 200);
+        var farbe = portfolioFarben[index % portfolioFarben.length];
+        var emoji = katEmojis[item.kat] || '💰';
+
+        return '<div class="portfolio-item">' +
+            '<div class="port-header">' +
+                '<div>' +
+                    '<div class="port-name">' + emoji + ' ' + item.name + '</div>' +
+                    '<div class="port-kat">' + item.kat.toUpperCase() + '</div>' +
+                '</div>' +
+                '<button class="port-loeschen" onclick="portfolioLoeschen(' + item.id + ')">✕</button>' +
+            '</div>' +
+            '<div class="port-zahlen">' +
+                '<div class="port-zahl">' +
+                    '<div class="port-zahl-label">Investiert</div>' +
+                    '<div class="port-zahl-wert">' + euro(item.betrag) + '</div>' +
+                '</div>' +
+                '<div class="port-zahl">' +
+                    '<div class="port-zahl-label">Aktuell</div>' +
+                    '<div class="port-zahl-wert">' + euro(item.wert) + '</div>' +
+                '</div>' +
+                '<div class="port-zahl">' +
+                    '<div class="port-zahl-label">Rendite</div>' +
+                    '<div class="port-zahl-wert ' + (rendite >= 0 ? 'positiv' : 'negativ') + '">' +
+                        (rendite >= 0 ? '+' : '') + rendite.toFixed(1) + '%' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="port-fortschritt">' +
+                '<div class="port-fortschritt-fill" style="width:' +
+                    Math.min(fortschritt, 100) + '%; background:' + farbe + ';"></div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+
+    // Tortendiagramm
+    portfolioChartZeichnen();
+}
+
+function portfolioChartZeichnen() {
+    var canvas = document.getElementById('portfolioChart');
+    if (!canvas || portfolio.length === 0) return;
+
+    var ctx = canvas.getContext('2d');
+    var groesse = Math.min(canvas.offsetWidth, 300);
+    canvas.width = groesse * 2;
+    canvas.height = groesse * 2;
+
+    var cx = canvas.width / 2;
+    var cy = canvas.height / 2;
+    var radius = Math.min(cx, cy) - 20;
+
+    var gesamt = portfolio.reduce(function(sum, item) {
+        return sum + item.wert;
+    }, 0);
+
+    var startWinkel = -Math.PI / 2;
+    var legende = document.getElementById('portfolioLegende');
+    legende.innerHTML = '';
+
+    portfolio.forEach(function(item, index) {
+        var anteil = item.wert / gesamt;
+        var winkel = anteil * Math.PI * 2;
+        var farbe = portfolioFarben[index % portfolioFarben.length];
+
+        // Torte zeichnen
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, startWinkel, startWinkel + winkel);
+        ctx.closePath();
+        ctx.fillStyle = farbe;
+        ctx.fill();
+        ctx.strokeStyle = '#0a1200';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Beschriftung
+        var mitte = startWinkel + winkel / 2;
+        var textX = cx + Math.cos(mitte) * (radius * 0.65);
+        var textY = cy + Math.sin(mitte) * (radius * 0.65);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 20px Nunito';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        if (anteil > 0.08) {
+            ctx.fillText((anteil * 100).toFixed(0) + '%', textX, textY);
+        }
+
+        startWinkel += winkel;
+
+        // Legende
+        var legEl = document.createElement('div');
+        legEl.className = 'legende-item';
+        legEl.innerHTML =
+            '<div class="legende-farbe" style="background:' + farbe + '"></div>' +
+            item.name + ' (' + (anteil * 100).toFixed(1) + '%)';
+        legende.appendChild(legEl);
+    });
+
+    // Mittelloch (Donut)
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a2e00';
+    ctx.fill();
+
+    // Mitte Text
+    ctx.fillStyle = '#ffdf00';
+    ctx.font = 'bold 28px Fredoka One';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(euro(gesamt).replace('€', ''), cx, cy - 15);
+    ctx.fillStyle = '#668844';
+    ctx.font = '20px Nunito';
+    ctx.fillText('Gesamt', cx, cy + 15);
+}
+
+// Portfolio beim Start laden
+portfolioAnzeigen();
