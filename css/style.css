@@ -2363,3 +2363,453 @@ canvas {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
+/* ============================================
+   SIEGOTH KI ASSISTENT
+   ============================================ */
+
+/* Header */
+.siegoth-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #0a2e0a, #0a0a2e);
+    border-bottom: 3px solid rgba(0,204,68,0.3);
+    margin-bottom: 0;
+}
+
+.siegoth-avatar {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.siegoth-ring {
+    position: absolute;
+    top: 0; left: 0;
+    width: 70px; height: 70px;
+    border: 3px solid #00cc44;
+    border-radius: 50%;
+    animation: drehen 3s linear infinite;
+    border-top-color: #ffdf00;
+    border-right-color: #00cc44;
+    border-bottom-color: #cc0000;
+}
+
+.siegoth-gesicht {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    animation: schweben 2s ease-in-out infinite;
+}
+
+.siegoth-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #00cc44, #ffdf00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.siegoth-info p {
+    font-size: 0.8rem;
+    color: #668844;
+    font-weight: 700;
+}
+
+.siegoth-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #00ff88;
+    font-weight: 800;
+}
+
+.status-dot {
+    width: 8px; height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: textBlinken 1s infinite;
+    box-shadow: 0 0 8px #00ff88;
+}
+
+/* Chat */
+.siegoth-chat {
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.2);
+    scroll-behavior: smooth;
+}
+
+.chat-nachricht {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    animation: reinFaden 0.3s ease;
+}
+
+.chat-nachricht.nutzer {
+    flex-direction: row-reverse;
+}
+
+.chat-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(0,204,68,0.2);
+    border: 2px solid rgba(0,204,68,0.4);
+}
+
+.chat-nachricht.nutzer .chat-avatar {
+    background: rgba(255,223,0,0.2);
+    border-color: rgba(255,223,0,0.4);
+}
+
+.chat-bubble {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 1px solid rgba(0,204,68,0.2);
+    border-radius: 16px 16px 16px 4px;
+    padding: 0.9rem 1.1rem;
+    max-width: 80%;
+}
+
+.chat-nachricht.nutzer .chat-bubble {
+    background: linear-gradient(145deg, #2e2800, #1a1800);
+    border-color: rgba(255,223,0,0.2);
+    border-radius: 16px 16px 4px 16px;
+}
+
+.chat-bubble p {
+    font-size: 0.88rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 0.3rem;
+}
+
+.chat-bubble p:last-child { margin-bottom: 0; }
+
+.chat-bubble strong { color: #ffdf00; }
+
+.chat-bubble a {
+    color: #00ddcc;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.chat-bubble a:hover { text-decoration: underline; }
+
+.chat-link-btn {
+    display: inline-block;
+    background: rgba(0,204,68,0.15);
+    border: 1px solid rgba(0,204,68,0.4);
+    border-radius: 20px;
+    padding: 0.3rem 0.8rem;
+    color: #00ff88;
+    font-size: 0.78rem;
+    font-weight: 800;
+    margin: 0.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.chat-link-btn:hover {
+    background: rgba(0,204,68,0.3);
+    transform: translateY(-1px);
+}
+
+/* Schnell Fragen */
+.schnell-fragen {
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.15);
+}
+
+.schnell-titel {
+    font-size: 0.8rem;
+    color: #668844;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.schnell-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+}
+
+.schnell-btn {
+    padding: 0.6rem 0.5rem;
+    background: rgba(0,204,68,0.08);
+    border: 1px solid rgba(0,204,68,0.2);
+    border-radius: 10px;
+    color: #ccddaa;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.schnell-btn:hover {
+    background: rgba(0,204,68,0.15);
+    border-color: rgba(0,204,68,0.4);
+    color: #00ff88;
+    transform: translateX(3px);
+}
+
+/* Chat Eingabe */
+.chat-eingabe {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.chat-eingabe input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid rgba(0,204,68,0.2);
+    border-radius: 50px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.chat-eingabe input:focus {
+    outline: none;
+    border-color: #00cc44;
+    box-shadow: 0 0 0 3px rgba(0,204,68,0.1);
+}
+
+.chat-senden {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #004400;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-senden:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #004400;
+}
+
+/* Plattform Items */
+.plattform-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.plattform-item:hover {
+    border-color: rgba(255,223,0,0.3);
+    background: rgba(255,223,0,0.04);
+    transform: translateX(5px);
+}
+
+.plattform-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.plattform-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.plattform-verdienst {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #00ff88;
+}
+
+.plattform-desc {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.plattform-tags {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.plattform-tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,204,68,0.1);
+    border: 1px solid rgba(0,204,68,0.3);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: #00ddcc;
+    font-weight: 800;
+}
+
+.plattform-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border-radius: 20px;
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 3px 0 #004400;
+    transition: all 0.2s;
+}
+
+.plattform-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 #004400;
+}
+
+/* Angebote */
+.angebot-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00cc44;
+    animation: reinFaden 0.3s ease;
+}
+
+.angebot-icon { font-size: 1.5rem; }
+.angebot-info { flex: 1; }
+
+.angebot-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #ffdf00;
+}
+
+.angebot-text {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-weight: 600;
+    margin-top: 0.2rem;
+}
+
+.angebot-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #00ff88;
+    white-space: nowrap;
+}
+
+/* Einnahmen Tracker */
+.einnahmen-gesamt {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.einnahmen-box {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+}
+
+.einnahmen-box div:first-child {
+    font-size: 0.65rem;
+    color: #668844;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+}
+
+.einnahmen-box div:last-child {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+}
+
+.einnahmen-hinzufuegen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.siegoth-einnahme-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(0,204,68,0.1);
+    margin-bottom: 0.3rem;
+    font-size: 0.82rem;
+}
+
+.siegoth-einnahme-item span:first-child {
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.siegoth-einnahme-item span:last-child {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 0.8rem 1rem;
+    align-items: center;
+}
+
+.typing-dot {
+    width: 8px; height: 8px;
+    background: #00cc44;
+    border-radius: 50%;
+    animation: typingBounce 1.2s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-8px); }
+}

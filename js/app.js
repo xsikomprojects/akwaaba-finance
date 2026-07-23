@@ -2833,3 +2833,692 @@ function planSpeichern() {
           'Teile diesen Plan mit jemandem der dich accountable hält.\n' +
           'Du schaffst das! 🇹🇬🚀');
 }
+// ============================================
+// SIEGOTH KI ASSISTENT
+// ============================================
+
+var siegothEinnahmen = JSON.parse(
+    localStorage.getItem('siegoth-einnahmen')) || [];
+
+// === PLATTFORMEN DATENBANK ===
+var umfragePlattformenDB = [
+    {
+        icon: '📊', name: 'Toluna',
+        verdienst: '50-200€/Monat',
+        desc: 'Eine der größten Umfrage-Plattformen weltweit. ' +
+              'Punkte sammeln und gegen PayPal oder Gutscheine tauschen.',
+        tags: ['Deutschland', 'Frankreich', 'International', 'PayPal'],
+        url: 'https://de.toluna.com',
+        laender: ['DE', 'FR', 'GB', 'US', 'TG']
+    },
+    {
+        icon: '💬', name: 'GfK Online',
+        verdienst: '20-150€/Monat',
+        desc: 'Offizielles Marktforschungsinstitut. ' +
+              'Seriöse Umfragen mit garantierter Auszahlung.',
+        tags: ['Deutschland', 'Seriös', 'Überweisung', 'Gutscheine'],
+        url: 'https://www.gfk-online.com',
+        laender: ['DE', 'AT', 'CH']
+    },
+    {
+        icon: '🌍', name: 'Swagbucks',
+        verdienst: '30-300€/Monat',
+        desc: 'Nicht nur Umfragen! Videos schauen, Suchen, ' +
+              'Einkäufe – alles bringt Punkte (SBs).',
+        tags: ['Weltweit', 'PayPal', 'Videos', 'Einkäufe'],
+        url: 'https://www.swagbucks.com',
+        laender: ['DE', 'FR', 'US', 'GB', 'TG', 'GH']
+    },
+    {
+        icon: '💰', name: 'YouGov',
+        verdienst: '20-100€/Monat',
+        desc: 'Politische und gesellschaftliche Umfragen. ' +
+              'Deine Meinung beeinflusst echte Entscheidungen!',
+        tags: ['Deutschland', 'Politik', 'PayPal', 'Seriös'],
+        url: 'https://yougov.de',
+        laender: ['DE', 'FR', 'GB', 'US']
+    },
+    {
+        icon: '🎁', name: 'PanelBase',
+        verdienst: '15-80€/Monat',
+        desc: 'Internationale Umfragen mit guter Vergütung. ' +
+              'Auch für Nutzer aus Afrika verfügbar.',
+        tags: ['International', 'PayPal', 'Afrika', 'Einfach'],
+        url: 'https://www.panelbase.net',
+        laender: ['GB', 'US', 'AU', 'TG', 'GH', 'NG']
+    },
+    {
+        icon: '📱', name: 'LifePoints',
+        verdienst: '20-120€/Monat',
+        desc: 'Mobile-freundliche Umfragen. ' +
+              'App verfügbar für iOS und Android.',
+        tags: ['Weltweit', 'Mobile App', 'PayPal', 'Afrika'],
+        url: 'https://www.lifepointspanel.com',
+        laender: ['DE', 'FR', 'TG', 'GH', 'NG', 'SN']
+    },
+    {
+        icon: '🏆', name: 'Valued Opinions',
+        verdienst: '20-100€/Monat',
+        desc: 'Gutscheine für Amazon, IKEA, PayPal. ' +
+              'Für viele afrikanische Länder verfügbar!',
+        tags: ['Amazon Gutschein', 'PayPal', 'Afrika', 'Einfach'],
+        url: 'https://www.valuedopinions.de',
+        laender: ['DE', 'TG', 'GH', 'NG', 'SN', 'CI']
+    },
+    {
+        icon: '⭐', name: 'Survey Junkie',
+        verdienst: '40-200€/Monat',
+        desc: 'US-basiert aber weltweit verfügbar. ' +
+              'Sehr hohe Vergütung pro Umfrage.',
+        tags: ['Weltweit', 'PayPal', 'Hoch vergütet', 'US-Basis'],
+        url: 'https://www.surveyjunkie.com',
+        laender: ['US', 'CA', 'AU', 'International']
+    }
+];
+
+var produktTesterDB = [
+    {
+        icon: '📦', name: 'Amazon Vine',
+        verdienst: 'Gratis Produkte',
+        desc: 'Amazons offizielles Tester-Programm. ' +
+              'Du bekommst kostenlose Produkte und schreibst ehrliche Rezensionen. ' +
+              'Einladung nötig (ab 50+ Rezensionen).',
+        tags: ['Amazon', 'Gratis Produkte', 'Offiziell', 'Einladung'],
+        url: 'https://www.amazon.de',
+        tipp: 'Schreibe erst 50 qualitative Rezensionen dann kommt die Einladung!'
+    },
+    {
+        icon: '🎮', name: 'Influenster',
+        verdienst: 'Gratis Produkte + Geld',
+        desc: 'Bekomme kostenlose Produkte von Top-Marken. ' +
+              'Teile Meinungen auf Social Media und verdiene.',
+        tags: ['Social Media', 'Gratis', 'Beauty', 'Tech'],
+        url: 'https://www.influenster.com',
+        tipp: 'Verbinde deine Social Media Accounts für mehr Produkte!'
+    },
+    {
+        icon: '💄', name: 'Trnd',
+        verdienst: 'Gratis Produkte',
+        desc: 'Werde Produkt-Botschafter für bekannte Marken. ' +
+              'Teste Produkte und teile deine Erfahrungen.',
+        tags: ['Deutschland', 'Marken', 'Community', 'Gratis'],
+        url: 'https://www.trnd.com',
+        tipp: 'Vollständiges Profil ausfüllen erhöht die Chancen!'
+    },
+    {
+        icon: '🏠', name: 'BzzAgent',
+        verdienst: 'Gratis Produkte + Punkte',
+        desc: 'Weltweit aktiv. Produkte testen und in deinem ' +
+              'Netzwerk weiterempfehlen.',
+        tags: ['Weltweit', 'Gratis', 'Haushalt', 'Food'],
+        url: 'https://www.bzzagent.com',
+        tipp: 'Je aktiver du bist desto mehr Kampagnen bekommst du!'
+    },
+    {
+        icon: '📱', name: 'Testzon',
+        verdienst: 'Gratis Amazon Produkte',
+        desc: 'Erhalte Amazon Produkte kostenlos und behalte sie! ' +
+              'Schreibe danach eine ehrliche Rezension auf Amazon.',
+        tags: ['Amazon', 'Gratis', 'Behalten', 'Weltweit'],
+        url: 'https://www.testzon.com',
+        tipp: 'Täglich neue Produkte – schnell sein lohnt sich!'
+    },
+    {
+        icon: '🌿', name: 'Rebaid',
+        verdienst: '100% Cashback',
+        desc: 'Kaufe Produkte auf Amazon und bekomme den ' +
+              'vollen Kaufpreis zurück. Schreibe dann eine Rezension.',
+        tags: ['Amazon', 'Cashback', 'USA', 'International'],
+        url: 'https://www.rebaid.com',
+        tipp: 'Funktioniert weltweit mit einem Amazon Account!'
+    }
+];
+
+var rezensionsJobsDB = [
+    {
+        icon: '⭐', name: 'Trustpilot Partner',
+        verdienst: '10-50€/Rezension',
+        desc: 'Schreibe verifizierte Unternehmensbewertungen. ' +
+              'Viele Firmen suchen echte Kunden für Feedback.',
+        tags: ['Weltweit', 'Firmen', 'Verifiziert', 'PayPal'],
+        url: 'https://www.trustpilot.com',
+        tipp: 'Nur für Unternehmen bei denen du wirklich Kunde warst!'
+    },
+    {
+        icon: '🏨', name: 'TripAdvisor',
+        verdienst: 'Punkte & Gutscheine',
+        desc: 'Reise-Rezensionen für Hotels, Restaurants, ' +
+              'Sehenswürdigkeiten. Punkte einlösbar für Reise-Rabatte.',
+        tags: ['Reisen', 'Weltweit', 'Punkte', 'Gutscheine'],
+        url: 'https://www.tripadvisor.de',
+        tipp: 'Jede besuchte Location rezensieren – sammelt sich schnell!'
+    },
+    {
+        icon: '📚', name: 'Netgalley',
+        verdienst: 'Gratis Bücher',
+        desc: 'Erhalte kostenlose Bücher vor Veröffentlichung ' +
+              'gegen ehrliche Rezension auf Amazon oder Goodreads.',
+        tags: ['Bücher', 'Gratis', 'Digital', 'Weltweit'],
+        url: 'https://www.netgalley.com',
+        tipp: 'Ideal für Bücher-Liebhaber – unlimitierte Bücher!'
+    },
+    {
+        icon: '🎵', name: 'Slice the Pie',
+        verdienst: '0.01-0.20€/Rezension',
+        desc: 'Musik-Demos, Mode und Werbung rezensieren. ' +
+              'Kleine Beträge die sich summieren.',
+        tags: ['Musik', 'Mode', 'Weltweit', 'PayPal'],
+        url: 'https://www.slicethepie.com',
+        tipp: 'Detaillierte Rezensionen = mehr Geld pro Review!'
+    },
+    {
+        icon: '💻', name: 'UserTesting',
+        verdienst: '10-60$/Test',
+        desc: 'Teste Websites und Apps. Spreche laut ' +
+              'deine Gedanken aus. Sehr gut bezahlt!',
+        tags: ['Websites', 'Apps', 'Video', 'Hoch bezahlt'],
+        url: 'https://www.usertesting.com',
+        tipp: '20min Test = 10$. Bis zu 3 Tests pro Tag möglich!'
+    },
+    {
+        icon: '🔍', name: 'Appen',
+        verdienst: '9-15$/Stunde',
+        desc: 'Bewerte Suchergebnisse für Google & Co. ' +
+              'Stabile Arbeit für KI-Training.',
+        tags: ['KI Training', 'Google', 'Stabil', 'Weltweit'],
+        url: 'https://appen.com',
+        tipp: 'Besteht Prüfung – dann stabile Aufträge für Monate!'
+    },
+    {
+        icon: '📝', name: 'Lionbridge AI',
+        verdienst: '8-14$/Stunde',
+        desc: 'KI-Daten annotieren, Texte bewerten. ' +
+              'Für viele afrikanische Länder verfügbar!',
+        tags: ['KI', 'Afrika', 'Stabil', 'Freelance'],
+        url: 'https://www.telusinternational.com',
+        tipp: 'Eines der wenigen Programme die TG/GH akzeptieren!'
+    }
+];
+
+// === SIEGOTH ANTWORTEN ===
+var siegothAntworten = {
+    umfragen: {
+        text: [
+            'Super Frage! 📊 Hier sind die <strong>besten Umfrage-Plattformen</strong> für dich:',
+            '🥇 <strong>Toluna</strong> – Bis zu 200€/Monat, weltweit verfügbar',
+            '🥈 <strong>Swagbucks</strong> – Nicht nur Umfragen, auch Videos & Einkäufe',
+            '🥉 <strong>LifePoints</strong> – Mobile App, auch in Togo & Ghana verfügbar!',
+            '💡 <strong>Tipp:</strong> Melde dich bei <em>allen</em> Plattformen an für maximales Einkommen. Mit 5-6 Plattformen sind 200-500€/Monat realistisch!',
+            '⚠️ <strong>Wichtig:</strong> Immer ehrliche Antworten geben – Bots werden erkannt und gesperrt!'
+        ],
+        links: ['Toluna öffnen→toluna.com', 'Swagbucks→swagbucks.com', 'LifePoints→lifepointspanel.com']
+    },
+    produkte: {
+        text: [
+            '📦 Kostenlose Produkte testen ist eine tolle Möglichkeit! Hier wie es funktioniert:',
+            '1️⃣ <strong>Amazon Vine</strong> – Offiziell von Amazon. Erst 50 Rezensionen schreiben dann Einladung!',
+            '2️⃣ <strong>Testzon</strong> – Täglich neue Produkte. Behalten ohne Rückgabe!',
+            '3️⃣ <strong>Rebaid</strong> – 100% Cashback! Kaufe und bekomme alles zurück.',
+            '4️⃣ <strong>Influenster</strong> – Social Media verbinden und Gratis-Boxen bekommen!',
+            '💡 <strong>Strategie:</strong> Starte mit Testzon und Rebaid – die sind am einfachsten für Anfänger!'
+        ],
+        links: ['Testzon→testzon.com', 'Rebaid→rebaid.com', 'Influenster→influenster.com']
+    },
+    rezensionen: {
+        text: [
+            '⭐ Rezensionen schreiben und verdienen! Hier die besten Wege:',
+            '💰 <strong>UserTesting</strong> – 10-60$ pro Test! Teste Websites per Video.',
+            '🤖 <strong>Appen</strong> – Für KI-Firmen arbeiten. 9-15$/Stunde, auch in Afrika!',
+            '📝 <strong>Lionbridge</strong> – KI-Daten bewerten. Auch Togo & Ghana akzeptiert!',
+            '🎵 <strong>Slice the Pie</strong> – Musik und Mode bewerten. PayPal Auszahlung.',
+            '💡 <strong>Tipp:</strong> UserTesting ist am besten bezahlt aber braucht gutes Englisch. Für Afrika ist Appen/Lionbridge ideal!'
+        ],
+        links: ['UserTesting→usertesting.com', 'Appen→appen.com', 'Lionbridge→telusinternational.com']
+    },
+    cashback: {
+        text: [
+            '💰 Cashback ist Gratis-Geld für Einkäufe die du sowieso machst!',
+            '🥇 <strong>Shoop.de</strong> – Bis 15% Cashback bei 3000+ Shops',
+            '🥈 <strong>Igraal</strong> – International, auch für Afrika!',
+            '🥉 <strong>Payback</strong> – Supermarkt + Online Cashback',
+            '💳 <strong>DKB Kreditkarte</strong> – 0.5% auf alles zurück',
+            '💡 <strong>Strategie:</strong> Kaufe NIE ohne Cashback-Portal! 200-800€/Jahr sparen ist realistisch.',
+            '🌍 <strong>Für Togo/Afrika:</strong> Igraal und internationale Cashback-Apps nutzen!'
+        ],
+        links: ['Shoop→shoop.de', 'Igraal→igraal.com', 'Payback→payback.de']
+    },
+    boni: {
+        text: [
+            '🎁 Registrierungs-Boni sind das schnellste Geld! Aktuelle Angebote:',
+            '🏦 <strong>Neobanken</strong> – Trade Republic, Scalable geben 10-50€ Bonus',
+            '💳 <strong>Kreditkarten</strong> – Viele geben 50-200€ Willkommensbonus',
+            '📊 <strong>Broker</strong> – Kostenlose Aktien bei Anmeldung (Revolut, etc.)',
+            '🛍️ <strong>Shopping Apps</strong> – Erste Bestellung gratis bei vielen Apps',
+            '💡 <strong>Wichtig:</strong> Immer AGB lesen und Mindestanforderungen beachten!',
+            '⚠️ Manche Boni brauchen eine Einzahlung oder Nutzung – prüfe die Bedingungen!'
+        ],
+        links: ['Trade Republic→traderepublic.com', 'Revolut→revolut.com']
+    },
+    nebenjobs: {
+        text: [
+            '💼 Online Nebenjobs die wirklich zahlen:',
+            '🎨 <strong>Fiverr/Upwork</strong> – Freelancing: Design, Text, Code, alles!',
+            '🎓 <strong>Preply/iTalki</strong> – Sprachen unterrichten (Französisch gesucht!)',
+            '📦 <strong>Amazon FBA</strong> – Produkte verkaufen ohne Lager',
+            '📝 <strong>Textbroker</strong> – Artikel schreiben, 1-5 Cent/Wort',
+            '🌍 <strong>Für Togo:</strong> Französische Sprache ist ein Vorteil! Viele Firmen suchen FR-Muttersprachler.',
+            '💡 <strong>Schnellstart:</strong> Fiverr Profil heute erstellen und ersten Auftrag morgen!'
+        ],
+        links: ['Fiverr→fiverr.com', 'Preply→preply.com', 'Textbroker→textbroker.de']
+    },
+    togo: {
+        text: [
+            '🇹🇬 Spezielle Chancen für Togo und Westafrika:',
+            '📱 <strong>Mobile Money</strong> – Tmoney, Flooz für Zahlungen nutzen',
+            '🌍 <strong>Afrikanische Plattformen</strong> – Jumia, Afrikrea für Verkäufe',
+            '💬 <strong>Französisch Vorteil</strong> – Übersetzen auf Upwork/Fiverr sehr gefragt!',
+            '🤖 <strong>Appen/Lionbridge</strong> – Akzeptieren Togo! KI-Daten auf Französisch bewerten.',
+            '📊 <strong>LifePoints/Valued Opinions</strong> – Auch in Togo verfügbar!',
+            '💡 <strong>Beste Strategie:</strong> Kombiniere Umfragen + Freelancing auf Französisch + KI-Daten für 300-800€/Monat!'
+        ],
+        links: ['Appen→appen.com', 'Afrikrea→afrikrea.com', 'Jumia→jumia.com']
+    },
+    passiv: {
+        text: [
+            '😴 Passives Einkommen – Geld verdienen im Schlaf:',
+            '📊 <strong>ETF Sparplan</strong> – Ab 25€/Monat, 7-10% p.a. historisch',
+            '💻 <strong>Digital Produkte</strong> – Einmal erstellen, immer verkaufen',
+            '📸 <strong>Shutterstock</strong> – Fotos hochladen und Lizenzgebühren kassieren',
+            '🎵 <strong>Musik/Beats</strong> – Auf BeatStars oder DistroKid hochladen',
+            '📚 <strong>E-Book schreiben</strong> – Auf Amazon KDP veröffentlichen',
+            '💡 <strong>Realistisch:</strong> Mit konsequentem Aufbau 200-500€/Monat passiv nach 6-12 Monaten!'
+        ],
+        links: ['Shutterstock→shutterstock.com', 'Amazon KDP→kdp.amazon.com', 'BeatStars→beatstars.com']
+    }
+};
+
+// === CHAT FUNKTIONEN ===
+function chatNachrichtHinzufuegen(text, typ) {
+    var chat = document.getElementById('siegothChat');
+    if (!chat) return;
+
+    var div = document.createElement('div');
+    div.className = 'chat-nachricht ' + typ;
+
+    var avatar = typ === 'bot' ? '🤖' : '👤';
+
+    div.innerHTML =
+        '<div class="chat-avatar">' + avatar + '</div>' +
+        '<div class="chat-bubble"><p>' + text + '</p></div>';
+
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function typingAnzeigen() {
+    var chat = document.getElementById('siegothChat');
+    if (!chat) return;
+
+    var div = document.createElement('div');
+    div.className = 'chat-nachricht bot';
+    div.id = 'typingIndicator';
+    div.innerHTML =
+        '<div class="chat-avatar">🤖</div>' +
+        '<div class="chat-bubble">' +
+            '<div class="typing-indicator">' +
+                '<div class="typing-dot"></div>' +
+                '<div class="typing-dot"></div>' +
+                '<div class="typing-dot"></div>' +
+            '</div>' +
+        '</div>';
+
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function typingEntfernen() {
+    var indicator = document.getElementById('typingIndicator');
+    if (indicator) indicator.remove();
+}
+
+function siegothAntworten_func(schluessel) {
+    var antwort = siegothAntworten[schluessel];
+    if (!antwort) return;
+
+    typingAnzeigen();
+
+    setTimeout(function() {
+        typingEntfernen();
+
+        var chat = document.getElementById('siegothChat');
+        var div = document.createElement('div');
+        div.className = 'chat-nachricht bot';
+
+        var linksHTML = '';
+        if (antwort.links) {
+            linksHTML = '<div style="margin-top:0.8rem;">';
+            antwort.links.forEach(function(link) {
+                var teile = link.split('→');
+                var name = teile[0];
+                var url = teile[1] ? 'https://' + teile[1] : '#';
+                linksHTML +=
+                    '<a href="' + url + '" target="_blank" ' +
+                    'class="chat-link-btn">🔗 ' + name + '</a>';
+            });
+            linksHTML += '</div>';
+        }
+
+        div.innerHTML =
+            '<div class="chat-avatar">🤖</div>' +
+            '<div class="chat-bubble">' +
+                antwort.text.map(function(t) {
+                    return '<p>' + t + '</p>';
+                }).join('') +
+                linksHTML +
+            '</div>';
+
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+    }, 1500);
+}
+
+function siegothFrage(thema) {
+    var fragenTexte = {
+        umfragen: 'Welche Umfrage-Plattformen sind heute die besten?',
+        produkte: 'Wie bekomme ich kostenlose Produkte zum Testen?',
+        rezensionen: 'Wo kann ich Rezensionen schreiben und verdienen?',
+        cashback: 'Welche Cashback-Angebote gibt es heute?',
+        boni: 'Welche Registrierungs-Boni gibt es aktuell?',
+        nebenjobs: 'Welche Online-Nebenjobs empfiehlst du?',
+        togo: 'Welche Chancen gibt es speziell für Togo?',
+        passiv: 'Wie baue ich passives Einkommen auf?'
+    };
+
+    var frageText = fragenTexte[thema] || thema;
+    chatNachrichtHinzufuegen(frageText, 'nutzer');
+    siegothAntworten_func(thema);
+}
+
+function chatSenden() {
+    var input = document.getElementById('chatInput');
+    if (!input || !input.value.trim()) return;
+
+    var text = input.value.trim();
+    input.value = '';
+
+    chatNachrichtHinzufuegen(text, 'nutzer');
+
+    // Schlüsselwort-Erkennung
+    var lower = text.toLowerCase();
+    var schluessel = null;
+
+    if (lower.includes('umfrag') || lower.includes('survey')) {
+        schluessel = 'umfragen';
+    } else if (lower.includes('produkt') || lower.includes('gratis') ||
+               lower.includes('testen') || lower.includes('kostenlos')) {
+        schluessel = 'produkte';
+    } else if (lower.includes('rezension') || lower.includes('bewertung') ||
+               lower.includes('review')) {
+        schluessel = 'rezensionen';
+    } else if (lower.includes('cashback') || lower.includes('zurück')) {
+        schluessel = 'cashback';
+    } else if (lower.includes('bonus') || lower.includes('boni') ||
+               lower.includes('anmeld')) {
+        schluessel = 'boni';
+    } else if (lower.includes('job') || lower.includes('arbeit') ||
+               lower.includes('verdien')) {
+        schluessel = 'nebenjobs';
+    } else if (lower.includes('togo') || lower.includes('afrika') ||
+               lower.includes('ghana')) {
+        schluessel = 'togo';
+    } else if (lower.includes('passiv') || lower.includes('schlaf') ||
+               lower.includes('rente')) {
+        schluessel = 'passiv';
+    }
+
+    if (schluessel) {
+        siegothAntworten_func(schluessel);
+    } else {
+        // Standard Antwort
+        typingAnzeigen();
+        setTimeout(function() {
+            typingEntfernen();
+            chatNachrichtHinzufuegen(
+                'Interessante Frage! 🤔 Ich verstehe: <strong>"' + text + '"</strong>. ' +
+                'Probiere eine der Schnellfragen unten oder frage mich konkret nach: ' +
+                '<strong>Umfragen, Produkte testen, Rezensionen, Cashback, Boni, Jobs, Togo oder Passives Einkommen!</strong>',
+                'bot'
+            );
+        }, 1500);
+    }
+}
+
+function chatEnter(event) {
+    if (event.key === 'Enter') chatSenden();
+}
+
+// === TAGES ANGEBOTE ===
+var tagesAngebotsDB = [
+    { icon: '📊', titel: 'Toluna – Neue Umfragen',
+      text: '5 neue Umfragen verfügbar. Ø 2€ pro Umfrage.',
+      wert: '+10€', farbe: '#00cc44' },
+    { icon: '📦', titel: 'Testzon – iPhone Zubehör',
+      text: 'Gratis Produkt verfügbar. Nur noch 12 Plätze!',
+      wert: 'GRATIS', farbe: '#ffdf00' },
+    { icon: '💰', titel: 'Shoop – Extra Cashback',
+      text: 'Heute +5% Extra Cashback bei MediaMarkt.',
+      wert: '+5%', farbe: '#ff8800' },
+    { icon: '🎁', titel: 'Trade Republic – Bonus',
+      text: 'Neue Kunden bekommen 15 Freiaktien!',
+      wert: '15 Aktien', farbe: '#0088ff' },
+    { icon: '💻', titel: 'UserTesting – Tests frei',
+      text: '3 Website-Tests verfügbar. Je 10$.',
+      wert: '+30$', farbe: '#cc44ff' },
+    { icon: '⭐', titel: 'Swagbucks – Bonus Tag',
+      text: 'Heute 2x Punkte auf alle Umfragen!',
+      wert: '2x Punkte', farbe: '#ff3333' },
+    { icon: '🌍', titel: 'Appen – Neues Projekt TG',
+      text: 'Französisches KI-Projekt für Togo verfügbar!',
+      wert: '12$/h', farbe: '#00ddcc' },
+    { icon: '📱', titel: 'LifePoints – Bonus',
+      text: 'Anmeldeprämie: 10 Punkte heute gratis!',
+      wert: '+10 Pts', farbe: '#ff44aa' }
+];
+
+function angeboteAktualisieren() {
+    var container = document.getElementById('tagesAngebote');
+    if (!container) return;
+
+    var heute = tagesAngebotsDB
+        .sort(function() { return Math.random() - 0.5; })
+        .slice(0, 4);
+
+    container.innerHTML = heute.map(function(a) {
+        return '<div class="angebot-item">' +
+            '<div class="angebot-icon">' + a.icon + '</div>' +
+            '<div class="angebot-info">' +
+                '<div class="angebot-titel">' + a.titel + '</div>' +
+                '<div class="angebot-text">' + a.text + '</div>' +
+            '</div>' +
+            '<div class="angebot-wert" style="color:' + a.farbe + ';">' +
+                a.wert +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// === PLATTFORMEN ANZEIGEN ===
+function umfragePlattformenAnzeigen() {
+    var container = document.getElementById('umfragePlattformen');
+    if (!container) return;
+
+    container.innerHTML = umfragePlattformenDB.map(function(p) {
+        return '<div class="plattform-item">' +
+            '<div class="plattform-header">' +
+                '<div class="plattform-name">' +
+                    p.icon + ' ' + p.name +
+                '</div>' +
+                '<div class="plattform-verdienst">' +
+                    p.verdienst +
+                '</div>' +
+            '</div>' +
+            '<div class="plattform-desc">' + p.desc + '</div>' +
+            '<div class="plattform-tags">' +
+                p.tags.map(function(t) {
+                    return '<span class="plattform-tag">' + t + '</span>';
+                }).join('') +
+            '</div>' +
+            '<a href="' + p.url + '" target="_blank" ' +
+               'class="plattform-link">🔗 Jetzt anmelden</a>' +
+        '</div>';
+    }).join('');
+}
+
+function produktTesterAnzeigen() {
+    var container = document.getElementById('produktTester');
+    if (!container) return;
+
+    container.innerHTML = produktTesterDB.map(function(p) {
+        return '<div class="plattform-item">' +
+            '<div class="plattform-header">' +
+                '<div class="plattform-name">' +
+                    p.icon + ' ' + p.name +
+                '</div>' +
+                '<div class="plattform-verdienst">' +
+                    p.verdienst +
+                '</div>' +
+            '</div>' +
+            '<div class="plattform-desc">' + p.desc + '</div>' +
+            '<div class="plattform-tags">' +
+                p.tags.map(function(t) {
+                    return '<span class="plattform-tag">' + t + '</span>';
+                }).join('') +
+            '</div>' +
+            '<div style="font-size:0.78rem; color:#ffdf00; ' +
+                'margin-top:0.5rem; font-weight:800;">💡 ' +
+                p.tipp + '</div>' +
+            '<a href="' + p.url + '" target="_blank" ' +
+               'class="plattform-link">🔗 Jetzt bewerben</a>' +
+        '</div>';
+    }).join('');
+}
+
+function rezensionsJobsAnzeigen() {
+    var container = document.getElementById('rezensionsJobs');
+    if (!container) return;
+
+    container.innerHTML = rezensionsJobsDB.map(function(p) {
+        return '<div class="plattform-item">' +
+            '<div class="plattform-header">' +
+                '<div class="plattform-name">' +
+                    p.icon + ' ' + p.name +
+                '</div>' +
+                '<div class="plattform-verdienst">' +
+                    p.verdienst +
+                '</div>' +
+            '</div>' +
+            '<div class="plattform-desc">' + p.desc + '</div>' +
+            '<div class="plattform-tags">' +
+                p.tags.map(function(t) {
+                    return '<span class="plattform-tag">' + t + '</span>';
+                }).join('') +
+            '</div>' +
+            '<div style="font-size:0.78rem; color:#ffdf00; ' +
+                'margin-top:0.5rem; font-weight:800;">💡 ' +
+                p.tipp + '</div>' +
+            '<a href="' + p.url + '" target="_blank" ' +
+               'class="plattform-link">🔗 Jetzt starten</a>' +
+        '</div>';
+    }).join('');
+}
+
+// === EINNAHMEN TRACKER ===
+function siegothEinnahmeHinzufuegen() {
+    var betrag = parseFloat(
+        document.getElementById('siegothBetrag').value) || 0;
+    var quelle = document.getElementById('siegothQuelle').value.trim();
+
+    if (betrag <= 0 || !quelle) {
+        alert('Bitte Betrag und Quelle eingeben!');
+        return;
+    }
+
+    siegothEinnahmen.push({
+        betrag: betrag,
+        quelle: quelle,
+        datum: new Date().toLocaleDateString('de-DE'),
+        zeit: Date.now()
+    });
+
+    localStorage.setItem('siegoth-einnahmen',
+        JSON.stringify(siegothEinnahmen));
+
+    document.getElementById('siegothBetrag').value = '';
+    document.getElementById('siegothQuelle').value = '';
+
+    siegothEinnahmenAnzeigen();
+
+    chatNachrichtHinzufuegen(
+        '🎉 Super! ' + euro(betrag) + ' von <strong>' + quelle +
+        '</strong> erfasst! Weiter so! 💪🇹🇬',
+        'bot'
+    );
+}
+
+function siegothEinnahmenAnzeigen() {
+    var jetzt = Date.now();
+    var wocheMs = 7 * 24 * 60 * 60 * 1000;
+    var monatMs = 30 * 24 * 60 * 60 * 1000;
+
+    var woche = siegothEinnahmen
+        .filter(function(e) { return jetzt - e.zeit < wocheMs; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var monat = siegothEinnahmen
+        .filter(function(e) { return jetzt - e.zeit < monatMs; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var gesamt = siegothEinnahmen
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var wEl = document.getElementById('wocheEinnahmen');
+    var mEl = document.getElementById('monatEinnahmen');
+    var gEl = document.getElementById('gesamtSiegoth');
+
+    if (wEl) wEl.textContent = euro(woche);
+    if (mEl) mEl.textContent = euro(monat);
+    if (gEl) gEl.textContent = euro(gesamt);
+
+    var verlauf = document.getElementById('siegothVerlauf');
+    if (!verlauf) return;
+
+    if (siegothEinnahmen.length === 0) {
+        verlauf.innerHTML =
+            '<p style="color:#668844; font-size:0.85rem; text-align:center;">' +
+            'Noch keine Einnahmen erfasst.</p>';
+        return;
+    }
+
+    verlauf.innerHTML = siegothEinnahmen
+        .slice().reverse().slice(0, 10)
+        .map(function(e) {
+            return '<div class="siegoth-einnahme-item">' +
+                '<span>📅 ' + e.datum + ' · ' + e.quelle + '</span>' +
+                '<span>+' + euro(e.betrag) + '</span>' +
+            '</div>';
+        }).join('');
+}
+
+// === STARTEN ===
+function siegothStarten() {
+    angeboteAktualisieren();
+    umfragePlattformenAnzeigen();
+    produktTesterAnzeigen();
+    rezensionsJobsAnzeigen();
+    siegothEinnahmenAnzeigen();
+
+    // Alle 30 Minuten neue Angebote
+    setInterval(angeboteAktualisieren, 1800000);
+}
+
+siegothStarten();

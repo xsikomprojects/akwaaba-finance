@@ -81,6 +81,7 @@
         <button class="tab" data-tab="budget">💸 Budget</button>
         <button class="tab" data-tab="benachrichtigungen">🔔 Alerts</button>
         <button class="tab" data-tab="chancen">🎯 Chancen</button>
+        <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -298,6 +299,155 @@
 <!-- BUDGET -->
 <!-- BENACHRICHTIGUNGEN -->
 <!-- CHANCEN FINDER -->
+<!-- SIEGOTH KI ASSISTENT -->
+<div id="siegoth" class="seite">
+
+    <!-- HEADER -->
+    <div class="siegoth-header">
+        <div class="siegoth-avatar">
+            <div class="siegoth-ring"></div>
+            <div class="siegoth-gesicht">🤖</div>
+        </div>
+        <div class="siegoth-info">
+            <h2>SIEGOTH</h2>
+            <p>Quantum AI Financial Assistant</p>
+            <div class="siegoth-status">
+                <div class="status-dot"></div>
+                <span>Online & Aktiv</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT -->
+    <div class="siegoth-chat" id="siegothChat">
+        <div class="chat-nachricht bot">
+            <div class="chat-avatar">🤖</div>
+            <div class="chat-bubble">
+                <p>Hallo! Ich bin <strong>SIEGOTH</strong> 👋</p>
+                <p>Dein persönlicher KI-Finanzassistent!</p>
+                <p>Ich helfe dir dabei legale Wege zu finden
+                um Geld zu verdienen. Was möchtest du heute
+                wissen? 🚀</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHNELL FRAGEN -->
+    <div class="schnell-fragen">
+        <div class="schnell-titel">💬 Schnellfragen:</div>
+        <div class="schnell-grid">
+            <button class="schnell-btn"
+                onclick="siegothFrage('umfragen')">
+                📊 Beste Umfragen heute
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('produkte')">
+                📦 Gratis Produkte testen
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('rezensionen')">
+                ⭐ Rezensionen schreiben
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('cashback')">
+                💰 Cashback Angebote
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('boni')">
+                🎁 Registrierungs-Boni
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('nebenjobs')">
+                💼 Online Nebenjobs
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('togo')">
+                🇹🇬 Chancen in Togo
+            </button>
+            <button class="schnell-btn"
+                onclick="siegothFrage('passiv')">
+                😴 Passives Einkommen
+            </button>
+        </div>
+    </div>
+
+    <!-- EINGABE -->
+    <div class="chat-eingabe">
+        <input type="text" id="chatInput"
+            placeholder="Frage SIEGOTH etwas..."
+            onkeypress="chatEnter(event)">
+        <button class="chat-senden" onclick="chatSenden()">
+            ➤
+        </button>
+    </div>
+
+    <!-- TÄGLICH BESTE ANGEBOTE -->
+    <div class="karte gruen-rand" style="margin-top:1rem;">
+        <h3>🔥 Heute beste Angebote</h3>
+        <div id="tagesAngebote"></div>
+        <button class="btn-gruen" onclick="angeboteAktualisieren()">
+            🔄 Aktualisieren
+        </button>
+    </div>
+
+    <!-- UMFRAGE PLATTFORMEN -->
+    <div class="karte gelb-rand">
+        <h3>📊 Umfrage Plattformen</h3>
+        <p style="font-size:0.82rem; margin-bottom:1rem;">
+            Klicke auf eine Plattform um Details zu sehen:
+        </p>
+        <div id="umfragePlattformen"></div>
+    </div>
+
+    <!-- PRODUKT TESTER -->
+    <div class="karte rot-rand">
+        <h3>📦 Produkt Tester Programme</h3>
+        <p style="font-size:0.82rem; margin-bottom:1rem;">
+            Erhalte kostenlose Produkte gegen ehrliche Rezension:
+        </p>
+        <div id="produktTester"></div>
+    </div>
+
+    <!-- REZENSIONS JOBS -->
+    <div class="karte regenbogen-rand">
+        <h3>⭐ Rezensions Plattformen</h3>
+        <p style="font-size:0.82rem; margin-bottom:1rem;">
+            Schreibe Rezensionen und verdiene Geld oder Produkte:
+        </p>
+        <div id="rezensionsJobs"></div>
+    </div>
+
+    <!-- EINNAHMEN TRACKER -->
+    <div class="karte gruen-rand">
+        <h3>💰 Meine SIEGOTH Einnahmen</h3>
+        <div class="einnahmen-gesamt">
+            <div class="einnahmen-box">
+                <div>Diese Woche</div>
+                <div id="wocheEinnahmen" class="positiv">€0.00</div>
+            </div>
+            <div class="einnahmen-box">
+                <div>Dieser Monat</div>
+                <div id="monatEinnahmen" class="positiv">€0.00</div>
+            </div>
+            <div class="einnahmen-box">
+                <div>Gesamt</div>
+                <div id="gesamtSiegoth" class="gold">€0.00</div>
+            </div>
+        </div>
+        <div class="einnahmen-hinzufuegen">
+            <input type="number" id="siegothBetrag"
+                placeholder="Betrag (€)" min="0" step="0.01">
+            <input type="text" id="siegothQuelle"
+                placeholder="Quelle (z.B. Toluna)">
+            <button class="btn-gruen"
+                onclick="siegothEinnahmeHinzufuegen()">
+                ➕ Einnahme erfassen
+            </button>
+        </div>
+        <div id="siegothVerlauf"></div>
+    </div>
+
+</div>
 <div id="chancen" class="seite">
 
     <div class="karte regenbogen-rand">
