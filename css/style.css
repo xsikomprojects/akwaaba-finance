@@ -1123,3 +1123,301 @@ canvas {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
+/* ============================================
+   PHASE 7 – CRYPTO LIVE
+   ============================================ */
+
+/* Markt Grid */
+.markt-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.markt-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 0.8rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.markt-label {
+    font-size: 0.65rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.markt-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #ffdf00;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Fear & Greed */
+.fear-meter {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(90deg,
+        #cc0000 0%,
+        #ff8800 25%,
+        #ffdf00 50%,
+        #88cc00 75%,
+        #00cc44 100%
+    );
+    border-radius: 10px;
+    margin: 1rem 0 0.5rem;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.fear-fill {
+    position: absolute;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 0 10px white;
+    transition: left 1s ease;
+}
+
+.fear-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #ccddaa;
+    margin-bottom: 0.5rem;
+}
+
+.fear-zahl {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    color: #ffdf00 !important;
+}
+
+.fear-beschreibung {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+/* Crypto Suche */
+.crypto-suche {
+    margin-bottom: 1rem;
+}
+
+.crypto-suche input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.crypto-suche input:focus {
+    outline: none;
+    border-color: #ffdf00;
+}
+
+/* Crypto Item */
+.crypto-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.crypto-item:hover {
+    background: rgba(255,223,0,0.08);
+    border-color: rgba(255,223,0,0.3);
+    transform: translateX(5px);
+}
+
+.crypto-rang {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    color: #668844;
+    width: 25px;
+    text-align: center;
+}
+
+.crypto-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.crypto-info { flex: 1; }
+
+.crypto-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.crypto-symbol {
+    font-size: 0.7rem;
+    color: #668844;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.crypto-rechts { text-align: right; }
+
+.crypto-preis {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.crypto-change {
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    margin-top: 0.2rem;
+    display: inline-block;
+}
+
+.change-positiv {
+    background: rgba(0,204,68,0.15);
+    color: #00ff88;
+}
+
+.change-negativ {
+    background: rgba(204,0,0,0.15);
+    color: #ff4444;
+}
+
+.crypto-stern {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 0.3rem;
+}
+
+.crypto-stern:hover { transform: scale(1.3); }
+
+/* Quantum Signale */
+.signal-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.signal-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.signal-info { flex: 1; }
+
+.signal-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+}
+
+.signal-text {
+    font-size: 0.75rem;
+    color: #ccddaa;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.signal-badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.badge-kauf {
+    background: rgba(0,204,68,0.2);
+    color: #00ff88;
+    border: 1px solid rgba(0,204,68,0.4);
+}
+
+.badge-verkauf {
+    background: rgba(204,0,0,0.2);
+    color: #ff4444;
+    border: 1px solid rgba(204,0,0,0.4);
+}
+
+.badge-halten {
+    background: rgba(255,223,0,0.2);
+    color: #ffdf00;
+    border: 1px solid rgba(255,223,0,0.4);
+}
+
+/* Watchlist */
+.watchlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.watchlist-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffdf00;
+    font-size: 0.95rem;
+}
+
+.watchlist-preis {
+    font-family: 'Fredoka One', cursive;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.watchlist-entfernen {
+    background: rgba(204,0,0,0.2);
+    border: none;
+    color: #ff4444;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}

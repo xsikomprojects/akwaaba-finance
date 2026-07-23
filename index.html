@@ -33,6 +33,7 @@
         <button class="tab aktiv" data-tab="dashboard">📊 Dashboard</button>
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
+        <button class="tab" data-tab="crypto">₿ Crypto</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -246,6 +247,93 @@
 
     <!-- TIPPS -->
  <!-- PORTFOLIO -->
+<!-- CRYPTO -->
+<div id="crypto" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>₿ Crypto Live Preise</h2>
+        <p>Echtzeit Quantum AI Preisüberwachung 🚀</p>
+    </div>
+
+    <!-- MARKT ÜBERSICHT -->
+    <div class="karte gruen-rand">
+        <h3>🌍 Markt Übersicht</h3>
+        <div class="markt-grid">
+            <div class="markt-box">
+                <div class="markt-label">Marktkapitalisierung</div>
+                <div class="markt-wert" id="marktKap">$2.41T</div>
+            </div>
+            <div class="markt-box">
+                <div class="markt-label">24h Volumen</div>
+                <div class="markt-wert" id="marktVol">$98.3B</div>
+            </div>
+            <div class="markt-box">
+                <div class="markt-label">BTC Dominanz</div>
+                <div class="markt-wert" id="btcDom">52.3%</div>
+            </div>
+            <div class="markt-box">
+                <div class="markt-label">Aktive Coins</div>
+                <div class="markt-wert">22,847</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEAR & GREED -->
+    <div class="karte gelb-rand">
+        <h3>😱 Fear & Greed Index</h3>
+        <div class="fear-meter">
+            <div class="fear-fill" id="fearFill"></div>
+        </div>
+        <div class="fear-labels">
+            <span>😱 Angst</span>
+            <span id="fearWert" class="fear-zahl">65</span>
+            <span>🤑 Gier</span>
+        </div>
+        <div id="fearText" class="fear-beschreibung"></div>
+    </div>
+
+    <!-- CRYPTO LISTE -->
+    <div class="karte rot-rand">
+        <h3>🔥 Top Kryptowährungen</h3>
+        <div class="crypto-suche">
+            <input type="text" id="cryptoSuche"
+                placeholder="🔍 Suche (z.B. Bitcoin)..."
+                oninput="cryptoFiltern()">
+        </div>
+        <div id="cryptoListe"></div>
+    </div>
+
+    <!-- CRYPTO DETAIL -->
+    <div class="karte gruen-rand" id="cryptoDetail" style="display:none;">
+        <h3 id="detailTitel">₿ Bitcoin Detail</h3>
+        <canvas id="cryptoChart"></canvas>
+        <div id="detailInfos"></div>
+    </div>
+
+    <!-- WATCHLIST -->
+    <div class="karte gelb-rand">
+        <h3>⭐ Meine Watchlist</h3>
+        <div id="watchlistContainer">
+            <div class="leer-portfolio">
+                <div>⭐</div>
+                <div>Noch keine Coins auf der Watchlist!</div>
+                <div style="font-size:0.8rem; margin-top:0.5rem;">
+                    Klicke auf ⭐ bei einem Coin um ihn hinzuzufügen.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUANTUM SIGNAL -->
+    <div class="karte regenbogen-rand">
+        <h3>⚛️ Quantum Trading Signale</h3>
+        <div id="quantumSignale"></div>
+        <button class="btn-gruen" onclick="signaleGenerieren()">
+            🔄 Signale aktualisieren
+        </button>
+    </div>
+
+</div>
 <div id="portfolio" class="seite">
 
     <div class="karte regenbogen-rand">

@@ -16,6 +16,7 @@ window.onload = function() {
     neueTipps();
     weisheitZeigen();
     chartsStarten();
+    cryptoStarten();
 };
 
 // === NAVIGATION ===
@@ -1065,3 +1066,272 @@ function portfolioChartZeichnen() {
 
 // Portfolio beim Start laden
 portfolioAnzeigen();
+// ============================================
+// PHASE 7 – CRYPTO LIVE PREISE
+// ============================================
+
+var cryptoDaten = [
+    { rang: 1,  name: 'Bitcoin',      symbol: 'BTC', icon: '₿',  farbe: '#f7931a', preis: 43250,  kap: '847B',  vol: '28.3B', min: 40000, max: 48000 },
+    { rang: 2,  name: 'Ethereum',     symbol: 'ETH', icon: 'Ξ',  farbe: '#627eea', preis: 2840,   kap: '341B',  vol: '15.2B', min: 2500,  max: 3200  },
+    { rang: 3,  name: 'BNB',          symbol: 'BNB', icon: '🔶', farbe: '#f3ba2f', preis: 312,    kap: '48B',   vol: '1.8B',  min: 280,   max: 360   },
+    { rang: 4,  name: 'Solana',       symbol: 'SOL', icon: '◎',  farbe: '#9945ff', preis: 98,     kap: '44B',   vol: '3.2B',  min: 80,    max: 120   },
+    { rang: 5,  name: 'XRP',          symbol: 'XRP', icon: '✕',  farbe: '#00aae4', preis: 0.612,  kap: '34B',   vol: '2.1B',  min: 0.5,   max: 0.8   },
+    { rang: 6,  name: 'Cardano',      symbol: 'ADA', icon: '🔵', farbe: '#0033ad', preis: 0.485,  kap: '17B',   vol: '0.8B',  min: 0.4,   max: 0.6   },
+    { rang: 7,  name: 'Avalanche',    symbol: 'AVAX',icon: '🔺', farbe: '#e84142', preis: 36.8,   kap: '15B',   vol: '0.9B',  min: 28,    max: 45    },
+    { rang: 8,  name: 'Dogecoin',     symbol: 'DOGE',icon: '🐕', farbe: '#c2a633', preis: 0.082,  kap: '12B',   vol: '0.7B',  min: 0.06,  max: 0.12  },
+    { rang: 9,  name: 'Polkadot',     symbol: 'DOT', icon: '⚫', farbe: '#e6007a', preis: 7.42,   kap: '10B',   vol: '0.5B',  min: 6,     max: 10    },
+    { rang: 10, name: 'Chainlink',    symbol: 'LINK',icon: '🔗', farbe: '#2a5ada', preis: 14.85,  kap: '8B',    vol: '0.6B',  min: 12,    max: 18    },
+    { rang: 11, name: 'Litecoin',     symbol: 'LTC', icon: 'Ł',  farbe: '#bfbbbb', preis: 68.5,   kap: '5B',    vol: '0.4B',  min: 55,    max: 85    },
+    { rang: 12, name: 'Toncoin',      symbol: 'TON', icon: '💎', farbe: '#0098ea', preis: 2.15,   kap: '7B',    vol: '0.3B',  min: 1.8,   max: 3.0   }
+];
+
+var watchlist = JSON.parse(localStorage.getItem('akwaaba-watchlist')) || [];
+var aktuellePreise = {};
+
+// Preise initialisieren
+cryptoDaten.forEach(function(c) {
+    aktuellePreise[c.symbol] = c.preis;
+});
+
+function cryptoPreisFormatieren(preis) {
+    if (preis >= 1000) {
+        return '$' + preis.toLocaleString('de-DE', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+    } else if (preis >= 1) {
+        return '$' + preis.toFixed(2);
+    } else {
+        return '$' + preis.toFixed(4);
+    }
+}
+
+function cryptoListeAnzeigen(filter) {
+    var liste = document.getElementById('cryptoListe');
+    if (!liste) return;
+
+    var gefilterteCoins = cryptoDaten;
+    if (filter) {
+        gefilterteCoins = cryptoDaten.filter(function(c) {
+            return c.name.toLowerCase().includes(filter.toLowerCase()) ||
+                   c.symbol.toLowerCase().includes(filter.toLowerCase());
+        });
+    }
+
+    liste.innerHTML = gefilterteCoins.map(function(coin) {
+        var change = ((Math.random() * 16) - 6).toFixed(2);
+        var istPositiv = parseFloat(change) >= 0;
+        var istAufWatchlist = watchlist.includes(coin.symbol);
+
+        return '<div class="crypto-item" onclick="cryptoDetail(\'' + coin.symbol + '\')">' +
+            '<div class="crypto-rang">#' + coin.rang + '</div>' +
+            '<div class="crypto-icon" style="background:' + coin.farbe + '22; border: 2px solid ' + coin.farbe + '44;">' +
+                coin.icon +
+            '</div>' +
+            '<div class="crypto-info">' +
+                '<div class="crypto-name">' + coin.name + '</div>' +
+                '<div class="crypto-symbol">' + coin.symbol + '</div>' +
+            '</div>' +
+            '<div class="crypto-rechts">' +
+                '<div class="crypto-preis">' + cryptoPreisFormatieren(aktuellePreise[coin.symbol] || coin.preis) + '</div>' +
+                '<div class="crypto-change ' + (istPositiv ? 'change-positiv' : 'change-negativ') + '">' +
+                    (istPositiv ? '▲' : '▼') + ' ' + Math.abs(change) + '%' +
+                '</div>' +
+            '</div>' +
+            '<button class="crypto-stern" onclick="event.stopPropagation(); watchlistToggle(\'' + coin.symbol + '\')">' +
+                (istAufWatchlist ? '⭐' : '☆') +
+            '</button>' +
+        '</div>';
+    }).join('');
+}
+
+function cryptoFiltern() {
+    var suche = document.getElementById('cryptoSuche').value;
+    cryptoListeAnzeigen(suche);
+}
+
+function cryptoDetail(symbol) {
+    var coin = cryptoDaten.find(function(c) { return c.symbol === symbol; });
+    if (!coin) return;
+
+    var detail = document.getElementById('cryptoDetail');
+    detail.style.display = 'block';
+    document.getElementById('detailTitel').textContent = coin.icon + ' ' + coin.name + ' (' + coin.symbol + ')';
+
+    var daten = chartDatenErstellen(60, coin.min, coin.max);
+    miniChartZeichnen('cryptoChart', daten, coin.farbe);
+
+    var change24h = ((Math.random() * 16) - 6).toFixed(2);
+    var change7d = ((Math.random() * 30) - 10).toFixed(2);
+    var ath = (coin.max * 1.5).toFixed(2);
+
+    document.getElementById('detailInfos').innerHTML =
+        '<div style="display:grid; grid-template-columns: repeat(2,1fr); gap:0.5rem; margin-top:1rem;">' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">Aktueller Preis</div>' +
+                '<div class="port-zahl-wert gold">' + cryptoPreisFormatieren(coin.preis) + '</div>' +
+            '</div>' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">24h Change</div>' +
+                '<div class="port-zahl-wert ' + (change24h >= 0 ? 'positiv' : 'negativ') + '">' +
+                    (change24h >= 0 ? '+' : '') + change24h + '%' +
+                '</div>' +
+            '</div>' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">7d Change</div>' +
+                '<div class="port-zahl-wert ' + (change7d >= 0 ? 'positiv' : 'negativ') + '">' +
+                    (change7d >= 0 ? '+' : '') + change7d + '%' +
+                '</div>' +
+            '</div>' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">Marktkapital</div>' +
+                '<div class="port-zahl-wert">$' + coin.kap + '</div>' +
+            '</div>' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">24h Volumen</div>' +
+                '<div class="port-zahl-wert">$' + coin.vol + '</div>' +
+            '</div>' +
+            '<div class="port-zahl">' +
+                '<div class="port-zahl-label">All Time High</div>' +
+                '<div class="port-zahl-wert">$' + ath + '</div>' +
+            '</div>' +
+        '</div>';
+
+    detail.scrollIntoView({ behavior: 'smooth' });
+}
+
+function watchlistToggle(symbol) {
+    var index = watchlist.indexOf(symbol);
+    if (index === -1) {
+        watchlist.push(symbol);
+    } else {
+        watchlist.splice(index, 1);
+    }
+    localStorage.setItem('akwaaba-watchlist', JSON.stringify(watchlist));
+    cryptoListeAnzeigen(document.getElementById('cryptoSuche') ?
+        document.getElementById('cryptoSuche').value : '');
+    watchlistAnzeigen();
+}
+
+function watchlistAnzeigen() {
+    var container = document.getElementById('watchlistContainer');
+    if (!container) return;
+
+    if (watchlist.length === 0) {
+        container.innerHTML =
+            '<div class="leer-portfolio">' +
+            '<div>⭐</div>' +
+            '<div>Noch keine Coins auf der Watchlist!</div>' +
+            '</div>';
+        return;
+    }
+
+    container.innerHTML = watchlist.map(function(symbol) {
+        var coin = cryptoDaten.find(function(c) { return c.symbol === symbol; });
+        if (!coin) return '';
+        var change = ((Math.random() * 10) - 3).toFixed(2);
+        return '<div class="watchlist-item">' +
+            '<div>' +
+                '<div class="watchlist-name">' + coin.icon + ' ' + coin.name + '</div>' +
+                '<div class="crypto-symbol">' + coin.symbol + '</div>' +
+            '</div>' +
+            '<div class="watchlist-preis">' + cryptoPreisFormatieren(coin.preis) + '</div>' +
+            '<div class="' + (change >= 0 ? 'positiv' : 'negativ') + '">' +
+                (change >= 0 ? '+' : '') + change + '%' +
+            '</div>' +
+            '<button class="watchlist-entfernen" onclick="watchlistToggle(\'' + symbol + '\')">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+function fearGreedAnzeigen() {
+    var wert = Math.floor(Math.random() * 40) + 40;
+    var fill = document.getElementById('fearFill');
+    var wertEl = document.getElementById('fearWert');
+    var textEl = document.getElementById('fearText');
+
+    if (!fill) return;
+
+    fill.style.left = wert + '%';
+    wertEl.textContent = wert;
+
+    var beschreibung;
+    if (wert <= 20) beschreibung = '😱 Extreme Angst – Möglicherweise Kaufgelegenheit!';
+    else if (wert <= 40) beschreibung = '😟 Angst – Investoren sind nervös.';
+    else if (wert <= 60) beschreibung = '😐 Neutral – Ausgeglichener Markt.';
+    else if (wert <= 80) beschreibung = '😄 Gier – Vorsicht bei Käufen!';
+    else beschreibung = '🤑 Extreme Gier – Markt möglicherweise überhitzt!';
+
+    textEl.textContent = beschreibung;
+}
+
+function marktDatenAktualisieren() {
+    var kap = (2.2 + Math.random() * 0.5).toFixed(2);
+    var vol = (85 + Math.random() * 30).toFixed(1);
+    var dom = (50 + Math.random() * 5).toFixed(1);
+
+    var kapEl = document.getElementById('marktKap');
+    var volEl = document.getElementById('marktVol');
+    var domEl = document.getElementById('btcDom');
+
+    if (kapEl) kapEl.textContent = '$' + kap + 'T';
+    if (volEl) volEl.textContent = '$' + vol + 'B';
+    if (domEl) domEl.textContent = dom + '%';
+}
+
+function signaleGenerieren() {
+    var container = document.getElementById('quantumSignale');
+    if (!container) return;
+
+    var signale = [
+        { coin: 'Bitcoin (BTC)', icon: '₿', signal: 'KAUF', text: 'RSI überverkauft. Quantum Modell zeigt Aufwärtstrend.' },
+        { coin: 'Ethereum (ETH)', icon: 'Ξ', signal: 'HALTEN', text: 'Konsolidierungsphase. Abwarten bis Ausbruch.' },
+        { coin: 'Solana (SOL)', icon: '◎', signal: 'KAUF', text: 'Starkes Momentum. Institutionelle Käufe erkannt.' },
+        { coin: 'BNB', icon: '🔶', signal: 'HALTEN', text: 'Seitwärtsbewegung erwartet. Neutral positioniert.' },
+        { coin: 'XRP', icon: '✕', signal: 'VERKAUF', text: 'Widerstand bei $0.65. Gewinnmitnahmen empfohlen.' },
+        { coin: 'Dogecoin (DOGE)', icon: '🐕', signal: 'HALTEN', text: 'Hohe Volatilität. Nur mit Risikokapital handeln.' }
+    ];
+
+    var gemischt = signale.sort(function() { return Math.random() - 0.5; }).slice(0, 4);
+
+    container.innerHTML = gemischt.map(function(s) {
+        var badgeKlasse = s.signal === 'KAUF' ? 'badge-kauf' :
+                          s.signal === 'VERKAUF' ? 'badge-verkauf' : 'badge-halten';
+        return '<div class="signal-item">' +
+            '<div class="signal-icon">' + s.icon + '</div>' +
+            '<div class="signal-info">' +
+                '<div class="signal-name">' + s.coin + '</div>' +
+                '<div class="signal-text">' + s.text + '</div>' +
+            '</div>' +
+            '<div class="signal-badge ' + badgeKlasse + '">' + s.signal + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function preiseAktualisieren() {
+    cryptoDaten.forEach(function(coin) {
+        var change = (Math.random() * 0.02) - 0.01;
+        aktuellePreise[coin.symbol] = coin.preis * (1 + change);
+    });
+}
+
+// Crypto starten
+function cryptoStarten() {
+    cryptoListeAnzeigen();
+    watchlistAnzeigen();
+    fearGreedAnzeigen();
+    marktDatenAktualisieren();
+    signaleGenerieren();
+
+    // Alle 10 Sekunden aktualisieren
+    setInterval(function() {
+        preiseAktualisieren();
+        cryptoListeAnzeigen(
+            document.getElementById('cryptoSuche') ?
+            document.getElementById('cryptoSuche').value : ''
+        );
+        fearGreedAnzeigen();
+        marktDatenAktualisieren();
+        watchlistAnzeigen();
+    }, 10000);
+}
