@@ -1421,3 +1421,234 @@ canvas {
     cursor: pointer;
     font-size: 0.7rem;
 }
+/* ============================================
+   PHASE 8 – BUDGET PLANER
+   ============================================ */
+
+.budget-uebersicht {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    padding: 0 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.budget-box {
+    border-radius: 16px;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.budget-box:hover { transform: translateY(-3px); }
+
+.budget-box-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+
+.budget-box-label {
+    font-size: 0.65rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.budget-box-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Fortschritt */
+.budget-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ccddaa;
+    margin-bottom: 0.5rem;
+}
+
+.budget-progress-aussen {
+    width: 100%;
+    height: 16px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 0.8rem;
+}
+
+.budget-progress-innen {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1s ease, background 0.5s ease;
+    width: 0%;
+}
+
+.budget-tipp-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+/* Typ Auswahl */
+.typ-auswahl {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.typ-btn {
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #668844;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    transition: all 0.2s;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.typ-btn.aktiv {
+    border-color: #00cc44;
+    color: #00ff88;
+    background: rgba(0,204,68,0.1);
+    box-shadow: 0 4px 0 #004400;
+    transform: translateY(-2px);
+}
+
+.typ-btn.ausgabe-aktiv {
+    border-color: #cc0000;
+    color: #ff4444;
+    background: rgba(204,0,0,0.1);
+    box-shadow: 0 4px 0 #550000;
+}
+
+/* Filter */
+.trans-filter {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.4rem 0.8rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    color: #668844;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    transition: all 0.2s;
+}
+
+.filter-btn.aktiv {
+    border-color: #ffdf00;
+    color: #ffdf00;
+    background: rgba(255,223,0,0.1);
+}
+
+/* Transaktion Item */
+.trans-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+}
+
+.trans-item:hover {
+    background: rgba(255,255,255,0.03);
+    transform: translateX(3px);
+}
+
+.trans-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.trans-einnahme { background: rgba(0,204,68,0.2); border: 1px solid rgba(0,204,68,0.4); }
+.trans-ausgabe  { background: rgba(204,0,0,0.2);  border: 1px solid rgba(204,0,0,0.4);  }
+
+.trans-info { flex: 1; }
+
+.trans-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.trans-detail {
+    font-size: 0.72rem;
+    color: #668844;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.2rem;
+}
+
+.trans-betrag {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+}
+
+.trans-loeschen {
+    background: none;
+    border: none;
+    color: #668844;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    transition: all 0.2s;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+}
+
+.trans-loeschen:hover {
+    color: #ff4444;
+    background: rgba(204,0,0,0.2);
+}
+
+/* AI Analyse */
+.ai-punkt {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    align-items: flex-start;
+}
+
+.ai-punkt-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+.ai-punkt-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    font-weight: 700;
+    line-height: 1.5;
+}

@@ -17,6 +17,8 @@ window.onload = function() {
     weisheitZeigen();
     chartsStarten();
     cryptoStarten();
+    budgetAnzeigen();
+    budgetDatumSetzen();
 };
 
 // === NAVIGATION ===
@@ -1335,3 +1337,420 @@ function cryptoStarten() {
         watchlistAnzeigen();
     }, 10000);
 }
+// ============================================
+// PHASE 8 – BUDGET PLANER
+// ============================================
+
+var budgetEintraege = JSON.parse(
+    localStorage.getItem('akwaaba-budget')) || [];
+var aktiverTyp = 'einnahme';
+var aktiverFilter = 'alle';
+
+var katEmojisB = {
+    gehalt: '💼', nebeneinkommen: '💰', miete: '🏠',
+    essen: '🍔', transport: '🚗', unterhaltung: '🎮',
+    gesundheit: '💊', kleidung: '👕', sparen: '🐖',
+    sonstiges: '📦'
+};
+
+var budgetFarben = [
+    '#ff3333', '#ffee00', '#00cc44', '#0088ff',
+    '#cc44ff', '#ff8800', '#00ddcc', '#ff44aa',
+    '#88ff00', '#ff6644'
+];
+
+function typWaehlen(typ) {
+    aktiverTyp = typ;
+    var einnahmeBtn = document.getElementById('einnahmeBtn');
+    var ausgabeBtn = document.getElementById('ausgabeBtn');
+
+    if (typ === 'einnahme') {
+        einnahmeBtn.className = 'typ-btn aktiv';
+        ausgabeBtn.className = 'typ-btn';
+
+        // Kategorien anpassen
+        document.getElementById('budgetKat').innerHTML =
+            '<option value="gehalt">💼 Gehalt</option>' +
+            '<option value="nebeneinkommen">💰 Nebeneinkommen</option>' +
+            '<option value="sonstiges">📦 Sonstiges</option>';
+    } else {
+        einnahmeBtn.className = 'typ-btn';
+        ausgabeBtn.className = 'typ-btn ausgabe-aktiv';
+
+        document.getElementById('budgetKat').innerHTML =
+            '<option value="miete">🏠 Miete</option>' +
+            '<option value="essen">🍔 Essen & Trinken</option>' +
+            '<option value="transport">🚗 Transport</option>' +
+            '<option value="unterhaltung">🎮 Unterhaltung</option>' +
+            '<option value="gesundheit">💊 Gesundheit</option>' +
+            '<option value="kleidung">👕 Kleidung</option>' +
+            '<option value="sparen">🐖 Sparen</option>' +
+            '<option value="sonstiges">📦 Sonstiges</option>';
+    }
+}
+
+function budgetHinzufuegen() {
+    var name   = document.getElementById('budgetName').value.trim();
+    var kat    = document.getElementById('budgetKat').value;
+    var betrag = parseFloat(document.getElementById('budgetBetrag').value) || 0;
+    var datum  = document.getElementById('budgetDatum').value ||
+                 new Date().toISOString().split('T')[0];
+
+    if (!name || betrag <= 0) {
+        alert('Bitte Beschreibung und Betrag eingeben!');
+        return;
+    }
+
+    budgetEintraege.push({
+        id: Date.now(),
+        typ: aktiverTyp,
+        name: name,
+        kat: kat,
+        betrag: betrag,
+        datum: datum
+    });
+
+    localStorage.setItem('akwaaba-budget', JSON.stringify(budgetEintraege));
+
+    // Felder leeren
+    document.getElementById('budgetName').value = '';
+    document.getElementById('budgetBetrag').value = '';
+
+    budgetAnzeigen();
+}
+
+function budgetLoeschen(id) {
+    budgetEintraege = budgetEintraege.filter(function(e) {
+        return e.id !== id;
+    });
+    localStorage.setItem('akwaaba-budget', JSON.stringify(budgetEintraege));
+    budgetAnzeigen();
+}
+
+function budgetLeeren() {
+    if (confirm('Alle Budget-Einträge wirklich löschen?')) {
+        budgetEintraege = [];
+        localStorage.setItem('akwaaba-budget', JSON.stringify(budgetEintraege));
+        budgetAnzeigen();
+    }
+}
+
+function transFilter(filter, btn) {
+    aktiverFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+    budgetTransAnzeigen();
+}
+
+function budgetAnzeigen() {
+    // Gesamtwerte
+    var einnahmen = budgetEintraege
+        .filter(function(e) { return e.typ === 'einnahme'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var ausgaben = budgetEintraege
+        .filter(function(e) { return e.typ === 'ausgabe'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var bilanz = einnahmen - ausgaben;
+    var prozent = einnahmen > 0 ? Math.min((ausgaben / einnahmen) * 100, 100) : 0;
+
+    // Anzeigen
+    var einEl = document.getElementById('gesamtEinnahmen');
+    var ausEl = document.getElementById('gesamtAusgaben');
+    var bilEl = document.getElementById('gesamtBilanz');
+    var proEl = document.getElementById('budgetProzent');
+    var barEl = document.getElementById('budgetProgress');
+    var tippEl = document.getElementById('budgetTipp');
+
+    if (einEl) einEl.textContent = euro(einnahmen);
+    if (ausEl) ausEl.textContent = euro(ausgaben);
+
+    if (bilEl) {
+        bilEl.textContent = (bilanz >= 0 ? '+' : '') + euro(bilanz);
+        bilEl.className = 'budget-box-wert ' + (bilanz >= 0 ? 'positiv' : 'negativ');
+    }
+
+    if (proEl) proEl.textContent = prozent.toFixed(0) + '%';
+
+    if (barEl) {
+        barEl.style.width = prozent + '%';
+        if (prozent < 50) {
+            barEl.style.background = 'linear-gradient(90deg, #00cc44, #88ff00)';
+        } else if (prozent < 80) {
+            barEl.style.background = 'linear-gradient(90deg, #ffee00, #ff8800)';
+        } else {
+            barEl.style.background = 'linear-gradient(90deg, #ff8800, #cc0000)';
+        }
+    }
+
+    if (tippEl) {
+        if (prozent === 0) {
+            tippEl.textContent = '💡 Füge deine Einnahmen und Ausgaben hinzu!';
+        } else if (prozent < 50) {
+            tippEl.textContent = '🟢 Ausgezeichnet! Du sparst mehr als 50% deines Einkommens!';
+        } else if (prozent < 70) {
+            tippEl.textContent = '🟡 Gut! Du gibst ' + prozent.toFixed(0) + '% aus. Versuche unter 70% zu bleiben.';
+        } else if (prozent < 90) {
+            tippEl.textContent = '🟠 Achtung! Du gibst ' + prozent.toFixed(0) + '% aus. Reduziere Ausgaben!';
+        } else {
+            tippEl.textContent = '🔴 Kritisch! Ausgaben fast gleich Einnahmen. Sofort Budget überprüfen!';
+        }
+    }
+
+    budgetChartZeichnen();
+    budgetTransAnzeigen();
+}
+
+function budgetTransAnzeigen() {
+    var liste = document.getElementById('transListe');
+    if (!liste) return;
+
+    var gefiltert = budgetEintraege.filter(function(e) {
+        if (aktiverFilter === 'alle') return true;
+        return e.typ === aktiverFilter;
+    });
+
+    // Neueste zuerst
+    gefiltert = gefiltert.slice().reverse();
+
+    if (gefiltert.length === 0) {
+        liste.innerHTML =
+            '<div class="leer-portfolio">' +
+            '<div>📋</div>' +
+            '<div>Keine Einträge vorhanden.</div>' +
+            '</div>';
+        return;
+    }
+
+    liste.innerHTML = gefiltert.map(function(e) {
+        var emoji = katEmojisB[e.kat] || '📦';
+        var istEin = e.typ === 'einnahme';
+
+        return '<div class="trans-item">' +
+            '<div class="trans-icon ' + (istEin ? 'trans-einnahme' : 'trans-ausgabe') + '">' +
+                emoji +
+            '</div>' +
+            '<div class="trans-info">' +
+                '<div class="trans-name">' + e.name + '</div>' +
+                '<div class="trans-detail">' +
+                    e.kat + ' · ' + e.datum +
+                '</div>' +
+            '</div>' +
+            '<div class="trans-betrag ' + (istEin ? 'positiv' : 'negativ') + '">' +
+                (istEin ? '+' : '-') + euro(e.betrag) +
+            '</div>' +
+            '<button class="trans-loeschen" onclick="budgetLoeschen(' + e.id + ')">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+function budgetChartZeichnen() {
+    var canvas = document.getElementById('budgetChart');
+    if (!canvas) return;
+
+    var ausgaben = budgetEintraege.filter(function(e) {
+        return e.typ === 'ausgabe';
+    });
+
+    if (ausgaben.length === 0) {
+        var ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth * 2;
+        canvas.height = 200;
+        ctx.fillStyle = '#668844';
+        ctx.font = '30px Nunito';
+        ctx.textAlign = 'center';
+        ctx.fillText('Keine Ausgaben vorhanden', canvas.width/2, 110);
+        return;
+    }
+
+    // Nach Kategorie gruppieren
+    var gruppen = {};
+    ausgaben.forEach(function(e) {
+        if (!gruppen[e.kat]) gruppen[e.kat] = 0;
+        gruppen[e.kat] += e.betrag;
+    });
+
+    var kategorien = Object.keys(gruppen);
+    var gesamt = Object.values(gruppen).reduce(function(s, v) {
+        return s + v;
+    }, 0);
+
+    var ctx = canvas.getContext('2d');
+    var groesse = Math.min(canvas.offsetWidth, 300);
+    canvas.width = groesse * 2;
+    canvas.height = groesse * 2;
+
+    var cx = canvas.width / 2;
+    var cy = canvas.height / 2;
+    var radius = Math.min(cx, cy) - 20;
+    var startWinkel = -Math.PI / 2;
+
+    var legende = document.getElementById('budgetLegende');
+    if (legende) legende.innerHTML = '';
+
+    kategorien.forEach(function(kat, i) {
+        var anteil = gruppen[kat] / gesamt;
+        var winkel = anteil * Math.PI * 2;
+        var farbe = budgetFarben[i % budgetFarben.length];
+        var emoji = katEmojisB[kat] || '📦';
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, startWinkel, startWinkel + winkel);
+        ctx.closePath();
+        ctx.fillStyle = farbe;
+        ctx.fill();
+        ctx.strokeStyle = '#0a1200';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        if (anteil > 0.08) {
+            var mitte = startWinkel + winkel / 2;
+            var tx = cx + Math.cos(mitte) * (radius * 0.65);
+            var ty = cy + Math.sin(mitte) * (radius * 0.65);
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 20px Nunito';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText((anteil * 100).toFixed(0) + '%', tx, ty);
+        }
+
+        startWinkel += winkel;
+
+        if (legende) {
+            var legEl = document.createElement('div');
+            legEl.className = 'legende-item';
+            legEl.innerHTML =
+                '<div class="legende-farbe" style="background:' + farbe + '"></div>' +
+                emoji + ' ' + kat + ' (' + euro(gruppen[kat]) + ')';
+            legende.appendChild(legEl);
+        }
+    });
+
+    // Donut Loch
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 0.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a2e00';
+    ctx.fill();
+
+    ctx.fillStyle = '#ff4444';
+    ctx.font = 'bold 28px Fredoka One';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(euro(gesamt).replace('€', ''), cx, cy - 15);
+    ctx.fillStyle = '#668844';
+    ctx.font = '20px Nunito';
+    ctx.fillText('Ausgaben', cx, cy + 15);
+}
+
+function aiAnalyseErstellen() {
+    var container = document.getElementById('aiAnalyse');
+    if (!container) return;
+
+    var einnahmen = budgetEintraege
+        .filter(function(e) { return e.typ === 'einnahme'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    var ausgaben = budgetEintraege
+        .filter(function(e) { return e.typ === 'ausgabe'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    if (einnahmen === 0 && ausgaben === 0) {
+        container.innerHTML =
+            '<p style="color:#668844;">Bitte erst Einträge hinzufügen!</p>';
+        return;
+    }
+
+    var sparRate = einnahmen > 0 ?
+        ((einnahmen - ausgaben) / einnahmen * 100) : 0;
+    var punkte = [];
+
+    // Sparrate
+    if (sparRate >= 20) {
+        punkte.push({
+            icon: '🏆',
+            text: 'Exzellente Sparrate von ' + sparRate.toFixed(1) +
+                  '%! Du bist auf dem richtigen Weg zur finanziellen Freiheit!'
+        });
+    } else if (sparRate >= 10) {
+        punkte.push({
+            icon: '👍',
+            text: 'Gute Sparrate von ' + sparRate.toFixed(1) +
+                  '%. Versuche auf 20% zu kommen!'
+        });
+    } else if (sparRate > 0) {
+        punkte.push({
+            icon: '⚠️',
+            text: 'Niedrige Sparrate von ' + sparRate.toFixed(1) +
+                  '%. Reduziere deine Ausgaben!'
+        });
+    } else {
+        punkte.push({
+            icon: '🚨',
+            text: 'Ausgaben übersteigen Einnahmen! Sofort Ausgaben reduzieren!'
+        });
+    }
+
+    // Ausgaben Analyse
+    var essen = budgetEintraege
+        .filter(function(e) { return e.kat === 'essen'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    if (essen > einnahmen * 0.3) {
+        punkte.push({
+            icon: '🍔',
+            text: 'Essen & Trinken macht ' +
+                  ((essen/einnahmen)*100).toFixed(0) +
+                  '% deines Einkommens aus. Meal-Prep kann bis zu 40% sparen!'
+        });
+    }
+
+    var unterhaltung = budgetEintraege
+        .filter(function(e) { return e.kat === 'unterhaltung'; })
+        .reduce(function(s, e) { return s + e.betrag; }, 0);
+
+    if (unterhaltung > einnahmen * 0.15) {
+        punkte.push({
+            icon: '🎮',
+            text: 'Unterhaltungsausgaben sind hoch (' +
+                  euro(unterhaltung) + '). Überprüfe Abonnements!'
+        });
+    }
+
+    // Empfehlungen
+    punkte.push({
+        icon: '💡',
+        text: 'Quantum Empfehlung: Investiere ' +
+              euro(Math.max(0, einnahmen * 0.15)) +
+              '/Monat in einen ETF-Sparplan für langfristigen Vermögensaufbau!'
+    });
+
+    punkte.push({
+        icon: '🎯',
+        text: 'Notfallfonds Ziel: ' + euro(ausgaben * 3) +
+              ' (3 Monatsausgaben). Aktueller Überschuss: ' +
+              euro(Math.max(0, einnahmen - ausgaben)) + '/Monat.'
+    });
+
+    container.innerHTML = punkte.map(function(p) {
+        return '<div class="ai-punkt">' +
+            '<div class="ai-punkt-icon">' + p.icon + '</div>' +
+            '<div class="ai-punkt-text">' + p.text + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// Datum heute setzen
+function budgetDatumSetzen() {
+    var datumEl = document.getElementById('budgetDatum');
+    if (datumEl) {
+        datumEl.value = new Date().toISOString().split('T')[0];
+    }
+}
+
+// Budget starten
+budgetAnzeigen();
+budgetDatumSetzen();

@@ -34,6 +34,7 @@
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
         <button class="tab" data-tab="crypto">₿ Crypto</button>
+        <button class="tab" data-tab="budget">💸 Budget</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -248,6 +249,128 @@
     <!-- TIPPS -->
  <!-- PORTFOLIO -->
 <!-- CRYPTO -->
+<!-- BUDGET -->
+<div id="budget" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>💸 Budget Planer</h2>
+        <p>Behalte deine Finanzen im Griff! 🎯</p>
+    </div>
+
+    <!-- MONATS ÜBERSICHT -->
+    <div class="budget-uebersicht">
+        <div class="budget-box gruen-karte">
+            <div class="budget-box-icon">💚</div>
+            <div class="budget-box-label">Einnahmen</div>
+            <div class="budget-box-wert" id="gesamtEinnahmen">€0</div>
+        </div>
+        <div class="budget-box rot-karte">
+            <div class="budget-box-icon">❤️</div>
+            <div class="budget-box-label">Ausgaben</div>
+            <div class="budget-box-wert" id="gesamtAusgaben">€0</div>
+        </div>
+        <div class="budget-box gelb-karte" id="bilanzBox">
+            <div class="budget-box-icon">⭐</div>
+            <div class="budget-box-label">Bilanz</div>
+            <div class="budget-box-wert" id="gesamtBilanz">€0</div>
+        </div>
+    </div>
+
+    <!-- FORTSCHRITT -->
+    <div class="karte gruen-rand">
+        <h3>📊 Budget Fortschritt</h3>
+        <div class="budget-progress-label">
+            <span>Ausgaben vs Einnahmen</span>
+            <span id="budgetProzent">0%</span>
+        </div>
+        <div class="budget-progress-aussen">
+            <div class="budget-progress-innen" id="budgetProgress"></div>
+        </div>
+        <p id="budgetTipp" class="budget-tipp-text"></p>
+    </div>
+
+    <!-- EINTRAG HINZUFÜGEN -->
+    <div class="karte gelb-rand">
+        <h3>➕ Eintrag hinzufügen</h3>
+        <div class="typ-auswahl">
+            <button class="typ-btn aktiv" id="einnahmeBtn"
+                onclick="typWaehlen('einnahme')">
+                💚 Einnahme
+            </button>
+            <button class="typ-btn" id="ausgabeBtn"
+                onclick="typWaehlen('ausgabe')">
+                ❤️ Ausgabe
+            </button>
+        </div>
+        <label>Beschreibung</label>
+        <input type="text" id="budgetName"
+            placeholder="z.B. Gehalt, Miete, Essen...">
+        <label>Kategorie</label>
+        <select id="budgetKat">
+            <option value="gehalt">💼 Gehalt</option>
+            <option value="nebeneinkommen">💰 Nebeneinkommen</option>
+            <option value="miete">🏠 Miete</option>
+            <option value="essen">🍔 Essen & Trinken</option>
+            <option value="transport">🚗 Transport</option>
+            <option value="unterhaltung">🎮 Unterhaltung</option>
+            <option value="gesundheit">💊 Gesundheit</option>
+            <option value="kleidung">👕 Kleidung</option>
+            <option value="sparen">🐖 Sparen</option>
+            <option value="sonstiges">📦 Sonstiges</option>
+        </select>
+        <label>Betrag (€)</label>
+        <input type="number" id="budgetBetrag"
+            placeholder="z.B. 500" min="0">
+        <label>Datum</label>
+        <input type="date" id="budgetDatum">
+        <button class="btn-gruen" onclick="budgetHinzufuegen()">
+            ➕ Hinzufügen
+        </button>
+    </div>
+
+    <!-- KATEGORIEN CHART -->
+    <div class="karte rot-rand">
+        <h3>🥧 Ausgaben nach Kategorien</h3>
+        <canvas id="budgetChart" height="200"></canvas>
+        <div id="budgetLegende" class="portfolio-legende"></div>
+    </div>
+
+    <!-- TRANSAKTIONEN -->
+    <div class="karte gruen-rand">
+        <h3>📋 Transaktionen</h3>
+        <div class="trans-filter">
+            <button class="filter-btn aktiv"
+                onclick="transFilter('alle', this)">Alle</button>
+            <button class="filter-btn"
+                onclick="transFilter('einnahme', this)">💚 Einnahmen</button>
+            <button class="filter-btn"
+                onclick="transFilter('ausgabe', this)">❤️ Ausgaben</button>
+        </div>
+        <div id="transListe"></div>
+    </div>
+
+    <!-- AI ANALYSE -->
+    <div class="karte regenbogen-rand">
+        <h3>🤖 AI Budget Analyse</h3>
+        <div id="aiAnalyse">
+            <p style="color:#668844;">
+                Füge Einnahmen und Ausgaben hinzu für eine
+                personalisierte AI-Analyse!
+            </p>
+        </div>
+        <button class="btn-gruen" onclick="aiAnalyseErstellen()">
+            ⚛️ AI Analyse starten
+        </button>
+    </div>
+
+    <!-- LÖSCHEN -->
+    <div style="margin: 0 0.8rem 2rem;">
+        <button class="btn-rot" onclick="budgetLeeren()">
+            🗑️ Alle Einträge löschen
+        </button>
+    </div>
+
+</div>
 <div id="crypto" class="seite">
 
     <div class="karte regenbogen-rand">
