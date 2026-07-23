@@ -64,6 +64,10 @@
         <button class="tab" data-tab="chancen">🎯 Chancen</button>
         <button class="tab" data-tab="siegoth">🤖 SIEGOTH</button>
         <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
+        <button class="tab" data-tab="ziele">🎯 Ziele</button>
+        <button class="tab" data-tab="rente">👴 Rente</button>
+        <button class="tab" data-tab="akademie">📚 Akademie</button>
+        <button class="tab" data-tab="kalender">📅 Kalender</button>
         <button class="tab" data-tab="sicherheit">🛡️ Sicherheit</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -909,7 +913,149 @@
         </div>
     </div>
     <!-- ENDE HUND-NASE -->
+    <!-- ============ ZIELE TRACKER ============ -->
+    <div id="ziele" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>🎯 Meine Finanzziele</h2>
+            <p>Erreiche deine Träume mit einem klaren Plan! 🚀</p>
+        </div>
 
+        <div class="karte gruen-rand">
+            <h3>➕ Neues Ziel</h3>
+            <label>Zielname (z.B. Traumreise nach Togo)</label>
+            <input type="text" id="zielName" placeholder="z.B. Traumreise">
+            <label>Kategorie</label>
+            <select id="zielKat">
+                <option value="reise">✈️ Reise</option>
+                <option value="auto">🚗 Auto</option>
+                <option value="haus">🏠 Haus</option>
+                <option value="notfall">🚨 Notfallfonds</option>
+                <option value="bildung">📚 Bildung</option>
+                <option value="hochzeit">💍 Hochzeit</option>
+                <option value="rente">👴 Ruhestand</option>
+                <option value="sonstiges">💰 Sonstiges</option>
+            </select>
+            <label>Zielbetrag (€)</label>
+            <input type="number" id="zielBetrag" placeholder="5000" min="0">
+            <label>Bereits gespart (€)</label>
+            <input type="number" id="zielGespart" placeholder="500" min="0">
+            <label>Ziel-Datum</label>
+            <input type="date" id="zielDatum">
+            <button class="btn-gruen" onclick="zielHinzufuegen()">➕ Ziel hinzufügen</button>
+        </div>
+
+        <div id="zieleListe"></div>
+    </div>
+    <!-- ENDE ZIELE -->
+
+    <!-- ============ RENTE ============ -->
+    <div id="rente" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>👴 Renten Rechner</h2>
+            <p>Plane deine finanzielle Freiheit im Alter! 🏝️</p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>📊 Rente berechnen</h3>
+            <label>Dein aktuelles Alter</label>
+            <input type="number" id="renteAlter" value="30" min="18" max="80">
+            <label>Wunsch-Rentenalter</label>
+            <input type="number" id="renteZiel" value="65" min="50" max="80">
+            <label>Aktuelle Ersparnisse (€)</label>
+            <input type="number" id="renteStart" value="10000" min="0">
+            <label>Monatliche Sparrate (€)</label>
+            <input type="number" id="renteMonat" value="300" min="0">
+            <label>Erwartete Jahresrendite (%)</label>
+            <input type="number" id="renteRendite" value="7" min="0" step="0.1">
+            <label>Gewünschte Monatsrente (€)</label>
+            <input type="number" id="renteWunsch" value="2500" min="0">
+            <button class="btn-gruen" onclick="renteBerechnen()">👴 Rente berechnen</button>
+            <div id="renteErgebnis" class="ergebnis versteckt"></div>
+        </div>
+    </div>
+    <!-- ENDE RENTE -->
+
+    <!-- ============ AKADEMIE ============ -->
+    <div id="akademie" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>📚 Finanz-Akademie</h2>
+            <p>Lerne die Grundlagen zum Vermögensaufbau! 🎓</p>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>🎯 Deine Fortschritte</h3>
+            <div class="akademie-fortschritt">
+                <div class="fortschritt-info">
+                    <span>Level <span id="userLevel">1</span></span>
+                    <span><span id="userXP">0</span> / 100 XP</span>
+                </div>
+                <div class="xp-bar-aussen">
+                    <div class="xp-bar-innen" id="xpBar"></div>
+                </div>
+                <p style="margin-top:0.5rem; font-size:0.85rem;">
+                    Abgeschlossen: <strong id="lektionenFertig">0</strong> Lektionen
+                </p>
+            </div>
+        </div>
+
+        <div id="lektionenListe"></div>
+    </div>
+    <!-- ENDE AKADEMIE -->
+
+    <!-- ============ KALENDER ============ -->
+    <div id="kalender" class="seite">
+        <div class="karte regenbogen-rand">
+            <h2>📅 Finanz-Kalender</h2>
+            <p>Behalte alle Zahlungen im Blick! 💰</p>
+        </div>
+
+        <div class="karte gruen-rand">
+            <h3>➕ Neue Zahlung</h3>
+            <label>Bezeichnung</label>
+            <input type="text" id="zahlungName" placeholder="z.B. Miete, Netflix...">
+            <label>Betrag (€)</label>
+            <input type="number" id="zahlungBetrag" placeholder="500" min="0">
+            <label>Fällig am (Tag im Monat)</label>
+            <input type="number" id="zahlungTag" placeholder="1" min="1" max="31">
+            <label>Typ</label>
+            <select id="zahlungTyp">
+                <option value="ausgabe">❤️ Ausgabe</option>
+                <option value="einnahme">💚 Einnahme</option>
+            </select>
+            <label>Wiederholung</label>
+            <select id="zahlungWiederholung">
+                <option value="monatlich">🔄 Monatlich</option>
+                <option value="jaehrlich">📆 Jährlich</option>
+                <option value="einmalig">1️⃣ Einmalig</option>
+            </select>
+            <button class="btn-gruen" onclick="zahlungHinzufuegen()">➕ Hinzufügen</button>
+        </div>
+
+        <div class="karte gelb-rand">
+            <h3>📆 Diesen Monat</h3>
+            <div class="monat-uebersicht">
+                <div class="monat-box gruen-karte">
+                    <div>💚 Einnahmen</div>
+                    <div id="monatEin">€0</div>
+                </div>
+                <div class="monat-box rot-karte">
+                    <div>❤️ Ausgaben</div>
+                    <div id="monatAus">€0</div>
+                </div>
+                <div class="monat-box gelb-karte">
+                    <div>⭐ Netto</div>
+                    <div id="monatNetto">€0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="karte rot-rand">
+            <h3>📋 Zahlungen</h3>
+            <div id="zahlungenListe"></div>
+        </div>
+    </div>
+    <!-- ENDE KALENDER -->
+   
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">
         <div class="karte regenbogen-rand">

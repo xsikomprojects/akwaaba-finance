@@ -4631,3 +4631,505 @@ setTimeout(function() {
     }
     spracheAnwenden();
 }, 500);
+// ============================================
+// ZIELE TRACKER
+// ============================================
+
+var ziele = JSON.parse(localStorage.getItem('ziele')) || [];
+
+var zielKatEmojis = {
+    reise: '✈️', auto: '🚗', haus: '🏠',
+    notfall: '🚨', bildung: '📚', hochzeit: '💍',
+    rente: '👴', sonstiges: '💰'
+};
+
+function zielHinzufuegen() {
+    var name = document.getElementById('zielName').value.trim();
+    var kat = document.getElementById('zielKat').value;
+    var betrag = parseFloat(document.getElementById('zielBetrag').value) || 0;
+    var gespart = parseFloat(document.getElementById('zielGespart').value) || 0;
+    var datum = document.getElementById('zielDatum').value;
+
+    if (!name || betrag <= 0) {
+        toast('Bitte Name und Betrag eingeben!', 'error');
+        return;
+    }
+
+    ziele.push({
+        id: Date.now(),
+        name: name,
+        kat: kat,
+        betrag: betrag,
+        gespart: gespart,
+        datum: datum
+    });
+
+    localStorage.setItem('ziele', JSON.stringify(ziele));
+
+    document.getElementById('zielName').value = '';
+    document.getElementById('zielBetrag').value = '';
+    document.getElementById('zielGespart').value = '';
+
+    zieleAnzeigen();
+    toast('🎯 Ziel hinzugefügt!');
+    confetti();
+}
+
+function zielAktualisieren(id, delta) {
+    var ziel = ziele.find(function(z) { return z.id === id; });
+    if (!ziel) return;
+
+    ziel.gespart = Math.max(0, ziel.gespart + delta);
+    localStorage.setItem('ziele', JSON.stringify(ziele));
+    zieleAnzeigen();
+
+    if (ziel.gespart >= ziel.betrag) {
+        toast('🎉 Ziel erreicht! Glückwunsch!');
+        confetti();
+    }
+}
+
+function zielLoeschen(id) {
+    if (!confirm('Ziel wirklich löschen?')) return;
+    ziele = ziele.filter(function(z) { return z.id !== id; });
+    localStorage.setItem('ziele', JSON.stringify(ziele));
+    zieleAnzeigen();
+    toast('Ziel gelöscht');
+}
+
+function zieleAnzeigen() {
+    var container = document.getElementById('zieleListe');
+    if (!container) return;
+
+    if (ziele.length === 0) {
+        container.innerHTML =
+            '<div class="karte">' +
+            '<div class="leer-portfolio">' +
+            '<div>🎯</div>' +
+            '<div>Noch keine Ziele!</div>' +
+            '<div style="font-size:0.8rem; margin-top:0.5rem;">' +
+            'Füge dein erstes Ziel hinzu.</div>' +
+            '</div></div>';
+        return;
+    }
+
+    container.innerHTML = ziele.map(function(z) {
+        var prozent = Math.min((z.gespart / z.betrag) * 100, 100);
+        var rest = z.betrag - z.gespart;
+        var emoji = zielKatEmojis[z.kat] || '💰';
+
+        var tageBis = '';
+        if (z.datum) {
+            var tage = Math.ceil((new Date(z.datum) - new Date()) / (1000*60*60*24));
+            tageBis = tage > 0 ? tage + ' Tage' : 'Fällig!';
+        }
+
+        return '<div class="ziel-karte">' +
+            '<div class="ziel-header">' +
+                '<div>' +
+                    '<div class="ziel-titel">' + emoji + ' ' + z.name + '</div>' +
+                    '<div class="ziel-kat">' + z.kat.toUpperCase() + '</div>' +
+                '</div>' +
+                '<button class="port-loeschen" onclick="zielLoeschen(' + z.id + ')">✕</button>' +
+            '</div>' +
+            '<div class="ziel-progress-aussen">' +
+                '<div class="ziel-progress-innen" style="width:' + prozent + '%">' +
+                    prozent.toFixed(0) + '%' +
+                '</div>' +
+            '</div>' +
+            '<div class="ziel-stats">' +
+                '<div class="ziel-stat">' +
+                    '<div class="ziel-stat-label">Gespart</div>' +
+                    '<div class="ziel-stat-wert positiv">' + euro(z.gespart) + '</div>' +
+                '</div>' +
+                '<div class="ziel-stat">' +
+                    '<div class="ziel-stat-label">Ziel</div>' +
+                    '<div class="ziel-stat-wert gold">' + euro(z.betrag) + '</div>' +
+                '</div>' +
+                '<div class="ziel-stat">' +
+                    '<div class="ziel-stat-label">Rest</div>' +
+                    '<div class="ziel-stat-wert">' + euro(rest) + '</div>' +
+                '</div>' +
+            '</div>' +
+            (tageBis ? '<div style="text-align:center; margin-top:0.5rem; ' +
+                'font-size:0.8rem; color:#00ddcc; font-weight:800;">⏰ ' +
+                tageBis + '</div>' : '') +
+            '<div class="ziel-aktionen">' +
+                '<button class="ziel-btn ziel-btn-gruen" ' +
+                    'onclick="zielAktualisieren(' + z.id + ', 50)">+50€</button>' +
+                '<button class="ziel-btn ziel-btn-gruen" ' +
+                    'onclick="zielAktualisieren(' + z.id + ', 100)">+100€</button>' +
+                '<button class="ziel-btn ziel-btn-rot" ' +
+                    'onclick="zielAktualisieren(' + z.id + ', -50)">-50€</button>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+zieleAnzeigen();
+
+
+// ============================================
+// RENTEN RECHNER
+// ============================================
+
+function renteBerechnen() {
+    var alter = parseInt(document.getElementById('renteAlter').value) || 30;
+    var ziel = parseInt(document.getElementById('renteZiel').value) || 65;
+    var start = parseFloat(document.getElementById('renteStart').value) || 0;
+    var monat = parseFloat(document.getElementById('renteMonat').value) || 0;
+    var rendite = parseFloat(document.getElementById('renteRendite').value) / 100 || 0.07;
+    var wunsch = parseFloat(document.getElementById('renteWunsch').value) || 0;
+
+    if (ziel <= alter) {
+        toast('Rentenalter muss größer sein als dein Alter!', 'error');
+        return;
+    }
+
+    var jahre = ziel - alter;
+    var monate = jahre * 12;
+    var monatsRendite = rendite / 12;
+
+    // Kapital bei Rentenbeginn
+    var kapital = start * Math.pow(1 + monatsRendite, monate);
+    if (monatsRendite > 0) {
+        kapital += monat * ((Math.pow(1 + monatsRendite, monate) - 1) / monatsRendite);
+    }
+
+    var eingezahlt = start + (monat * monate);
+    var gewinn = kapital - eingezahlt;
+
+    // Monatliche Rente aus Kapital (30 Jahre Auszahlung, 4% Rendite)
+    var moeglicheRente = (kapital * 0.04) / 12;
+
+    // Benötigtes Kapital für Wunschrente
+    var benoetigtesKapital = (wunsch * 12) / 0.04;
+    var luecke = benoetigtesKapital - kapital;
+
+    // Zusätzlich sparen nötig
+    var zusaetzlichNoetig = 0;
+    if (luecke > 0 && monate > 0) {
+        if (monatsRendite > 0) {
+            zusaetzlichNoetig = luecke / ((Math.pow(1 + monatsRendite, monate) - 1) / monatsRendite);
+        } else {
+            zusaetzlichNoetig = luecke / monate;
+        }
+    }
+
+    var ergebnis = document.getElementById('renteErgebnis');
+    ergebnis.classList.remove('versteckt');
+    ergebnis.innerHTML =
+        '<h4>👴 Renten Prognose</h4>' +
+        '<div class="rente-uebersicht">' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Zeitraum</div>' +
+                '<div class="rente-box-wert gold">' + jahre + ' Jahre</div>' +
+            '</div>' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Eingezahlt</div>' +
+                '<div class="rente-box-wert">' + euro(eingezahlt) + '</div>' +
+            '</div>' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Kapital bei Rente</div>' +
+                '<div class="rente-box-wert positiv">' + euro(kapital) + '</div>' +
+            '</div>' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Gewinn</div>' +
+                '<div class="rente-box-wert positiv">' + euro(gewinn) + '</div>' +
+            '</div>' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Mögliche Rente</div>' +
+                '<div class="rente-box-wert gold">' + euro(moeglicheRente) + '/Mon</div>' +
+            '</div>' +
+            '<div class="rente-box">' +
+                '<div class="rente-box-label">Wunschrente</div>' +
+                '<div class="rente-box-wert">' + euro(wunsch) + '/Mon</div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="tipp-box" style="margin-top:1rem;">' +
+            (luecke > 0 ?
+                '⚠️ <strong>Lücke:</strong> Du brauchst ' + euro(luecke) +
+                ' mehr! Erhöhe deine Sparrate um <strong>' +
+                euro(zusaetzlichNoetig) + '/Monat</strong>.' :
+                '🎉 <strong>Ziel erreicht!</strong> Du überschreitest dein Ziel um ' +
+                euro(Math.abs(luecke)) + '!') +
+        '</div>';
+
+    if (luecke <= 0) confetti();
+}
+
+
+// ============================================
+// FINANZ AKADEMIE
+// ============================================
+
+var akademieProgress = JSON.parse(
+    localStorage.getItem('akademie-progress')) || { xp: 0, fertig: [] };
+
+var lektionen = [
+    {
+        id: 1, icon: '💰', level: 'Anfänger', xp: 10,
+        titel: 'Was ist Geld?',
+        desc: 'Verstehe die Grundlagen von Geld und wie es funktioniert.',
+        inhalt: 'Geld ist ein Tauschmittel das drei Funktionen hat: ' +
+                '1) Tauschmittel, 2) Wertaufbewahrung, 3) Recheneinheit. ' +
+                'Früher war es Gold, heute meist Papier oder digital.'
+    },
+    {
+        id: 2, icon: '💳', level: 'Anfänger', xp: 15,
+        titel: 'Einnahmen vs Ausgaben',
+        desc: 'Der wichtigste finanzielle Grundsatz.',
+        inhalt: 'Gib IMMER weniger aus als du einnimmst! ' +
+                'Die 50/30/20 Regel: 50% für Bedürfnisse, ' +
+                '30% für Wünsche, 20% zum Sparen und Investieren.'
+    },
+    {
+        id: 3, icon: '🏦', level: 'Anfänger', xp: 15,
+        titel: 'Sparen vs Investieren',
+        desc: 'Der Unterschied und warum beides wichtig ist.',
+        inhalt: 'Sparen = Geld sicher aufbewahren (wenig Rendite). ' +
+                'Investieren = Geld arbeiten lassen (mehr Rendite, mehr Risiko). ' +
+                'Beides brauchst du: Notfallfonds + Vermögensaufbau!'
+    },
+    {
+        id: 4, icon: '📈', level: 'Fortgeschritten', xp: 20,
+        titel: 'Zinseszins verstehen',
+        desc: 'Das mächtigste Werkzeug beim Vermögensaufbau.',
+        inhalt: 'Zinseszins = Zinsen auf Zinsen. Bei 7% verdoppelt ' +
+                'sich dein Geld alle 10 Jahre! 1000€ werden in 30 Jahren ' +
+                'zu über 7.600€ – ohne einen Cent mehr einzuzahlen!'
+    },
+    {
+        id: 5, icon: '📊', level: 'Fortgeschritten', xp: 25,
+        titel: 'ETFs erklärt',
+        desc: 'Die einfachste Art zu investieren.',
+        inhalt: 'ETF = Exchange Traded Fund. Du kaufst mit einem ETF ' +
+                'gleichzeitig viele Aktien. MSCI World enthält 1600+ Firmen! ' +
+                'Ideal für Anfänger: breit gestreut, günstig, langfristig sicher.'
+    },
+    {
+        id: 6, icon: '🎯', level: 'Fortgeschritten', xp: 20,
+        titel: 'Diversifikation',
+        desc: 'Nie alle Eier in einen Korb!',
+        inhalt: 'Streue dein Geld über verschiedene Anlagen: Aktien, ETFs, ' +
+                'Anleihen, Immobilien, Gold. Wenn eine Anlage fällt, ' +
+                'gleichen andere es aus. Das reduziert dein Risiko enorm!'
+    },
+    {
+        id: 7, icon: '🚨', level: 'Anfänger', xp: 15,
+        titel: 'Notfallfonds aufbauen',
+        desc: 'Deine finanzielle Sicherheit.',
+        inhalt: 'Halte 3-6 Monatsausgaben als Notfallreserve! ' +
+                'Auf einem Tagesgeldkonto, immer verfügbar. ' +
+                'Bei Krankheit, Jobverlust oder Autoreparatur bist du geschützt.'
+    },
+    {
+        id: 8, icon: '₿', level: 'Experte', xp: 30,
+        titel: 'Kryptowährungen',
+        desc: 'Die Zukunft des Geldes?',
+        inhalt: 'Bitcoin, Ethereum & Co. sind digitale Währungen ' +
+                'basierend auf Blockchain. Sehr volatil = hohes Risiko UND ' +
+                'hohe Chance. Nur mit Geld investieren das du verlieren kannst!'
+    },
+    {
+        id: 9, icon: '🏠', level: 'Experte', xp: 30,
+        titel: 'Immobilien investieren',
+        desc: 'Betongold für Fortgeschrittene.',
+        inhalt: 'Immobilien = Wertanlage + Mieteinnahmen. ' +
+                'Braucht viel Kapital und Zeit. Alternativen: REITs (Immobilien-Aktien) ' +
+                'oder Crowdinvesting ab 100€.'
+    },
+    {
+        id: 10, icon: '🧠', level: 'Experte', xp: 40,
+        titel: 'Finanz-Psychologie',
+        desc: 'Emotionen sind dein größter Feind!',
+        inhalt: 'Panikverkäufe kosten am meisten Geld. ' +
+                'Bleib bei deiner Strategie auch bei Marktcrashs! ' +
+                'Buffett: "Sei gierig wenn andere ängstlich sind."'
+    }
+];
+
+function lektionenAnzeigen() {
+    var container = document.getElementById('lektionenListe');
+    if (!container) return;
+
+    var xpEl = document.getElementById('userXP');
+    var levelEl = document.getElementById('userLevel');
+    var barEl = document.getElementById('xpBar');
+    var fertigEl = document.getElementById('lektionenFertig');
+
+    var level = Math.floor(akademieProgress.xp / 100) + 1;
+    var xpImLevel = akademieProgress.xp % 100;
+
+    if (xpEl) xpEl.textContent = akademieProgress.xp;
+    if (levelEl) levelEl.textContent = level;
+    if (barEl) barEl.style.width = xpImLevel + '%';
+    if (fertigEl) fertigEl.textContent = akademieProgress.fertig.length;
+
+    container.innerHTML = lektionen.map(function(l) {
+        var istFertig = akademieProgress.fertig.includes(l.id);
+        return '<div class="lektion-karte ' + (istFertig ? 'abgeschlossen' : '') +
+            '" onclick="lektionOeffnen(' + l.id + ')">' +
+            '<div class="lektion-header">' +
+                '<div class="lektion-icon">' + l.icon + '</div>' +
+                '<div style="flex:1;">' +
+                    '<div class="lektion-titel">' + l.titel + '</div>' +
+                    '<div class="lektion-level">' + l.level + '</div>' +
+                '</div>' +
+                (istFertig ? '<div class="lektion-check">✓</div>' : '') +
+            '</div>' +
+            '<div class="lektion-desc">' + l.desc + '</div>' +
+            '<div class="lektion-xp">⭐ ' + l.xp + ' XP</div>' +
+        '</div>';
+    }).join('');
+}
+
+function lektionOeffnen(id) {
+    var l = lektionen.find(function(x) { return x.id === id; });
+    if (!l) return;
+
+    var istFertig = akademieProgress.fertig.includes(id);
+
+    var inhalt =
+        '<div style="text-align:center; margin-bottom:1rem;">' +
+            '<div style="font-size:4rem;">' + l.icon + '</div>' +
+        '</div>' +
+        '<h2 style="font-family:Fredoka One,cursive; color:#ffdf00; text-align:center;">' +
+            l.titel + '</h2>' +
+        '<div style="text-align:center; margin-bottom:1rem; color:#00ddcc; font-weight:800;">' +
+            l.level + ' · ⭐ ' + l.xp + ' XP</div>' +
+        '<div style="padding:1rem; background:rgba(0,0,0,0.3); border-radius:12px; ' +
+            'color:#ccddaa; font-weight:600; line-height:1.7;">' +
+            l.inhalt +
+        '</div>' +
+        (istFertig ?
+            '<button class="btn-gruen" style="margin-top:1rem;" ' +
+                'onclick="this.closest(\'.modal-overlay\').classList.remove(\'aktiv\')">' +
+                '✅ Bereits gelernt</button>' :
+            '<button class="btn-gruen" style="margin-top:1rem;" ' +
+                'onclick="lektionAbschliessen(' + id + ')">' +
+                '🎓 Lektion abschließen (+' + l.xp + ' XP)</button>');
+
+    modalOeffnen(inhalt);
+}
+
+function lektionAbschliessen(id) {
+    var l = lektionen.find(function(x) { return x.id === id; });
+    if (!l || akademieProgress.fertig.includes(id)) return;
+
+    akademieProgress.xp += l.xp;
+    akademieProgress.fertig.push(id);
+    localStorage.setItem('akademie-progress', JSON.stringify(akademieProgress));
+
+    var modal = document.querySelector('.modal-overlay');
+    if (modal) modalSchliessen(modal);
+
+    toast('🎓 +' + l.xp + ' XP gewonnen!');
+    confetti();
+    lektionenAnzeigen();
+}
+
+lektionenAnzeigen();
+
+
+// ============================================
+// FINANZ KALENDER
+// ============================================
+
+var zahlungen = JSON.parse(localStorage.getItem('zahlungen')) || [];
+
+function zahlungHinzufuegen() {
+    var name = document.getElementById('zahlungName').value.trim();
+    var betrag = parseFloat(document.getElementById('zahlungBetrag').value) || 0;
+    var tag = parseInt(document.getElementById('zahlungTag').value) || 1;
+    var typ = document.getElementById('zahlungTyp').value;
+    var wiederholung = document.getElementById('zahlungWiederholung').value;
+
+    if (!name || betrag <= 0) {
+        toast('Bitte Name und Betrag eingeben!', 'error');
+        return;
+    }
+
+    zahlungen.push({
+        id: Date.now(),
+        name: name,
+        betrag: betrag,
+        tag: tag,
+        typ: typ,
+        wiederholung: wiederholung
+    });
+
+    localStorage.setItem('zahlungen', JSON.stringify(zahlungen));
+
+    document.getElementById('zahlungName').value = '';
+    document.getElementById('zahlungBetrag').value = '';
+
+    zahlungenAnzeigen();
+    toast('📅 Zahlung hinzugefügt!');
+}
+
+function zahlungLoeschen(id) {
+    zahlungen = zahlungen.filter(function(z) { return z.id !== id; });
+    localStorage.setItem('zahlungen', JSON.stringify(zahlungen));
+    zahlungenAnzeigen();
+}
+
+function zahlungenAnzeigen() {
+    var container = document.getElementById('zahlungenListe');
+    if (!container) return;
+
+    var einnahmen = 0, ausgaben = 0;
+
+    zahlungen.forEach(function(z) {
+        if (z.typ === 'einnahme') einnahmen += z.betrag;
+        else ausgaben += z.betrag;
+    });
+
+    var netto = einnahmen - ausgaben;
+
+    var einEl = document.getElementById('monatEin');
+    var ausEl = document.getElementById('monatAus');
+    var netEl = document.getElementById('monatNetto');
+
+    if (einEl) einEl.textContent = euro(einnahmen);
+    if (ausEl) ausEl.textContent = euro(ausgaben);
+    if (netEl) {
+        netEl.textContent = (netto >= 0 ? '+' : '') + euro(netto);
+        netEl.style.color = netto >= 0 ? '#00ff88' : '#ff4444';
+    }
+
+    if (zahlungen.length === 0) {
+        container.innerHTML =
+            '<div class="leer-portfolio">' +
+            '<div>📅</div>' +
+            '<div>Noch keine Zahlungen!</div>' +
+            '</div>';
+        return;
+    }
+
+    // Sortieren nach Tag
+    var sortiert = zahlungen.slice().sort(function(a, b) {
+        return a.tag - b.tag;
+    });
+
+    container.innerHTML = sortiert.map(function(z) {
+        return '<div class="zahlung-item ' + z.typ + '">' +
+            '<div class="zahlung-tag">' + z.tag + '.</div>' +
+            '<div class="zahlung-info">' +
+                '<div class="zahlung-name">' + z.name + '</div>' +
+                '<div class="zahlung-detail">' +
+                    z.wiederholung + ' · ' +
+                    (z.typ === 'einnahme' ? '💚 Einnahme' : '❤️ Ausgabe') +
+                '</div>' +
+            '</div>' +
+            '<div class="zahlung-betrag ' +
+                (z.typ === 'einnahme' ? 'positiv' : 'negativ') + '">' +
+                (z.typ === 'einnahme' ? '+' : '-') + euro(z.betrag) +
+            '</div>' +
+            '<button class="zahlung-loeschen" ' +
+                'onclick="zahlungLoeschen(' + z.id + ')">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+zahlungenAnzeigen();
