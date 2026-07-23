@@ -66,6 +66,7 @@
         <button class="tab" data-tab="hundnase">🐕 HUND-NASE</button>
         <button class="tab" data-tab="pimel">🎁 PIMEL</button>
         <button class="tab" data-tab="aaliyah">🌟 AALIYAH</button>
+        <button class="tab" data-tab="sankofa">🎨 SANKOFA</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -1481,6 +1482,132 @@
 
     </div>
     <!-- ENDE AALIYAH -->
+    <!-- ============ SANKOFA KUNST KI ============ -->
+    <div id="sankofa" class="seite">
+
+        <!-- HEADER -->
+        <div class="sankofa-header">
+            <div class="sankofa-avatar">
+                <div class="sankofa-symbol">🎨</div>
+            </div>
+            <div class="sankofa-info">
+                <h2>SANKOFA</h2>
+                <p>Kunst & Handwerk Verkaufs-KI</p>
+                <div class="sankofa-status">
+                    <div class="status-dot"></div>
+                    <span>Sankofa: Aus Vergangenheit lernen 🇬🇭</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WAS VERKAUFEN? -->
+        <div class="karte gruen-rand">
+            <h3>🎨 Was möchtest du verkaufen?</h3>
+            <div class="kunst-grid">
+                <button class="kunst-btn aktiv" onclick="kunstWaehlen('malerei', this)">
+                    <div class="kunst-icon">🖼️</div>
+                    <div class="kunst-name">Malerei</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('foto', this)">
+                    <div class="kunst-icon">📸</div>
+                    <div class="kunst-name">Fotos</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('schmuck', this)">
+                    <div class="kunst-icon">💎</div>
+                    <div class="kunst-name">Schmuck</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('kleidung', this)">
+                    <div class="kunst-icon">👗</div>
+                    <div class="kunst-name">Kleidung</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('holz', this)">
+                    <div class="kunst-icon">🪵</div>
+                    <div class="kunst-name">Holzarbeiten</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('musik', this)">
+                    <div class="kunst-icon">🎵</div>
+                    <div class="kunst-name">Musik/Beats</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('digital', this)">
+                    <div class="kunst-icon">💻</div>
+                    <div class="kunst-name">Digital Art</div>
+                </button>
+                <button class="kunst-btn" onclick="kunstWaehlen('afrikanisch', this)">
+                    <div class="kunst-icon">🌍</div>
+                    <div class="kunst-name">Afrikanisch</div>
+                </button>
+            </div>
+            <button class="btn-gruen" onclick="sankofaPlattformen()">
+                🎨 Verkaufs-Plattformen zeigen
+            </button>
+        </div>
+
+        <!-- PLATTFORMEN -->
+        <div id="sankofaErgebnis"></div>
+
+        <!-- PREIS RECHNER -->
+        <div class="karte gelb-rand">
+            <h3>💰 Fair-Preis Rechner</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Kalkuliere deinen Verkaufspreis richtig!
+            </p>
+            <label>Material-Kosten (€)</label>
+            <input type="number" id="matKosten" value="10" min="0" step="0.50">
+            <label>Arbeitsstunden</label>
+            <input type="number" id="arbeitsStd" value="5" min="0" step="0.5">
+            <label>Stundenlohn (€)</label>
+            <input type="number" id="stundenLohn" value="15" min="0">
+            <label>Gewinn-Marge (%)</label>
+            <input type="number" id="marge" value="30" min="0" max="200">
+            <label>Plattform-Gebühren (%)</label>
+            <input type="number" id="gebuehren" value="10" min="0" max="50">
+            <button class="btn-gruen" onclick="preisBerechnen()">
+                💰 Preis berechnen
+            </button>
+            <div id="preisErgebnis"></div>
+        </div>
+
+        <!-- ERFOLGS TIPPS -->
+        <div class="karte regenbogen-rand">
+            <h3>🏆 Verkaufs-Erfolgs Tipps</h3>
+            <div id="sankofaTipps"></div>
+        </div>
+
+        <!-- MEINE PRODUKTE -->
+        <div class="karte gruen-rand">
+            <h3>📦 Meine Produkte</h3>
+            <label>Produkt-Name</label>
+            <input type="text" id="produktName" placeholder="z.B. Handgemalte Kente">
+            <label>Preis (€)</label>
+            <input type="number" id="produktPreis" placeholder="50" min="0">
+            <label>Plattform</label>
+            <input type="text" id="produktPlattform" placeholder="z.B. Etsy">
+            <button class="btn-gruen" onclick="produktHinzufuegen()">
+                ➕ Produkt hinzufügen
+            </button>
+            <div id="produkteListe"></div>
+        </div>
+
+        <!-- STORY TELLING -->
+        <div class="karte gelb-rand">
+            <h3>📖 Story Telling Generator</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Menschen kaufen Geschichten, nicht Produkte!
+            </p>
+            <label>Produkt-Name</label>
+            <input type="text" id="storyProdukt" placeholder="z.B. Adinkra Armband">
+            <label>Material</label>
+            <input type="text" id="storyMaterial" placeholder="z.B. Kupfer, Perlen">
+            <label>Herkunft</label>
+            <input type="text" id="storyHerkunft" value="Togo, Westafrika">
+            <button class="btn-gruen" onclick="storyGenerieren()">
+                📖 Story generieren
+            </button>
+            <div id="storyErgebnis"></div>
+        </div>
+
+    </div>
+    <!-- ENDE SANKOFA -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">

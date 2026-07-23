@@ -6286,3 +6286,259 @@ function aaliyahStarten() {
 }
 
 aaliyahStarten();
+// ============================================
+// SANKOFA – Kunst & Handwerk KI
+// ============================================
+
+var aktiveKunst = 'malerei';
+var meineProdukte = JSON.parse(localStorage.getItem('meine-produkte')) || [];
+
+var sankofaPlattformenDB = {
+    malerei: [
+        { icon: '🖼️', name: 'Etsy', desc: 'Weltweite #1 für Handmade & Art', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' },
+        { icon: '🎨', name: 'Saatchi Art', desc: 'Premium Kunst-Plattform', url: 'https://www.saatchiart.com', gebuehr: '35%', region: 'International' },
+        { icon: '🌍', name: 'Afrikrea', desc: 'Afrikanische Kunst weltweit', url: 'https://www.afrikrea.com', gebuehr: '10%', region: 'Afrika' },
+        { icon: '📱', name: 'Instagram Shop', desc: 'Direkt an Follower verkaufen', url: 'https://business.instagram.com', gebuehr: '0-5%', region: 'Weltweit' }
+    ],
+    foto: [
+        { icon: '📸', name: 'Shutterstock', desc: 'Größte Stock Foto Plattform', url: 'https://submit.shutterstock.com', gebuehr: '15-40%', region: 'Weltweit' },
+        { icon: '📷', name: 'Adobe Stock', desc: 'Für Profi-Fotografen', url: 'https://contributor.stock.adobe.com', gebuehr: '33%', region: 'Weltweit' },
+        { icon: '🌅', name: 'EyeEm', desc: 'Community & Marketplace', url: 'https://www.eyeem.com', gebuehr: '50%', region: 'International' },
+        { icon: '🖼️', name: 'Fine Art America', desc: 'Kunstdrucke verkaufen', url: 'https://fineartamerica.com', gebuehr: 'Fix', region: 'USA/Weltweit' }
+    ],
+    schmuck: [
+        { icon: '💎', name: 'Etsy', desc: 'Bester Handmade Marktplatz', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' },
+        { icon: '💍', name: 'Amazon Handmade', desc: 'Zugang zu Amazon Kunden', url: 'https://www.amazon.com/handmade', gebuehr: '15%', region: 'Weltweit' },
+        { icon: '🌍', name: 'Afrikrea', desc: 'Perfekt für afrikanischen Schmuck', url: 'https://www.afrikrea.com', gebuehr: '10%', region: 'Afrika' },
+        { icon: '🛍️', name: 'Kleinanzeigen', desc: 'Lokal verkaufen', url: 'https://www.kleinanzeigen.de', gebuehr: '0%', region: 'Deutschland' }
+    ],
+    kleidung: [
+        { icon: '👗', name: 'Vinted', desc: 'Millionen Nutzer in Europa', url: 'https://www.vinted.de', gebuehr: '0%', region: 'Europa' },
+        { icon: '👚', name: 'Etsy', desc: 'Für Handmade Fashion', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' },
+        { icon: '🌍', name: 'Afrikrea', desc: 'Afrikanische Mode #1', url: 'https://www.afrikrea.com', gebuehr: '10%', region: 'Afrika/Welt' },
+        { icon: '📱', name: 'Depop', desc: 'Trend bei Gen Z', url: 'https://www.depop.com', gebuehr: '10%', region: 'Weltweit' }
+    ],
+    holz: [
+        { icon: '🪵', name: 'Etsy', desc: 'Beste Plattform für Handwerk', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' },
+        { icon: '🔨', name: 'DaWanda / Etsy', desc: 'Deutsche Handmade Community', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'DE/EU' },
+        { icon: '📱', name: 'Kleinanzeigen', desc: 'Lokal ohne Gebühren', url: 'https://www.kleinanzeigen.de', gebuehr: '0%', region: 'Deutschland' },
+        { icon: '🛒', name: 'Amazon Handmade', desc: 'Riesige Reichweite', url: 'https://www.amazon.com/handmade', gebuehr: '15%', region: 'Weltweit' }
+    ],
+    musik: [
+        { icon: '🎵', name: 'DistroKid', desc: 'Alle Streaming Dienste (Spotify, Apple)', url: 'https://distrokid.com', gebuehr: '$20/Jahr', region: 'Weltweit' },
+        { icon: '🎧', name: 'BeatStars', desc: 'Beats an Rapper verkaufen', url: 'https://www.beatstars.com', gebuehr: '30%', region: 'Weltweit' },
+        { icon: '🎼', name: 'Bandcamp', desc: 'Direkt an Fans verkaufen', url: 'https://bandcamp.com', gebuehr: '15%', region: 'Weltweit' },
+        { icon: '📻', name: 'SoundCloud Pro', desc: 'Monetarisiere Musik', url: 'https://soundcloud.com', gebuehr: 'Abo', region: 'Weltweit' }
+    ],
+    digital: [
+        { icon: '💻', name: 'Gumroad', desc: 'Digitale Produkte einfach verkaufen', url: 'https://gumroad.com', gebuehr: '10%', region: 'Weltweit' },
+        { icon: '🎨', name: 'Creative Market', desc: 'Design Templates & Grafiken', url: 'https://creativemarket.com', gebuehr: '30-40%', region: 'Weltweit' },
+        { icon: '📊', name: 'Envato Elements', desc: 'Templates, Grafiken, Musik', url: 'https://elements.envato.com', gebuehr: '25%', region: 'Weltweit' },
+        { icon: '🖼️', name: 'Etsy Digital', desc: 'Auch digitale Produkte', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' }
+    ],
+    afrikanisch: [
+        { icon: '🌍', name: 'Afrikrea', desc: '#1 Marketplace für afrikanische Produkte', url: 'https://www.afrikrea.com', gebuehr: '10%', region: 'Afrika/Weltweit' },
+        { icon: '🎨', name: 'Etsy (African Art)', desc: 'Kategorie African Art', url: 'https://www.etsy.com', gebuehr: '6.5%', region: 'Weltweit' },
+        { icon: '💎', name: 'Novica', desc: 'National Geographic Partner', url: 'https://www.novica.com', gebuehr: 'Variiert', region: 'International' },
+        { icon: '🛍️', name: 'Jumia', desc: 'Größter Marketplace Afrika', url: 'https://www.jumia.com', gebuehr: '10-15%', region: 'Afrika' }
+    ]
+};
+
+function kunstWaehlen(kunst, btn) {
+    aktiveKunst = kunst;
+    document.querySelectorAll('.kunst-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+}
+
+function sankofaPlattformen() {
+    var plattformen = sankofaPlattformenDB[aktiveKunst];
+    var container = document.getElementById('sankofaErgebnis');
+
+    container.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>🎨 Beste Plattformen für ' + aktiveKunst + '</h3>' +
+            plattformen.map(function(p) {
+                return '<div class="plattform-item">' +
+                    '<div class="plattform-header">' +
+                        '<div class="plattform-name">' + p.icon + ' ' + p.name + '</div>' +
+                        '<div style="color:#00ff88; font-size:0.85rem; font-weight:800;">' +
+                            'Gebühr: ' + p.gebuehr +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="plattform-desc">' + p.desc + '</div>' +
+                    '<div class="plattform-tags">' +
+                        '<span class="plattform-tag">🌍 ' + p.region + '</span>' +
+                    '</div>' +
+                    '<a href="' + p.url + '" target="_blank" class="plattform-link">' +
+                        '🔗 Jetzt anmelden</a>' +
+                '</div>';
+            }).join('') +
+        '</div>';
+
+    sankofaTippsAnzeigen();
+    container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function preisBerechnen() {
+    var material = parseFloat(document.getElementById('matKosten').value) || 0;
+    var stunden = parseFloat(document.getElementById('arbeitsStd').value) || 0;
+    var lohn = parseFloat(document.getElementById('stundenLohn').value) || 0;
+    var marge = parseFloat(document.getElementById('marge').value) || 0;
+    var gebuehren = parseFloat(document.getElementById('gebuehren').value) || 0;
+
+    var arbeitsKosten = stunden * lohn;
+    var gesamtKosten = material + arbeitsKosten;
+    var mitMarge = gesamtKosten * (1 + marge/100);
+    var verkaufsPreis = mitMarge / (1 - gebuehren/100);
+    var nettoGewinn = verkaufsPreis - gesamtKosten - (verkaufsPreis * gebuehren/100);
+
+    document.getElementById('preisErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Kalkulation</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Material:</span>' +
+                '<span>' + euro(material) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Arbeitskosten (' + stunden + 'h):</span>' +
+                '<span>' + euro(arbeitsKosten) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Gesamtkosten:</span>' +
+                '<span class="negativ">' + euro(gesamtKosten) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💰 Verkaufspreis:</span>' +
+                '<span class="gold" style="font-size:1.4rem;">' + euro(verkaufsPreis) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>✅ Dein Netto-Gewinn:</span>' +
+                '<span class="positiv">' + euro(nettoGewinn) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Tipp:</strong> Setze deinen Preis nicht zu niedrig! ' +
+                'Menschen assoziieren Preis mit Qualität. Handmade darf und soll teuer sein!' +
+            '</div>' +
+        '</div>';
+}
+
+function sankofaTippsAnzeigen() {
+    var container = document.getElementById('sankofaTipps');
+    if (!container) return;
+
+    var tipps = [
+        { icon: '📸', titel: 'Perfekte Fotos', text: 'Investiere in gute Produktfotos! Naturlicht, weißer Hintergrund, verschiedene Winkel.' },
+        { icon: '📖', titel: 'Story erzählen', text: 'Menschen kaufen Geschichten! Erzähle wo du deine Inspiration herbekommst.' },
+        { icon: '🌟', titel: 'Bewertungen sammeln', text: 'Bitte Kunden um Bewertungen. Positive Reviews = mehr Verkäufe!' },
+        { icon: '📱', titel: 'Social Media nutzen', text: 'Instagram & TikTok sind Gold! Zeige deinen Kreativprozess.' },
+        { icon: '💎', titel: 'Nische finden', text: 'Spezialisierung > Alles anbieten. Sei DER Experte für dein Thema.' },
+        { icon: '🎯', titel: 'SEO nutzen', text: 'Wähle deine Titel mit gefragten Keywords: "Handmade", "Boho", "Vintage", etc.' },
+        { icon: '💌', titel: 'Kundenkontakt', text: 'Antworte innerhalb 24h. Freundlicher Service = Wiederkäufer!' },
+        { icon: '🎁', titel: 'Verpackung wichtig', text: 'Schöne Verpackung wird oft auf Social Media geteilt = Gratis Werbung!' }
+    ];
+
+    container.innerHTML = tipps.map(function(t) {
+        return '<div class="warnung-item" style="border-left-color:#ff6b00;">' +
+            '<div class="warnung-icon">' + t.icon + '</div>' +
+            '<div>' +
+                '<div class="warnung-titel" style="color:#ffce00;">' + t.titel + '</div>' +
+                '<div class="warnung-text">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function produktHinzufuegen() {
+    var name = document.getElementById('produktName').value.trim();
+    var preis = parseFloat(document.getElementById('produktPreis').value) || 0;
+    var plattform = document.getElementById('produktPlattform').value.trim();
+
+    if (!name || preis <= 0) {
+        toast('Bitte Name und Preis eingeben!', 'error');
+        return;
+    }
+
+    meineProdukte.push({
+        id: Date.now(),
+        name: name,
+        preis: preis,
+        plattform: plattform || 'Nicht angegeben',
+        datum: new Date().toLocaleDateString('de-DE')
+    });
+
+    localStorage.setItem('meine-produkte', JSON.stringify(meineProdukte));
+
+    document.getElementById('produktName').value = '';
+    document.getElementById('produktPreis').value = '';
+    document.getElementById('produktPlattform').value = '';
+
+    produkteAnzeigen();
+    toast('📦 Produkt hinzugefügt!');
+}
+
+function produktLoeschen(id) {
+    meineProdukte = meineProdukte.filter(function(p) { return p.id !== id; });
+    localStorage.setItem('meine-produkte', JSON.stringify(meineProdukte));
+    produkteAnzeigen();
+}
+
+function produkteAnzeigen() {
+    var container = document.getElementById('produkteListe');
+    if (!container) return;
+
+    if (meineProdukte.length === 0) {
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; margin-top:1rem;">' +
+            'Noch keine Produkte hinzugefügt.</p>';
+        return;
+    }
+
+    container.innerHTML = meineProdukte.map(function(p) {
+        return '<div class="produkt-item">' +
+            '<div class="produkt-info">' +
+                '<div class="produkt-name">🎨 ' + p.name + '</div>' +
+                '<div class="produkt-detail">📱 ' + p.plattform + ' · 📅 ' + p.datum + '</div>' +
+            '</div>' +
+            '<div class="produkt-preis">' + euro(p.preis) + '</div>' +
+            '<button class="port-loeschen" onclick="produktLoeschen(' + p.id + ')">✕</button>' +
+        '</div>';
+    }).join('');
+}
+
+function storyGenerieren() {
+    var produkt = document.getElementById('storyProdukt').value.trim() || 'dieses Kunstwerk';
+    var material = document.getElementById('storyMaterial').value.trim() || 'edlen Materialien';
+    var herkunft = document.getElementById('storyHerkunft').value.trim() || 'meinem Atelier';
+
+    var stories = [
+        'In den frühen Morgenstunden, wenn die Sonne über ' + herkunft + ' aufgeht, ' +
+        'entstehen die einzigartigsten Stücke. ' + produkt + ' wurde mit ' + material +
+        ' handgefertigt und trägt die Seele westafrikanischer Handwerkskunst in sich. ' +
+        'Jedes Detail erzählt eine Geschichte von Tradition, Leidenschaft und Perfektion.',
+
+        produkt + ' – eine Meisterleistung aus ' + material + ', gefertigt in ' + herkunft +
+        '. Unsere Vorfahren haben diese Techniken über Generationen weitergegeben. ' +
+        'Wenn du dieses Stück trägst, trägst du ein Stück Geschichte, verbunden mit der Kraft ' +
+        'und dem Geist Afrikas. Sankofa – aus der Vergangenheit lernen für die Zukunft. 🌍',
+
+        'Stell dir vor: Die untergehende Sonne von ' + herkunft + ' spiegelt sich in ' +
+        material + '. Meine Hände formen ' + produkt + ' mit derselben Sorgfalt, ' +
+        'die meine Großmutter mir beibrachte. Kein Stück ist wie das andere. ' +
+        'Jedes trägt die Energie und die Geschichte seiner Entstehung. ' +
+        'Das ist nicht nur ein Produkt – es ist ein Kunstwerk mit Seele. ✨'
+    ];
+
+    var story = stories[Math.floor(Math.random() * stories.length)];
+
+    document.getElementById('storyErgebnis').innerHTML =
+        '<div class="story-box">' + story + '</div>' +
+        '<button class="btn-gruen" style="margin-top:1rem;" onclick="storyGenerieren()">' +
+            '🔄 Andere Story generieren</button>';
+
+    toast('📖 Story generiert!');
+}
+
+// Auto-Start
+produkteAnzeigen();

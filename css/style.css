@@ -6201,4 +6201,160 @@ canvas {
     font-size: 1.5rem;
     flex-shrink: 0;
 }
+/* ============================================
+   SANKOFA – Kunst KI
+   ============================================ */
+
+.sankofa-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #3d1a3d, #1a3d3d);
+    border-bottom: 3px solid rgba(255,107,0,0.3);
+}
+
+.sankofa-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #ff6b00, #ffce00, #d21034);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #8b3d00, 0 12px 30px rgba(255,107,0,0.5);
+    animation: sankofaSpin 4s ease-in-out infinite;
+}
+
+@keyframes sankofaSpin {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.sankofa-symbol {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.sankofa-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #ff6b00, #ffce00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.sankofa-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.sankofa-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #ff6b00;
+    font-weight: 800;
+}
+
+/* Kunst Grid */
+.kunst-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.kunst-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.kunst-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(255,107,0,0.4);
+}
+
+.kunst-btn.aktiv {
+    border-color: #ff6b00;
+    background: rgba(255,107,0,0.1);
+    box-shadow: 0 4px 0 #8b3d00;
+    transform: translateY(-2px);
+}
+
+.kunst-icon {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.kunst-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #ffce00;
+}
+
+/* Produkt Item */
+.produkt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ff6b00;
+    margin-top: 0.5rem;
+}
+
+.produkt-info { flex: 1; }
+
+.produkt-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+}
+
+.produkt-detail {
+    font-size: 0.75rem;
+    color: #668844;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.produkt-preis {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+}
+
+/* Story Box */
+.story-box {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    background: linear-gradient(145deg, #3d2a10, #241610);
+    border: 2px solid rgba(255,206,0,0.3);
+    border-radius: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: #fff8e7;
+    line-height: 1.7;
+    font-weight: 600;
+    font-style: italic;
+    border-left: 4px solid #ff6b00;
+}
         
