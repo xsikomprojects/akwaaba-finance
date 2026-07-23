@@ -1993,3 +1993,373 @@ canvas {
     font-size: 0.8rem;
     cursor: pointer;
 }
+/* ============================================
+   CHANCEN FINDER
+   ============================================ */
+
+/* Scanner */
+.scan-container {
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+}
+
+.scan-ring {
+    width: 100px;
+    height: 100px;
+    border: 4px solid transparent;
+    border-top-color: #00cc44;
+    border-right-color: #ffdf00;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    animation: drehen 1s linear infinite;
+    box-shadow: 0 0 20px rgba(0,204,68,0.3);
+}
+
+.scan-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #00ddcc;
+    animation: textBlinken 1s ease-in-out infinite;
+}
+
+.scan-log {
+    font-size: 0.78rem;
+    color: #668844;
+    font-weight: 700;
+    font-family: monospace;
+    text-align: left;
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    margin-top: 1rem;
+    max-height: 150px;
+    overflow-y: auto;
+    line-height: 1.8;
+}
+
+/* Risiko Auswahl */
+.risiko-auswahl {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.risiko-btn {
+    padding: 0.7rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #668844;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.risiko-btn.aktiv {
+    border-color: #00cc44;
+    color: #00ff88;
+    background: rgba(0,204,68,0.1);
+    box-shadow: 0 4px 0 #004400;
+    transform: translateY(-2px);
+}
+
+/* Chancen Karte */
+.chance-karte {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 1.3rem;
+    margin: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+    transition: all 0.3s;
+}
+
+.chance-karte::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00cc44, #ffdf00, #ff3333);
+}
+
+.chance-karte:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 rgba(0,0,0,0.3);
+}
+
+.chance-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.chance-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.chance-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.05rem;
+    color: #ffdf00;
+}
+
+.chance-kat {
+    font-size: 0.7rem;
+    color: #00ddcc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.chance-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+}
+
+.chance-stat {
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.chance-stat-label {
+    font-size: 0.6rem;
+    color: #668844;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+}
+
+.chance-stat-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+}
+
+.chance-beschreibung {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.chance-schritte {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.chance-schritt-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #00ddcc;
+    margin-bottom: 0.5rem;
+}
+
+.chance-schritt {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 600;
+    padding: 0.3rem 0;
+}
+
+.schritt-nr {
+    width: 20px;
+    height: 20px;
+    background: #00cc44;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.7rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.risiko-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
+.risiko-niedrig {
+    background: rgba(0,204,68,0.15);
+    color: #00ff88;
+    border: 1px solid rgba(0,204,68,0.4);
+}
+
+.risiko-mittel {
+    background: rgba(255,223,0,0.15);
+    color: #ffdf00;
+    border: 1px solid rgba(255,223,0,0.4);
+}
+
+.risiko-hoch {
+    background: rgba(204,0,0,0.15);
+    color: #ff4444;
+    border: 1px solid rgba(204,0,0,0.4);
+}
+
+/* Markt Lücken */
+.luecke-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #ff3333;
+}
+
+.luecke-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.luecke-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+    margin-bottom: 0.3rem;
+}
+
+.luecke-text {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.luecke-potenzial {
+    font-size: 0.75rem;
+    color: #00ff88;
+    font-weight: 800;
+    margin-top: 0.3rem;
+}
+
+/* Passive Income */
+.passive-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255,223,0,0.1);
+    transition: all 0.2s;
+}
+
+.passive-item:hover {
+    border-color: rgba(255,223,0,0.3);
+    transform: translateX(5px);
+}
+
+.passive-icon { font-size: 1.5rem; flex-shrink: 0; }
+.passive-info { flex: 1; }
+
+.passive-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+}
+
+.passive-desc {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.passive-rendite {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #00ff88;
+    text-align: right;
+}
+
+/* Aktionsplan */
+.plan-schritt {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+}
+
+.plan-schritt:hover {
+    background: rgba(0,204,68,0.05);
+    border-color: rgba(0,204,68,0.2);
+}
+
+.plan-nr {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #00cc44, #00ddcc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 #004400;
+}
+
+.plan-inhalt { flex: 1; }
+
+.plan-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+    margin-bottom: 0.3rem;
+}
+
+.plan-text {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.plan-dauer {
+    font-size: 0.72rem;
+    color: #668844;
+    font-weight: 800;
+    margin-top: 0.3rem;
+}
+
+@keyframes textBlinken {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}

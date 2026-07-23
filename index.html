@@ -80,6 +80,7 @@
         <button class="tab" data-tab="crypto">₿ Crypto</button>
         <button class="tab" data-tab="budget">💸 Budget</button>
         <button class="tab" data-tab="benachrichtigungen">🔔 Alerts</button>
+        <button class="tab" data-tab="chancen">🎯 Chancen</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
         <button class="tab" data-tab="tipps">💡 Tipps</button>
     </nav>
@@ -296,6 +297,100 @@
 <!-- CRYPTO -->
 <!-- BUDGET -->
 <!-- BENACHRICHTIGUNGEN -->
+<!-- CHANCEN FINDER -->
+<div id="chancen" class="seite">
+
+    <div class="karte regenbogen-rand">
+        <h2>🎯 Legale Finanz-Chancen</h2>
+        <p>Quantum AI scannt das Internet nach legalen
+        Möglichkeiten Geld zu verdienen! 🚀</p>
+    </div>
+
+    <!-- SCANNER -->
+    <div class="karte gruen-rand">
+        <h3>⚛️ Opportunity Scanner</h3>
+        <label>Dein verfügbares Kapital (€)</label>
+        <input type="number" id="chancenKapital"
+            placeholder="z.B. 1000" min="0">
+        <label>Deine Fähigkeiten</label>
+        <select id="chancenFaehigkeit">
+            <option value="alle">🌍 Alle anzeigen</option>
+            <option value="tech">💻 Technik / IT</option>
+            <option value="kreativ">🎨 Kreativ / Design</option>
+            <option value="handel">📦 Handel / Verkauf</option>
+            <option value="finanzen">📈 Finanzen / Invest</option>
+            <option value="bildung">📚 Bildung / Coaching</option>
+            <option value="handwerk">🔧 Handwerk / Service</option>
+            <option value="digital">📱 Digital / Online</option>
+        </select>
+        <label>Zeitaufwand pro Woche</label>
+        <select id="chancenZeit">
+            <option value="wenig">⏰ 1-5 Stunden</option>
+            <option value="mittel">⏰ 5-20 Stunden</option>
+            <option value="viel">⏰ 20-40 Stunden</option>
+            <option value="vollzeit">⏰ Vollzeit</option>
+        </select>
+        <label>Risiko Bereitschaft</label>
+        <div class="risiko-auswahl">
+            <button class="risiko-btn aktiv"
+                onclick="risikoWaehlen('niedrig', this)">
+                🛡️ Niedrig
+            </button>
+            <button class="risiko-btn"
+                onclick="risikoWaehlen('mittel', this)">
+                ⚖️ Mittel
+            </button>
+            <button class="risiko-btn"
+                onclick="risikoWaehlen('hoch', this)">
+                🚀 Hoch
+            </button>
+        </div>
+        <button class="btn-gruen" onclick="chancenScannen()">
+            ⚛️ Quantum Scan starten
+        </button>
+    </div>
+
+    <!-- SCAN ANIMATION -->
+    <div id="scanAnimation" class="versteckt">
+        <div class="karte gruen-rand">
+            <div class="scan-container">
+                <div class="scan-ring"></div>
+                <div class="scan-text" id="scanText">
+                    Initialisiere Quantum Scanner...
+                </div>
+            </div>
+            <div class="scan-log" id="scanLog"></div>
+        </div>
+    </div>
+
+    <!-- ERGEBNISSE -->
+    <div id="chancenErgebnisse"></div>
+
+    <!-- MARKT LÜCKEN -->
+    <div class="karte rot-rand" id="marktLueckenBox"
+        style="display:none;">
+        <h3>🔍 Erkannte Marktlücken</h3>
+        <div id="marktLuecken"></div>
+    </div>
+
+    <!-- PASSIVE INCOME -->
+    <div class="karte gelb-rand" id="passiveIncomeBox"
+        style="display:none;">
+        <h3>💰 Passive Einkommens-Strategien</h3>
+        <div id="passiveIncome"></div>
+    </div>
+
+    <!-- AKTIONSPLAN -->
+    <div class="karte regenbogen-rand" id="aktionsplanBox"
+        style="display:none;">
+        <h3>📋 Dein persönlicher Aktionsplan</h3>
+        <div id="aktionsplan"></div>
+        <button class="btn-gruen" onclick="planSpeichern()">
+            💾 Plan speichern
+        </button>
+    </div>
+
+</div>
 <div id="benachrichtigungen" class="seite">
 
     <div class="karte regenbogen-rand">

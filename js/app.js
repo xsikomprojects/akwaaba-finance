@@ -2264,3 +2264,572 @@ function appTeilen() {
         });
     }
 }
+// ============================================
+// LEGALE FINANZ-CHANCEN FINDER
+// ============================================
+
+var aktivesRisiko = 'niedrig';
+
+function risikoWaehlen(risiko, btn) {
+    aktivesRisiko = risiko;
+    document.querySelectorAll('.risiko-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+}
+
+// === ALLE CHANCEN DATENBANK ===
+var alleChancen = [
+
+    // ===== NIEDRIG RISIKO =====
+    {
+        risiko: 'niedrig',
+        kategorien: ['alle', 'finanzen', 'digital'],
+        icon: '🏦',
+        iconBg: 'rgba(0,136,255,0.2)',
+        titel: 'Tagesgeld & Festgeld Hopping',
+        kategorie: 'Passives Einkommen',
+        verdienst: '3-5% p.a.',
+        startkapital: '100€+',
+        zeit: '1h/Monat',
+        beschreibung: 'Nutze die besten Zinsen verschiedener Banken. Viele Banken bieten attraktive Willkommenszinsen für Neukunden. Wechsle regelmäßig für maximale Rendite.',
+        schritte: [
+            'Vergleiche Tagesgeld-Angebote auf Vergleichsportalen',
+            'Eröffne Konto bei der besten Bank (meist online in 10 Min)',
+            'Überweise dein Kapital dorthin',
+            'Nach Ablauf der Zinsgarantie zur nächsten Bank wechseln',
+            'Nutze Portale wie Zinspilot oder Weltsparen'
+        ],
+        links: ['zinspilot.de', 'weltsparen.de', 'biallo.de']
+    },
+    {
+        risiko: 'niedrig',
+        kategorien: ['alle', 'finanzen'],
+        icon: '📊',
+        iconBg: 'rgba(0,204,68,0.2)',
+        titel: 'ETF Sparplan',
+        kategorie: 'Langzeit Investment',
+        verdienst: '7-10% p.a.',
+        startkapital: '25€/Monat',
+        zeit: '2h/Jahr',
+        beschreibung: 'Investiere monatlich in breit gestreute ETFs. Historisch die beste Methode um langfristig Vermögen aufzubauen. Kein aktives Management nötig.',
+        schritte: [
+            'Depot bei Neobroker eröffnen (Trade Republic, Scalable)',
+            'MSCI World oder FTSE All-World ETF auswählen',
+            'Monatlichen Sparplan einrichten (ab 1€)',
+            'Niemals in Panik verkaufen – Durchhalten!',
+            'Steuerfreibetrag von 1.000€/Jahr nutzen'
+        ],
+        links: ['traderepublic.com', 'scalable.capital', 'justETF.com']
+    },
+    {
+        risiko: 'niedrig',
+        kategorien: ['alle', 'digital'],
+        icon: '🎓',
+        iconBg: 'rgba(255,223,0,0.2)',
+        titel: 'Online Umfragen & Marktforschung',
+        kategorie: 'Nebeneinkommen',
+        verdienst: '50-300€/Monat',
+        startkapital: '0€',
+        zeit: '5-10h/Woche',
+        beschreibung: 'Unternehmen zahlen echtes Geld für deine Meinung. Seriöse Plattformen zahlen per PayPal oder Gutschein. Ideal als einfaches Nebeneinkommen.',
+        schritte: [
+            'Bei Toluna, GfK, Marketagent anmelden',
+            'Profil vollständig ausfüllen für mehr Umfragen',
+            'Täglich 15-30 Min für Umfragen einplanen',
+            'Punkte regelmäßig auszahlen lassen',
+            'Mehrere Plattformen nutzen für mehr Einkommen'
+        ],
+        links: ['toluna.com', 'gfk-online.com', 'marketagent.com']
+    },
+    {
+        risiko: 'niedrig',
+        kategorien: ['alle', 'digital', 'bildung'],
+        icon: '📝',
+        iconBg: 'rgba(204,0,0,0.2)',
+        titel: 'Cashback & Bonusprogramme',
+        kategorie: 'Gratis Geld',
+        verdienst: '200-800€/Jahr',
+        startkapital: '0€',
+        zeit: '1h/Monat',
+        beschreibung: 'Hol dir Geld zurück für Einkäufe die du sowieso machst. Viele Kreditkarten und Apps zahlen 1-5% Cashback auf alle Ausgaben.',
+        schritte: [
+            'Cashback-Kreditkarte beantragen (Payback, DKB)',
+            'Bei Cashback-Portalen anmelden (Shoop, Igraal)',
+            'Online-Einkäufe immer über Cashback-Portal',
+            'Bonuspunkte bei Supermärkten sammeln',
+            'Willkommensboni bei neuen Karten nutzen'
+        ],
+        links: ['shoop.de', 'igraal.com', 'payback.de']
+    },
+
+    // ===== MITTEL RISIKO =====
+    {
+        risiko: 'mittel',
+        kategorien: ['alle', 'digital', 'kreativ'],
+        icon: '🎨',
+        iconBg: 'rgba(204,0,0,0.2)',
+        titel: 'Freelancing & Auftragsarbeit',
+        kategorie: 'Aktives Einkommen',
+        verdienst: '500-5000€/Monat',
+        startkapital: '0€',
+        zeit: '10-40h/Woche',
+        beschreibung: 'Verkaufe deine Fähigkeiten auf internationalen Plattformen. Design, Programmierung, Texten, Übersetzen – alles ist gefragt. Starte noch heute!',
+        schritte: [
+            'Profil auf Fiverr oder Upwork erstellen',
+            'Portfolio mit 3-5 Beispielarbeiten aufbauen',
+            'Erste Jobs zu niedrigem Preis für Bewertungen annehmen',
+            'Preise nach positiven Reviews erhöhen',
+            'Stammkunden aufbauen und direkt kontaktieren'
+        ],
+        links: ['fiverr.com', 'upwork.com', 'freelancer.com']
+    },
+    {
+        risiko: 'mittel',
+        kategorien: ['alle', 'digital', 'handel'],
+        icon: '📦',
+        iconBg: 'rgba(255,223,0,0.2)',
+        titel: 'Amazon FBA / Dropshipping',
+        kategorie: 'E-Commerce',
+        verdienst: '1000-10000€/Monat',
+        startkapital: '500-2000€',
+        zeit: '20-40h/Woche',
+        beschreibung: 'Verkaufe Produkte über Amazon ohne eigenes Lager. Amazon lagert und versendet für dich. Finde profitable Nischen mit wenig Konkurrenz.',
+        schritte: [
+            'Marktanalyse: Profitable Produkte finden',
+            'Amazon Seller Account erstellen',
+            'Lieferant auf Alibaba oder lokal finden',
+            'Produkt listen und optimieren (SEO)',
+            'Bewertungen sammeln und skalieren'
+        ],
+        links: ['sell.amazon.de', 'alibaba.com', 'junglescout.com']
+    },
+    {
+        risiko: 'mittel',
+        kategorien: ['alle', 'digital', 'kreativ'],
+        icon: '📱',
+        iconBg: 'rgba(0,136,255,0.2)',
+        titel: 'Content Creation & Social Media',
+        kategorie: 'Digital Business',
+        verdienst: '200-50000€/Monat',
+        startkapital: '0-500€',
+        zeit: '20-40h/Woche',
+        beschreibung: 'Baue eine Zielgruppe auf und monetarisiere durch Werbung, Sponsoring und eigene Produkte. YouTube, TikTok, Instagram – alle Plattformen zahlen Creator.',
+        schritte: [
+            'Nische definieren (Finanz, Kochen, Gaming etc.)',
+            'Kanal auf YouTube oder TikTok erstellen',
+            'Täglich oder wöchentlich Content produzieren',
+            'Ab 1000 Follower Sponsoring anfragen',
+            'Eigene Produkte oder Kurse verkaufen'
+        ],
+        links: ['youtube.com', 'tiktok.com', 'patreon.com']
+    },
+    {
+        risiko: 'mittel',
+        kategorien: ['alle', 'immobilien', 'finanzen'],
+        icon: '🏠',
+        iconBg: 'rgba(0,204,68,0.2)',
+        titel: 'Immobilien Crowdinvesting',
+        kategorie: 'Immobilien Investment',
+        verdienst: '4-8% p.a.',
+        startkapital: '100€+',
+        zeit: '2h/Monat',
+        beschreibung: 'Investiere in Immobilien ohne Millionen zu brauchen. Plattformen ermöglichen ab 100€ in Immobilienprojekte zu investieren und Mietrenditen zu erhalten.',
+        schritte: [
+            'Plattform auswählen (Exporo, Engel & Völkers)',
+            'Projekte analysieren (Standort, Rendite, Risiko)',
+            'Investition auf mehrere Projekte verteilen',
+            'Zinsen quartalsweise ausgezahlt bekommen',
+            'Reinvestieren für Zinseszinseffekt'
+        ],
+        links: ['exporo.de', 'bergfuerst.com', 'zinsbaustein.de']
+    },
+    {
+        risiko: 'mittel',
+        kategorien: ['alle', 'digital', 'bildung'],
+        icon: '📚',
+        iconBg: 'rgba(204,0,0,0.2)',
+        titel: 'Online Kurse erstellen & verkaufen',
+        kategorie: 'Digitale Produkte',
+        verdienst: '500-20000€/Monat',
+        startkapital: '0-200€',
+        zeit: '20h einmalig + 5h/Woche',
+        beschreibung: 'Teile dein Wissen und verdiene passiv. Einmal erstellt, wird ein Kurs immer wieder verkauft. Jede Fähigkeit kann zu einem profitablen Kurs werden.',
+        schritte: [
+            'Dein Expertenwissen identifizieren',
+            'Kursstruktur planen (5-10 Module)',
+            'Videos aufnehmen mit Smartphone und Mic',
+            'Kurs auf Udemy oder Teachable hochladen',
+            'Marketing über Social Media und Email'
+        ],
+        links: ['udemy.com', 'teachable.com', 'digistore24.com']
+    },
+
+    // ===== HOCH RISIKO =====
+    {
+        risiko: 'hoch',
+        kategorien: ['alle', 'finanzen', 'digital'],
+        icon: '₿',
+        iconBg: 'rgba(247,147,26,0.2)',
+        titel: 'Crypto Staking & DeFi',
+        kategorie: 'Krypto Investment',
+        verdienst: '5-20% p.a.',
+        startkapital: '500€+',
+        zeit: '5h/Woche',
+        beschreibung: 'Verdiene Zinsen auf deine Kryptowährungen durch Staking. ETH, SOL und andere Coins zahlen Staking-Belohnungen von 4-15% pro Jahr. Achtung: Kursschwankungen!',
+        schritte: [
+            'Krypto bei seriöser Börse kaufen (Coinbase, Kraken)',
+            'Coins in eigene Wallet transferieren',
+            'Staking auf der jeweiligen Plattform aktivieren',
+            'Regelmäßige Rewards sammeln',
+            'Steuerliche Behandlung beachten!'
+        ],
+        links: ['coinbase.com', 'kraken.com', 'staking-rewards.com']
+    },
+    {
+        risiko: 'hoch',
+        kategorien: ['alle', 'finanzen', 'tech'],
+        icon: '🤖',
+        iconBg: 'rgba(123,47,255,0.2)',
+        titel: 'KI Tools Arbitrage',
+        kategorie: 'Digital Business',
+        verdienst: '1000-15000€/Monat',
+        startkapital: '100€/Monat',
+        zeit: '20-30h/Woche',
+        beschreibung: 'Nutze KI-Tools (ChatGPT, Midjourney) um Dienstleistungen anzubieten. Viele Unternehmen zahlen gut für KI-generierte Inhalte, Bilder und Analysen.',
+        schritte: [
+            'KI-Tools lernen (ChatGPT, Midjourney, Claude)',
+            'Nische finden (Blog-Texte, Social Media, Code)',
+            'Angebote auf Freelancing-Plattformen erstellen',
+            'Ersten Kunden gewinnen und Referenzen aufbauen',
+            'Prozesse automatisieren und skalieren'
+        ],
+        links: ['openai.com', 'midjourney.com', 'jasper.ai']
+    },
+    {
+        risiko: 'hoch',
+        kategorien: ['alle', 'tech', 'digital'],
+        icon: '💻',
+        iconBg: 'rgba(0,136,255,0.2)',
+        titel: 'App & Software entwickeln',
+        kategorie: 'Tech Business',
+        verdienst: '0-100000€/Monat',
+        startkapital: '0-1000€',
+        zeit: 'Vollzeit',
+        beschreibung: 'Löse ein echtes Problem mit einer App oder Software. SaaS (Software as a Service) ist das profitabelste Geschäftsmodell der digitalen Welt. Wiederkehrende Einnahmen!',
+        schritte: [
+            'Marktlücke identifizieren (dein eigenes Problem lösen)',
+            'MVP (Minimum Viable Product) entwickeln',
+            'Beta-Tester finden und Feedback sammeln',
+            'Bezahlmodell implementieren (Abo oder Einmalkauf)',
+            'Marketing und Wachstum skalieren'
+        ],
+        links: ['producthunt.com', 'indie hackers.com', 'stripe.com']
+    }
+];
+
+// === MARKTLÜCKEN DATENBANK ===
+var marktLueckenDaten = [
+    {
+        icon: '🌍',
+        titel: 'Afrikanische Finanz-Apps',
+        text: 'Millionen Afrikaner haben keinen Zugang zu Finanzdienstleistungen. Apps für Mobile Money, Spargruppen (Susu/Tontine) und Mikroinvestitionen sind stark gefragt.',
+        potenzial: 'Marktpotenzial: $500B+ bis 2030'
+    },
+    {
+        icon: '🤖',
+        titel: 'KI-Automatisierung für KMUs',
+        text: 'Kleine und mittlere Unternehmen brauchen KI-Lösungen die sie sich leisten können. Chatbots, automatische Buchhaltung und KI-Marketing sind unterversorgt.',
+        potenzial: 'Marktpotenzial: $120B bis 2025'
+    },
+    {
+        icon: '🌱',
+        titel: 'Nachhaltige Investment-Plattformen',
+        text: 'Gen Z und Millennials wollen nachhaltig investieren (ESG). Plattformen die grüne Investments einfach zugänglich machen fehlen noch im Massenmarkt.',
+        potenzial: 'Marktpotenzial: $53T bis 2025'
+    },
+    {
+        icon: '📱',
+        titel: 'Micro-Learning für Finanzen',
+        text: 'Finanzbildung in kurzen Video-Lektionen (wie Duolingo für Finanzen) ist ein riesiger unbesetzter Markt. Besonders in Entwicklungsländern.',
+        potenzial: 'Marktpotenzial: $37B bis 2026'
+    },
+    {
+        icon: '🏘️',
+        titel: 'Gemeinschafts-Sparmodelle digital',
+        text: 'Traditionelle Sparkreise (Susu in Ghana, Tontine in Togo) digital abbilden. Blockchain-basierte Vertrauenslösung für Community Finance.',
+        potenzial: 'Marktpotenzial: $200B+ weltweit'
+    }
+];
+
+// === PASSIVE INCOME STRATEGIEN ===
+var passiveStrategien = [
+    { icon: '📊', name: 'ETF Dividenden', desc: 'MSCI World, S&P 500 Dividenden-ETFs', rendite: '3-5%/Jahr' },
+    { icon: '🏦', name: 'Festgeld/Tagesgeld', desc: 'Sichere Zinsen ohne Risiko', rendite: '3-4%/Jahr' },
+    { icon: '🏠', name: 'Immobilien-REITs', desc: 'Immobilien-Aktien mit hoher Dividende', rendite: '4-7%/Jahr' },
+    { icon: '₿', name: 'Crypto Staking', desc: 'ETH, SOL, ADA Staking Rewards', rendite: '4-15%/Jahr' },
+    { icon: '📚', name: 'Digitale Produkte', desc: 'E-Books, Kurse, Templates verkaufen', rendite: 'Unbegrenzt' },
+    { icon: '🤝', name: 'P2P Kredite', desc: 'Geld verleihen über Mintos, Bondora', rendite: '6-12%/Jahr' },
+    { icon: '📸', name: 'Stock Fotos/Videos', desc: 'Fotos bei Shutterstock, Getty verkaufen', rendite: '50-500€/Monat' },
+    { icon: '🎵', name: 'Musik Lizenzierung', desc: 'Musik bei DistroKid, Soundcloud monetarisieren', rendite: 'Je nach Reichweite' }
+];
+
+// === SCAN FUNKTION ===
+function chancenScannen() {
+    var kapital = parseFloat(document.getElementById('chancenKapital').value) || 0;
+    var faehigkeit = document.getElementById('chancenFaehigkeit').value;
+    var zeit = document.getElementById('chancenZeit').value;
+
+    var animation = document.getElementById('scanAnimation');
+    var ergebnisse = document.getElementById('chancenErgebnisse');
+    var marktBox = document.getElementById('marktLueckenBox');
+    var passiveBox = document.getElementById('passiveIncomeBox');
+    var planBox = document.getElementById('aktionsplanBox');
+
+    // Ergebnisse leeren
+    ergebnisse.innerHTML = '';
+    if (marktBox) marktBox.style.display = 'none';
+    if (passiveBox) passiveBox.style.display = 'none';
+    if (planBox) planBox.style.display = 'none';
+
+    // Animation starten
+    animation.classList.remove('versteckt');
+
+    var logNachrichten = [
+        '> Initialisiere Quantum Scanner...',
+        '> Verbinde mit globalen Finanzdatenbanken...',
+        '> Analysiere Marktlücken und Trends...',
+        '> Durchsuche 50.000+ legale Einkommensquellen...',
+        '> Filtere nach deinem Profil...',
+        '> Berechne Rendite-Risiko-Verhältnis...',
+        '> Erstelle personalisierten Aktionsplan...',
+        '> ✅ Scan abgeschlossen!'
+    ];
+
+    var logEl = document.getElementById('scanLog');
+    var textEl = document.getElementById('scanText');
+    var i = 0;
+
+    logEl.innerHTML = '';
+
+    var interval = setInterval(function() {
+        if (i < logNachrichten.length) {
+            logEl.innerHTML += logNachrichten[i] + '\n';
+            logEl.scrollTop = logEl.scrollHeight;
+            textEl.textContent = logNachrichten[i].replace('> ', '');
+            i++;
+        } else {
+            clearInterval(interval);
+            animation.classList.add('versteckt');
+            chancenAnzeigen(kapital, faehigkeit, zeit);
+        }
+    }, 600);
+}
+
+function chancenAnzeigen(kapital, faehigkeit, zeit) {
+    var ergebnisse = document.getElementById('chancenErgebnisse');
+
+    // Filtern
+    var gefiltert = alleChancen.filter(function(c) {
+        // Risiko Filter
+        if (aktivesRisiko !== 'hoch' && c.risiko === 'hoch') {
+            if (aktivesRisiko === 'niedrig') return false;
+        }
+        if (aktivesRisiko === 'niedrig' && c.risiko === 'mittel') return false;
+
+        // Kategorie Filter
+        if (faehigkeit !== 'alle' && !c.kategorien.includes(faehigkeit)) return false;
+
+        return true;
+    });
+
+    if (gefiltert.length === 0) {
+        ergebnisse.innerHTML =
+            '<div class="karte"><p style="color:#668844; text-align:center;">' +
+            'Keine passenden Chancen gefunden. Ändere deine Filter!</p></div>';
+        return;
+    }
+
+    // Mischen und max 6 anzeigen
+    gefiltert = gefiltert.sort(function() {
+        return Math.random() - 0.5;
+    }).slice(0, 6);
+
+    ergebnisse.innerHTML = '<div class="karte gruen-rand">' +
+        '<h3>🎯 ' + gefiltert.length + ' Chancen gefunden!</h3>' +
+        '<p style="font-size:0.85rem;">Quantum AI hat ' + gefiltert.length +
+        ' legale Möglichkeiten für dich identifiziert:</p>' +
+        '</div>';
+
+    gefiltert.forEach(function(chance) {
+        var risikoKlasse = 'risiko-' + chance.risiko;
+        var risikoText = chance.risiko === 'niedrig' ? '🛡️ Niedriges Risiko' :
+                         chance.risiko === 'mittel' ? '⚖️ Mittleres Risiko' :
+                         '🚀 Hohes Risiko';
+
+        ergebnisse.innerHTML +=
+            '<div class="chance-karte">' +
+                '<div class="chance-header">' +
+                    '<div class="chance-icon" style="background:' + chance.iconBg + '">' +
+                        chance.icon +
+                    '</div>' +
+                    '<div>' +
+                        '<div class="chance-titel">' + chance.titel + '</div>' +
+                        '<div class="chance-kat">' + chance.kategorie + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="chance-stats">' +
+                    '<div class="chance-stat">' +
+                        '<div class="chance-stat-label">Verdienst</div>' +
+                        '<div class="chance-stat-wert positiv">' + chance.verdienst + '</div>' +
+                    '</div>' +
+                    '<div class="chance-stat">' +
+                        '<div class="chance-stat-label">Startkapital</div>' +
+                        '<div class="chance-stat-wert gold">' + chance.startkapital + '</div>' +
+                    '</div>' +
+                    '<div class="chance-stat">' +
+                        '<div class="chance-stat-label">Zeitaufwand</div>' +
+                        '<div class="chance-stat-wert">' + chance.zeit + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="chance-beschreibung">' + chance.beschreibung + '</div>' +
+                '<div class="chance-schritte">' +
+                    '<div class="chance-schritt-titel">🚀 So startest du:</div>' +
+                    chance.schritte.map(function(s, i) {
+                        return '<div class="chance-schritt">' +
+                            '<div class="schritt-nr">' + (i+1) + '</div>' +
+                            '<div>' + s + '</div>' +
+                        '</div>';
+                    }).join('') +
+                '</div>' +
+                '<div class="risiko-badge ' + risikoKlasse + '">' +
+                    risikoText +
+                '</div>' +
+            '</div>';
+    });
+
+    // Marktlücken anzeigen
+    setTimeout(function() {
+        marktLueckenAnzeigen();
+        passiveIncomeAnzeigen();
+        aktionsplanErstellen(gefiltert[0]);
+    }, 500);
+}
+
+function marktLueckenAnzeigen() {
+    var box = document.getElementById('marktLueckenBox');
+    var container = document.getElementById('marktLuecken');
+    if (!box || !container) return;
+
+    box.style.display = 'block';
+
+    var gemischt = marktLueckenDaten.sort(function() {
+        return Math.random() - 0.5;
+    }).slice(0, 3);
+
+    container.innerHTML = gemischt.map(function(l) {
+        return '<div class="luecke-item">' +
+            '<div class="luecke-icon">' + l.icon + '</div>' +
+            '<div>' +
+                '<div class="luecke-titel">' + l.titel + '</div>' +
+                '<div class="luecke-text">' + l.text + '</div>' +
+                '<div class="luecke-potenzial">💰 ' + l.potenzial + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function passiveIncomeAnzeigen() {
+    var box = document.getElementById('passiveIncomeBox');
+    var container = document.getElementById('passiveIncome');
+    if (!box || !container) return;
+
+    box.style.display = 'block';
+
+    container.innerHTML = passiveStrategien.map(function(s) {
+        return '<div class="passive-item">' +
+            '<div class="passive-icon">' + s.icon + '</div>' +
+            '<div class="passive-info">' +
+                '<div class="passive-name">' + s.name + '</div>' +
+                '<div class="passive-desc">' + s.desc + '</div>' +
+            '</div>' +
+            '<div class="passive-rendite">' + s.rendite + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function aktionsplanErstellen(besteChance) {
+    var box = document.getElementById('aktionsplanBox');
+    var container = document.getElementById('aktionsplan');
+    if (!box || !container) return;
+
+    box.style.display = 'block';
+
+    var plan = [
+        {
+            titel: 'Sofort (Heute)',
+            text: 'Analysiere deine aktuelle finanzielle Situation. ' +
+                  'Erstelle eine Übersicht deiner Einnahmen, Ausgaben und Ersparnisse.',
+            dauer: '⏰ 1-2 Stunden'
+        },
+        {
+            titel: 'Diese Woche',
+            text: 'Starte mit der einfachsten Strategie: ' +
+                  'Tagesgeldkonto optimieren und ETF-Sparplan einrichten. ' +
+                  'Schon ab 25€/Monat möglich!',
+            dauer: '⏰ 2-4 Stunden'
+        },
+        {
+            titel: 'Diesen Monat',
+            text: besteChance ?
+                  'Starte mit "' + besteChance.titel + '". ' +
+                  besteChance.schritte[0] + '.' :
+                  'Wähle deine erste Einkommensquelle und mache die ersten Schritte.',
+            dauer: '⏰ 10-20 Stunden'
+        },
+        {
+            titel: 'In 3 Monaten',
+            text: 'Erste Einnahmen generieren und reinvestieren. ' +
+                  'Lernkurve nutzen und Strategie optimieren. ' +
+                  'Netzwerk aufbauen.',
+            dauer: '⏰ Kontinuierlich'
+        },
+        {
+            titel: 'In 6 Monaten',
+            text: 'Zweite Einkommensquelle aufbauen. ' +
+                  'Passive Einkommensströme entwickeln. ' +
+                  'Ziel: Erstes Nebeneinkommen von 500€+/Monat.',
+            dauer: '⏰ Langfristig'
+        },
+        {
+            titel: 'In 1 Jahr',
+            text: 'Finanzielle Stabilität durch diverse Einkommensquellen. ' +
+                  'Portfolio aufgebaut, passive Einnahmen fließen, ' +
+                  'Notfallfonds vollständig. Ziel: 1.000€+/Monat passiv.',
+            dauer: '⏰ Ziel erreichen!'
+        }
+    ];
+
+    container.innerHTML = plan.map(function(s, i) {
+        return '<div class="plan-schritt">' +
+            '<div class="plan-nr">' + (i+1) + '</div>' +
+            '<div class="plan-inhalt">' +
+                '<div class="plan-titel">' + s.titel + '</div>' +
+                '<div class="plan-text">' + s.text + '</div>' +
+                '<div class="plan-dauer">' + s.dauer + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function planSpeichern() {
+    benachrichtigungZeigen(
+        '💾 Aktionsplan gespeichert!',
+        'Dein persönlicher Finanz-Aktionsplan wurde gespeichert. ' +
+        'Bleib dran – Erfolg kommt mit Konsequenz! 🇹🇬',
+        '💾'
+    );
+    alert('✅ Aktionsplan gespeichert!\n\n' +
+          'Teile diesen Plan mit jemandem der dich accountable hält.\n' +
+          'Du schaffst das! 🇹🇬🚀');
+}
