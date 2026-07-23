@@ -69,6 +69,7 @@
         <button class="tab" data-tab="sankofa">🎨 SANKOFA</button>
         <button class="tab" data-tab="uberki">🚗 UBER-KI</button>
         <button class="tab" data-tab="immoki">🏠 IMMO-KI</button>
+        <button class="tab" data-tab="lernki">🎓 LERN-KI</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -2088,6 +2089,168 @@
 
     </div>
     <!-- ENDE IMMO-KI -->
+    <!-- ============ LERN-KI ============ -->
+    <div id="lernki" class="seite">
+
+        <!-- HEADER -->
+        <div class="lernki-header">
+            <div class="lernki-avatar">
+                <div class="lernki-emoji">🎓</div>
+            </div>
+            <div class="lernki-info">
+                <h2>LERN-KI</h2>
+                <p>Kostenlose Bildung weltweit 📚</p>
+                <div class="lernki-status">
+                    <div class="status-dot"></div>
+                    <span>Harvard, MIT, Google – GRATIS! 🌟</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WICHTIGE INFO -->
+        <div class="karte gelb-rand">
+            <h3>💡 Warum das wichtig ist</h3>
+            <div class="lern-info-liste">
+                <div class="lern-info-item">
+                    <span>🎯</span>
+                    <span>Kostenlose Kurse von Top-Universitäten</span>
+                </div>
+                <div class="lern-info-item">
+                    <span>📜</span>
+                    <span>Zertifikate für deinen Lebenslauf</span>
+                </div>
+                <div class="lern-info-item">
+                    <span>💰</span>
+                    <span>Verdiene bis zu 200% mehr mit neuen Skills</span>
+                </div>
+                <div class="lern-info-item">
+                    <span>🌍</span>
+                    <span>Von überall lernen – Togo, Deutschland, Welt</span>
+                </div>
+                <div class="lern-info-item">
+                    <span>⚡</span>
+                    <span>KI, Programmieren, Business – Zukunfts-Skills!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KATEGORIE WÄHLEN -->
+        <div class="karte gruen-rand">
+            <h3>🎯 Was möchtest du lernen?</h3>
+            <div class="lern-kategorien">
+                <button class="lern-kat-btn aktiv" onclick="lernKategorie('programmieren', this)">
+                    <div class="lern-kat-icon">💻</div>
+                    <div class="lern-kat-name">Programmieren</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('ki', this)">
+                    <div class="lern-kat-icon">🤖</div>
+                    <div class="lern-kat-name">KI & Data</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('business', this)">
+                    <div class="lern-kat-icon">💼</div>
+                    <div class="lern-kat-name">Business</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('marketing', this)">
+                    <div class="lern-kat-icon">📱</div>
+                    <div class="lern-kat-name">Marketing</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('design', this)">
+                    <div class="lern-kat-icon">🎨</div>
+                    <div class="lern-kat-name">Design</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('sprachen', this)">
+                    <div class="lern-kat-icon">🗣️</div>
+                    <div class="lern-kat-name">Sprachen</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('finanzen', this)">
+                    <div class="lern-kat-icon">📈</div>
+                    <div class="lern-kat-name">Finanzen</div>
+                </button>
+                <button class="lern-kat-btn" onclick="lernKategorie('handwerk', this)">
+                    <div class="lern-kat-icon">🔧</div>
+                    <div class="lern-kat-name">Handwerk</div>
+                </button>
+            </div>
+            <button class="btn-gruen" onclick="lernSuchen()">
+                🎓 Kurse anzeigen
+            </button>
+        </div>
+
+        <!-- ERGEBNISSE -->
+        <div id="lernErgebnisse"></div>
+
+        <!-- TOP PLATTFORMEN -->
+        <div class="karte regenbogen-rand">
+            <h3>🏆 Top Kostenlose Plattformen</h3>
+            <div id="topPlattformen"></div>
+        </div>
+
+        <!-- LERN-PLAN -->
+        <div class="karte gelb-rand">
+            <h3>📅 Mein Lern-Plan</h3>
+            <label>Was lernst du gerade?</label>
+            <input type="text" id="lernThema" placeholder="z.B. Python Programmierung">
+            <label>Ziel</label>
+            <input type="text" id="lernZiel" placeholder="z.B. Web-App bauen">
+            <label>Stunden pro Woche</label>
+            <input type="number" id="lernStunden" value="5" min="1" max="40">
+            <label>Ziel-Datum</label>
+            <input type="date" id="lernDatum">
+            <button class="btn-gruen" onclick="lernplanErstellen()">
+                📅 Lern-Plan speichern
+            </button>
+            <div id="meineLernplaene"></div>
+        </div>
+
+        <!-- SKILL WERT -->
+        <div class="karte gruen-rand">
+            <h3>💰 Skill-Wert Rechner</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Wie viel mehr kannst du verdienen mit diesem Skill?
+            </p>
+            <label>Aktueller Monatsverdienst (€)</label>
+            <input type="number" id="skillJetzt" placeholder="1500" min="0">
+            <label>Welchen Skill lernst du?</label>
+            <select id="skillTyp">
+                <option value="python">🐍 Python (+40%)</option>
+                <option value="javascript">💛 JavaScript (+35%)</option>
+                <option value="ki">🤖 KI/Machine Learning (+60%)</option>
+                <option value="cloud">☁️ Cloud/AWS (+50%)</option>
+                <option value="cyber">🛡️ Cybersecurity (+55%)</option>
+                <option value="uxui">🎨 UX/UI Design (+40%)</option>
+                <option value="marketing">📱 Digital Marketing (+30%)</option>
+                <option value="daten">📊 Data Analysis (+45%)</option>
+                <option value="englisch">🇬🇧 Englisch fließend (+25%)</option>
+                <option value="deutsch">🇩🇪 Deutsch fließend (+40%)</option>
+                <option value="franzoesisch">🇫🇷 Französisch (+30%)</option>
+                <option value="chinesisch">🇨🇳 Chinesisch (+50%)</option>
+            </select>
+            <button class="btn-gruen" onclick="skillWertBerechnen()">
+                💰 Wert berechnen
+            </button>
+            <div id="skillErgebnis"></div>
+        </div>
+
+        <!-- ZERTIFIKATE WERT -->
+        <div class="karte gelb-rand">
+            <h3>📜 Wertvollste Zertifikate 2025</h3>
+            <div id="zertifikateListe"></div>
+        </div>
+
+        <!-- LERN TIPPS -->
+        <div class="karte regenbogen-rand">
+            <h3>🧠 Wissenschaftliche Lern-Tipps</h3>
+            <div id="lernTipps"></div>
+        </div>
+
+        <!-- YOUTUBE KANÄLE -->
+        <div class="karte gruen-rand">
+            <h3>📺 Beste YouTube Kanäle</h3>
+            <div id="youtubeListe"></div>
+        </div>
+
+    </div>
+    <!-- ENDE LERN-KI -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">

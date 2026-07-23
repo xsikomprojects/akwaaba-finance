@@ -7162,3 +7162,515 @@ setTimeout(function() {
         });
     });
 }, 1500);
+// ============================================
+// LERN-KI – Kostenlose Bildung
+// ============================================
+
+var aktiveLernKat = 'programmieren';
+var meineLernPlaene = JSON.parse(localStorage.getItem('lern-plaene')) || [];
+
+var lernKurseDB = {
+    programmieren: [
+        {
+            titel: 'CS50: Introduction to Computer Science',
+            anbieter: 'Harvard University',
+            desc: 'Der berühmteste Programmier-Kurs der Welt! Von Grundlagen bis fortgeschritten.',
+            level: 'anfaenger', dauer: '10-20 Wochen', stunden: '10h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.edx.org/course/introduction-computer-science-harvardx-cs50x'
+        },
+        {
+            titel: 'The Odin Project – Full Stack',
+            anbieter: 'The Odin Project',
+            desc: 'Kompletter Full-Stack Web Developer Weg. 100% kostenlos!',
+            level: 'anfaenger', dauer: '6-12 Monate', stunden: '20h/Woche',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://www.theodinproject.com'
+        },
+        {
+            titel: 'freeCodeCamp – Web Development',
+            anbieter: 'freeCodeCamp',
+            desc: '3000+ Stunden kostenlose Kurse mit Zertifikaten!',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://www.freecodecamp.org'
+        },
+        {
+            titel: 'Python for Everybody',
+            anbieter: 'University of Michigan',
+            desc: 'Perfekt für Anfänger. Python von Null.',
+            level: 'anfaenger', dauer: '8 Monate', stunden: '3h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.coursera.org/specializations/python'
+        },
+        {
+            titel: 'MIT OpenCourseWare',
+            anbieter: 'MIT',
+            desc: 'Original MIT Kursmaterialien kostenlos!',
+            level: 'experte', dauer: 'Semester', stunden: '10h/Woche',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://ocw.mit.edu'
+        }
+    ],
+    ki: [
+        {
+            titel: 'AI For Everyone',
+            anbieter: 'Andrew Ng (Coursera)',
+            desc: 'KI-Grundlagen ohne Mathe. Perfekt für Manager & Anfänger.',
+            level: 'anfaenger', dauer: '6 Stunden', stunden: '2h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.coursera.org/learn/ai-for-everyone'
+        },
+        {
+            titel: 'Machine Learning Specialization',
+            anbieter: 'Stanford (Andrew Ng)',
+            desc: 'Der berühmteste ML-Kurs. Von 4 Millionen Menschen absolviert.',
+            level: 'fortgeschritten', dauer: '3 Monate', stunden: '10h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.coursera.org/specializations/machine-learning-introduction'
+        },
+        {
+            titel: 'Google AI Essentials',
+            anbieter: 'Google',
+            desc: 'KI für alle – von Google selbst.',
+            level: 'anfaenger', dauer: '6 Stunden', stunden: '1h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://www.coursera.org/learn/google-ai-essentials'
+        },
+        {
+            titel: 'Fast.ai – Practical Deep Learning',
+            anbieter: 'fast.ai',
+            desc: 'Deep Learning von Praktikern für Praktiker.',
+            level: 'fortgeschritten', dauer: '7 Wochen', stunden: '8h/Woche',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://www.fast.ai'
+        }
+    ],
+    business: [
+        {
+            titel: 'Entrepreneurship Specialization',
+            anbieter: 'Wharton (UPenn)',
+            desc: 'Ivy League Business Ausbildung.',
+            level: 'fortgeschritten', dauer: '5 Monate', stunden: '4h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.coursera.org/specializations/wharton-entrepreneurship'
+        },
+        {
+            titel: 'Google Digital Garage',
+            anbieter: 'Google',
+            desc: 'Digital Marketing Zertifikat mit IAB Anerkennung.',
+            level: 'anfaenger', dauer: '40 Stunden', stunden: '5h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://learndigital.withgoogle.com'
+        },
+        {
+            titel: 'How to Start a Startup',
+            anbieter: 'Y Combinator (Stanford)',
+            desc: 'Von den Gründern der besten Startups der Welt.',
+            level: 'anfaenger', dauer: '20 Videos', stunden: '2h/Woche',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://startupclass.samaltman.com'
+        }
+    ],
+    marketing: [
+        {
+            titel: 'Meta Blueprint',
+            anbieter: 'Meta (Facebook)',
+            desc: 'Kostenlose Zertifizierung für Facebook/Instagram Werbung.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: '3h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://www.facebook.com/business/learn'
+        },
+        {
+            titel: 'Google Ads Zertifizierung',
+            anbieter: 'Google',
+            desc: 'Werde Google Ads Profi – kostenlos!',
+            level: 'anfaenger', dauer: '20 Stunden', stunden: '4h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://skillshop.exceedlms.com'
+        },
+        {
+            titel: 'HubSpot Academy',
+            anbieter: 'HubSpot',
+            desc: 'Inbound Marketing, Content, Sales – alles kostenlos.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://academy.hubspot.com'
+        }
+    ],
+    design: [
+        {
+            titel: 'Google UX Design Certificate',
+            anbieter: 'Google (Coursera)',
+            desc: 'UX Designer werden in 6 Monaten – Google Zertifikat!',
+            level: 'anfaenger', dauer: '6 Monate', stunden: '10h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://www.coursera.org/professional-certificates/google-ux-design'
+        },
+        {
+            titel: 'Canva Design School',
+            anbieter: 'Canva',
+            desc: 'Kostenlose Design-Kurse für Anfänger.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: '1h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Multi',
+            url: 'https://www.canva.com/designschool'
+        },
+        {
+            titel: 'Adobe Learn',
+            anbieter: 'Adobe',
+            desc: 'Tutorials für Photoshop, Illustrator, Premiere.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Multi',
+            url: 'https://www.adobe.com/learn'
+        }
+    ],
+    sprachen: [
+        {
+            titel: 'Duolingo',
+            anbieter: 'Duolingo',
+            desc: 'Die beliebteste Sprach-App der Welt. 40+ Sprachen kostenlos!',
+            level: 'anfaenger', dauer: 'Täglich', stunden: '15min/Tag',
+            kostenlos: true, zertifikat: false, sprache: '40+',
+            url: 'https://www.duolingo.com'
+        },
+        {
+            titel: 'BBC Learning English',
+            anbieter: 'BBC',
+            desc: 'Englisch lernen mit BBC – höchste Qualität, kostenlos!',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://www.bbc.co.uk/learningenglish'
+        },
+        {
+            titel: 'Deutsche Welle – Deutsch',
+            anbieter: 'DW',
+            desc: 'Deutsch lernen kostenlos – für alle Level (A1-C2)!',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: true, sprache: 'Deutsch',
+            url: 'https://learngerman.dw.com'
+        },
+        {
+            titel: 'RFI Savoirs (Französisch)',
+            anbieter: 'Radio France Internationale',
+            desc: 'Französisch lernen mit RFI. Ideal für Togo!',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Französisch',
+            url: 'https://savoirs.rfi.fr'
+        }
+    ],
+    finanzen: [
+        {
+            titel: 'Financial Markets',
+            anbieter: 'Yale University',
+            desc: 'Nobelpreisträger Robert Shiller unterrichtet Finanzen.',
+            level: 'fortgeschritten', dauer: '7 Wochen', stunden: '6h/Woche',
+            kostenlos: true, zertifikat: true, sprache: 'Englisch',
+            url: 'https://www.coursera.org/learn/financial-markets-global'
+        },
+        {
+            titel: 'Khan Academy Finanzen',
+            anbieter: 'Khan Academy',
+            desc: 'Alles über Geld, Investieren, Kredite.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Multi',
+            url: 'https://de.khanacademy.org/economics-finance-domain'
+        },
+        {
+            titel: 'Investopedia Academy Free',
+            anbieter: 'Investopedia',
+            desc: 'Aktien, ETFs, Crypto – die Basics kostenlos.',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://www.investopedia.com/simulator'
+        }
+    ],
+    handwerk: [
+        {
+            titel: 'YouTube: Handwerk-Kanäle',
+            anbieter: 'Verschiedene',
+            desc: 'Tausende Tutorials für jedes Handwerk!',
+            level: 'anfaenger', dauer: 'Flexibel', stunden: 'Flexibel',
+            kostenlos: true, zertifikat: false, sprache: 'Multi',
+            url: 'https://www.youtube.com/results?search_query=handwerk+tutorial'
+        },
+        {
+            titel: 'MIT OpenCourseWare – Elektrik',
+            anbieter: 'MIT',
+            desc: 'Elektrotechnik von MIT kostenlos.',
+            level: 'fortgeschritten', dauer: 'Semester', stunden: '10h/Woche',
+            kostenlos: true, zertifikat: false, sprache: 'Englisch',
+            url: 'https://ocw.mit.edu/courses/electrical-engineering-and-computer-science'
+        }
+    ]
+};
+
+var topPlattformenDB = [
+    { icon: '🎓', name: 'Coursera', desc: 'Kurse von Top-Universitäten (Yale, Stanford, MIT). Audit = 100% kostenlos!', url: 'https://www.coursera.org' },
+    { icon: '📚', name: 'edX', desc: 'Harvard, MIT, Berkeley – alle kostenlos verfügbar!', url: 'https://www.edx.org' },
+    { icon: '🌍', name: 'Khan Academy', desc: 'Komplett kostenlos für alle. Mathe, Wissenschaft, Wirtschaft.', url: 'https://de.khanacademy.org' },
+    { icon: '💻', name: 'freeCodeCamp', desc: '3000+ Stunden Programmieren lernen. Mit Zertifikaten!', url: 'https://www.freecodecamp.org' },
+    { icon: '🎨', name: 'Skillshare (7 Tage Free)', desc: 'Tausende Kreativ-Kurse. 7 Tage kostenlos!', url: 'https://www.skillshare.com' },
+    { icon: '🌐', name: 'Udemy (viele kostenlos)', desc: 'Filtere nach "Kostenlos" – tausende Gratis-Kurse!', url: 'https://www.udemy.com/courses/free' },
+    { icon: '📖', name: 'MIT OpenCourseWare', desc: 'Original MIT-Kursmaterialien kostenlos.', url: 'https://ocw.mit.edu' },
+    { icon: '🔬', name: 'Google Digital Garage', desc: 'Kostenlose Zertifizierungen von Google!', url: 'https://learndigital.withgoogle.com' }
+];
+
+var zertifikateDB = [
+    { icon: '☁️', name: 'AWS Cloud Practitioner', gehalt: '+30-50k€/Jahr', desc: 'Cloud-Grundlagen. Prüfung 100$. Kurs kostenlos!' },
+    { icon: '🤖', name: 'Google Cloud AI/ML', gehalt: '+40-70k€/Jahr', desc: 'KI im Google Cloud. Sehr gefragt.' },
+    { icon: '🎨', name: 'Google UX Design', gehalt: '+30-50k€/Jahr', desc: '6 Monate Kurs. Führt zu UX Designer Job.' },
+    { icon: '📱', name: 'Meta Blueprint', gehalt: '+15-30k€/Jahr', desc: 'Facebook/Instagram Werbung. 100% kostenlos.' },
+    { icon: '📊', name: 'Google Data Analytics', gehalt: '+25-40k€/Jahr', desc: 'Datenanalyse Zertifikat von Google.' },
+    { icon: '🛡️', name: 'Google Cybersecurity', gehalt: '+35-60k€/Jahr', desc: 'IT-Sicherheit ist Zukunft.' },
+    { icon: '🚀', name: 'Meta Front-End Developer', gehalt: '+30-55k€/Jahr', desc: 'Web-Entwicklung mit Meta.' },
+    { icon: '💼', name: 'HubSpot Inbound Marketing', gehalt: '+10-25k€/Jahr', desc: 'Marketing Zertifikat, sehr anerkannt.' }
+];
+
+var lernTippsDB = [
+    { icon: '🍅', titel: 'Pomodoro Technik', text: '25 Min lernen, 5 Min Pause. Nach 4 Runden 15 Min Pause. Genial!' },
+    { icon: '🧠', titel: 'Aktive Wiederholung', text: 'Nicht lesen – testen! Karteikarten (Anki) sind wissenschaftlich bewiesen.' },
+    { icon: '⏰', titel: 'Spaced Repetition', text: 'Wiederhole nach 1 Tag, 3 Tagen, 1 Woche, 1 Monat. Bleibt hängen!' },
+    { icon: '📝', titel: 'Feynman-Technik', text: 'Erkläre es einem 5-Jährigen. Wenn du das kannst, hast du es verstanden!' },
+    { icon: '🎯', titel: '80/20 Regel', text: '20% des Wissens = 80% der Ergebnisse. Konzentriere dich auf das Wichtige!' },
+    { icon: '💤', titel: 'Schlaf ist wichtig!', text: 'Gehirn verarbeitet Gelerntes im Schlaf. 7-9 Stunden Pflicht!' },
+    { icon: '🏃', titel: 'Bewegung hilft', text: '20 Min Sport = 200% besseres Gedächtnis für nächste 2 Stunden.' },
+    { icon: '📱', titel: 'Handy weg beim Lernen!', text: 'Konzentration = Ergebnis. Handy in anderen Raum!' }
+];
+
+var youtubeKanaeleDB = [
+    { name: 'freeCodeCamp', desc: 'Programmierung, komplette Kurse (5-15h!)', url: 'https://www.youtube.com/@freecodecamp' },
+    { name: 'CS Dojo', desc: 'Python, Algorithmen, Interviews', url: 'https://www.youtube.com/@CSDojo' },
+    { name: 'Programmieren mit Alex', desc: 'Deutsche Programmier-Tutorials', url: 'https://www.youtube.com/@AlexanderKienzle' },
+    { name: 'Ali Abdaal', desc: 'Produktivität, Lernen, Business (Cambridge Arzt)', url: 'https://www.youtube.com/@aliabdaal' },
+    { name: 'Fireship', desc: 'Programmier-News in 100 Sekunden', url: 'https://www.youtube.com/@Fireship' },
+    { name: 'Simplilearn', desc: 'IT, Cloud, Cybersecurity Kurse', url: 'https://www.youtube.com/@SimplilearnOfficial' },
+    { name: 'Khan Academy Deutsch', desc: 'Alles Wissenschaft auf Deutsch', url: 'https://www.youtube.com/@KhanAcademyDeutsch' },
+    { name: 'The Coding Train', desc: 'Kreatives Programmieren, sehr unterhaltsam!', url: 'https://www.youtube.com/@TheCodingTrain' }
+];
+
+function lernKategorie(kat, btn) {
+    aktiveLernKat = kat;
+    document.querySelectorAll('.lern-kat-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+}
+
+function lernSuchen() {
+    var kurse = lernKurseDB[aktiveLernKat] || [];
+    var container = document.getElementById('lernErgebnisse');
+
+    container.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>🎓 ' + kurse.length + ' kostenlose Kurse gefunden!</h3>' +
+            '<p style="font-size:0.85rem; margin-bottom:1rem;">Alle 100% kostenlos & seriös!</p>' +
+            kurse.map(function(k) {
+                return '<div class="kurs-karte ' + k.level + '">' +
+                    '<div class="kurs-anbieter">🏛️ ' + k.anbieter + '</div>' +
+                    '<div class="kurs-titel">' + k.titel + '</div>' +
+                    '<div class="kurs-badges">' +
+                        (k.kostenlos ? '<span class="kurs-badge kostenlos">✅ Kostenlos</span>' : '') +
+                        (k.zertifikat ? '<span class="kurs-badge zertifikat">📜 Zertifikat</span>' : '') +
+                        '<span class="kurs-badge">' +
+                            (k.level === 'anfaenger' ? '🟢 Anfänger' :
+                             k.level === 'fortgeschritten' ? '🟡 Fortgeschritten' : '🔴 Experte') +
+                        '</span>' +
+                    '</div>' +
+                    '<div class="kurs-desc">' + k.desc + '</div>' +
+                    '<div class="kurs-info">' +
+                        '<span class="kurs-info-item">⏰ ' + k.dauer + '</span>' +
+                        '<span class="kurs-info-item">📖 ' + k.stunden + '</span>' +
+                        '<span class="kurs-info-item">🗣️ ' + k.sprache + '</span>' +
+                    '</div>' +
+                    '<a href="' + k.url + '" target="_blank" class="kurs-link">' +
+                        '🎓 Kurs starten →</a>' +
+                '</div>';
+            }).join('') +
+        '</div>';
+
+    container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function topPlattformenAnzeigen() {
+    var container = document.getElementById('topPlattformen');
+    if (!container) return;
+
+    container.innerHTML = topPlattformenDB.map(function(p) {
+        return '<div class="plattform-item">' +
+            '<div class="plattform-header">' +
+                '<div class="plattform-name">' + p.icon + ' ' + p.name + '</div>' +
+                '<div style="color:#00ff88; font-size:0.85rem; font-weight:800;">✅ GRATIS</div>' +
+            '</div>' +
+            '<div class="plattform-desc">' + p.desc + '</div>' +
+            '<a href="' + p.url + '" target="_blank" class="plattform-link">🔗 Jetzt lernen</a>' +
+        '</div>';
+    }).join('');
+}
+
+function zertifikateAnzeigen() {
+    var container = document.getElementById('zertifikateListe');
+    if (!container) return;
+
+    container.innerHTML = zertifikateDB.map(function(z) {
+        return '<div class="zertifikat-item">' +
+            '<div class="zert-icon">' + z.icon + '</div>' +
+            '<div>' +
+                '<div class="zert-name">' + z.name + '</div>' +
+                '<div class="zert-gehalt">💰 ' + z.gehalt + '</div>' +
+                '<div class="zert-desc">' + z.desc + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function lernTippsAnzeigen() {
+    var container = document.getElementById('lernTipps');
+    if (!container) return;
+
+    container.innerHTML = lernTippsDB.map(function(t) {
+        return '<div class="lern-tipp">' +
+            '<div class="lern-tipp-icon">' + t.icon + '</div>' +
+            '<div>' +
+                '<div class="lern-tipp-titel">' + t.titel + '</div>' +
+                '<div class="lern-tipp-text">' + t.text + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function youtubeKanaeleAnzeigen() {
+    var container = document.getElementById('youtubeListe');
+    if (!container) return;
+
+    container.innerHTML = youtubeKanaeleDB.map(function(y) {
+        return '<div class="yt-kanal">' +
+            '<div class="yt-icon">▶️</div>' +
+            '<div class="yt-info">' +
+                '<div class="yt-name">' + y.name + '</div>' +
+                '<div class="yt-desc">' + y.desc + '</div>' +
+            '</div>' +
+            '<a href="' + y.url + '" target="_blank" class="yt-link">▶ Öffnen</a>' +
+        '</div>';
+    }).join('');
+}
+
+function skillWertBerechnen() {
+    var jetzt = parseFloat(document.getElementById('skillJetzt').value) || 0;
+    var skill = document.getElementById('skillTyp').value;
+
+    var boosts = {
+        python: 40, javascript: 35, ki: 60, cloud: 50, cyber: 55,
+        uxui: 40, marketing: 30, daten: 45, englisch: 25,
+        deutsch: 40, franzoesisch: 30, chinesisch: 50
+    };
+
+    var namen = {
+        python: 'Python', javascript: 'JavaScript', ki: 'KI/ML',
+        cloud: 'Cloud/AWS', cyber: 'Cybersecurity', uxui: 'UX/UI Design',
+        marketing: 'Digital Marketing', daten: 'Data Analysis',
+        englisch: 'Englisch fließend', deutsch: 'Deutsch fließend',
+        franzoesisch: 'Französisch', chinesisch: 'Chinesisch'
+    };
+
+    var boost = boosts[skill];
+    var neuJetzt = jetzt * (1 + boost/100);
+    var mehr = neuJetzt - jetzt;
+    var jahresBoost = mehr * 12;
+
+    document.getElementById('skillErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Skill-Wert: ' + namen[skill] + '</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Aktuell pro Monat:</span>' +
+                '<span>' + euro(jetzt) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Mit ' + namen[skill] + ':</span>' +
+                '<span class="positiv">' + euro(neuJetzt) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💎 Zusätzlich/Monat:</span>' +
+                '<span class="gold" style="font-size:1.4rem;">+' + euro(mehr) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>🚀 Zusätzlich/Jahr:</span>' +
+                '<span class="positiv" style="font-size:1.3rem;">+' + euro(jahresBoost) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Motivation:</strong> Investiere 100-500 Stunden Lernzeit für +' +
+                boost + '% Gehalt. Das ist das beste Investment deines Lebens!' +
+            '</div>' +
+        '</div>';
+}
+
+function lernplanErstellen() {
+    var thema = document.getElementById('lernThema').value.trim();
+    var ziel = document.getElementById('lernZiel').value.trim();
+    var stunden = parseInt(document.getElementById('lernStunden').value) || 5;
+    var datum = document.getElementById('lernDatum').value;
+
+    if (!thema || !ziel) {
+        toast('Bitte Thema und Ziel eingeben!', 'error');
+        return;
+    }
+
+    meineLernPlaene.push({
+        id: Date.now(),
+        thema: thema,
+        ziel: ziel,
+        stunden: stunden,
+        datum: datum,
+        erstellt: new Date().toLocaleDateString('de-DE')
+    });
+
+    localStorage.setItem('lern-plaene', JSON.stringify(meineLernPlaene));
+
+    document.getElementById('lernThema').value = '';
+    document.getElementById('lernZiel').value = '';
+
+    lernplaeneAnzeigen();
+    toast('📅 Lern-Plan gespeichert!');
+}
+
+function lernplanLoeschen(id) {
+    meineLernPlaene = meineLernPlaene.filter(function(l) { return l.id !== id; });
+    localStorage.setItem('lern-plaene', JSON.stringify(meineLernPlaene));
+    lernplaeneAnzeigen();
+}
+
+function lernplaeneAnzeigen() {
+    var container = document.getElementById('meineLernplaene');
+    if (!container) return;
+
+    if (meineLernPlaene.length === 0) {
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; margin-top:1rem;">' +
+            'Noch keine Lern-Pläne.</p>';
+        return;
+    }
+
+    container.innerHTML = meineLernPlaene.map(function(l) {
+        return '<div class="lernplan-item">' +
+            '<div style="display:flex; justify-content:space-between; align-items:flex-start;">' +
+                '<div style="flex:1;">' +
+                    '<div class="lernplan-thema">📖 ' + l.thema + '</div>' +
+                    '<div class="lernplan-ziel">🎯 ' + l.ziel + '</div>' +
+                    '<div class="lernplan-detail">' +
+                        '⏰ ' + l.stunden + 'h/Woche' +
+                        (l.datum ? ' · 📅 Bis: ' + l.datum : '') +
+                    '</div>' +
+                '</div>' +
+                '<button class="port-loeschen" onclick="lernplanLoeschen(' + l.id + ')">✕</button>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+// Auto-Start
+setTimeout(function() {
+    topPlattformenAnzeigen();
+    zertifikateAnzeigen();
+    lernTippsAnzeigen();
+    youtubeKanaeleAnzeigen();
+    lernplaeneAnzeigen();
+}, 1000);

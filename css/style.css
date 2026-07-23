@@ -6899,4 +6899,392 @@ canvas {
     font-size: 0.8rem;
     font-weight: 800;
 }
+/* ============================================
+   LERN-KI
+   ============================================ */
+
+.lernki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1a3d3d, #3d1a1a);
+    border-bottom: 3px solid rgba(0,169,157,0.3);
+}
+
+.lernki-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #00a99d, #0088ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #003d5c, 0 12px 30px rgba(0,169,157,0.5);
+    animation: lernFloat 3s ease-in-out infinite;
+}
+
+@keyframes lernFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.lernki-emoji {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+
+.lernki-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #00a99d, #ffdf00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.lernki-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.lernki-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #00a99d;
+    font-weight: 800;
+}
+
+/* Lern Info Liste */
+.lern-info-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.lern-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: rgba(0,169,157,0.05);
+    border-radius: 10px;
+    border-left: 3px solid #00a99d;
+    font-size: 0.9rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.lern-info-item span:first-child {
+    font-size: 1.3rem;
+}
+
+/* Kategorien Grid */
+.lern-kategorien {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.lern-kat-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.lern-kat-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(0,169,157,0.4);
+}
+
+.lern-kat-btn.aktiv {
+    border-color: #00a99d;
+    background: rgba(0,169,157,0.1);
+    box-shadow: 0 4px 0 #003d5c;
+    transform: translateY(-2px);
+}
+
+.lern-kat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.lern-kat-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #00ddcc;
+}
+
+/* Kurs Karte */
+.kurs-karte {
+    background: linear-gradient(145deg, #0a2e3d, #051a24);
+    border: 2px solid rgba(0,169,157,0.3);
+    border-radius: 16px;
+    padding: 1.3rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.kurs-karte:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,169,157,0.3);
+}
+
+.kurs-karte.anfaenger { border-left-color: #00cc44; }
+.kurs-karte.fortgeschritten { border-left-color: #ffdf00; }
+.kurs-karte.experte { border-left-color: #ff4444; }
+
+.kurs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.kurs-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #ffdf00;
+    flex: 1;
+    margin-right: 0.5rem;
+}
+
+.kurs-anbieter {
+    font-size: 0.7rem;
+    color: #00ddcc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.kurs-badges {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.kurs-badge {
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,169,157,0.15);
+    color: #00ddcc;
+    border: 1px solid rgba(0,169,157,0.4);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.kurs-badge.kostenlos {
+    background: rgba(0,204,68,0.15);
+    color: #00ff88;
+    border-color: rgba(0,204,68,0.4);
+}
+
+.kurs-badge.zertifikat {
+    background: rgba(255,223,0,0.15);
+    color: #ffdf00;
+    border-color: rgba(255,223,0,0.4);
+}
+
+.kurs-desc {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.kurs-info {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    margin-bottom: 0.8rem;
+}
+
+.kurs-info-item {
+    padding: 0.3rem 0.6rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    color: #ccddaa;
+    font-weight: 800;
+}
+
+.kurs-link {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, #00a99d, #0088ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 0 #003d5c;
+    transition: all 0.2s;
+}
+
+.kurs-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #003d5c;
+}
+
+/* Zertifikate Liste */
+.zertifikat-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(255,223,0,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ffdf00;
+}
+
+.zert-icon { font-size: 2rem; flex-shrink: 0; }
+
+.zert-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: #ffdf00;
+    margin-bottom: 0.3rem;
+}
+
+.zert-gehalt {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+.zert-desc {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+/* Lern Tipps */
+.lern-tipp {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,169,157,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00a99d;
+}
+
+.lern-tipp-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.lern-tipp-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #00ddcc;
+    margin-bottom: 0.3rem;
+}
+
+.lern-tipp-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* YouTube */
+.yt-kanal {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(204,0,0,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ff0000;
+}
+
+.yt-icon {
+    width: 40px;
+    height: 40px;
+    background: #ff0000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.yt-info { flex: 1; }
+
+.yt-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: #ffdf00;
+    margin-bottom: 0.2rem;
+}
+
+.yt-desc {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 600;
+}
+
+.yt-link {
+    padding: 0.4rem 0.8rem;
+    background: #ff0000;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* Lernplan Item */
+.lernplan-item {
+    background: rgba(0,169,157,0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00a99d;
+    margin-top: 0.5rem;
+}
+
+.lernplan-thema {
+    font-family: 'Fredoka One', cursive;
+    color: #00ddcc;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.lernplan-ziel {
+    color: #ffdf00;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.lernplan-detail {
+    font-size: 0.78rem;
+    color: #ccddaa;
+    font-weight: 600;
+}
         
