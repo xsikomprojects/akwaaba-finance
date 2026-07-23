@@ -4230,3 +4230,404 @@ if (alteFunktionen.budgetHinzufuegen) {
 console.log('%c🇹🇬 AKWAABA Finance v2.0', 'font-size:20px; color:#ffdf00; font-weight:bold;');
 console.log('%cMit XsiKOM-DIGITAL-Projects', 'font-size:12px; color:#00ddcc;');
 console.log('%c⚛️ Quantum AI aktiviert', 'font-size:10px; color:#00cc44;');
+// ============================================
+// SPRACHEN SYSTEM – Multi-Language
+// ============================================
+
+var uebersetzungen = {
+    de: {
+        // Header
+        headerTitel: 'AKWAABA FINANCE',
+        headerSub: 'Togo · Quantum AI · XsiKOM-DIGITAL',
+
+        // Navigation
+        navDashboard: '📊 Dashboard',
+        navRechner: '🧮 Rechner',
+        navQuantum: '⚛️ Quantum',
+        navCrypto: '₿ Crypto',
+        navPortfolio: '💼 Portfolio',
+        navBudget: '💸 Budget',
+        navAlerts: '🔔 Alerts',
+        navChancen: '🎯 Chancen',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 HUND-NASE',
+        navSicherheit: '🛡️ Sicherheit',
+        navTipps: '💡 Tipps',
+
+        // Dashboard
+        willkommen: 'Willkommen · Welcome · Bienvenue',
+        untertitel: 'Deine KI-Finanzplattform aus Togo 🇹🇬',
+        markttrend: 'Markttrend',
+        aiGenauigkeit: 'AI Genauigkeit',
+        quantumSpeed: 'Quantum Speed',
+        sicherheit: 'Sicherheit',
+
+        // Buttons
+        berechnen: '⚛️ Berechnen',
+        hinzufuegen: '➕ Hinzufügen',
+        loeschen: '🗑️ Löschen',
+        speichern: '💾 Speichern',
+        aktualisieren: '🔄 Aktualisieren',
+
+        // Rechner
+        anfangskapital: 'Anfangskapital (€)',
+        zinssatz: 'Zinssatz (% pro Jahr)',
+        laufzeit: 'Laufzeit (Jahre)',
+        monatlich: 'Monatliche Einzahlung (€)',
+
+        // Sprache
+        spracheName: 'Deutsch'
+    },
+
+    en: {
+        headerTitel: 'AKWAABA FINANCE',
+        headerSub: 'Togo · Quantum AI · XsiKOM-DIGITAL',
+        navDashboard: '📊 Dashboard',
+        navRechner: '🧮 Calculator',
+        navQuantum: '⚛️ Quantum',
+        navCrypto: '₿ Crypto',
+        navPortfolio: '💼 Portfolio',
+        navBudget: '💸 Budget',
+        navAlerts: '🔔 Alerts',
+        navChancen: '🎯 Chances',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 DOG-NOSE',
+        navSicherheit: '🛡️ Security',
+        navTipps: '💡 Tips',
+        willkommen: 'Welcome · Bienvenue · Willkommen',
+        untertitel: 'Your AI Finance Platform from Togo 🇹🇬',
+        markttrend: 'Market Trend',
+        aiGenauigkeit: 'AI Accuracy',
+        quantumSpeed: 'Quantum Speed',
+        sicherheit: 'Security',
+        berechnen: '⚛️ Calculate',
+        hinzufuegen: '➕ Add',
+        loeschen: '🗑️ Delete',
+        speichern: '💾 Save',
+        aktualisieren: '🔄 Update',
+        anfangskapital: 'Initial Capital (€)',
+        zinssatz: 'Interest Rate (% per year)',
+        laufzeit: 'Duration (Years)',
+        monatlich: 'Monthly Deposit (€)',
+        spracheName: 'English'
+    },
+
+    fr: {
+        headerTitel: 'AKWAABA FINANCE',
+        headerSub: 'Togo · IA Quantique · XsiKOM-DIGITAL',
+        navDashboard: '📊 Tableau',
+        navRechner: '🧮 Calculatrice',
+        navQuantum: '⚛️ Quantique',
+        navCrypto: '₿ Crypto',
+        navPortfolio: '💼 Portefeuille',
+        navBudget: '💸 Budget',
+        navAlerts: '🔔 Alertes',
+        navChancen: '🎯 Opportunités',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 CHIEN-NEZ',
+        navSicherheit: '🛡️ Sécurité',
+        navTipps: '💡 Conseils',
+        willkommen: 'Bienvenue · Welcome · Willkommen',
+        untertitel: 'Votre plateforme financière IA du Togo 🇹🇬',
+        markttrend: 'Tendance du marché',
+        aiGenauigkeit: 'Précision IA',
+        quantumSpeed: 'Vitesse Quantique',
+        sicherheit: 'Sécurité',
+        berechnen: '⚛️ Calculer',
+        hinzufuegen: '➕ Ajouter',
+        loeschen: '🗑️ Supprimer',
+        speichern: '💾 Enregistrer',
+        aktualisieren: '🔄 Actualiser',
+        anfangskapital: 'Capital Initial (€)',
+        zinssatz: 'Taux d\'intérêt (% par an)',
+        laufzeit: 'Durée (Années)',
+        monatlich: 'Dépôt mensuel (€)',
+        spracheName: 'Français'
+    },
+
+    ee: {
+        // Ewe (Togo Muttersprache)
+        headerTitel: 'AKWAABA GA',
+        headerSub: 'Togo · Quantum AI · XsiKOM-DIGITAL',
+        navDashboard: '📊 Nyawodo',
+        navRechner: '🧮 Akontabu',
+        navQuantum: '⚛️ Quantum',
+        navCrypto: '₿ Crypto',
+        navPortfolio: '💼 Ga',
+        navBudget: '💸 Gadzedze',
+        navAlerts: '🔔 Nyanadodo',
+        navChancen: '🎯 Mowoawo',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 AVU-NƆ',
+        navSicherheit: '🛡️ Dedie',
+        navTipps: '💡 Aɖaŋu',
+        willkommen: 'Woezɔ · Welcome · Bienvenue',
+        untertitel: 'Wo AI ga xɔdzi tso Togo 🇹🇬',
+        markttrend: 'Asi ƒe mɔ',
+        aiGenauigkeit: 'AI ƒe pɛpɛpɛ',
+        quantumSpeed: 'Quantum ƒe kabakaba',
+        sicherheit: 'Dedie',
+        berechnen: '⚛️ Wɔ akɔntabu',
+        hinzufuegen: '➕ Tsɔ kpe',
+        loeschen: '🗑️ Tutu',
+        speichern: '💾 Dzra ɖo',
+        aktualisieren: '🔄 Wɔe yeye',
+        anfangskapital: 'Gɔmedzedze ga (€)',
+        zinssatz: 'Ga ƒe dzidzedze (% le ƒe)',
+        laufzeit: 'Ɣeyiɣi (Ƒewo)',
+        monatlich: 'Ɣletiawo ƒe ga (€)',
+        spracheName: 'Eʋegbe'
+    },
+
+    ar: {
+        headerTitel: 'AKWAABA للتمويل',
+        headerSub: 'توغو · ذكاء اصطناعي كمي',
+        navDashboard: '📊 لوحة',
+        navRechner: '🧮 حاسبة',
+        navQuantum: '⚛️ كمي',
+        navCrypto: '₿ عملات',
+        navPortfolio: '💼 محفظة',
+        navBudget: '💸 ميزانية',
+        navAlerts: '🔔 تنبيهات',
+        navChancen: '🎯 فرص',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 كلب-الأنف',
+        navSicherheit: '🛡️ أمان',
+        navTipps: '💡 نصائح',
+        willkommen: 'أهلاً وسهلاً · Welcome',
+        untertitel: 'منصة الذكاء المالي من توغو 🇹🇬',
+        markttrend: 'اتجاه السوق',
+        aiGenauigkeit: 'دقة الذكاء',
+        quantumSpeed: 'السرعة الكمية',
+        sicherheit: 'الأمان',
+        berechnen: '⚛️ احسب',
+        hinzufuegen: '➕ أضف',
+        loeschen: '🗑️ حذف',
+        speichern: '💾 حفظ',
+        aktualisieren: '🔄 تحديث',
+        anfangskapital: 'رأس المال الأولي (€)',
+        zinssatz: 'معدل الفائدة (% سنوياً)',
+        laufzeit: 'المدة (سنوات)',
+        monatlich: 'الإيداع الشهري (€)',
+        spracheName: 'العربية'
+    },
+
+    es: {
+        headerTitel: 'AKWAABA FINANZAS',
+        headerSub: 'Togo · IA Cuántica · XsiKOM-DIGITAL',
+        navDashboard: '📊 Panel',
+        navRechner: '🧮 Calculadora',
+        navQuantum: '⚛️ Cuántico',
+        navCrypto: '₿ Cripto',
+        navPortfolio: '💼 Cartera',
+        navBudget: '💸 Presupuesto',
+        navAlerts: '🔔 Alertas',
+        navChancen: '🎯 Oportunidades',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 PERRO-NARIZ',
+        navSicherheit: '🛡️ Seguridad',
+        navTipps: '💡 Consejos',
+        willkommen: 'Bienvenido · Welcome',
+        untertitel: 'Tu plataforma financiera IA de Togo 🇹🇬',
+        markttrend: 'Tendencia del mercado',
+        aiGenauigkeit: 'Precisión IA',
+        quantumSpeed: 'Velocidad Cuántica',
+        sicherheit: 'Seguridad',
+        berechnen: '⚛️ Calcular',
+        hinzufuegen: '➕ Añadir',
+        loeschen: '🗑️ Eliminar',
+        speichern: '💾 Guardar',
+        aktualisieren: '🔄 Actualizar',
+        anfangskapital: 'Capital Inicial (€)',
+        zinssatz: 'Tasa de interés (% por año)',
+        laufzeit: 'Duración (Años)',
+        monatlich: 'Depósito mensual (€)',
+        spracheName: 'Español'
+    },
+
+    pt: {
+        headerTitel: 'AKWAABA FINANÇAS',
+        headerSub: 'Togo · IA Quântica · XsiKOM-DIGITAL',
+        navDashboard: '📊 Painel',
+        navRechner: '🧮 Calculadora',
+        navQuantum: '⚛️ Quântico',
+        navCrypto: '₿ Cripto',
+        navPortfolio: '💼 Carteira',
+        navBudget: '💸 Orçamento',
+        navAlerts: '🔔 Alertas',
+        navChancen: '🎯 Oportunidades',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 CÃO-NARIZ',
+        navSicherheit: '🛡️ Segurança',
+        navTipps: '💡 Dicas',
+        willkommen: 'Bem-vindo · Welcome',
+        untertitel: 'Sua plataforma financeira IA do Togo 🇹🇬',
+        markttrend: 'Tendência do mercado',
+        aiGenauigkeit: 'Precisão IA',
+        quantumSpeed: 'Velocidade Quântica',
+        sicherheit: 'Segurança',
+        berechnen: '⚛️ Calcular',
+        hinzufuegen: '➕ Adicionar',
+        loeschen: '🗑️ Excluir',
+        speichern: '💾 Salvar',
+        aktualisieren: '🔄 Atualizar',
+        anfangskapital: 'Capital Inicial (€)',
+        zinssatz: 'Taxa de juros (% ao ano)',
+        laufzeit: 'Duração (Anos)',
+        monatlich: 'Depósito mensal (€)',
+        spracheName: 'Português'
+    },
+
+    zh: {
+        headerTitel: 'AKWAABA 金融',
+        headerSub: '多哥 · 量子 AI · XsiKOM-DIGITAL',
+        navDashboard: '📊 仪表板',
+        navRechner: '🧮 计算器',
+        navQuantum: '⚛️ 量子',
+        navCrypto: '₿ 加密',
+        navPortfolio: '💼 投资组合',
+        navBudget: '💸 预算',
+        navAlerts: '🔔 警报',
+        navChancen: '🎯 机会',
+        navSiegoth: '🤖 SIEGOTH',
+        navHundnase: '🐕 狗鼻子',
+        navSicherheit: '🛡️ 安全',
+        navTipps: '💡 提示',
+        willkommen: '欢迎 · Welcome',
+        untertitel: '您的多哥AI金融平台 🇹🇬',
+        markttrend: '市场趋势',
+        aiGenauigkeit: 'AI精度',
+        quantumSpeed: '量子速度',
+        sicherheit: '安全',
+        berechnen: '⚛️ 计算',
+        hinzufuegen: '➕ 添加',
+        loeschen: '🗑️ 删除',
+        speichern: '💾 保存',
+        aktualisieren: '🔄 更新',
+        anfangskapital: '初始资本 (€)',
+        zinssatz: '利率 (%/年)',
+        laufzeit: '期限 (年)',
+        monatlich: '每月存款 (€)',
+        spracheName: '中文'
+    }
+};
+
+var aktuelleSprache = localStorage.getItem('sprache') || 'de';
+
+function sprachModalOeffnen() {
+    var sprachen = [
+        { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
+        { code: 'en', flag: '🇬🇧', name: 'English' },
+        { code: 'fr', flag: '🇫🇷', name: 'Français' },
+        { code: 'ee', flag: '🇹🇬', name: 'Eʋegbe (Ewe)' },
+        { code: 'ar', flag: '🇸🇦', name: 'العربية' },
+        { code: 'es', flag: '🇪🇸', name: 'Español' },
+        { code: 'pt', flag: '🇵🇹', name: 'Português' },
+        { code: 'zh', flag: '🇨🇳', name: '中文' }
+    ];
+
+    var inhalt =
+        '<h2 style="font-family:Fredoka One, cursive; ' +
+        'background: linear-gradient(135deg, #ff3333, #ffee00); ' +
+        '-webkit-background-clip:text; -webkit-text-fill-color:transparent; ' +
+        'background-clip:text; margin-bottom:1rem;">🌍 Sprache wählen</h2>' +
+        '<div class="sprachen-grid">';
+
+    sprachen.forEach(function(s) {
+        var aktiv = s.code === aktuelleSprache ? 'sprach-btn-aktiv' : '';
+        inhalt += '<button class="sprach-btn ' + aktiv + '" ' +
+            'onclick="sprachWaehlen(\'' + s.code + '\')">' +
+            '<div class="sprach-flag">' + s.flag + '</div>' +
+            '<div class="sprach-name">' + s.name + '</div>' +
+            '</button>';
+    });
+
+    inhalt += '</div>' +
+        '<button class="btn-rot" style="margin-top:1rem;" ' +
+        'onclick="this.closest(\'.modal-overlay\').classList.remove(\'aktiv\')">' +
+        '❌ Schließen</button>';
+
+    modalOeffnen(inhalt);
+}
+
+function sprachWaehlen(code) {
+    aktuelleSprache = code;
+    localStorage.setItem('sprache', code);
+    spracheAnwenden();
+
+    // Modal schließen
+    var modal = document.querySelector('.modal-overlay');
+    if (modal) modalSchliessen(modal);
+
+    toast('🌍 ' + uebersetzungen[code].spracheName + ' aktiviert!');
+
+    // RTL für Arabisch
+    if (code === 'ar') {
+        document.body.dir = 'rtl';
+    } else {
+        document.body.dir = 'ltr';
+    }
+}
+
+function spracheAnwenden() {
+    var t = uebersetzungen[aktuelleSprache];
+    if (!t) return;
+
+    // Header
+    var headerH1 = document.querySelector('header div h1');
+    if (headerH1) headerH1.textContent = t.headerTitel;
+
+    var headerP = document.querySelector('header div p');
+    if (headerP) headerP.textContent = t.headerSub;
+
+    // Sprache Button
+    var spracheBtn = document.getElementById('spracheBtn');
+    if (spracheBtn) {
+        var codes = { de: 'DE', en: 'EN', fr: 'FR', ee: 'EE',
+                      ar: 'AR', es: 'ES', pt: 'PT', zh: 'ZH' };
+        spracheBtn.textContent = '🌍 ' + (codes[aktuelleSprache] || 'DE');
+    }
+
+    // Navigation
+    var navMapping = {
+        'dashboard': 'navDashboard',
+        'rechner': 'navRechner',
+        'quantum': 'navQuantum',
+        'crypto': 'navCrypto',
+        'portfolio': 'navPortfolio',
+        'budget': 'navBudget',
+        'benachrichtigungen': 'navAlerts',
+        'chancen': 'navChancen',
+        'siegoth': 'navSiegoth',
+        'hundnase': 'navHundnase',
+        'sicherheit': 'navSicherheit',
+        'tipps': 'navTipps'
+    };
+
+    document.querySelectorAll('.tab').forEach(function(tab) {
+        var target = tab.getAttribute('data-tab');
+        var key = navMapping[target];
+        if (key && t[key]) tab.textContent = t[key];
+    });
+
+    // Dashboard Willkommen
+    var bannerP = document.querySelectorAll('.banner p');
+    if (bannerP[0]) bannerP[0].textContent = t.willkommen;
+    if (bannerP[1]) bannerP[1].textContent = t.untertitel;
+
+    // Statistik Labels
+    var statLabels = document.querySelectorAll('.stat div:last-child');
+    if (statLabels[0]) statLabels[0].textContent = t.markttrend;
+    if (statLabels[1]) statLabels[1].textContent = t.aiGenauigkeit;
+    if (statLabels[2]) statLabels[2].textContent = t.quantumSpeed;
+    if (statLabels[3]) statLabels[3].textContent = t.sicherheit;
+}
+
+// Sprache Button verbinden
+setTimeout(function() {
+    var btn = document.getElementById('spracheBtn');
+    if (btn) {
+        btn.onclick = sprachModalOeffnen;
+    }
+    spracheAnwenden();
+}, 500);

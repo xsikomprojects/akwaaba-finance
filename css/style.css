@@ -3635,4 +3635,67 @@ textarea:focus {
 
     header {
         padding: 0.6rem 0.8rem;
+/* ============================================
+   SPRACHEN SYSTEM
+   ============================================ */
+
+.sprachen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+}
+
+.sprach-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.sprach-btn:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,223,0,0.4);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+}
+
+.sprach-btn-aktiv {
+    border-color: #ffdf00;
+    background: rgba(255,223,0,0.15);
+    box-shadow: 0 4px 0 #aa9900;
+    transform: translateY(-2px);
+}
+
+.sprach-flag {
+    font-size: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+.sprach-name {
+    font-size: 0.85rem;
+    color: #ffdf00;
+}
+
+/* RTL für Arabisch */
+body[dir="rtl"] {
+    text-align: right;
+}
+
+body[dir="rtl"] .karte {
+    direction: rtl;
+}
+
+body[dir="rtl"] .flug-route {
+    flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .chat-nachricht.nutzer {
+    flex-direction: row;
+}
         
