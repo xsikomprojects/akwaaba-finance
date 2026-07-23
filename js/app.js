@@ -15,6 +15,7 @@ window.onload = function() {
     statistikenAktualisieren();
     neueTipps();
     weisheitZeigen();
+    chartsStarten();
 };
 
 // === NAVIGATION ===
@@ -499,4 +500,335 @@ function statistikenAktualisieren() {
             speed.textContent = (0.001 + Math.random() * 0.005).toFixed(3) + 's';
         }
     }, 3000);
+}
+// ============================================
+// PHASE 5 – LIVE CHARTS
+// ============================================
+
+// === CHART DATEN GENERIEREN ===
+function chartDatenErstellen(punkte, min, max) {
+    var daten = [];
+    var aktuell = (min + max) / 2;
+    for (var i = 0; i < punkte; i++) {
+        aktuell += (Math.random() - 0.5) * (max - min) * 0.1;
+        aktuell = Math.max(min, Math.min(max, aktuell));
+        daten.push(aktuell);
+    }
+    return daten;
+}
+
+// === CHART ZEICHNEN ===
+function chartZeichnen(canvasId, daten, farbe, fuellung) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    
+    var ctx = canvas.getContext('2d');
+    var breite = canvas.width = canvas.offsetWidth * 2;
+    var hoehe = canvas.height = 200;
+    
+    ctx.clearRect(0, 0, breite, hoehe);
+    
+    // Hintergrund Raster
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    for (var i = 0; i < hoehe; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(breite, i);
+        ctx.stroke();
+    }
+    for (var j = 0; j < breite; j += 80) {
+        ctx.beginPath();
+        ctx.moveTo(j, 0);
+        ctx.lineTo(j, hoehe);
+        ctx.stroke();
+    }
+    
+    var min = Math.min.apply(null, daten);
+    var max = Math.max.apply(null, daten);
+    var spanne = max - min || 1;
+    
+    var schrittX = breite / (daten.length - 1);
+    
+    // Füllung
+    if (fuellung) {
+        ctx.beginPath();
+        ctx.moveTo(0, hoehe);
+        daten.forEach(function(wert, i) {
+            var x = i * schrittX;
+            var y = hoehe - ((wert - min) / spanne) * (hoehe - 20) - 10;
+            if (i === 0) ctx.lineTo(x, y);
+            else ctx.lineTo(x, y);
+        });
+        ctx.lineTo(breite, hoehe);
+        ctx.closePath();
+        var gradient = ctx.createLinearGradient(0, 0, 0, hoehe);
+        gradient.addColorStop(0, farbe.replace(')', ', 0.3)').replace('rgb', 'rgba'));
+        gradient.addColorStop(1, farbe.replace(')', ', 0.0)').replace('rgb', 'rgba'));
+        ctx.fillStyle = gradient;
+        ctx.fill();
+    }
+    
+    // Linie
+    ctx.beginPath();
+    ctx.strokeStyle = farbe;
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = farbe;
+    
+    daten.forEach(function(wert, i) {
+        var x = i * schrittX;
+        var y = hoehe - ((wert - min) / spanne) * (hoehe - 20) - 10;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    
+    // Punkte
+    daten.forEach(function(wert, i) {
+        if (i % 5 === 0) {
+            var x = i * schrittX;
+            var y = hoehe - ((wert - min) / spanne) * (hoehe - 20) - 10;
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fillStyle = farbe;
+            ctx.fill();
+            ctx.strokeStyle = '#0a1200';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+    });
+    
+    // Letzter Wert anzeigen
+    var letzterWert = daten[daten.length - 1];
+    var letzteX = (daten.length - 1) * schrittX;
+    var letzteY = hoehe - ((letzterWert - min) / spanne) * (hoehe - 20) - 10;
+    
+    ctx.fillStyle = farbe;
+    ctx.font = 'bold 24px Fredoka One';
+    ctx.textAlign = 'right';
+    ctx.fillText(letzterWert.toFixed(2), breite - 10, 30);
+}
+
+// === QUANTUM PULSE CHART ===
+function quantumPulseStarten() {
+    var canvas = document.getElementById('quantumPulse');
+    if (!canvas) return;
+    
+    var ctx = canvas.getContext('2d');
+    var offset = 0;
+    
+    function zeichnen() {
+        var breite = canvas.width = canvas.offsetWidth * 2;
+        var hoehe = canvas.height = 150;
+        
+        ctx.clearRect(0, 0, breite, hoehe);
+        
+        // Raster
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        for (var i = 0; i < hoehe; i += 30) {
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(breite, i);
+            ctx.stroke();
+        }
+        
+        // Welle 1 – Grün
+        ctx.beginPath();
+        ctx.strokeStyle = '#00cc44';
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#00cc44';
+        for (var x = 0; x < breite; x++) {
+            var y = hoehe / 2 +
+                Math.sin((x + offset) * 0.02) * 35 +
+                Math.sin((x + offset) * 0.05) * 15 +
+                (Math.random() * 3 - 1.5);
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        
+        // Welle 2 – Gelb
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,223,0,0.5)';
+        ctx.lineWidth = 1.5;
+        ctx.shadowColor = '#ffdf00';
+        for (var x2 = 0; x2 < breite; x2++) {
+            var y2 = hoehe / 2 +
+                Math.cos((x2 + offset) * 0.03) * 25 +
+                Math.sin((x2 + offset) * 0.07) * 10;
+            if (x2 === 0) ctx.moveTo(x2, y2);
+            else ctx.lineTo(x2, y2);
+        }
+        ctx.stroke();
+        
+        // Welle 3 – Rot
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(204,0,0,0.4)';
+        ctx.lineWidth = 1;
+        ctx.shadowColor = '#cc0000';
+        for (var x3 = 0; x3 < breite; x3++) {
+            var y3 = hoehe / 2 +
+                Math.sin((x3 + offset) * 0.04) * 20 +
+                Math.cos((x3 + offset) * 0.02) * 30;
+            if (x3 === 0) ctx.moveTo(x3, y3);
+            else ctx.lineTo(x3, y3);
+        }
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+        
+        offset += 2;
+        requestAnimationFrame(zeichnen);
+    }
+    zeichnen();
+}
+// === CHART WECHSELN ===
+var chartDaten = {
+    aktien: { name: '📈 DAX / Aktienmarkt', min: 15000, max: 18000, farbe: '#00cc44' },
+    crypto: { name: '₿ Bitcoin / Crypto',   min: 38000, max: 48000, farbe: '#ffdf00' },
+    gold:   { name: '🥇 Gold / Rohstoffe',  min: 1900,  max: 2100,  farbe: '#ff8800' },
+    forex:  { name: '💱 EUR/USD / Forex',   min: 1.05,  max: 1.15,  farbe: '#0088ff' }
+};
+
+function chartWechseln(typ, btn) {
+    // Tab aktiv setzen
+    document.querySelectorAll('.chart-tab').forEach(function(t) {
+        t.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+
+    var d = chartDaten[typ];
+    var daten = chartDatenErstellen(50, d.min, d.max);
+
+    document.getElementById('chartName').textContent = d.name;
+
+    var change = ((Math.random() * 6) - 2).toFixed(2);
+    var wertEl = document.getElementById('chartWert');
+    wertEl.textContent = (change >= 0 ? '+' : '') + change + '%';
+    wertEl.className = change >= 0 ? 'positiv' : 'negativ';
+
+    chartZeichnen('hauptChart', daten, d.farbe, true);
+}
+
+// === MINI CHARTS AKTUALISIEREN ===
+function miniChartsAktualisieren() {
+    // Bitcoin
+    var btcDaten = chartDatenErstellen(20, 40000, 46000);
+    miniChartZeichnen('miniChart1', btcDaten, '#ffdf00');
+    var btcChange = ((Math.random() * 8) - 2).toFixed(1);
+    document.getElementById('btcWert').textContent =
+        '$' + (btcDaten[btcDaten.length-1]).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    var btcEl = document.getElementById('btcChange');
+    btcEl.textContent = (btcChange >= 0 ? '+' : '') + btcChange + '%';
+    btcEl.className = 'mini-chart-change ' + (btcChange >= 0 ? 'positiv' : 'negativ');
+
+    // Ethereum
+    var ethDaten = chartDatenErstellen(20, 2500, 3200);
+    miniChartZeichnen('miniChart2', ethDaten, '#00cc44');
+    var ethChange = ((Math.random() * 6) - 1.5).toFixed(1);
+    document.getElementById('ethWert').textContent =
+        '$' + (ethDaten[ethDaten.length-1]).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    var ethEl = document.getElementById('ethChange');
+    ethEl.textContent = (ethChange >= 0 ? '+' : '') + ethChange + '%';
+    ethEl.className = 'mini-chart-change ' + (ethChange >= 0 ? 'positiv' : 'negativ');
+
+    // Gold
+    var goldDaten = chartDatenErstellen(20, 1950, 2100);
+    miniChartZeichnen('miniChart3', goldDaten, '#ff8800');
+    var goldChange = ((Math.random() * 4) - 1.5).toFixed(1);
+    document.getElementById('goldWert').textContent =
+        '$' + (goldDaten[goldDaten.length-1]).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    var goldEl = document.getElementById('goldChange');
+    goldEl.textContent = (goldChange >= 0 ? '+' : '') + goldChange + '%';
+    goldEl.className = 'mini-chart-change ' + (goldChange >= 0 ? 'positiv' : 'negativ');
+
+    // EUR/USD
+    var eurDaten = chartDatenErstellen(20, 1.05, 1.12);
+    miniChartZeichnen('miniChart4', eurDaten, '#0088ff');
+    var eurChange = ((Math.random() * 2) - 0.8).toFixed(2);
+    document.getElementById('eurWert').textContent =
+        (eurDaten[eurDaten.length-1]).toFixed(4);
+    var eurEl = document.getElementById('eurChange');
+    eurEl.textContent = (eurChange >= 0 ? '+' : '') + eurChange + '%';
+    eurEl.className = 'mini-chart-change ' + (eurChange >= 0 ? 'positiv' : 'negativ');
+}
+
+// === MINI CHART ZEICHNEN ===
+function miniChartZeichnen(canvasId, daten, farbe) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d');
+    var breite = canvas.width = canvas.offsetWidth * 2;
+    var hoehe = canvas.height = 60;
+
+    ctx.clearRect(0, 0, breite, hoehe);
+
+    var min = Math.min.apply(null, daten);
+    var max = Math.max.apply(null, daten);
+    var spanne = max - min || 1;
+    var schrittX = breite / (daten.length - 1);
+
+    // Füllung
+    ctx.beginPath();
+    ctx.moveTo(0, hoehe);
+    daten.forEach(function(wert, i) {
+        var x = i * schrittX;
+        var y = hoehe - ((wert - min) / spanne) * (hoehe - 10) - 5;
+        ctx.lineTo(x, y);
+    });
+    ctx.lineTo(breite, hoehe);
+    ctx.closePath();
+    var grad = ctx.createLinearGradient(0, 0, 0, hoehe);
+    grad.addColorStop(0, farbe + '44');
+    grad.addColorStop(1, farbe + '00');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Linie
+    ctx.beginPath();
+    ctx.strokeStyle = farbe;
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = farbe;
+    daten.forEach(function(wert, i) {
+        var x = i * schrittX;
+        var y = hoehe - ((wert - min) / spanne) * (hoehe - 10) - 5;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+}
+
+// === ALLE CHARTS STARTEN ===
+function chartsStarten() {
+    quantumPulseStarten();
+
+    // Haupt Chart
+    var startDaten = chartDatenErstellen(50, 15000, 18000);
+    chartZeichnen('hauptChart', startDaten, '#00cc44', true);
+
+    // Mini Charts
+    miniChartsAktualisieren();
+
+    // Alle 5 Sekunden aktualisieren
+    setInterval(function() {
+        miniChartsAktualisieren();
+
+        // Haupt Chart auch aktualisieren
+        var aktivTab = document.querySelector('.chart-tab.aktiv');
+        if (aktivTab) {
+            var typ = aktivTab.getAttribute('onclick').match(/'(\w+)'/)[1];
+            var d = chartDaten[typ];
+            if (d) {
+                var daten = chartDatenErstellen(50, d.min, d.max);
+                chartZeichnen('hauptChart', daten, d.farbe, true);
+            }
+        }
+    }, 5000);
 }

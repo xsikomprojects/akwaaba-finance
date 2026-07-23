@@ -75,12 +75,59 @@
             </div>
         </div>
 
-        <div class="karte gruen-rand">
-            <h3>🌍 Über AKWAABA Finance</h3>
-            <p>AKWAABA bedeutet Willkommen auf Akan 🇬🇭 – inspiriert von der Lebensfreude Togos 🇹🇬 mit modernster Quantum-KI!</p>
-        </div>
-    </div>
+        <!-- QUANTUM PULSE -->
+<div class="karte gruen-rand">
+    <h3>⚛️ Quantum Pulse Monitor</h3>
+    <canvas id="quantumPulse"></canvas>
+</div>
 
+<!-- LIVE CHARTS -->
+<div class="karte gelb-rand">
+    <h3>📈 Markt Live Charts</h3>
+    <div class="chart-tabs">
+        <button class="chart-tab aktiv" onclick="chartWechseln('aktien', this)">📈 Aktien</button>
+        <button class="chart-tab" onclick="chartWechseln('crypto', this)">₿ Crypto</button>
+        <button class="chart-tab" onclick="chartWechseln('gold', this)">🥇 Gold</button>
+        <button class="chart-tab" onclick="chartWechseln('forex', this)">💱 Forex</button>
+    </div>
+    <div class="chart-info">
+        <span id="chartName">📈 DAX / Aktienmarkt</span>
+        <span id="chartWert" class="positiv">+2.4%</span>
+    </div>
+    <canvas id="hauptChart"></canvas>
+    <div class="chart-legende">
+        <div class="legende-punkt gruen-punkt"></div>
+        <span id="chartLabel">Live Simulation · Quantum AI</span>
+    </div>
+</div>
+
+<!-- MINI CHARTS -->
+<div class="mini-charts-grid">
+    <div class="mini-chart-karte rot-rand">
+        <div class="mini-chart-titel">₿ Bitcoin</div>
+        <canvas id="miniChart1"></canvas>
+        <div class="mini-chart-wert" id="btcWert">$43,250</div>
+        <div class="mini-chart-change positiv" id="btcChange">+3.2%</div>
+    </div>
+    <div class="mini-chart-karte gruen-rand">
+        <div class="mini-chart-titel">Ξ Ethereum</div>
+        <canvas id="miniChart2"></canvas>
+        <div class="mini-chart-wert" id="ethWert">$2,840</div>
+        <div class="mini-chart-change positiv" id="ethChange">+1.8%</div>
+    </div>
+    <div class="mini-chart-karte gelb-rand">
+        <div class="mini-chart-titel">🥇 Gold</div>
+        <canvas id="miniChart3"></canvas>
+        <div class="mini-chart-wert" id="goldWert">$2,015</div>
+        <div class="mini-chart-change negativ" id="goldChange">-0.5%</div>
+    </div>
+    <div class="mini-chart-karte" style="border-color:rgba(0,136,255,0.4);">
+        <div class="mini-chart-titel">💶 EUR/USD</div>
+        <canvas id="miniChart4"></canvas>
+        <div class="mini-chart-wert" id="eurWert">1.0842</div>
+        <div class="mini-chart-change positiv" id="eurChange">+0.3%</div>
+    </div>
+</div>
     <!-- RECHNER -->
     <div id="rechner" class="seite">
         <div class="karte gelb-rand">

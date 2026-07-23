@@ -831,3 +831,120 @@ footer p {
     .rechner-tabs { grid-template-columns: repeat(4, 1fr); }
     #app { max-width: 800px; margin: 0 auto; }
 }
+/* ============================================
+   PHASE 5 – LIVE CHARTS
+   ============================================ */
+
+/* Chart Tabs */
+.chart-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.chart-tab {
+    padding: 0.5rem 0.8rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    color: #668844;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    transition: all 0.2s;
+}
+
+.chart-tab.aktiv {
+    background: rgba(255,223,0,0.15);
+    border-color: #ffdf00;
+    color: #ffdf00;
+    box-shadow: 0 4px 0 #aa9900;
+    transform: translateY(-2px);
+}
+
+.chart-tab:hover:not(.aktiv) {
+    color: #ccddaa;
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* Chart Info */
+.chart-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+#chartName { color: #ccddaa; }
+
+/* Chart Legende */
+.chart-legende {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    font-size: 0.75rem;
+    color: #668844;
+    font-weight: 700;
+}
+
+.legende-punkt {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.gruen-punkt { background: #00cc44; box-shadow: 0 0 8px #00cc44; }
+
+/* Mini Charts Grid */
+.mini-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    padding: 0 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.mini-chart-karte {
+    background: linear-gradient(145deg, #1a2e00, #0f1a00);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1rem;
+    transition: all 0.3s;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+}
+
+.mini-chart-karte:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 rgba(0,0,0,0.3);
+}
+
+.mini-chart-titel {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #ffdf00;
+    margin-bottom: 0.5rem;
+}
+
+.mini-chart-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: white;
+    margin-top: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.mini-chart-change {
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
+}
+
+canvas {
+    width: 100%;
+    border-radius: 8px;
+}
