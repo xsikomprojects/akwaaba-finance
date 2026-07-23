@@ -5764,3 +5764,28 @@ function pimelStarten() {
 }
 
 pimelStarten();
+// ============================================
+// TOGO PREMIUM PARTICLES
+// ============================================
+
+function togoParticles() {
+    var emojis = ['⭐', '✨', '🌟', '💫', '🇹🇬'];
+
+    setInterval(function() {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        p.style.animationDuration = (Math.random() * 20 + 15) + 's';
+        p.style.animationDelay = Math.random() * 5 + 's';
+
+        document.body.appendChild(p);
+
+        setTimeout(function() {
+            if (p.parentNode) p.parentNode.removeChild(p);
+        }, 35000);
+    }, 3000);
+}
+
+setTimeout(togoParticles, 5000);
