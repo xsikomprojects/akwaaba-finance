@@ -7608,4 +7608,416 @@ canvas {
     font-weight: 800;
     white-space: nowrap;
 }
+/* ============================================
+   FOTO-KI
+   ============================================ */
+
+.fotoki-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1a1a3d, #3d1a3d);
+    border-bottom: 3px solid rgba(204,68,255,0.3);
+}
+
+.fotoki-avatar {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #cc44ff, #ff44aa, #ffdf00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 0 #4d1a4d, 0 12px 30px rgba(204,68,255,0.5);
+    overflow: hidden;
+}
+
+.fotoki-flash {
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    animation: kameraBlitz 4s infinite;
+}
+
+@keyframes kameraBlitz {
+    0%, 90%, 100% { opacity: 0; }
+    95% { opacity: 0.8; }
+}
+
+.fotoki-emoji {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+    z-index: 1;
+}
+
+.fotoki-info h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, #cc44ff, #ffdf00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.fotoki-info p {
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+}
+
+.fotoki-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #cc44ff;
+    font-weight: 800;
+}
+
+/* Foto Info Liste */
+.foto-info-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.foto-info-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    background: rgba(204,68,255,0.05);
+    border-radius: 12px;
+    border-left: 4px solid #cc44ff;
+    align-items: center;
+}
+
+.foto-info-item span:first-child {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.foto-info-item strong {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.foto-info-item p {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Foto Typ Grid */
+.foto-typ-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.foto-typ-btn {
+    padding: 1rem 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    color: #ccddaa;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.foto-typ-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3);
+    border-color: rgba(204,68,255,0.4);
+}
+
+.foto-typ-btn.aktiv {
+    border-color: #cc44ff;
+    background: rgba(204,68,255,0.1);
+    box-shadow: 0 4px 0 #4d1a4d;
+    transform: translateY(-2px);
+}
+
+.foto-typ-icon { font-size: 2rem; margin-bottom: 0.3rem; }
+
+.foto-typ-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: #ffce00;
+}
+
+/* Foto Tipps Karte */
+.foto-tipps-box {
+    background: linear-gradient(145deg, #2e1a3d, #1a0f2e);
+    border-radius: 16px;
+    padding: 1.3rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #cc44ff;
+}
+
+.foto-tipp-titel {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.foto-tipp-text {
+    font-size: 0.85rem;
+    color: #ccddaa;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* Motiv Item */
+.motiv-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(0,204,68,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #00cc44;
+    align-items: center;
+}
+
+.motiv-icon { font-size: 2rem; flex-shrink: 0; }
+
+.motiv-info { flex: 1; }
+
+.motiv-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.motiv-verdienst {
+    font-size: 0.78rem;
+    color: #00ff88;
+    font-weight: 800;
+}
+
+.motiv-suchbar {
+    font-size: 0.75rem;
+    color: #00ddcc;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+/* Spickzettel */
+.spickzettel-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.spick-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(255,206,0,0.05);
+    border-radius: 12px;
+    border-left: 4px solid #ffce00;
+}
+
+.spick-nr {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #ffce00, #ff6b00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 3px 0 #8b6c00;
+}
+
+.spick-item strong {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.spick-item p {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Keywords */
+.keyword-bubble {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: rgba(204,68,255,0.15);
+    color: #cc44ff;
+    border: 1px solid rgba(204,68,255,0.4);
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin: 0.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.keyword-bubble:hover {
+    background: rgba(204,68,255,0.3);
+    transform: scale(1.05);
+}
+
+/* Foto Item */
+.foto-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #cc44ff;
+    margin-top: 0.5rem;
+}
+
+.foto-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.foto-item-titel {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.foto-item-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #ccddaa;
+    font-weight: 700;
+    margin-top: 0.3rem;
+}
+
+.foto-item-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Foto Statistik */
+.foto-gesamt-box {
+    background: linear-gradient(135deg, rgba(0,204,68,0.1), rgba(255,206,0,0.1));
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    border: 2px solid rgba(0,204,68,0.3);
+}
+
+.foto-gesamt-label {
+    font-size: 0.75rem;
+    color: #ccddaa;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.foto-gesamt-wert {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #00ff88;
+}
+
+/* Ausrüstung */
+.ausruestung-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: rgba(255,206,0,0.05);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #ffce00;
+    align-items: center;
+}
+
+.aus-icon { font-size: 2rem; flex-shrink: 0; }
+
+.aus-info { flex: 1; }
+
+.aus-name {
+    font-family: 'Fredoka One', cursive;
+    color: #ffce00;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.aus-desc {
+    font-size: 0.82rem;
+    color: #ccddaa;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.aus-preis {
+    font-family: 'Fredoka One', cursive;
+    color: #00ff88;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Startplan */
+.plan-woche {
+    background: linear-gradient(145deg, #2e1a3d, #1a0f2e);
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #cc44ff;
+}
+
+.plan-woche-titel {
+    font-family: 'Fredoka One', cursive;
+    color: #ffdf00;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.plan-woche-aufgabe {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+    color: #ccddaa;
+    font-size: 0.87rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.plan-woche-aufgabe span:first-child {
+    color: #cc44ff;
+    font-weight: 900;
+    flex-shrink: 0;
+}
         

@@ -8233,7 +8233,7 @@ function lieferPlattformenAnzeigen() {
                 '<div class="liefer-region">🌍 ' + l.region + '</div>' +
                 '<div class="liefer-gebuehr">💸 Gebühr: ' + l.gebuehr + '</div>' +
             '</div>' +
-            '<a href="' + l.url + '" target="_blank" class="liefer-link">Registrieren</a>' +
+            '<a="' + l.url + '" target="_blank" class="liefer-link">Registrieren</a>' +
         '</div>';
     }).join('');
 }
@@ -8278,5 +8278,459 @@ setTimeout(function() {
     afroGerichteAnzeigen();
     foodErfolgAnzeigen();
     menueAnzeigen();
+}, 1000);
+// ============================================
+// FOTO-KI – Fotos verkaufen
+// ============================================
+
+var aktiverFotoTyp = 'lifestyle';
+var meineFotos = JSON.parse(localStorage.getItem('meine-fotos')) || [];
+
+var fotoTippsDB = {
+    lifestyle: [
+        { titel: '☕ Cafés & Wohnräume', text: 'Authentische Alltagsszenen! Menschen beim Kaffeetrinken, Arbeiten, Entspannen. Immer gefragt!' },
+        { titel: '💼 Work-from-home', text: 'Home-Office Setups sind Bestseller seit Corona. MacBook + Kaffee = Verkaufsschlager!' },
+        { titel: '🎨 Farben & Kontraste', text: 'Bunte Wände als Hintergrund. Trendige Farben: Sand, Salbeigrün, Terrakotta.' },
+        { titel: '👗 Fashion Details', text: 'Nahaufnahmen von Kleidung, Schuhen, Accessoires. Ohne Gesicht = universell verwendbar.' }
+    ],
+    natur: [
+        { titel: '🌅 Sonnenauf-/untergang', text: 'Immer verkäuflich! Goldene Stunde = 1h vor Sonnenuntergang. Warme Farben!' },
+        { titel: '🌊 Wasser & Meer', text: 'Strände, Wellen, Reflexionen. Panorama-Format 16:9 wichtig!' },
+        { titel: '🌸 Blumen Nahaufnahmen', text: 'Bunte Blumen mit unscharfem Hintergrund. Bokeh-Effekt = Profi-Look!' },
+        { titel: '🏔️ Landschaften', text: 'Berge, Wälder, Wasserfälle. Menschen als Größenvergleich einbauen!' }
+    ],
+    business: [
+        { titel: '💻 Business-Meetings', text: 'Diverse Teams (verschiedene Ethnien!) beim Arbeiten. HÖCHSTE Marge!' },
+        { titel: '📊 Analytics & Zahlen', text: 'Laptop mit Charts, Statistiken. Perfekt für Marketing-Artikel.' },
+        { titel: '🤝 Handschlag', text: 'Business Handshake in Anzug. Zeitloser Klassiker!' },
+        { titel: '📈 Erfolg symbolisieren', text: 'Personen die auf Berge steigen, Ziel erreichen. Metaphern verkaufen!' }
+    ],
+    essen: [
+        { titel: '🍽️ Von oben (Flatlay)', text: 'Essen von oben fotografiert + hübsches Besteck = Bestseller.' },
+        { titel: '📱 Instagram-Style', text: 'Bunt, ordentlich angerichtet. Weißer Teller = klassisch.' },
+        { titel: '🌍 Ethnische Küchen', text: 'Afrikanische, asiatische, südamerikanische Küche wenig verfügbar = HOHE Nachfrage!' },
+        { titel: '☕ Getränke im Fokus', text: 'Cocktails, Kaffee mit Latte-Art. Nahaufnahmen mit Bokeh!' }
+    ],
+    reise: [
+        { titel: '🏖️ Ikonische Orte', text: 'Eiffelturm, Kolosseum sind übersättigt. Suche versteckte Ecken!' },
+        { titel: '👣 Travel-Blogger Style', text: 'Rucksack + Karte + Kaffee. "Alltag unterwegs" verkauft sich!' },
+        { titel: '🌍 Weniger bekannte Länder', text: 'Togo, Ghana, Ostafrika: WENIG Konkurrenz = HOHE Preise!' },
+        { titel: '✈️ Aus Flugzeug-Fenster', text: 'Wolken, Städte von oben. Immer beliebt für Reise-Blogs!' }
+    ],
+    afrika: [
+        { titel: '🌍 Authentisches Afrika', text: 'Wenig Angebot, hohe Nachfrage! Alltag, Märkte, Menschen (mit Erlaubnis).' },
+        { titel: '🎨 Kunst & Handwerk', text: 'Adinkra, Kente, Batik, Holzschnitzereien. Sehr gefragt!' },
+        { titel: '🍽️ Afrikanische Küche', text: 'Jollof, Fufu, Suya. Fast keine Stock-Fotos verfügbar = GOLDMINE!' },
+        { titel: '🏛️ Moderne afrikanische Städte', text: 'Lomé, Accra, Lagos modern zeigen. Weg vom "Afrika ist arm" Klischee!' }
+    ],
+    menschen: [
+        { titel: '👥 Diversität ist KING', text: 'Diverse Ethnien, Alter, Kulturen. Höchste Preise für Modell-Freigaben!' },
+        { titel: '📝 Model Release Pflicht!', text: 'JEDE erkennbare Person braucht Unterschrift. Ohne = keine Verkäufe!' },
+        { titel: '😊 Echte Emotionen', text: 'Echtes Lachen, echte Freude. Gestellt sieht man sofort.' },
+        { titel: '👨‍👩‍👧 Familien-Szenen', text: 'Mehrgenerational, verschiedene Ethnien. Werbung liebt das!' }
+    ],
+    architektur: [
+        { titel: '🏛️ Minimalistisch', text: 'Klare Linien, geometrische Muster. Schwarz-weiß oft am besten!' },
+        { titel: '🌃 Nacht-Aufnahmen', text: 'Beleuchtete Skylines, lange Belichtung. Handy-Nacht-Modus nutzen!' },
+        { titel: '🎨 Farbige Fassaden', text: 'Häuser in bunten Vierteln. Instagram-tauglich = kaufkräftig!' },
+        { titel: '🔺 Symmetrie suchen', text: 'Perfekte Symmetrie = beliebt für Buchcover, Blog-Header.' }
+    ]
+};
+
+var stockPlattformenDB = [
+    { name: 'Shutterstock', desc: '#1 Foto-Marktplatz weltweit', verdienst: '$0.25-$120/Foto', region: 'Weltweit', url: 'https://submit.shutterstock.com', icon: '📸' },
+    { name: 'Adobe Stock', desc: 'Perfekt integriert in Photoshop', verdienst: '33% pro Sale', region: 'Weltweit', url: 'https://contributor.stock.adobe.com', icon: '🎨' },
+    { name: 'Getty Images / iStock', desc: 'Premium, höchste Preise', verdienst: '15-45% pro Sale', region: 'Weltweit', url: 'https://contributor.gettyimages.com', icon: '💎' },
+    { name: 'Alamy', desc: 'Höchster Anteil (50%)!', verdienst: 'Bis $500/Foto', region: 'Weltweit', url: 'https://www.alamy.com/contributor.aspx', icon: '🌟' },
+    { name: 'Dreamstime', desc: 'Anfänger-freundlich', verdienst: '25-50% pro Sale', region: 'Weltweit', url: 'https://www.dreamstime.com', icon: '💭' },
+    { name: 'EyeEm', desc: 'App-basiert, sehr modern', verdienst: '50/50 Split', region: 'International', url: 'https://www.eyeem.com', icon: '👁️' },
+    { name: 'Foap', desc: 'Von Handy hochladen', verdienst: '$5-$10 pro Sale', region: 'Weltweit', url: 'https://www.foap.com', icon: '📱' },
+    { name: '500px', desc: 'Für Kunst-Fotografie', verdienst: '60% Anteil', region: 'International', url: 'https://500px.com', icon: '🎭' },
+    { name: 'Etsy (Kunstdrucke)', desc: 'Als Poster/Print verkaufen', verdienst: '95% (nach Etsy Gebühr)', region: 'Weltweit', url: 'https://www.etsy.com', icon: '🖼️' },
+    { name: 'Fine Art America', desc: 'Auf Leinwand, Poster, Merch', verdienst: 'Fixer Aufschlag', region: 'USA/Weltweit', url: 'https://fineartamerica.com', icon: '🎨' }
+];
+
+var topMotiveDB = [
+    { icon: '💻', name: 'Business & Remote Work', verdienst: '$0.50-$2/Download', suche: 'Sehr hohe Nachfrage' },
+    { icon: '👥', name: 'Diverse Menschen (mit Release)', verdienst: '$1-$5/Download', suche: 'Trend 2025!' },
+    { icon: '🌱', name: 'Nachhaltigkeit & Umwelt', verdienst: '$0.40-$1.50/Download', suche: 'Sehr gefragt' },
+    { icon: '🏠', name: 'Home Office Setups', verdienst: '$0.35-$1.20/Download', suche: 'Boom seit Corona' },
+    { icon: '🎨', name: 'Minimalist & Aesthetic', verdienst: '$0.30-$1/Download', suche: 'Instagram-Style' },
+    { icon: '🌍', name: 'Kulturelle Diversität', verdienst: '$0.50-$2/Download', suche: 'Wenig Angebot!' },
+    { icon: '💪', name: 'Fitness & Wellness', verdienst: '$0.35-$1.20/Download', suche: 'Stabile Nachfrage' },
+    { icon: '🤖', name: 'KI & Technology Konzepte', verdienst: '$0.60-$2.50/Download', suche: 'Boomt gerade!' },
+    { icon: '🌍', name: 'Afrikanische Kultur/Business', verdienst: '$1-$5/Download', suche: 'GOLDGRUBE, wenig Konkurrenz!' },
+    { icon: '💰', name: 'Finanzen & Krypto', verdienst: '$0.40-$1.80/Download', suche: 'Sehr gefragt' }
+];
+
+var ausruestungDB = [
+    { icon: '📱', name: 'Dein Smartphone', desc: 'iPhone 12+/Samsung S22+ reichen völlig! Pro-Modus nutzen.', preis: 'Hast du schon!' },
+    { icon: '🎨', name: 'Snapseed (App)', desc: 'Beste GRATIS Bildbearbeitung. Von Google, hochwertig!', preis: 'GRATIS' },
+    { icon: '📸', name: 'Lightroom Mobile', desc: 'Profi-Bildbearbeitung. Basis-Version gratis, Pro 12€/Monat.', preis: '0-12€' },
+    { icon: '🔦', name: 'Ringlicht 26cm', desc: 'Für Portraits, Food-Fotos. Perfekt für Handy-Aufnahmen!', preis: '20-40€' },
+    { icon: '🎬', name: 'Handy-Stativ + Gimbal', desc: 'Verwackelt nicht mehr. Gimbal für sanfte Videos.', preis: '30-100€' },
+    { icon: '🎨', name: 'Reflektor 5-in-1', desc: 'Lenkt Licht wo du willst. Perfekt für Portraits.', preis: '15-30€' },
+    { icon: '📸', name: 'DSLR/Systemkamera (später)', desc: 'Sony A6400 oder Canon M50 – super Einsteiger.', preis: '600-900€' },
+    { icon: '💾', name: 'Externe Festplatte 2TB', desc: 'Fotos sichern! Verlust = viele Wochen Arbeit weg.', preis: '60-100€' }
+];
+
+var startplanDB = [
+    {
+        woche: '🚀 Woche 1: Fundament',
+        aufgaben: [
+            'Bei 3 Plattformen anmelden (Shutterstock, Adobe, Foap)',
+            'Ausweis-Kopie für Verifizierung hochladen',
+            'Portfolio-Nische definieren (was interessiert DICH?)',
+            'Snapseed App installieren',
+            'YouTube: "Handy Fotografie Tipps" ansehen (2 Stunden)'
+        ]
+    },
+    {
+        woche: '📸 Woche 2: Erste 30 Fotos',
+        aufgaben: [
+            'Täglich 5-10 Fotos machen (verschiedene Motive)',
+            'Goldene Stunde nutzen (früh morgens oder Sonnenuntergang)',
+            'Jedes Foto in Snapseed bearbeiten',
+            'Nur die besten 30 auswählen',
+            'Model Releases für Personen einholen (Formular downloaden)'
+        ]
+    },
+    {
+        woche: '⬆️ Woche 3: Upload & Keywords',
+        aufgaben: [
+            'Alle 30 Fotos hochladen auf 3 Plattformen',
+            '10+ Keywords pro Foto vergeben',
+            'Beschreibungen in Englisch (internationaler Markt!)',
+            'Auf Freigabe warten (dauert 3-14 Tage)',
+            'Erste 30 auf weitere 2 Plattformen hochladen'
+        ]
+    },
+    {
+        woche: '📈 Woche 4: Analyse & Skalieren',
+        aufgaben: [
+            'Welche Fotos werden gekauft? Mehr davon machen!',
+            'Erste 50-100€ verdient? Herzlichen Glückwunsch!',
+            'Portfolio auf 100 Fotos ausbauen',
+            'Auf 5+ Plattformen aktiv sein',
+            'Instagram für Kunden-Portfolio starten'
+        ]
+    }
+];
+
+function fotoTypWaehlen(typ, btn) {
+    aktiverFotoTyp = typ;
+    document.querySelectorAll('.foto-typ-btn').forEach(function(b) {
+        b.classList.remove('aktiv');
+    });
+    btn.classList.add('aktiv');
+}
+
+function fotoTippsAnzeigen() {
+    var tipps = fotoTippsDB[aktiverFotoTyp] || [];
+    var container = document.getElementById('fotoTypTipps');
+
+    container.innerHTML =
+        '<div class="karte gruen-rand">' +
+            '<h3>📸 Tipps für ' + aktiverFotoTyp.toUpperCase() + '</h3>' +
+            tipps.map(function(t) {
+                return '<div class="foto-tipps-box">' +
+                    '<div class="foto-tipp-titel">' + t.titel + '</div>' +
+                    '<div class="foto-tipp-text">' + t.text + '</div>' +
+                '</div>';
+            }).join('') +
+        '</div>';
+
+    container.scrollIntoView({ behavior: 'smooth' });
+}
+
+function stockPlattformenAnzeigen() {
+    var container = document.getElementById('stockPlattformen');
+    if (!container) return;
+
+    container.innerHTML = stockPlattformenDB.map(function(p) {
+        return '<div class="plattform-item">' +
+            '<div class="plattform-header">' +
+                '<div class="plattform-name">' + p.icon + ' ' + p.name + '</div>' +
+                '<div style="color:#00ff88; font-size:0.85rem; font-weight:800;">' +
+                    p.verdienst + '</div>' +
+            '</div>' +
+            '<div class="plattform-desc">' + p.desc + '</div>' +
+            '<div class="plattform-tags">' +
+                '<span class="plattform-tag">🌍 ' + p.region + '</span>' +
+            '</div>' +
+            '<a href="' + p.url + '" target="_blank" class="plattform-link">' +
+                '🔗 Jetzt anmelden</a>' +
+        '</div>';
+    }).join('');
+}
+
+function verdienstBerechnen() {
+    var fotos = parseInt(document.getElementById('anzahlFotos').value) || 0;
+    var downloads = parseFloat(document.getElementById('downloadsMonat').value) || 0;
+    var proDownload = parseFloat(document.getElementById('verdienstDownload').value) || 0;
+    var plattformen = parseInt(document.getElementById('anzahlPlattformen').value) || 1;
+
+    var monatUmsatz = fotos * downloads * proDownload * plattformen;
+    var jahresUmsatz = monatUmsatz * 12;
+
+    document.getElementById('verdienstErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>💰 Dein Passives Einkommen</h4>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Portfolio-Größe:</span>' +
+                '<span>' + fotos + ' Fotos</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>Downloads pro Monat:</span>' +
+                '<span>' + (fotos * downloads * plattformen).toFixed(0) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>💵 Verdienst pro Monat:</span>' +
+                '<span class="positiv" style="font-size:1.4rem;">' +
+                    euro(monatUmsatz) + '</span>' +
+            '</div>' +
+            '<div class="ergebnis-zeile">' +
+                '<span>🚀 Verdienst pro Jahr:</span>' +
+                '<span class="gold" style="font-size:1.5rem;">' +
+                    euro(jahresUmsatz) + '</span>' +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Realität:</strong> Erste 6 Monate sind aufbau. Ab Monat 6-12 stabilisiert sich das Einkommen. Mit 500+ Fotos sind ' +
+                euro(monatUmsatz * (500/Math.max(fotos, 1))) +
+                '/Monat realistisch!' +
+            '</div>' +
+        '</div>';
+}
+
+function topMotiveAnzeigen() {
+    var container = document.getElementById('topMotive');
+    if (!container) return;
+
+    container.innerHTML = topMotiveDB.map(function(m) {
+        return '<div class="motiv-item">' +
+            '<div class="motiv-icon">' + m.icon + '</div>' +
+            '<div class="motiv-info">' +
+                '<div class="motiv-name">' + m.name + '</div>' +
+                '<div class="motiv-verdienst">💰 ' + m.verdienst + '</div>' +
+                '<div class="motiv-suchbar">🔍 ' + m.suche + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function keywordsGenerieren() {
+    var input = document.getElementById('keywordInput').value.trim().toLowerCase();
+
+    if (!input) {
+        toast('Bitte etwas eingeben!', 'error');
+        return;
+    }
+
+    var basis = input.split(' ');
+    var alle = [];
+
+    // Basis Keywords
+    basis.forEach(function(w) {
+        if (w.length > 2) alle.push(w);
+    });
+
+    // Original
+    alle.push(input);
+
+    // Kombinationen mit gefragten Adjektiven
+    var adjektive = ['schön', 'modern', 'minimal', 'natürlich', 'professional', 'kreativ'];
+    adjektive.forEach(function(a) {
+        alle.push(a + ' ' + input);
+    });
+
+    // Englische Übersetzungen (wichtig für internationalen Verkauf!)
+    var uebersetzungen = {
+        'sonnenuntergang': 'sunset',
+        'strand': 'beach',
+        'meer': 'ocean',
+        'essen': 'food',
+        'stadt': 'city',
+        'natur': 'nature',
+        'blume': 'flower',
+        'büro': 'office',
+        'geschäft': 'business',
+        'menschen': 'people',
+        'familie': 'family',
+        'kinder': 'children',
+        'himmel': 'sky',
+        'wasser': 'water'
+    };
+
+    basis.forEach(function(w) {
+        if (uebersetzungen[w]) alle.push(uebersetzungen[w]);
+    });
+
+    // Kontext-Keywords
+    var kontext = ['background', 'wallpaper', 'stock photo', 'commercial use', 'copyspace'];
+    kontext.forEach(function(k) {
+        alle.push(k);
+    });
+
+    // Trending 2025
+    var trends = ['minimalism', 'authenticity', 'diversity', 'sustainability', 'wellness'];
+    if (input.match(/mensch|person|business/)) {
+        trends.forEach(function(t) { alle.push(t); });
+    }
+
+    // Duplikate entfernen
+    var unique = [];
+    alle.forEach(function(k) {
+        if (unique.indexOf(k) === -1 && k.length > 2) unique.push(k);
+    });
+
+    // Auf 20 begrenzen (Shutterstock Limit)
+    unique = unique.slice(0, 20);
+
+    document.getElementById('keywordsErgebnis').innerHTML =
+        '<div class="ergebnis">' +
+            '<h4>🏷️ ' + unique.length + ' Keywords generiert</h4>' +
+            '<div style="margin:1rem 0;">' +
+                unique.map(function(k) {
+                    return '<span class="keyword-bubble">' + k + '</span>';
+                }).join('') +
+            '</div>' +
+            '<div class="tipp-box">' +
+                '💡 <strong>Tipp:</strong> Klicke auf die Bubbles um zu kopieren! ' +
+                'Nutze 15-20 Keywords pro Foto. Wichtig: relevante Keywords, nicht spammen!' +
+            '</div>' +
+        '</div>';
+
+    // Klick-zum-Kopieren
+    setTimeout(function() {
+        document.querySelectorAll('.keyword-bubble').forEach(function(b) {
+            b.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.textContent);
+                toast('📋 "' + this.textContent + '" kopiert!');
+            });
+        });
+    }, 100);
+}
+
+function fotoHinzufuegen() {
+    var titel = document.getElementById('fotoTitel').value.trim();
+    var plattform = document.getElementById('fotoPlattform').value.trim();
+    var downloads = parseInt(document.getElementById('fotoDownloads').value) || 0;
+    var verdienst = parseFloat(document.getElementById('fotoVerdienst').value) || 0;
+
+    if (!titel || !plattform) {
+        toast('Bitte Titel und Plattform eingeben!', 'error');
+        return;
+    }
+
+    meineFotos.push({
+        id: Date.now(),
+        titel: titel,
+        plattform: plattform,
+        downloads: downloads,
+        verdienst: verdienst,
+        datum: new Date().toLocaleDateString('de-DE')
+    });
+
+    localStorage.setItem('meine-fotos', JSON.stringify(meineFotos));
+
+    document.getElementById('fotoTitel').value = '';
+    document.getElementById('fotoPlattform').value = '';
+    document.getElementById('fotoDownloads').value = '';
+    document.getElementById('fotoVerdienst').value = '';
+
+    meineFotosAnzeigen();
+    toast('📸 Foto hinzugefügt!');
+}
+
+function fotoLoeschen(id) {
+    meineFotos = meineFotos.filter(function(f) { return f.id !== id; });
+    localStorage.setItem('meine-fotos', JSON.stringify(meineFotos));
+    meineFotosAnzeigen();
+}
+
+function meineFotosAnzeigen() {
+    var container = document.getElementById('meineFotos');
+    var statContainer = document.getElementById('fotoStatistik');
+    if (!container || !statContainer) return;
+
+    if (meineFotos.length === 0) {
+        statContainer.innerHTML = '';
+        container.innerHTML =
+            '<p style="color:#668844; text-align:center; margin-top:1rem;">' +
+            'Noch keine Fotos hinzugefügt.</p>';
+        return;
+    }
+
+    var gesDownloads = 0, gesVerdienst = 0;
+    meineFotos.forEach(function(f) {
+        gesDownloads += f.downloads;
+        gesVerdienst += f.verdienst;
+    });
+
+    statContainer.innerHTML =
+        '<div class="foto-gesamt-box">' +
+            '<div class="foto-gesamt-label">💰 Gesamt Verdienst</div>' +
+            '<div class="foto-gesamt-wert">' + euro(gesVerdienst) + '</div>' +
+            '<div style="color:#ccddaa; font-size:0.85rem; margin-top:0.3rem;">' +
+                meineFotos.length + ' Fotos · ' + gesDownloads + ' Downloads' +
+            '</div>' +
+        '</div>';
+
+    container.innerHTML = meineFotos.map(function(f) {
+        return '<div class="foto-item">' +
+            '<div class="foto-item-header">' +
+                '<div class="foto-item-titel">📸 ' + f.titel + '</div>' +
+                '<button class="port-loeschen" onclick="fotoLoeschen(' + f.id + ')">✕</button>' +
+            '</div>' +
+            '<div style="font-size:0.78rem; color:#00ddcc; font-weight:700;">' +
+                '🌐 ' + f.plattform + '</div>' +
+            '<div class="foto-item-stats">' +
+                '<div class="foto-item-stat">📥 ' + f.downloads + ' Downloads</div>' +
+                '<div class="foto-item-stat" style="color:#00ff88;">💰 ' +
+                    euro(f.verdienst) + '</div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function ausruestungAnzeigen() {
+    var container = document.getElementById('ausruestung');
+    if (!container) return;
+
+    container.innerHTML = ausruestungDB.map(function(a) {
+        return '<div class="ausruestung-item">' +
+            '<div class="aus-icon">' + a.icon + '</div>' +
+            '<div class="aus-info">' +
+                '<div class="aus-name">' + a.name + '</div>' +
+                '<div class="aus-desc">' + a.desc + '</div>' +
+            '</div>' +
+            '<div class="aus-preis">' + a.preis + '</div>' +
+        '</div>';
+    }).join('');
+}
+
+function startplanAnzeigen() {
+    var container = document.getElementById('startplan');
+    if (!container) return;
+
+    container.innerHTML = startplanDB.map(function(w) {
+        return '<div class="plan-woche">' +
+            '<div class="plan-woche-titel">' + w.woche + '</div>' +
+            w.aufgaben.map(function(a, i) {
+                return '<div class="plan-woche-aufgabe">' +
+                    '<span>' + (i+1) + '.</span> ' + a +
+                '</div>';
+            }).join('') +
+        '</div>';
+    }).join('');
+}
+
+// Auto-Start
+setTimeout(function() {
+    stockPlattformenAnzeigen();
+    topMotiveAnzeigen();
+    ausruestungAnzeigen();
+    startplanAnzeigen();
+    meineFotosAnzeigen();
 }, 1000);
 

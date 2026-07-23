@@ -71,6 +71,7 @@
         <button class="tab" data-tab="immoki">🏠 IMMO-KI</button>
         <button class="tab" data-tab="lernki">🎓 LERN-KI</button>
         <button class="tab" data-tab="chefki">🍽️ CHEF-KI</button>
+        <button class="tab" data-tab="fotoki">📸 FOTO-KI</button>
         <button class="tab" data-tab="ziele">🎯 Ziele</button>
         <button class="tab" data-tab="rente">👴 Rente</button>
         <button class="tab" data-tab="akademie">📚 Akademie</button>
@@ -2406,6 +2407,253 @@
 
     </div>
     <!-- ENDE CHEF-KI -->
+    <!-- ============ FOTO-KI ============ -->
+    <div id="fotoki" class="seite">
+
+        <!-- HEADER -->
+        <div class="fotoki-header">
+            <div class="fotoki-avatar">
+                <div class="fotoki-flash"></div>
+                <div class="fotoki-emoji">📸</div>
+            </div>
+            <div class="fotoki-info">
+                <h2>FOTO-KI</h2>
+                <p>Passives Einkommen mit Fotos</p>
+                <div class="fotoki-status">
+                    <div class="status-dot"></div>
+                    <span>Verdiene 24/7 während du schläfst 💰</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOTIVATION -->
+        <div class="karte gelb-rand">
+            <h3>💡 Warum Foto-Business?</h3>
+            <div class="foto-info-liste">
+                <div class="foto-info-item">
+                    <span>📱</span>
+                    <div>
+                        <strong>Handy reicht!</strong>
+                        <p>Moderne Smartphones haben Profi-Kameras.</p>
+                    </div>
+                </div>
+                <div class="foto-info-item">
+                    <span>😴</span>
+                    <div>
+                        <strong>100% Passiv</strong>
+                        <p>Einmal hochgeladen = für immer verdient.</p>
+                    </div>
+                </div>
+                <div class="foto-info-item">
+                    <span>💰</span>
+                    <div>
+                        <strong>Realistische Einnahmen</strong>
+                        <p>100-2000€/Monat möglich (nach 6-12 Monaten Aufbau).</p>
+                    </div>
+                </div>
+                <div class="foto-info-item">
+                    <span>🌍</span>
+                    <div>
+                        <strong>Weltweiter Verkauf</strong>
+                        <p>Deine Fotos werden in 190+ Länder gekauft.</p>
+                    </div>
+                </div>
+                <div class="foto-info-item">
+                    <span>🎨</span>
+                    <div>
+                        <strong>Kreativ + Lohnend</strong>
+                        <p>Mach was du liebst und verdiene Geld dabei!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOTO-TYP -->
+        <div class="karte gruen-rand">
+            <h3>📷 Welche Fotos machst du?</h3>
+            <div class="foto-typ-grid">
+                <button class="foto-typ-btn aktiv" onclick="fotoTypWaehlen('lifestyle', this)">
+                    <div class="foto-typ-icon">✨</div>
+                    <div class="foto-typ-name">Lifestyle</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('natur', this)">
+                    <div class="foto-typ-icon">🌿</div>
+                    <div class="foto-typ-name">Natur</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('business', this)">
+                    <div class="foto-typ-icon">💼</div>
+                    <div class="foto-typ-name">Business</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('essen', this)">
+                    <div class="foto-typ-icon">🍔</div>
+                    <div class="foto-typ-name">Food</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('reise', this)">
+                    <div class="foto-typ-icon">✈️</div>
+                    <div class="foto-typ-name">Reise</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('afrika', this)">
+                    <div class="foto-typ-icon">🌍</div>
+                    <div class="foto-typ-name">Afrika/Togo</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('menschen', this)">
+                    <div class="foto-typ-icon">👥</div>
+                    <div class="foto-typ-name">Menschen</div>
+                </button>
+                <button class="foto-typ-btn" onclick="fotoTypWaehlen('architektur', this)">
+                    <div class="foto-typ-icon">🏛️</div>
+                    <div class="foto-typ-name">Architektur</div>
+                </button>
+            </div>
+            <button class="btn-gruen" onclick="fotoTippsAnzeigen()">
+                📸 Tipps für diesen Typ
+            </button>
+        </div>
+
+        <!-- TIPPS FÜR TYP -->
+        <div id="fotoTypTipps"></div>
+
+        <!-- STOCK PLATTFORMEN -->
+        <div class="karte regenbogen-rand">
+            <h3>🌐 Beste Foto-Plattformen</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Lade Fotos hier hoch und verdiene bei jedem Download!
+            </p>
+            <div id="stockPlattformen"></div>
+        </div>
+
+        <!-- EINNAHMEN RECHNER -->
+        <div class="karte gelb-rand">
+            <h3>💰 Verdienst-Rechner</h3>
+            <label>Anzahl Fotos (Portfolio)</label>
+            <input type="number" id="anzahlFotos" placeholder="100" min="1">
+            <label>Durchschn. Downloads pro Foto/Monat</label>
+            <input type="number" id="downloadsMonat" value="0.5" min="0" step="0.1">
+            <label>Verdienst pro Download (€)</label>
+            <input type="number" id="verdienstDownload" value="0.35" min="0" step="0.05">
+            <label>Auf wie vielen Plattformen?</label>
+            <input type="number" id="anzahlPlattformen" value="5" min="1" max="20">
+            <button class="btn-gruen" onclick="verdienstBerechnen()">
+                💰 Berechnen
+            </button>
+            <div id="verdienstErgebnis"></div>
+        </div>
+
+        <!-- WAS VERKAUFT SICH? -->
+        <div class="karte gruen-rand">
+            <h3>🔥 Top-Verkaufende Motive 2025</h3>
+            <div id="topMotive"></div>
+        </div>
+
+        <!-- FOTO SPICKZETTEL -->
+        <div class="karte gelb-rand">
+            <h3>📋 Handy-Foto Spickzettel</h3>
+            <div class="spickzettel-liste">
+                <div class="spick-item">
+                    <div class="spick-nr">1</div>
+                    <div>
+                        <strong>Licht ist alles!</strong>
+                        <p>Goldene Stunde (1h vor Sonnenuntergang) = magisch.</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">2</div>
+                    <div>
+                        <strong>Drittel-Regel</strong>
+                        <p>Handy-Gitter einschalten! Motiv auf Kreuzpunkte.</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">3</div>
+                    <div>
+                        <strong>Sauber halten</strong>
+                        <p>Linse mit Tuch putzen VOR jedem Foto!</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">4</div>
+                    <div>
+                        <strong>Nie Zoom</strong>
+                        <p>Immer näher gehen statt zoomen (Qualität!).</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">5</div>
+                    <div>
+                        <strong>RAW schießen</strong>
+                        <p>iPhone Pro & Android Pro-Modus nutzen.</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">6</div>
+                    <div>
+                        <strong>Bearbeiten Pflicht</strong>
+                        <p>Snapseed (gratis!) oder Lightroom Mobile.</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">7</div>
+                    <div>
+                        <strong>Verschiedene Winkel</strong>
+                        <p>Von oben, unten, seitlich. Nie nur Augenhöhe!</p>
+                    </div>
+                </div>
+                <div class="spick-item">
+                    <div class="spick-nr">8</div>
+                    <div>
+                        <strong>Story erzählen</strong>
+                        <p>Fotos mit Emotion verkaufen sich 10x besser.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KEYWORDS -->
+        <div class="karte rot-rand">
+            <h3>🏷️ Keyword Generator</h3>
+            <p style="font-size:0.82rem; margin-bottom:1rem;">
+                Gute Keywords = mehr Downloads!
+            </p>
+            <label>Was zeigt dein Foto?</label>
+            <input type="text" id="keywordInput" placeholder="z.B. Sonnenuntergang Strand">
+            <button class="btn-gruen" onclick="keywordsGenerieren()">
+                🏷️ Keywords generieren
+            </button>
+            <div id="keywordsErgebnis"></div>
+        </div>
+
+        <!-- MEINE FOTOS -->
+        <div class="karte gruen-rand">
+            <h3>📁 Meine Foto-Sammlung</h3>
+            <label>Foto-Titel</label>
+            <input type="text" id="fotoTitel" placeholder="z.B. Strand Lomé Sonnenaufgang">
+            <label>Plattform hochgeladen</label>
+            <input type="text" id="fotoPlattform" placeholder="z.B. Shutterstock, Adobe">
+            <label>Downloads bisher</label>
+            <input type="number" id="fotoDownloads" placeholder="0" min="0">
+            <label>Verdienst bisher (€)</label>
+            <input type="number" id="fotoVerdienst" placeholder="0" min="0" step="0.01">
+            <button class="btn-gruen" onclick="fotoHinzufuegen()">
+                💾 Foto hinzufügen
+            </button>
+            <div id="fotoStatistik"></div>
+            <div id="meineFotos"></div>
+        </div>
+
+        <!-- AUSRÜSTUNG -->
+        <div class="karte gelb-rand">
+            <h3>📷 Beste Ausrüstung (Budget)</h3>
+            <div id="ausruestung"></div>
+        </div>
+
+        <!-- WORKFLOW -->
+        <div class="karte regenbogen-rand">
+            <h3>🚀 Dein 30-Tage Startplan</h3>
+            <div id="startplan"></div>
+        </div>
+
+    </div>
+    <!-- ENDE FOTO-KI -->
    
     <!-- ============ SICHERHEIT ============ -->
     <div id="sicherheit" class="seite">
