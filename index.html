@@ -58,6 +58,8 @@
         <button class="tab aktiv" data-tab="dashboard">📊 Dashboard</button>
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
         <button class="tab" data-tab="kredite" data-tooltip="Kredit-Vergleich Weltweit">💳 Kredite</button>
+        <button class="tab" data-tab="empfehlungen" data-tooltip="Persönliche Empfehlungen">🎯 Empfehlungen</button>
+        <button class="tab" data-tab="aktionen" data-tooltip="Aktuelle Bonus-Aktionen">🎁 Aktionen</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
         <button class="tab" data-tab="crypto">₿ Crypto</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
@@ -332,6 +334,97 @@
             <p>✅ <strong>Kürzere Laufzeit</strong> = weniger Gesamtkosten</p>
             <p>⚠️ <strong>Ohne Schufa</strong> bedeutet meist höhere Zinsen</p>
             <p>⚠️ <strong>Vorsicht bei "0% Zinsen"</strong> - meist gibt es Haken</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============ PERSÖNLICHE EMPFEHLUNGEN ============ -->
+<div id="empfehlungen" class="seite">
+    <div class="karte">
+        <h2>🎯 Persönliche Empfehlungen</h2>
+        <p style="color: var(--clean-muted); margin-bottom: 20px;">
+            Wähle dein Profil und erhalte maßgeschneiderte Empfehlungen für die besten Anbieter!
+        </p>
+
+        <div class="profile-grid">
+            <button class="profile-btn" onclick="showProfileRecommendations('student')">
+                <span class="profile-icon">🎓</span>
+                <span class="profile-name">Student</span>
+            </button>
+            <button class="profile-btn" onclick="showProfileRecommendations('berufstaetig')">
+                <span class="profile-icon">💼</span>
+                <span class="profile-name">Berufstätig</span>
+            </button>
+            <button class="profile-btn" onclick="showProfileRecommendations('selbststaendig')">
+                <span class="profile-icon">👔</span>
+                <span class="profile-name">Selbstständig</span>
+            </button>
+            <button class="profile-btn" onclick="showProfileRecommendations('familie')">
+                <span class="profile-icon">👨‍👩‍👧</span>
+                <span class="profile-name">Familie</span>
+            </button>
+            <button class="profile-btn" onclick="showProfileRecommendations('diaspora')">
+                <span class="profile-icon">🌍</span>
+                <span class="profile-name">Diaspora</span>
+            </button>
+            <button class="profile-btn" onclick="showProfileRecommendations('rentner')">
+                <span class="profile-icon">👴</span>
+                <span class="profile-name">Senioren</span>
+            </button>
+        </div>
+
+        <div id="profileResults"></div>
+    </div>
+
+    <div class="karte">
+        <h3>💡 Warum diese Empfehlungen?</h3>
+        <p style="color: var(--clean-text); line-height: 1.8;">
+            Unsere KI analysiert dein Profil und schlägt die besten Anbieter vor - basierend auf:
+        </p>
+        <ul style="color: var(--clean-text); line-height: 2;">
+            <li>💰 Deine finanzielle Situation</li>
+            <li>🎯 Deine Ziele (Sparen, Investieren, Reisen)</li>
+            <li>🌍 Dein Wohnort</li>
+            <li>⚡ Aktuelle Boni & Angebote</li>
+            <li>⭐ Community-Bewertungen</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============ BONUS AKTIONEN ============ -->
+<div id="aktionen" class="seite">
+    <div class="karte">
+        <h2>🎁 Aktuelle Bonus-Aktionen</h2>
+        <p style="color: var(--clean-muted); margin-bottom: 20px;">
+            Alle aktuellen Willkommensboni und Neukunden-Aktionen auf einen Blick! 💰
+        </p>
+
+        <div class="aktionen-stats">
+            <div class="aktionen-stat">
+                <div class="aktionen-stat-value" id="aktionenCount">10+</div>
+                <div class="aktionen-stat-label">Aktive Aktionen</div>
+            </div>
+            <div class="aktionen-stat">
+                <div class="aktionen-stat-value">€500+</div>
+                <div class="aktionen-stat-label">Möglicher Gesamt-Bonus</div>
+            </div>
+            <div class="aktionen-stat">
+                <div class="aktionen-stat-value">24/7</div>
+                <div class="aktionen-stat-label">Immer aktuell</div>
+            </div>
+        </div>
+
+        <div id="aktionenContainer"></div>
+    </div>
+
+    <div class="karte">
+        <h3>💡 So maximierst du deinen Bonus</h3>
+        <div style="color: var(--clean-text); line-height: 2;">
+            <p>✅ <strong>Mehrere Anbieter nutzen</strong> - Jeder Bonus einzeln kassieren</p>
+            <p>✅ <strong>Bedingungen prüfen</strong> - Was musst du tun?</p>
+            <p>✅ <strong>Empfehlungslinks nutzen</strong> - Höhere Boni!</p>
+            <p>✅ <strong>Cashback dazu</strong> - Doppelt profitieren</p>
+            <p>⚠️ <strong>Nicht überziehen</strong> - Nur was du wirklich brauchst</p>
         </div>
     </div>
 </div>

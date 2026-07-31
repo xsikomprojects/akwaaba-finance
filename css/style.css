@@ -10100,7 +10100,287 @@ body.theme-kente {
     }
 
     .provider-name {
-        font-size: 1.1rem;
+        font-size: 1.1rem;/* ============================================
+   🎯 PROFILE & AKTIONEN
+   ============================================ */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.profile-btn {
+    background: var(--clean-card);
+    border: 2px solid var(--clean-border);
+    border-radius: 16px;
+    padding: 25px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--clean-text);
+}
+
+.profile-btn:hover {
+    transform: translateY(-5px);
+    border-color: var(--clean-accent);
+    background: rgba(212,165,116,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.profile-btn.active {
+    background: linear-gradient(135deg, var(--clean-accent), #b8935f);
+    color: #000;
+    border-color: var(--clean-accent);
+}
+
+.profile-icon {
+    font-size: 3rem;
+    display: block;
+}
+
+.profile-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.profile-results {
+    background: var(--clean-surface);
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.profile-results-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--clean-border);
+}
+
+.profile-results-title {
+    color: var(--clean-accent);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.profile-section {
+    margin-bottom: 25px;
+}
+
+.profile-section-title {
+    color: var(--clean-text);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--clean-border);
+}
+
+.profile-anbieter-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.profile-anbieter-badge {
+    background: rgba(212,165,116,0.15);
+    color: var(--clean-accent);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid rgba(212,165,116,0.3);
+}
+
+.profile-tipps {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.profile-tipp {
+    color: var(--clean-text);
+    padding: 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Aktionen Styling */
+.aktionen-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.aktionen-stat {
+    background: var(--clean-card);
+    border: 1px solid var(--clean-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.aktionen-stat-value {
+    color: var(--clean-accent);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.aktionen-stat-label {
+    color: var(--clean-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.aktion-card {
+    background: var(--clean-card);
+    border: 1px solid var(--clean-border);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 15px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.aktion-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--clean-accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.aktion-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.aktion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.aktion-anbieter {
+    color: var(--clean-accent);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.aktion-typ {
+    background: var(--clean-surface);
+    color: var(--clean-text);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.aktion-wert {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.aktion-titel {
+    color: var(--clean-text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 15px 0 10px;
+}
+
+.aktion-beschreibung {
+    color: var(--clean-muted);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.aktion-details {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--clean-border);
+    flex-wrap: wrap;
+}
+
+.aktion-deadline {
+    color: #f59e0b;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.aktion-cta {
+    background: linear-gradient(135deg, var(--clean-accent), #b8935f);
+    color: #000;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-left: auto;
+}
+
+.aktion-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212,165,116,0.4);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aktion-header {
+        flex-direction: column;
+    }
+
+    .aktion-wert {
+        width: 100%;
+    }
+
+    .aktion-details {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .aktion-cta {
+        margin-left: 0;
+        text-align: center;
     }
 }
+    }
+}
+
         

@@ -939,4 +939,226 @@ providersDB.food = [
     }
 ];
 
-console.log('✅ Provider-Datenbank v2.0 geladen:', Object.keys(providersDB).length, 'Kategorien');
+// ============================================
+// 🎁 AKTUELLE BONUS-AKTIONEN
+// ============================================
+providersDB.aktionen = [
+    {
+        anbieter: 'Trade Republic',
+        titel: '25€ Willkommensbonus + 4% Zinsen',
+        beschreibung: 'Kostenlos anmelden und 25€ direkt aufs Konto! Plus 4% Zinsen auf Cash.',
+        wert: '25€ + Zinsen',
+        deadline: 'Läuft ab',
+        bonus_typ: 'Broker Bonus',
+        url: 'https://ref.trade.re/wt5xt7ay',
+        badge: 'HOT'
+    },
+    {
+        anbieter: 'Bitpanda',
+        titel: 'BTC im Wert von 25€ geschenkt',
+        beschreibung: 'Bei Registrierung + erster Einzahlung ab 25€ erhältst du 25€ in Bitcoin!',
+        wert: '25€ in BTC',
+        deadline: 'Nur diesen Monat',
+        bonus_typ: 'Krypto Bonus',
+        url: 'https://www.bitpanda.com/',
+        badge: 'NEU'
+    },
+    {
+        anbieter: 'N26',
+        titel: 'You Konto = 15€ Bonus',
+        beschreibung: 'Öffne kostenloses Girokonto + tätige 3 Kartenzahlungen = 15€!',
+        wert: '15€',
+        deadline: 'Dauerhaft',
+        bonus_typ: 'Banking',
+        url: 'https://n26.com/',
+        badge: 'EINFACH'
+    },
+    {
+        anbieter: 'Revolut',
+        titel: 'Standard Plan gratis + 15€',
+        beschreibung: 'Anmelden + Karte bestellen = 15€ Bonus nach 3 Käufen.',
+        wert: '15€',
+        deadline: 'Aktion',
+        bonus_typ: 'Banking',
+        url: 'https://www.revolut.com/'
+    },
+    {
+        anbieter: 'Scalable Capital',
+        titel: 'Prime+ 3 Monate gratis',
+        beschreibung: 'Neukunden erhalten 3 Monate Prime+ gratis (99€ Wert).',
+        wert: '99€',
+        deadline: 'Aktion',
+        bonus_typ: 'Broker',
+        url: 'https://de.scalable.capital/'
+    },
+    {
+        anbieter: 'DKB',
+        titel: '50€ Neukunden-Bonus',
+        beschreibung: 'DKB Konto eröffnen + Geldeingang = 50€ Bonus.',
+        wert: '50€',
+        deadline: 'Bis 31.12.',
+        bonus_typ: 'Banking',
+        url: 'https://www.dkb.de/',
+        badge: 'GROSS'
+    },
+    {
+        anbieter: 'Binance',
+        titel: '100$ Trading-Gebühren-Rabatt',
+        beschreibung: 'Registrieren + Trading starten = bis 100$ Rabatt auf Gebühren.',
+        wert: '100$',
+        deadline: 'Willkommensbonus',
+        bonus_typ: 'Krypto',
+        url: 'https://www.binance.com/'
+    },
+    {
+        anbieter: 'Shoop',
+        titel: 'Doppelter Cashback',
+        beschreibung: '2x Cashback für Neukunden bei ersten 3 Käufen.',
+        wert: '2x Cashback',
+        deadline: 'Für Neukunden',
+        bonus_typ: 'Cashback',
+        url: 'https://www.shoop.de/'
+    },
+    {
+        anbieter: 'Wise',
+        titel: 'Erste Auslandsüberweisung gratis',
+        beschreibung: 'Bis zu 500€ gebührenfrei ins Ausland überweisen.',
+        wert: 'Bis 500€',
+        deadline: 'Neukunden',
+        bonus_typ: 'Transfer',
+        url: 'https://wise.com/',
+        badge: 'FÜR DIASPORA'
+    },
+    {
+        anbieter: 'Vivid Money',
+        titel: '150€ in Krypto + Aktien',
+        beschreibung: 'Neukunden Bonus: bis zu 150€ in Krypto oder Aktien.',
+        wert: '150€',
+        deadline: 'Aktion',
+        bonus_typ: 'Investment',
+        url: 'https://vivid.money/'
+    }
+];
+
+// ============================================
+// 👤 PERSÖNLICHE PROFILE
+// ============================================
+providersDB.profile = {
+    student: {
+        titel: '🎓 Für Studenten',
+        empfehlungen: {
+            banking: ['N26', 'DKB'],
+            broker: ['Trade Republic', 'Scalable Capital'],
+            crypto: ['Bitpanda'],
+            cashback: ['Shoop', 'iGraal'],
+            versicherung: ['Getsafe']
+        },
+        tipps: [
+            '💡 Kostenloses Studenten-Konto bei DKB oder N26',
+            '💡 Trade Republic für monatliche Sparpläne (schon ab 1€!)',
+            '💡 Bitpanda ist perfekt für erste Krypto-Schritte',
+            '💡 Shoop für Cashback bei Amazon & Co.'
+        ]
+    },
+    berufstaetig: {
+        titel: '💼 Für Berufstätige',
+        empfehlungen: {
+            banking: ['DKB', 'Revolut', 'Vivid Money'],
+            broker: ['Scalable Capital', 'Trade Republic', 'Comdirect'],
+            crypto: ['Bitpanda', 'Coinbase'],
+            cashback: ['Shoop', 'Payback'],
+            versicherung: ['Check24', 'Getsafe']
+        },
+        tipps: [
+            '💡 Vivid Money für Cashback + Krypto in einer App',
+            '💡 Scalable Prime+ für aktive Investoren',
+            '💡 Payback + Shoop kombinieren für max. Cashback',
+            '💡 Check24 für jährlichen Versicherungsvergleich'
+        ]
+    },
+    selbststaendig: {
+        titel: '👔 Für Selbstständige',
+        empfehlungen: {
+            banking: ['N26 Business', 'Kontist', 'Holvi'],
+            broker: ['Scalable Capital', 'Interactive Brokers'],
+            crypto: ['Bitpanda', 'Coinbase Pro'],
+            cashback: ['iGraal', 'Payback'],
+            versicherung: ['Check24 Business']
+        },
+        tipps: [
+            '💡 N26 Business kostenlos für Freelancer',
+            '💡 Kontist mit Steuer-Feature',
+            '💡 Interactive Brokers für internationale Aktien',
+            '💡 Alle Betriebsausgaben tracken für Steuer'
+        ]
+    },
+    familie: {
+        titel: '👨‍👩‍👧 Für Familien',
+        empfehlungen: {
+            banking: ['DKB', 'Comdirect Familienkonto'],
+            broker: ['Trade Republic (Sparpläne)', 'Scalable'],
+            crypto: ['Bitpanda (langfristig)'],
+            cashback: ['Payback', 'Shoop'],
+            versicherung: ['Check24 Family']
+        },
+        tipps: [
+            '💡 ETF-Sparplan für Kinder (schon ab Geburt!)',
+            '💡 Comdirect Familienkonto mit U18-Konten',
+            '💡 Payback für Alltagseinkäufe',
+            '💡 Familienversicherung optimieren'
+        ]
+    },
+    diaspora: {
+        titel: '🌍 Für Diaspora (Togo/Afrika)',
+        empfehlungen: {
+            banking: ['Wise', 'Revolut', 'N26'],
+            transfer: ['Wise', 'WorldRemit', 'Sendwave', 'Orange Money'],
+            broker: ['Trade Republic', 'eToro'],
+            crypto: ['Binance', 'Bitpanda'],
+            afrika: ['Ecobank', 'Orange Money']
+        },
+        tipps: [
+            '💡 Wise für günstigste Überweisungen nach Togo',
+            '💡 Orange Money für Familie in Afrika',
+            '💡 Multi-Currency mit Revolut',
+            '💡 Ecobank für Konto in Togo öffnen',
+            '💡 Krypto als schneller Transfer nutzen'
+        ]
+    },
+    rentner: {
+        titel: '👴 Für Rentner/Senioren',
+        empfehlungen: {
+            banking: ['DKB', 'Comdirect', 'Sparkasse'],
+            broker: ['Comdirect', 'DKB Broker'],
+            versicherung: ['Check24 (Kranken/Pflege)'],
+            cashback: ['Payback (Rewe, dm, etc.)']
+        },
+        tipps: [
+            '💡 Etablierte Banken für Sicherheit',
+            '💡 Payback beim Einkaufen automatisch sparen',
+            '💡 Versicherungen jährlich prüfen (Check24)',
+            '💡 Konservative Anlagen (Anleihen, Dividenden)'
+        ]
+    }
+};
+
+// ============================================
+// 🌍 LÄNDER-SPEZIFISCHE ANBIETER
+// ============================================
+providersDB.laender = {
+    de: { name: 'Deutschland', flag: '🇩🇪' },
+    at: { name: 'Österreich', flag: '🇦🇹' },
+    ch: { name: 'Schweiz', flag: '🇨🇭' },
+    fr: { name: 'Frankreich', flag: '🇫🇷' },
+    uk: { name: 'UK', flag: '🇬🇧' },
+    us: { name: 'USA', flag: '🇺🇸' },
+    tg: { name: 'Togo', flag: '🇹🇬' },
+    global: { name: 'International', flag: '🌍' }
+};
+
+console.log('✅ Provider-Datenbank v3.0 geladen:', Object.keys(providersDB).length, 'Kategorien');
+console.log('🎯 Provider Total:', Object.keys(providersDB).reduce(function(acc, k) {
+    var val = providersDB[k];
+    if (Array.isArray(val)) return acc + val.length;
+    return acc;
+}, 0));

@@ -11410,3 +11410,132 @@ document.addEventListener('DOMContentLoaded', function() {
         loadShoppingProviders();
     }, 1000);
 });
+// ============================================
+// 🎯 PROFIL-EMPFEHLUNGEN
+// ============================================
+
+function showProfileRecommendations(profileType) {
+    // Alle Buttons deaktivieren
+    document.querySelectorAll('.profile-btn').forEach(function(b) {
+        b.classList.remove('active');
+    });
+
+    // Aktuellen Button aktivieren
+    event.currentTarget.classList.add('active');
+
+    var profile = providersDB.profile[profileType];
+    if (!profile) return;
+
+    var container = document.getElementById('profileResults');
+
+    var html = '<div class="profile-results">';
+    html += '<div class="profile-results-header">';
+    html += '<div class="profile-results-title">' + profile.titel + '</div>';
+    html += '<p style="color: var(--clean-muted); margin-top: 10px;">Diese Anbieter empfehlen wir dir:</p>';
+    html += '</div>';
+
+    // Empfehlungen nach Kategorie
+    var categoryLabels = {
+        banking: '🏦 Banking',
+        broker: '📈 Broker/Investment',
+        crypto: '₿ Kryptowährungen',
+        cashback: '💰 Cashback',
+        versicherung: '🛡️ Versicherungen',
+        transfer: '💸 Auslandsüberweisungen',
+        afrika: '🌍 Afrika-spezifisch'
+    };
+
+    Object.keys(profile.empfehlungen).forEach(function(category) {
+        var anbieter = profile.empfehlungen[category];
+        if (!anbieter || anbieter.length === 0) return;
+
+        html += '<div class="profile-section">';
+        html += '<div class="profile-section-title">' + (categoryLabels[category] || category) + '</div>';
+        html += '<div class="profile-anbieter-list">';
+
+        anbieter.forEach(function(a) {
+            html += '<span class="profile-anbieter-badge">✓ ' + a + '</span>';
+        });
+
+        html += '</div></div>';
+    });
+
+    // Tipps
+    if (profile.tipps && profile.tipps.length > 0) {
+        html += '<div class="profile-tipps">';
+        html += '<div class="profile-section-title">💡 Persönliche Tipps</div>';
+        profile.tipps.forEach(function(tipp) {
+            html += '<div class="profile-tipp">' + tipp + '</div>';
+        });
+        html += '</div>';
+    }
+
+    html += '</div>';
+
+    container.innerHTML = html;
+
+    // Smooth scroll to results
+    setTimeout(function() {
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+
+    if (typeof addPoints === 'function') addPoints(5);
+}
+
+// ============================================
+// 🎁 BONUS AKTIONEN
+// ============================================
+
+function loadAktionen() {
+    var container = document.getElementById('aktionenContainer');
+    if (!container || !providersDB.aktionen) return;
+
+    var html = '';
+
+    providersDB.aktionen.forEach(function(a) {
+        html += '<div class="aktion-card">';
+
+        if (a.badge) {
+            html += '<div class="aktion-badge">' + a.badge + '</div>';
+        }
+
+        html += '<div class="aktion-header">';
+        html += '<div>';
+        html += '<div class="aktion-anbieter">' + a.anbieter + '</div>';
+        html += '<div class="aktion-typ">' + a.bonus_typ + '</div>';
+        html += '</div>';
+        html += '<div class="aktion-wert">' + a.wert + '</div>';
+        html += '</div>';
+
+        html += '<div class="aktion-titel">' + a.titel + '</div>';
+        html += '<div class="aktion-beschreibung">' + a.beschreibung + '</div>';
+
+        html += '<div class="aktion-details">';
+        html += '<span class="aktion-deadline">⏰ ' + a.deadline + '</span>';
+        html += '<a href="' + a.url + '" target="_blank" class="aktion-cta" onclick="trackAktion(\'' + a.anbieter + '\')">Bonus sichern →</a>';
+        html += '</div>';
+
+        html += '</div>';
+    });
+
+    container.innerHTML = html;
+
+    // Update Counter
+    var counter = document.getElementById('aktionenCount');
+    if (counter) counter.textContent = providersDB.aktionen.length;
+}
+
+function trackAktion(anbieter) {
+    console.log('🎁 Aktion geklickt:', anbieter);
+    if (typeof addPoints === 'function') addPoints(15);
+    if (typeof toast === 'function') {
+        toast('🎯 Weiterleitung zu ' + anbieter + '! Vergiss nicht den Bonus zu aktivieren!');
+    }
+}
+
+// Auto-Load beim DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        loadAktionen();
+    }, 1500);
+});
