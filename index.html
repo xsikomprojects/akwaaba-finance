@@ -338,6 +338,13 @@
 
     <!-- ============ CRYPTO ============ -->
     <div id="crypto" class="seite">
+       <div class="karte">
+    <h3>🏆 Empfohlene Krypto-Börsen</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Kaufe Krypto sicher bei diesen geprüften Anbietern.
+    </p>
+    <div id="cryptoProviders"></div>
+</div>
         <div class="karte regenbogen-rand">
             <h2>₿ Crypto Live Preise</h2>
             <p>Echtzeit Quantum AI Preisüberwachung 🚀</p>
@@ -414,6 +421,13 @@
     <div id="portfolio" class="seite">
         <div class="karte regenbogen-rand">
             <h2>💼 Mein Portfolio</h2>
+<div class="karte">
+    <h3>🏆 Empfohlene Broker</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Starte dein Portfolio bei den besten Brokern weltweit.
+    </p>
+    <div id="portfolioProviders"></div>
+</div>
             <p>Verfolge deine Investments in Echtzeit!</p>
         </div>
 
@@ -478,13 +492,20 @@
             <h2>💸 Budget Planer</h2>
             <p>Behalte deine Finanzen im Griff! 🎯</p>
         </div>
-
+        <div class="karte">
+    <h3>🏦 Beste Banking Apps</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Optimiere dein Budget mit modernen Neobanken.
+    </p>
+    <div id="bankingProviders"></div>
+</div>
         <div class="budget-uebersicht">
             <div class="budget-box gruen-karte">
                 <div class="budget-box-icon">💚</div>
                 <div class="budget-box-label">Einnahmen</div>
                 <div class="budget-box-wert" id="gesamtEinnahmen">€0</div>
             </div>
+            
             <div class="budget-box rot-karte">
                 <div class="budget-box-icon">❤️</div>
                 <div class="budget-box-label">Ausgaben</div>
@@ -758,6 +779,13 @@
                 </div>
             </div>
         </div>
+        <div class="karte">
+    <h3>💰 Cashback & Sparen</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Verdiene Geld zurück bei jedem Einkauf.
+    </p>
+    <div id="cashbackProviders"></div>
+</div>
 
         <div class="siegoth-chat" id="siegothChat">
             <div class="chat-nachricht bot">
@@ -1123,6 +1151,13 @@
                 <div class="pimel-shine"></div>
                 <div class="pimel-emoji">🎁</div>
             </div>
+    <div class="karte">
+    <h3>🛒 Beste Shopping-Portale</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Hier findest du alles - vom günstigen Deal bis Luxus.
+    </p>
+    <div id="shoppingProviders"></div>
+</div>        
             <div class="pimel-info">
                 <h2>PIMEL</h2>
                 <p>Gratis Sachen & Legal Business Finder</p>
@@ -1875,6 +1910,15 @@
             <div class="immoki-avatar">
                 <div class="immoki-emoji">🏠</div>
             </div>
+            <div class="karte">
+    <h3>🏘️ Beste Immobilien-Portale</h3>
+    <div class="credit-filters">
+        <button class="credit-filter-btn active" onclick="loadImmoProviders('kauf'); document.querySelectorAll('.credit-filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">🏢 Kauf</button>
+        <button class="credit-filter-btn" onclick="loadImmoProviders('miete'); document.querySelectorAll('.credit-filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">🔑 Miete</button>
+        <button class="credit-filter-btn" onclick="loadImmoProviders('airbnb'); document.querySelectorAll('.credit-filter-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">🏝️ Airbnb</button>
+    </div>
+    <div id="immoProviders"></div>
+</div>
             <div class="immoki-info">
                 <h2>IMMO-KI</h2>
                 <p>Immobilien Togo 🇹🇬 & Deutschland 🇩🇪</p>
@@ -2150,6 +2194,13 @@
             <div class="lernki-avatar">
                 <div class="lernki-emoji">🎓</div>
             </div>
+    <div class="karte">
+    <h3>🎓 Beste Kurs-Plattformen</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Lerne bei den Top-Anbietern weltweit.
+    </p>
+    <div id="bildungProviders"></div>
+    </div>     
             <div class="lernki-info">
                 <h2>LERN-KI</h2>
                 <p>Kostenlose Bildung weltweit 📚</p>
@@ -3162,7 +3213,14 @@
 
     <!-- ============ REISE-KI ============ -->
     <div id="reiseki" class="seite">
-        <div class="ki-header ki-header-reise">
+    <div class="karte">
+    <h3>✈️ Beste Reise-Portale</h3>
+    <p style="color: var(--clean-muted); margin-bottom: 15px;">
+        Spare bei Flügen, Hotels und Aktivitäten.
+    </p>
+    <div id="reiseProviders"></div>
+</div>  
+    <div class="ki-header ki-header-reise">
             <div class="ki-avatar-mini">✈️</div>
             <div>
                 <h2>REISE-KI</h2>

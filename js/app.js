@@ -11208,3 +11208,205 @@ document.addEventListener('DOMContentLoaded', function() {
         filterCredits('alle');
     }, 500);
 });
+// ============================================
+// 🎯 PROVIDER-EMPFEHLUNGEN IN KIs
+// ============================================
+
+// Universelle Funktion zum Anzeigen von Empfehlungen
+function showRecommendations(category, containerId, title, description) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (typeof providersDB === 'undefined' || !providersDB[category]) {
+        console.warn('Provider-Datenbank nicht verfügbar für:', category);
+        return;
+    }
+
+    var providers = providersDB[category];
+    if (!Array.isArray(providers)) return;
+
+    var html = createRecommendationHeader(title, description);
+    html += '<div class="providers-grid">';
+
+    providers.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// Portfolio Empfehlungen
+function loadPortfolioProviders() {
+    var container = document.getElementById('portfolioProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '📈 Beste Broker für dein Portfolio',
+        'Vergleiche die Top-Broker weltweit. Alle geprüft und empfohlen.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.trading.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Crypto Empfehlungen
+function loadCryptoProviders() {
+    var container = document.getElementById('cryptoProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '₿ Beste Krypto-Börsen & Broker',
+        'Kaufe, verkaufe und speichere Kryptowährungen sicher.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.crypto.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Budget/Banking Empfehlungen
+function loadBankingProviders() {
+    var container = document.getElementById('bankingProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '🏦 Beste Banking Apps',
+        'Modernes Banking für dein Budget - alle Konten in einer App.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.banking.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Immo Empfehlungen
+function loadImmoProviders(type) {
+    var container = document.getElementById('immoProviders');
+    if (!container) return;
+
+    type = type || 'kauf';
+    var providers = providersDB.immobilien[type] || [];
+
+    var titles = {
+        'kauf': '🏢 Immobilien kaufen',
+        'miete': '🔑 Wohnung mieten',
+        'airbnb': '🏝️ Kurzzeit-Vermietung'
+    };
+
+    var html = createRecommendationHeader(
+        titles[type],
+        'Die besten Portale für deine Immobilien-Suche.'
+    );
+
+    html += '<div class="providers-grid">';
+    providers.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Reise Empfehlungen
+function loadReiseProviders() {
+    var container = document.getElementById('reiseProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '✈️ Beste Reise-Portale',
+        'Finde die günstigsten Flüge, Hotels und Aktivitäten weltweit.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.reisen.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Lern Empfehlungen
+function loadBildungProviders() {
+    var container = document.getElementById('bildungProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '🎓 Beste Kurs-Plattformen',
+        'Lerne neue Skills von den besten Anbietern weltweit.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.bildung.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Cashback Empfehlungen
+function loadCashbackProviders() {
+    var container = document.getElementById('cashbackProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '💰 Cashback & Belohnungen',
+        'Verdiene Geld zurück bei jedem Einkauf.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.cashback.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Shopping Empfehlungen
+function loadShoppingProviders() {
+    var container = document.getElementById('shoppingProviders');
+    if (!container) return;
+
+    var html = createRecommendationHeader(
+        '🛒 Beste Shopping-Portale',
+        'Von Alltag bis Luxus - hier findest du alles.'
+    );
+
+    html += '<div class="providers-grid">';
+    providersDB.shopping.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+}
+
+// Auto-Load beim Tab-Wechsel
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        loadPortfolioProviders();
+        loadCryptoProviders();
+        loadBankingProviders();
+        loadImmoProviders('kauf');
+        loadReiseProviders();
+        loadBildungProviders();
+        loadCashbackProviders();
+        loadShoppingProviders();
+    }, 1000);
+});
