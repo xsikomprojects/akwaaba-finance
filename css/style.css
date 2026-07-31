@@ -9871,4 +9871,236 @@ body.theme-kente {
     border-radius: 3px;
     transition: width 0.5s ease;
 }
+/* ============================================
+   💰 PROVIDER CARDS - Empfehlungen
+   ============================================ */
+
+.providers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.provider-card {
+    background: var(--clean-card);
+    border: 1px solid var(--clean-border);
+    border-radius: 16px;
+    padding: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.provider-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--clean-accent);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.provider-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #f59e0b, #dc2626);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.provider-header {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--clean-border);
+}
+
+.provider-logo {
+    font-size: 3rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--clean-surface);
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.provider-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.provider-name {
+    color: var(--clean-text);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.provider-rating {
+    color: #f59e0b;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.provider-schufa {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: #10b981;
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.provider-details {
+    background: var(--clean-surface);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.provider-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: var(--clean-text);
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--clean-border);
+}
+
+.provider-info-row:last-child {
+    border-bottom: none;
+}
+
+.provider-info-row span:first-child {
+    color: var(--clean-muted);
+}
+
+.provider-info-row span:last-child {
+    font-weight: 600;
+}
+
+.provider-vorteile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.vorteil-badge {
+    background: rgba(212,165,116,0.15);
+    color: var(--clean-accent);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(212,165,116,0.3);
+}
+
+.provider-cta {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--clean-accent), #b8935f);
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.provider-cta:hover {
+    background: linear-gradient(135deg, #b8935f, var(--clean-accent));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212,165,116,0.4);
+}
+
+.recommendation-header {
+    background: linear-gradient(135deg, rgba(212,165,116,0.1), rgba(212,165,116,0.05));
+    border: 1px solid rgba(212,165,116,0.3);
+    border-radius: 16px;
+    padding: 25px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.recommendation-title {
+    color: var(--clean-accent);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.recommendation-desc {
+    color: var(--clean-text);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.recommendation-note {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: #3b82f6;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+/* Kredit Filter Buttons */
+.credit-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.credit-filter-btn {
+    padding: 10px 20px;
+    background: var(--clean-card);
+    color: var(--clean-text);
+    border: 1px solid var(--clean-border);
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.credit-filter-btn:hover, .credit-filter-btn.active {
+    background: var(--clean-accent);
+    color: #000;
+    border-color: var(--clean-accent);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .providers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .provider-card {
+        padding: 20px;
+    }
+
+    .provider-name {
+        font-size: 1.1rem;
+    }
+}
         

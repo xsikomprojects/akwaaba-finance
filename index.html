@@ -57,6 +57,7 @@
     <nav>
         <button class="tab aktiv" data-tab="dashboard">📊 Dashboard</button>
         <button class="tab" data-tab="rechner">🧮 Rechner</button>
+        <button class="tab" data-tab="kredite" data-tooltip="Kredit-Vergleich Weltweit">💳 Kredite</button>
         <button class="tab" data-tab="quantum">⚛️ Quantum</button>
         <button class="tab" data-tab="crypto">₿ Crypto</button>
         <button class="tab" data-tab="portfolio">💼 Portfolio</button>
@@ -300,6 +301,40 @@
         </div>
     </div>
     <!-- ENDE QUANTUM -->
+
+<!-- ============ KREDIT KI ============ -->
+<div id="kredite" class="seite">
+    <div class="karte">
+        <h2>💳 Kredit-Vergleich Weltweit</h2>
+        <p style="color: var(--clean-muted); margin-bottom: 20px;">
+            Finde den besten Kredit für dich - mit oder ohne Schufa. Vergleiche Anbieter aus Deutschland, Europa und Afrika.
+        </p>
+
+        <div class="credit-filters">
+            <button class="credit-filter-btn active" onclick="filterCredits('alle', this)">🌍 Alle</button>
+            <button class="credit-filter-btn" onclick="filterCredits('ohneSchufa', this)">✅ Ohne Schufa</button>
+            <button class="credit-filter-btn" onclick="filterCredits('deutschland', this)">🇩🇪 Deutschland</button>
+            <button class="credit-filter-btn" onclick="filterCredits('oesterreich', this)">🇦🇹 Österreich</button>
+            <button class="credit-filter-btn" onclick="filterCredits('schweiz', this)">🇨🇭 Schweiz</button>
+            <button class="credit-filter-btn" onclick="filterCredits('international', this)">🌐 International</button>
+            <button class="credit-filter-btn" onclick="filterCredits('afrika', this)">🌍 Afrika/Togo</button>
+        </div>
+
+        <div id="kreditProviders"></div>
+    </div>
+
+    <div class="karte">
+        <h3>💡 Wichtige Kredit-Tipps</h3>
+        <div style="color: var(--clean-text); line-height: 2;">
+            <p>✅ <strong>Vergleiche mehrere Anbieter</strong> - Zinsen können stark variieren</p>
+            <p>✅ <strong>Prüfe die Effektivzinsen</strong> - Nicht nur den Nominalzins</p>
+            <p>✅ <strong>Achte auf versteckte Kosten</strong> - Bearbeitungsgebühren, Versicherungen</p>
+            <p>✅ <strong>Kürzere Laufzeit</strong> = weniger Gesamtkosten</p>
+            <p>⚠️ <strong>Ohne Schufa</strong> bedeutet meist höhere Zinsen</p>
+            <p>⚠️ <strong>Vorsicht bei "0% Zinsen"</strong> - meist gibt es Haken</p>
+        </div>
+    </div>
+</div>
 
     <!-- ============ CRYPTO ============ -->
     <div id="crypto" class="seite">
@@ -4525,6 +4560,7 @@
 
 </div>
 
+<script src="js/providers.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -11129,3 +11129,82 @@ console.log('%c🤖 AUTO-UPDATE SYSTEM AKTIVIERT',
     'font-size:16px;color:#00ff88;font-weight:bold;background:#000;padding:5px 10px;');
 console.log('%c✨ Deine App verbessert sich automatisch!',
     'font-size:12px;color:#ffdf00;');
+// ============================================
+// 💳 KREDIT KI - Provider Anzeige
+// ============================================
+
+function filterCredits(filter, btn) {
+    document.querySelectorAll('.credit-filter-btn').forEach(function(b) {
+        b.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+
+    var container = document.getElementById('kreditProviders');
+    if (!container) return;
+
+    var allCredits = [];
+
+    if (filter === 'alle') {
+        Object.keys(providersDB.kredite).forEach(function(region) {
+            providersDB.kredite[region].forEach(function(k) {
+                allCredits.push(k);
+            });
+        });
+    } else if (filter === 'ohneSchufa') {
+        Object.keys(providersDB.kredite).forEach(function(region) {
+            providersDB.kredite[region].forEach(function(k) {
+                if (k.schufa.toLowerCase().includes('ohne')) {
+                    allCredits.push(k);
+                }
+            });
+        });
+    } else {
+        allCredits = providersDB.kredite[filter] || [];
+    }
+
+    var header = createRecommendationHeader(
+        getFilterTitle(filter),
+        getFilterDesc(filter)
+    );
+
+    var html = '<div class="providers-grid">';
+    allCredits.forEach(function(p) {
+        html += createProviderCard(p);
+    });
+    html += '</div>';
+
+    container.innerHTML = header + html;
+}
+
+function getFilterTitle(filter) {
+    var titles = {
+        'alle': '🌍 Alle Kredit-Anbieter',
+        'ohneSchufa': '✅ Kredite ohne Schufa',
+        'deutschland': '🇩🇪 Deutsche Anbieter',
+        'oesterreich': '🇦🇹 Österreichische Anbieter',
+        'schweiz': '🇨🇭 Schweizer Anbieter',
+        'international': '🌐 Internationale Anbieter',
+        'afrika': '🌍 Afrikanische Anbieter'
+    };
+    return titles[filter] || 'Kredit-Anbieter';
+}
+
+function getFilterDesc(filter) {
+    var descs = {
+        'alle': 'Übersicht aller Kredit-Anbieter aus unserer Datenbank.',
+        'ohneSchufa': 'Diese Anbieter geben Kredite auch bei negativer Schufa oder ohne Prüfung.',
+        'deutschland': 'Beste Kredit-Anbieter aus Deutschland - alle BaFin reguliert.',
+        'oesterreich': 'Vertrauenswürdige Anbieter aus Österreich.',
+        'schweiz': 'Schweizer Kredit-Anbieter mit hoher Qualität.',
+        'international': 'Weltweite Kredit-Optionen für Reisende und Diaspora.',
+        'afrika': 'Spezielle Angebote für Togo und Westafrika.'
+    };
+    return descs[filter] || 'Vergleiche die besten Anbieter.';
+}
+
+// Auto-Load beim Öffnen des Tabs
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        filterCredits('alle');
+    }, 500);
+});
